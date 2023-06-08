@@ -5,6 +5,6 @@ export default function MainSite() {
   const {} = useContext(MyContext);
 
   return(
-    <div>Noam</div>
+    <div>Main site</div>
   ) 
 }
