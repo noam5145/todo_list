@@ -17,14 +17,14 @@ export default function SideNav() {
         </div>
         <div className='d-flex justify-content-center mt-4'>
          {showSideNav ? <img height={200} width={200} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png' />
-          :<img height={80} width={80} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png' />}
+          :<img height={70} width={70} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png' />}
         </div>
         <div className="mt-5">
         <Link to={'/dashboard'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Dashboard</h4>}<div className="d-flex align-items-center"><AiOutlineDashboard size={35} /></div></Link>
         <Link to={'/addMissions'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Add Missions</h4>}<div className="d-flex align-items-center"><MdOutlineCreateNewFolder size={35} /></div></Link>
         <Link to={'/missionExeption'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Mission Exeption</h4>}<div className="d-flex align-items-center"><FaHourglassHalf size={35} /></div></Link>
         <Link to={'/pendingMissions'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Pending Missions</h4>}<div className="d-flex align-items-center"><RiInsertRowTop size={35} /></div></Link>
-        <Link to={'/taskList'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">BsListTask</h4>}<div className="d-flex align-items-center"><BsListTask size={35} /></div></Link>
+        <Link to={'/taskList'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">ListTask</h4>}<div className="d-flex align-items-center"><BsListTask size={35} /></div></Link>
         </div>
       </div>
     </>
