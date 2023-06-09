@@ -12,7 +12,7 @@ export default function SideNav() {
     <>
     {showSideNav ? 
     <div className='row col-3 bg-black rounded'>
-      <div className='d-flex flex-column align-items-center p-3'>
+      <div className='d-flex flex-column align-items-end p-3'>
         <div className='w-100'>
           <FaBars onClick={()=> setShowSideNav(!showSideNav)} className='bg-light' size={40}/>
         </div>
@@ -35,10 +35,11 @@ export default function SideNav() {
         <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/taskList'}>Task List <BsListTask size={30}/> </Link>
         </div>
       </div>
-    </div> :
+    </div>
+     :
     <div className='row vh-75 col-1 bg-light '>
-      <div className='d-flex flex-column align-items-center p-0'>
-        <div className='d-flex w-100 justify-content-center'>
+      <div className='d-flex flex-column align-items-center p-3'>
+        <div className=' w-100'>
           <FaBars onClick={()=> setShowSideNav(!showSideNav)} className='bg-light' size={40}/>
         </div>
         <div className='w-100 d-flex justify-content-center'>

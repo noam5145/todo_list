@@ -17,7 +17,9 @@ import TopNav from "../comp/topNav/TopNav";
 export default function AppRoutes() {
   return (
     <>
+    <div className="" style={{height:"100vh", width:"100%"}}>
       <TopNav/>
+      <div className="d-flex">
       <SideNav/>
       <Routes>
         <Route path="/" element={<App />} />
@@ -31,7 +33,7 @@ export default function AppRoutes() {
         <Route path="/message" element={<Message />} />
         <Route path="/printFile" element={<PrintFile />} />
         <Route path="/settings" element={<Settings />} />
-      </Routes>
+      </Routes></div></div>
     </>
   );
 }
