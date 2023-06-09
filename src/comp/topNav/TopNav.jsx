@@ -6,8 +6,8 @@ import { IoSettingsSharp } from 'react-icons/io5';
 import "./topNav.css"
 export default function TopNav() {
   return (
-    <div className='row  m-0 align-items-center h'>
-      <div className='col-7 mx-3 '>mo </div>
+    <div className='row  m-0 align-items-center top_nav'>
+      <div className='col-7 d-flex mx-5 '>Gal 😜</div>
         <div className='col-4 d-flex justify-content-between'>
           <div className=''>
           <Link className='' to={'/filter'}><BsFilterCircleFill size={25}/></Link>

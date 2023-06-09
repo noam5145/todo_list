@@ -5,64 +5,28 @@ import { AiOutlineDashboard } from 'react-icons/ai';
 import { MdOutlineCreateNewFolder } from 'react-icons/md';
 import { RiInsertRowTop } from 'react-icons/ri';
 import { BsListTask } from 'react-icons/bs';
+import "./sideNav.css"
 
 export default function SideNav() {
   const [showSideNav, setShowSideNav] = useState(true);
   return (
     <>
-    {showSideNav ? 
-    <div className='row col-3 m-0'>
-      <div className='d-flex bg-black rounded flex-column align-items-end p-3'>
-        <div className='w-100'>
-          <FaBars onClick={()=> setShowSideNav(!showSideNav)} className='bg-light' size={40}/>
+      <div className={showSideNav ? "col-3 side_Nav":"col-1 side_Nav"}>
+        <div className={showSideNav ? "d-flex justify-content-end mt-2":"d-flex justify-content-center mt-2"}>
+          <FaBars onClick={() => setShowSideNav(!showSideNav)} color='red' size={40} />
         </div>
-        <div className='w-100 d-flex justify-content-center'>
-          <img className='w-50 mb-5' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png'/>
+        <div className='d-flex justify-content-center mt-4'>
+         {showSideNav ? <img height={200} width={200} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png' />
+          :<img height={80} width={80} src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png' />}
         </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className=' btn btn-primary bg-dark w-75 mb-2' to={'/dashboard'}>Dashboard <AiOutlineDashboard size={30}/></Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/addMissions'}>Add Missions <MdOutlineCreateNewFolder size={30}/> </Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/missionExeption'}>Mission Exeption <FaHourglassHalf size={30}/> </Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/pendingMissions'}>Pending Missions <RiInsertRowTop size={30}/> </Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/taskList'}>Task List <BsListTask size={30}/> </Link>
+        <div className="mt-5">
+        <Link to={'/dashboard'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Dashboard</h4>}<div className="d-flex align-items-center"><AiOutlineDashboard size={35} /></div></Link>
+        <Link to={'/addMissions'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Add Missions</h4>}<div className="d-flex align-items-center"><MdOutlineCreateNewFolder size={35} /></div></Link>
+        <Link to={'/missionExeption'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Mission Exeption</h4>}<div className="d-flex align-items-center"><FaHourglassHalf size={35} /></div></Link>
+        <Link to={'/pendingMissions'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">Pending Missions</h4>}<div className="d-flex align-items-center"><RiInsertRowTop size={35} /></div></Link>
+        <Link to={'/taskList'} className='d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link'>{showSideNav &&<h4 className="d-flex align-items-center mb-0 mr-2">BsListTask</h4>}<div className="d-flex align-items-center"><BsListTask size={35} /></div></Link>
         </div>
       </div>
-    </div>
-     :
-    <div className='row col-1 bg-light m-0'>
-      <div className='d-flex flex-column align-items-center p-3'>
-        <div className=' w-100'>
-          <FaBars onClick={()=> setShowSideNav(!showSideNav)} className='bg-light' size={40}/>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-          <img className='w-100 mt-3 mb-5' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png'/>
-        </div>
-        <div className=' d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/dashboard'}><AiOutlineDashboard size={30}/></Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/addMissions'}><MdOutlineCreateNewFolder size={30}/> </Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/missionExeption'}><FaHourglassHalf size={30}/> </Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/pendingMissions'}><RiInsertRowTop size={30}/> </Link>
-        </div>
-        <div className='w-100 d-flex justify-content-center'>
-        <Link className='btn btn-primary bg-dark w-75 mb-2' to={'/taskList'}><BsListTask size={30}/> </Link>
-        </div>
-      </div>
-    </div>
-    }
     </>
 
 
