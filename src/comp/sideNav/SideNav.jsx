@@ -11,8 +11,8 @@ export default function SideNav() {
   return (
     <>
     {showSideNav ? 
-    <div className='row col-3 bg-black rounded'>
-      <div className='d-flex flex-column align-items-end p-3'>
+    <div className='row col-3 m-0'>
+      <div className='d-flex bg-black rounded flex-column align-items-end p-3'>
         <div className='w-100'>
           <FaBars onClick={()=> setShowSideNav(!showSideNav)} className='bg-light' size={40}/>
         </div>
@@ -37,7 +37,7 @@ export default function SideNav() {
       </div>
     </div>
      :
-    <div className='row vh-75 col-1 bg-light '>
+    <div className='row col-1 bg-light m-0'>
       <div className='d-flex flex-column align-items-center p-3'>
         <div className=' w-100'>
           <FaBars onClick={()=> setShowSideNav(!showSideNav)} className='bg-light' size={40}/>
