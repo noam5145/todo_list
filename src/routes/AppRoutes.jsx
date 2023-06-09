@@ -11,10 +11,14 @@ import Filter from "../comp/topNav/filter/Filter";
 import Message from "../comp/topNav/message/Message";
 import PrintFile from "../comp/topNav/printFile/PrintFile";
 import Settings from "../comp/topNav/settings/Settings";
+import SideNav from "../comp/sideNav/SideNav";
+import TopNav from "../comp/topNav/TopNav";
 
 export default function AppRoutes() {
   return (
     <>
+      <TopNav/>
+      <SideNav/>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="*" element={<NotFound />} />
@@ -27,8 +31,6 @@ export default function AppRoutes() {
         <Route path="/message" element={<Message />} />
         <Route path="/printFile" element={<PrintFile />} />
         <Route path="/settings" element={<Settings />} />
-
-
       </Routes>
     </>
   );
