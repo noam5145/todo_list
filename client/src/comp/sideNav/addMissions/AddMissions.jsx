@@ -20,7 +20,7 @@ export default function AddMissions() {
   let executionCompletionDate = useRef();
   let domain = useRef();
   let internalAssociation = useRef();
-  const { currentUser, newMission } = useContext(MyContext);
+  // const { currentUser, newMission } = useContext(MyContext);
 
   let sendigTask = () => {
     let newTask = {
@@ -46,7 +46,7 @@ export default function AddMissions() {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       setDisplaySuccess(true);
-      newMission(newTask);
+      // newMission(newTask);
     } else {
       setDisplayErrorNote(true);
       setDisplayErrorDesign(true);
@@ -82,7 +82,7 @@ export default function AddMissions() {
         <div className="bg-white pt-5 pb-5">
           <ul className="d-flex row">
             <li className="col-lg-3 col-sm-6 list-unstyled ">
-              <label for="givenIn">
+              <label htmlFor="givenIn">
                 ניתנה במסגרת{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
@@ -90,7 +90,7 @@ export default function AddMissions() {
                   *
                 </span>
               </label>
-              <select id="givenIn" ref={givenIn} class="form-control bg-light">
+              <select id="givenIn" ref={givenIn} className="form-control bg-light">
                 <option>בחר...</option>
                 <option>דיון</option>
                 <option>פ.ע</option>
@@ -99,7 +99,7 @@ export default function AddMissions() {
               </select>
             </li>
             <li className="col-lg-3 col-sm-6 list-unstyled ">
-              <label for="meetingTitle">
+              <label htmlFor="meetingTitle">
                 כותרת הפגישה{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
@@ -116,7 +116,7 @@ export default function AddMissions() {
               ></input>
             </li>
             <li className="col-lg-3 col-sm-6 list-unstyled ">
-              <label for="meetingDate">
+              <label htmlFor="meetingDate">
                 בחר תאריך{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
@@ -133,7 +133,7 @@ export default function AddMissions() {
               ></input>
             </li>
             <li className="col-lg-3 col-sm-6 list-unstyled ">
-              <label for="discssionSummary">
+              <label htmlFor="discssionSummary">
                 קישור סיכום דיון{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
@@ -153,7 +153,7 @@ export default function AddMissions() {
           <h4 className="pe-4 pt-5">הדבקת נתונים</h4>
           <ul className="d-flex row">
             <li className="col-lg-3 list-unstyled col-sm-12 ">
-              <label for="taskDetails">
+              <label htmlFor="taskDetails">
                 פירוט המשימה{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
@@ -163,13 +163,13 @@ export default function AddMissions() {
               </label>
               <textarea
                 ref={taskDetails}
-                class="form-control bg-light"
+                className="form-control bg-light"
                 id="taskDetails"
                 rows="1"
               ></textarea>
             </li>
             <li className="col-lg-2 list-unstyled col-sm-6 ">
-              <label for="responsibility">
+              <label htmlFor="responsibility">
                 אחריות{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
@@ -179,13 +179,13 @@ export default function AddMissions() {
               </label>
               <textarea
                 ref={responsibility}
-                class="form-control bg-light"
+                className="form-control bg-light"
                 id="responsibility"
                 rows="1"
               ></textarea>
             </li>
             <li className="col-lg-2 list-unstyled col-sm-6 ">
-              <label for="executionCompletionDate">
+              <label htmlFor="executionCompletionDate">
                 תאריך גמר ביצוע{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
@@ -201,19 +201,19 @@ export default function AddMissions() {
               ></input>
             </li>
             <li className="col-lg-2 list-unstyled col-sm-6 ">
-              <label for="domain">תחום</label>
+              <label htmlFor="domain">תחום</label>
               <textarea
                 ref={domain}
-                class="form-control bg-light"
+                className="form-control bg-light"
                 id="domain"
                 rows="1"
               ></textarea>
             </li>
             <li className="col-lg-3 list-unstyled col-sm-6 ">
-              <label for="internalAssociation">שיוך פנימי</label>
+              <label htmlFor="internalAssociation">שיוך פנימי</label>
               <textarea
                 ref={internalAssociation}
-                class="form-control bg-light"
+                className="form-control bg-light"
                 id="internalAssociation"
                 rows="1"
               ></textarea>
