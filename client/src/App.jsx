@@ -1,16 +1,13 @@
 import React, { createContext, useState } from "react";
 import MainSite from "./comp/MainSite";
-import AppRoutes from "./routes/AppRoutes";
-import axios from 'axios';
 
 
-const base_url_mission = 'http://localhost:5174/mission';
 
 export const MyContext = createContext();
 
 
 export default function App() {
-  const [currentUser, setCurrentUser]= useState({namg:''});
+  let val = {
 
 
   const newMission = async (mission)=>{
@@ -24,7 +21,7 @@ export default function App() {
   return (
     <div>
       <MyContext.Provider value={val} >
-      <AppRoutes/>
+        <MainSite />
       </MyContext.Provider>
     </div>
   );
