@@ -14,8 +14,8 @@ export default function App() {
 
 
   const newMission = async (mission)=>{
-    let res = await axios.post(base_url_mission, mission);
-    console.log(res.data);
+    // let res = await axios.post(base_url_mission, mission);
+    // console.log(res.data);
   }
   const val = {
     currentUser,
