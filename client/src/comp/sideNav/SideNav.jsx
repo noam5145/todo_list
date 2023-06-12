@@ -76,7 +76,7 @@ export default function SideNav() {
             className={click[1] ? "b_c_icon" : ""}
           >
             <Link
-              to={"/addMissions"}
+              to={"/taskList"}
               className={
                 showSideNav
                   ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
@@ -148,7 +148,7 @@ export default function SideNav() {
             className={click[4] ? "b_c_icon" : ""}
           >
             <Link
-              to={"/taskList"}
+              to={"/addMissions"}
               className={
                 showSideNav
                   ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
