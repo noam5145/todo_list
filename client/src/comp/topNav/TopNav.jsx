@@ -37,7 +37,6 @@ export default function TopNav() {
   function time(){
     var foreignDate = new Date();
     var result = getForeignDateTime(foreignDate);
-    console.log(result);
     return result;
   }
   return (
