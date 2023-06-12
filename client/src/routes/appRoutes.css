@@ -1,0 +1,15 @@
+.main{
+    background-color: #adcbe2;
+ 
+    width: 100%;
+}
+.nav{
+display: flex;
+justify-content: space-between;
+}
+
+.topNav{
+    width: 100%;
+    display: inline; 
+
+}
