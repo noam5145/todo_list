@@ -33,7 +33,7 @@ export default function SideNav() {
             {!showSideNav ? (
               <RxHamburgerMenu color="black" size={40} />
             ) : (
-              <AiOutlineClose color="red" size={30} />
+              <AiOutlineClose color="red" size={25} />
             )}
           </div>
         </div>

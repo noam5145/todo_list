@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
+import './addMissions.css'
 import { Link } from "react-router-dom";
 import { MyContext } from "../../../App";
 
@@ -54,7 +55,7 @@ export default function AddMissions() {
   };
 
   return (
-    <div className="container-fluid bg-light  d-flex vh-100 align-items-center">
+    <div className="container-fluid bg-light  d-flex h_page align-items-center">
       <div
         className={displaySuccess ? "container d-block" : "container d-none"}
       >
