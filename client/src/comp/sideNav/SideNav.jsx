@@ -10,6 +10,15 @@ import "./sideNav.css";
 
 export default function SideNav() {
   const [showSideNav, setShowSideNav] = useState(true);
+  const [click, setClick] = useState([false, false, false, false, false]);
+
+  function changeClick(num) {
+    const newArray = [false, false, false, false, false];
+    newArray[num] = true;
+    setClick(newArray);
+    console.log(click);
+  }
+
   return (
     <>
       <div className={showSideNav ? "col-2 side_Nav" : "col-1 side_Nav"}>
@@ -24,7 +33,7 @@ export default function SideNav() {
             {!showSideNav ? (
               <RxHamburgerMenu color="black" size={40} />
             ) : (
-              <AiOutlineClose color="black" size={30} />
+              <AiOutlineClose color="red" size={30} />
             )}
           </div>
         </div>
@@ -36,85 +45,128 @@ export default function SideNav() {
           />
         </div>
         <div className="iconsNavSide">
-          <Link
-            to={"/dashboard"}
-            className={
-              showSideNav
-                ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-                : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-            }
+          <div
+            onClick={() => changeClick(0)}
+            className={click[0] ? "b_c_icon" : ""}
           >
-            <AiOutlineDashboard className="iconNavSaid" size={showSideNav ? "25" : "40"} />
+            {" "}
+            <Link
+              to={"/dashboard"}
+              className={
+                showSideNav
+                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+              }
+            >
+              <AiOutlineDashboard
+                className="iconNavSaid"
+                size={showSideNav ? "25" : "40"}
+              />
 
-            {showSideNav && (
-              <div className="d-flex align-items-center mb-0 s_n_margin">
-                {" "}
-                דשבורד משימות
-              </div>
-            )}
-          </Link>
-          <Link
-            to={"/addMissions"}
-            className={
-              showSideNav
-                ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-                : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-            }
+              {showSideNav && (
+                <div className="d-flex align-items-center mb-0 s_n_margin">
+                  {" "}
+                  דשבורד משימות
+                </div>
+              )}
+            </Link>
+          </div>
+          <div
+            onClick={() => changeClick(1)}
+            className={click[1] ? "b_c_icon" : ""}
           >
-            <MdOutlineCreateNewFolder className="iconNavSaid" size={showSideNav ? "25" : "40"} />
-            {showSideNav && (
-              <div className="d-flex align-items-center mb-0 s_n_margin">
-                מאגר משימות
-              </div>
-            )}
-          </Link>
-          <Link
-            to={"/missionExeption"}
-            className={
-              showSideNav
-                ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-                : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-            }
+            <Link
+              to={"/addMissions"}
+              className={
+                showSideNav
+                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+              }
+            >
+              <MdOutlineCreateNewFolder
+                className="iconNavSaid"
+                size={showSideNav ? "25" : "40"}
+              />
+              {showSideNav && (
+                <div className="d-flex align-items-center mb-0 s_n_margin">
+                  מאגר משימות
+                </div>
+              )}
+            </Link>
+          </div>
+          <div
+            onClick={() => changeClick(2)}
+            className={click[2] ? "b_c_icon" : ""}
           >
-            <FaHourglassHalf className="iconNavSaid" size={showSideNav ? "25" : "40"} />
-            {showSideNav && (
-              <div className="d-flex align-items-center mb-0 s_n_margin">
-                דוח משימות בחריגה{" "}
-              </div>
-            )}
-          </Link>
-          <Link
-            to={"/pendingMissions"}
-            className={
-              showSideNav
-                ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-                : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-            }
+            {" "}
+            <Link
+              to={"/missionExeption"}
+              className={
+                showSideNav
+                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+              }
+            >
+              <FaHourglassHalf
+                className="iconNavSaid"
+                size={showSideNav ? "25" : "40"}
+              />
+              {showSideNav && (
+                <div className="d-flex align-items-center mb-0 s_n_margin">
+                  דוח משימות בחריגה{" "}
+                </div>
+              )}
+            </Link>
+          </div>
+          <div
+            onClick={() => changeClick(3)}
+            className={click[3] ? "b_c_icon" : ""}
           >
-            <RiInsertRowTop className="iconNavSaid" size={showSideNav ? "25" : "40"} />
+            <Link
+              to={"/pendingMissions"}
+              className={
+                showSideNav
+                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+              }
+            >
+              <RiInsertRowTop
+                className="iconNavSaid"
+                size={showSideNav ? "25" : "40"}
+              />
 
-            {showSideNav && (
-              <div className="d-flex align-items-center mb-0 s_n_margin">
-                דוח ממתינות לאישור
-              </div>
-            )}
-          </Link>
-          <Link
-            to={"/taskList"}
-            className={
-              showSideNav
-                ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-                : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
-            }
-          >
-            <BsListTask className="iconNavSaid" size={showSideNav ? "25" : "40"} />
+              {showSideNav && (
+                <div className="d-flex align-items-center mb-0 s_n_margin">
+                  דוח ממתינות לאישור
+                </div>
+              )}
+            </Link>
+          </div>
 
-            {showSideNav && (
-              <div className="d-flex align-items-center mb-0 s_n_margin">
-                הוספת משימות
-              </div>
-            )}
-          </Link>
+          <div
+            onClick={() => changeClick(4)}
+            className={click[4] ? "b_c_icon" : ""}
+          >
+            <Link
+              to={"/taskList"}
+              className={
+                showSideNav
+                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+              }
+            >
+              <BsListTask
+                className="iconNavSaid"
+                size={showSideNav ? "25" : "40"}
+              />
+
+              {showSideNav && (
+                <div className="d-flex align-items-center mb-0 s_n_margin">
+                  הוספת משימות
+                </div>
+              )}
+            </Link>
+          </div>
         </div>
       </div>
     </>

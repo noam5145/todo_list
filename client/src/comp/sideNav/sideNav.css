@@ -5,13 +5,19 @@
 
 
 .s_n_margin{
-    margin-right: 25px;
+    padding:10px 20px;
 }
 
 .s_n_hover:hover{
     color: rgba(208, 39, 39, 0.91);
+    cursor: pointer;
+    background-color: #ffe4c49b;
 }
 
 .iconsNavSide{
     margin-top: 80px;
+}
+
+.b_c_icon{
+background-color: #ffe4c4;
 }
