@@ -21,7 +21,7 @@ export default function AppRoutes() {
       <TopNav/>
       <div className="d-flex">
       <SideNav/>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<App />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/addMissions" element={<AddMissions />} />
@@ -33,7 +33,7 @@ export default function AppRoutes() {
         <Route path="/message" element={<Message />} />
         <Route path="/printFile" element={<PrintFile />} />
         <Route path="/settings" element={<Settings />} />
-      </Routes>
+      </Routes> */}
       </div></div>
     </>
   );
