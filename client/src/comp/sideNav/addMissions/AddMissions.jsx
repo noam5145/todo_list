@@ -20,7 +20,7 @@ export default function AddMissions() {
   let executionCompletionDate = useRef();
   let domain = useRef();
   let internalAssociation = useRef();
-  // const { currentUser, newMission } = useContext(MyContext);
+  const { currentUser, newMission } = useContext(MyContext);
 
   let sendigTask = () => {
     let newTask = {
@@ -33,7 +33,7 @@ export default function AddMissions() {
       endedAt: executionCompletionDate.current.value,
       subject: domain.current.value,
       belonging: internalAssociation.current.value,
-      token: "currentUser?.token",
+      token: currentUser?.token,
     };
     if (
       newTask.givenIn != "בחר..." &&
@@ -46,7 +46,7 @@ export default function AddMissions() {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       setDisplaySuccess(true);
-      // newMission(newTask);
+      newMission(newTask);
     } else {
       setDisplayErrorNote(true);
       setDisplayErrorDesign(true);
