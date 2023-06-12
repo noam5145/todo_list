@@ -1,4 +1,17 @@
 .side_Nav{
-    background-color: rgba(96, 156, 21, 0.4);
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-left:1px solid rgba(0, 0, 0, 0.218) ;
+    height: 90vh;
+}
+
+
+.s_n_margin{
+    margin-right: 25px;
+}
+
+.s_n_hover:hover{
+    color: rgba(208, 39, 39, 0.91);
+}
+
+.iconsNavSide{
+    margin-top: 80px;
 }
