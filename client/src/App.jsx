@@ -1,30 +1,38 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import MainSite from "./comp/MainSite";
-import AppRoutes from "./routes/AppRoutes";
 import axios from 'axios';
-
-
-const base_url_mission = 'http://localhost:5174/mission';
+import AppRoutes from "./routes/AppRoutes";
+const base_url = 'https://server-todolist-xr2q.onrender.com/';
 
 export const MyContext = createContext();
 
 
 export default function App() {
-  const [currentUser, setCurrentUser]= useState({namg:''});
+  const [currentUser, setCurrentUser] = useState();
 
-
-  const newMission = async (mission)=>{
-    // let res = await axios.post(base_url_mission, mission);
-    // console.log(res.data);
+  const newMission = async(mission)=>{
+    let res = await axios.get(base_url + 'mission', {params: mission});
   }
-  const val = {
+
+  const setUser = async (username)=>{
+    let user = await axios.get(base_url + 'user/getUser', {params: {username : username}});
+    console.log(user.data);
+  }
+
+
+  let val = {
     currentUser,
     newMission,
+
   }
+
+
+ 
   return (
     <div>
       <MyContext.Provider value={val} >
-      <AppRoutes/>
+        {currentUser?.username}
+        <AppRoutes />
       </MyContext.Provider>
     </div>
   );

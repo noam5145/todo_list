@@ -34,7 +34,8 @@ export default function AppRoutes() {
         <Route path="/message" element={<Message />} />
         <Route path="/printFile" element={<PrintFile />} />
         <Route path="/settings" element={<Settings />} />
-      </Routes></div></div>
+      </Routes>
+      </div></div>
     </>
   );
 }
