@@ -13,6 +13,7 @@ import PrintFile from "../comp/topNav/printFile/PrintFile";
 import Settings from "../comp/topNav/settings/Settings";
 import SideNav from "../comp/sideNav/SideNav";
 import TopNav from "../comp/topNav/TopNav";
+import MainSite from "../comp/MainSite";
 
 export default function AppRoutes() {
   return (
@@ -22,7 +23,7 @@ export default function AppRoutes() {
       <div className="d-flex">
       <SideNav/>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<MainSite />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/addMissions" element={<AddMissions />} />
         <Route path="/dashboard" element={<Dashboard />} />
