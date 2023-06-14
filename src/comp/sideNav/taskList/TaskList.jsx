@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./taskList.css";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Button } from "@mui/material";
+import { MyContext } from "../../../App";
 
 export default function TaskList() {
   const [opemId, setOpemId] = useState(false);
-
+  const {missions, setMissions} = useContext(MyContext);
   useEffect(() => {
     window.addEventListener("click", () => {
       setOpemId(false)
