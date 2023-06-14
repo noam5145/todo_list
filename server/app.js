@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-// require('../firebaseC');
+
 const {routesInit} = require('./routes/configRoutes')
 app.use(express.json());
 app.use(
