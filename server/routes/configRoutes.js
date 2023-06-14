@@ -3,7 +3,7 @@ const userR = require("./userRoute");
 const missionR = require("./missionRoute");
 
 exports.routesInit = (app) => {
-  app.use("/", indexR);
+  app.use("/", indexR)
   app.use("/user", userR);
   app.use("/mission", missionR);
   app.use((req, res) => {

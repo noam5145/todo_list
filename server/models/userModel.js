@@ -6,6 +6,11 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   rank: {
     type: String,
     required: true,
@@ -14,6 +19,10 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  level: {
+    type: String,
+    required: true,
   },
   access: {
     type: String,
