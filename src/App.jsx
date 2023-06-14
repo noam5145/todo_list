@@ -21,7 +21,7 @@ export default function App() {
   }
 
   const getAllMissions = async ()=>{
-    let res = await axios.get(base_url + 'mission/getAllMissions', {params: {token: currentUser.token}});
+    let res = await axios.get(base_url + 'mission/getAllMissions', {params: {token: currentUser?.token}});
     if(res.data.err){
       return;
     }

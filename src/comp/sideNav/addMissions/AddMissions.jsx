@@ -24,7 +24,7 @@ export default function AddMissions() {
     let diffTime = Math.abs(executionCompletionDate.current.value - meetingDate.current.value);
     let daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     let newTask = {
-      messionId: messionId,
+      missionId: messionId,
       status: "בתהליך",
       title: meetingTitle.current.value,
       startedAt: meetingDate.current.value,
@@ -32,7 +32,8 @@ export default function AddMissions() {
       responsibility: responsibility.current.value,
       endedAt: executionCompletionDate.current.value,
       daysLeft: daysLeft + "days",
-      noteCommander: noteCommander.current.value,
+      noteCommand: noteCommander.current.value,
+      noteResponsibility: "",
       token: currentUser?.token,
     };
     if (
@@ -56,9 +57,9 @@ export default function AddMissions() {
   };
 
   return (
-    <div className="container-fluid bg-light  d-flex h_page mt-5">
+    <div className="container-fluid bg-light  d-flex h_page align-items-center">
       <div
-        className={displaySuccess ? "container d-block" : " d-none"}
+        className={displaySuccess ? "container d-block" : "container d-none"}
       >
         <div className="row d-flex justify-content-around">
           <h2 className="text-center">המשימה נשלחה בהצלחה!</h2>
@@ -78,9 +79,9 @@ export default function AddMissions() {
         </div>
       </div>
       <div
-        className={displaySuccess ? " d-none" : "container d-block"}
+        className={displaySuccess ? "container d-none" : "container d-block"}
       >
-        <h2 className=" pb-5 mt-5">הוספת משימות</h2>
+        <h2 className=" pb-5">הוספת משימות</h2>
         <div className="bg-white pt-5 pb-5">
           <ul className="d-flex row">
             
@@ -103,7 +104,7 @@ export default function AddMissions() {
             </li>
             <li className="col-lg-3 col-sm-6 list-unstyled ">
               <label htmlFor="meetingDate">
-                בחר תאריך{" "}
+                מועד הפגישה{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
                 >
@@ -114,7 +115,7 @@ export default function AddMissions() {
                 id="meetingDate"
                 ref={meetingDate}
                 type="date"
-                placeholder="בחר תאריך"
+                placeholder="מועד הפגישה"
                 className="form-control bg-light"
               ></input>
             </li>
