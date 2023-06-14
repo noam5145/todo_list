@@ -2,17 +2,30 @@ import React, { createContext, useEffect, useState } from "react";
 import MainSite from "./comp/MainSite";
 import axios from 'axios';
 import AppRoutes from "./routes/AppRoutes";
-import Login from "./comp/Login";
 const base_url = 'https://server-todolist-xr2q.onrender.com/';
+import Login from "./comp/Login";
 
 export const MyContext = createContext();
 
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
+  const [missions, setMissions] = useState([]);
 
   const newMission = async(mission)=>{
-    let res = await axios.get(base_url + 'mission', {params: mission});
+    let res = await axios.post(base_url + 'mission/setMission', mission);
+    if(res.data.err){
+      return;
+    }
+    setMissions([...missions, res.data]);
+  }
+
+  const getAllMissions = async ()=>{
+    let res = await axios.get(base_url + 'mission/getAllMissions', {params: {token: currentUser.token}});
+    if(res.data.err){
+      return;
+    }
+    setMissions(res.data);
   }
 
   const setNewUser = async (user)=>{
@@ -36,8 +49,7 @@ export default function App() {
   let flag = true;
   useEffect(()=>{
     if(flag){
-      // getUser()
-      console.log("M")
+      getAllMissions();
       flag=false;
     }
   },[])
