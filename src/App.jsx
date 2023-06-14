@@ -35,7 +35,7 @@ export default function App() {
     if(user.data.err){
       return user.data.err;
     }
-    console.log(user.data);
+    setCurrentUser(user.data);
   }
 
   const getUser = async(user)=>{
