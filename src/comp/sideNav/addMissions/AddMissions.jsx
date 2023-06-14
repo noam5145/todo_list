@@ -12,41 +12,43 @@ export default function AddMissions() {
   let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
   let [displaySuccess, setDisplaySuccess] = useState(false);
-  let givenIn = useRef();
+  let [messionId, setMessionId]=useState()
   let meetingTitle = useRef();
   let meetingDate = useRef();
-  let discssionSummary = useRef();
   let taskDetails = useRef();
   let responsibility = useRef();
   let executionCompletionDate = useRef();
-  let domain = useRef();
-  let internalAssociation = useRef();
-  const { currentUser, newMission } = useContext(MyContext);
-
+  let noteCommander = useRef();
+  const { currentUser, newMission} = useContext(MyContext);
   let sendigTask = () => {
+    let diffTime = Math.abs(executionCompletionDate.current.value - meetingDate.current.value);
+    let daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     let newTask = {
-      givenIn: givenIn.current.value,
+      missionId: messionId,
+      status: "בתהליך",
       title: meetingTitle.current.value,
       startedAt: meetingDate.current.value,
-      summary: discssionSummary.current.value,
       details: taskDetails.current.value,
       responsibility: responsibility.current.value,
       endedAt: executionCompletionDate.current.value,
-      subject: domain.current.value,
-      belonging: internalAssociation.current.value,
+      daysLeft: daysLeft + "days",
+      noteCommand: noteCommander.current.value,
+      noteResponsibility: "",
       token: currentUser?.token,
     };
     if (
-      newTask.givenIn != "בחר..." &&
-      newTask.meetingTitle != "" &&
-      newTask.meetingDate != "" &&
+      newTask.title != "" &&
+      newTask.startedAt != "" &&
       newTask.details != "" &&
       newTask.responsibility != "" &&
       newTask.endedAt != ""
     ) {
+      
+      console.log(newTask)
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       setDisplaySuccess(true);
+      setMessionId(messionId++)
       newMission(newTask);
     } else {
       setDisplayErrorNote(true);
@@ -55,9 +57,9 @@ export default function AddMissions() {
   };
 
   return (
-    <div className="container-fluid bg-light  d-flex h_page mt-5">
+    <div className="container-fluid bg-light  d-flex h_page align-items-center">
       <div
-        className={displaySuccess ? "container d-block" : " d-none"}
+        className={displaySuccess ? "container d-block" : "container d-none"}
       >
         <div className="row d-flex justify-content-around">
           <h2 className="text-center">המשימה נשלחה בהצלחה!</h2>
@@ -77,28 +79,12 @@ export default function AddMissions() {
         </div>
       </div>
       <div
-        className={displaySuccess ? " d-none" : "container d-block"}
+        className={displaySuccess ? "container d-none" : "container d-block"}
       >
-        <h2 className=" pb-5 mt-5">הוספת משימות</h2>
+        <h2 className=" pb-5">הוספת משימות</h2>
         <div className="bg-white pt-5 pb-5">
           <ul className="d-flex row">
-            <li className="col-lg-3 col-sm-6 list-unstyled ">
-              <label htmlFor="givenIn">
-                ניתנה במסגרת{" "}
-                <span
-                  className={displayErrorDesign ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span>
-              </label>
-              <select id="givenIn" ref={givenIn} className="form-control bg-light">
-                <option>בחר...</option>
-                <option>דיון</option>
-                <option>פ.ע</option>
-                <option>ביקור</option>
-                <option>אחר</option>
-              </select>
-            </li>
+            
             <li className="col-lg-3 col-sm-6 list-unstyled ">
               <label htmlFor="meetingTitle">
                 כותרת הפגישה{" "}
@@ -118,7 +104,7 @@ export default function AddMissions() {
             </li>
             <li className="col-lg-3 col-sm-6 list-unstyled ">
               <label htmlFor="meetingDate">
-                בחר תאריך{" "}
+                מועד הפגישה{" "}
                 <span
                   className={displayErrorDesign ? "text-danger" : "text-dark"}
                 >
@@ -129,27 +115,11 @@ export default function AddMissions() {
                 id="meetingDate"
                 ref={meetingDate}
                 type="date"
-                placeholder="בחר תאריך"
+                placeholder="מועד הפגישה"
                 className="form-control bg-light"
               ></input>
             </li>
-            <li className="col-lg-3 col-sm-6 list-unstyled ">
-              <label htmlFor="discssionSummary">
-                קישור סיכום דיון{" "}
-                <span
-                  className={displayErrorDesign ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span>
-              </label>
-              <input
-                id="discssionSummary"
-                ref={discssionSummary}
-                type="text"
-                placeholder="קישור סיכום דיון"
-                className="form-control bg-light"
-              ></input>
-            </li>
+            
           </ul>
           <h4 className="pe-4 pt-5">הדבקת נתונים</h4>
           <ul className="d-flex row">
@@ -201,24 +171,16 @@ export default function AddMissions() {
                 className="form-control bg-light"
               ></input>
             </li>
-            <li className="col-lg-2 list-unstyled col-sm-6 ">
-              <label htmlFor="domain">תחום</label>
-              <textarea
-                ref={domain}
-                className="form-control bg-light"
-                id="domain"
-                rows="1"
-              ></textarea>
-            </li>
             <li className="col-lg-3 list-unstyled col-sm-6 ">
-              <label htmlFor="internalAssociation">שיוך פנימי</label>
+              <label htmlFor="noteCommander">הערות מפקד</label>
               <textarea
-                ref={internalAssociation}
+                ref={noteCommander}
                 className="form-control bg-light"
-                id="internalAssociation"
+                id="noteCommander"
                 rows="1"
               ></textarea>
             </li>
+            
           </ul>
           <div className="row me-5">
             {displayErrorNote ? errorNote : ""}
