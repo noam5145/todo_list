@@ -43,8 +43,6 @@ export default function AddMissions() {
       newTask.responsibility != "" &&
       newTask.endedAt != ""
     ) {
-      
-      console.log(newTask)
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       setDisplaySuccess(true);

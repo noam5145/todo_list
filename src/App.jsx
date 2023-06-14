@@ -13,7 +13,7 @@ export default function App() {
   const [missions, setMissions] = useState([]);
 
   const newMission = async(mission)=>{
-    let res = await axios.post(base_url + 'mission/setMission', mission);
+    let res = await axios.post('http://localhost:5174/' + 'mission/setMission', mission);
     if(res.data.err){
       return;
     }
@@ -68,6 +68,10 @@ export default function App() {
       <MyContext.Provider value={val} >
         {/* {!currentUser ? <Login/> : ''}
         {currentUser?.username} */}
+        {missions.map((e)=>{
+          e.status + "\n" +
+          e.daysLeft
+        })}
         <AppRoutes />
       </MyContext.Provider>
     </div>

@@ -16,7 +16,6 @@ export default function SideNav() {
     const newArray = [false, false, false, false, false];
     newArray[num] = true;
     setClick(newArray);
-    console.log(click);
   }
 
   return (
