@@ -1,0 +1,73 @@
+/* start: all this are system className/style */
+
+/* this for the cells */
+.euSBsj div:first-child {
+    height: 50px;
+    padding-top: 13px;
+    
+    
+  }
+  .ikexHN{
+     border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+  }
+  .cygFkb{
+    border-left: none !important;
+  }
+  
+   .euSBsj{
+    border-left: 1px solid black;
+    
+  } 
+  .jbGVAn{
+    justify-content: center !important;
+  }
+  
+   /* this for the titles text */
+  .gocYik{   
+     font-weight: bold; 
+     /* font-size: large; */
+    word-wrap: break-word;
+  }
+  
+  
+  .kqWIVd{
+    justify-content: flex-start !important
+  }
+  
+  /* this for style title order */
+  .brFloq{
+    white-space: pre-wrap !important;
+    overflow: visible !important;
+    
+  }
+  .gocYik{
+    background-color: red !important;
+    color: aliceblue;
+  
+  }
+  
+  .bSqufN{
+    overflow: hidden !important; 
+  } 
+  /* end of this: system className/style */
+  
+  
+  .search-input-table{
+    border-radius: 10px;
+    margin: 10px;
+    width: 250px;
+  }
+  @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .bSqufN{
+      overflow: visible !important;
+      /* overflow-: visible !important; */
+    }
+  }
+  .exception-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    color: red;
+  }
