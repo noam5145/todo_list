@@ -54,8 +54,8 @@ export default function App() {
   return (
     <div>
       <MyContext.Provider value={val} >
-        {!currentUser ? <Login/> : ''}
-        {currentUser?.username}
+        {/* {!currentUser ? <Login/> : ''}
+        {currentUser?.username} */}
         <AppRoutes />
       </MyContext.Provider>
     </div>
