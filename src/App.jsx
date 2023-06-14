@@ -29,13 +29,10 @@ export default function App() {
   }
 
   const setNewUser = async (user)=>{
-    let user1 = await axios.post(base_url + 'user/setNewUser', {...user,
-      adminToken: currentUser.token,
-    });
-    if(user.data.err){
-      return user.data.err;
+    let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
+    if(user1.data.err){
+      return user1.data.err;
     }
-    setCurrentUser(user.data);
   }
 
   const getUser = async(user)=>{
@@ -54,9 +51,8 @@ export default function App() {
       let t = localStorage.getItem('token');
       if(t){
         getUser({token: t});
-        // getAllMissions();
       }
-      flag=false;
+      flag=false
     }
   },[])
 
