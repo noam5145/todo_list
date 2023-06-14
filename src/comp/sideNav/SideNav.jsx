@@ -9,7 +9,7 @@ import { BsListTask } from "react-icons/bs";
 import "./sideNav.css";
 
 export default function SideNav() {
-  const [showSideNav, setShowSideNav] = useState(true);
+  const [showSideNav, setShowSideNav] = useState(false);
   const [click, setClick] = useState([false, false, false, false, false]);
 
   function changeClick(num) {
@@ -21,7 +21,7 @@ export default function SideNav() {
 
   return (
     <>
-      <div className={showSideNav ? "col-2 side_Nav" : "col-1 side_Nav"}>
+      <div className={showSideNav ? "col-2 side_Nav" : "side_Nav"}>
         <div
           className={
             showSideNav
@@ -33,14 +33,14 @@ export default function SideNav() {
             {!showSideNav ? (
               <RxHamburgerMenu color="black" size={40} />
             ) : (
-              <AiOutlineClose color="red" size={25} />
+              <AiOutlineClose color="black" size={20} />
             )}
           </div>
         </div>
-        <div className="d-flex justify-content-center mt-5">
+        <div className="d-flex justify-content-center mt-5 p-2">
           <img
-            height={showSideNav ? "140" : "70"}
-            width={showSideNav ? "140" : "70"}
+            height={showSideNav ? "140" : "50"}
+            width={showSideNav ? "140" : "50"}
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg/1200px-IDF_GOC_Army_Headquarters_From_2020_%28Alternative%29.svg.png"
           />
         </div>
@@ -55,7 +55,7 @@ export default function SideNav() {
               className={
                 showSideNav
                   ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 nav-link s_n_hover iconsSide "
               }
             >
               <AiOutlineDashboard
@@ -80,7 +80,7 @@ export default function SideNav() {
               className={
                 showSideNav
                   ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
               <MdOutlineCreateNewFolder
@@ -104,7 +104,7 @@ export default function SideNav() {
               className={
                 showSideNav
                   ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
               <FaHourglassHalf
@@ -127,7 +127,7 @@ export default function SideNav() {
               className={
                 showSideNav
                   ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
               <RiInsertRowTop
@@ -152,7 +152,7 @@ export default function SideNav() {
               className={
                 showSideNav
                   ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 mb-4 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
               <BsListTask
