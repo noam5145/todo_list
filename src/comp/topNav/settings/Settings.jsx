@@ -4,6 +4,7 @@ export default function Settings() {
   const [error, setError] = useState(false);
 
   let userName = useRef(null);
+  let personalNumber = useRef(null);
   let jobTitle = useRef(null);
   let unitTitle = useRef(null);
   let permissions = useRef(null);
@@ -14,15 +15,17 @@ export default function Settings() {
   function addUser() {
     let user = {
       username: userName.current.value,
-      jobTitle: jobTitle.current.value, //תפקיד
-      unitTitle: unitTitle.current.value, //יחידה
-      permissions: permissions.current.value, //admin, editor, user.
+      role: jobTitle.current.value, //תפקיד
+      id: personalNumber.current.value, //מספר אישי
+      unit: unitTitle.current.value, //יחידה
+      access: permissions.current.value, //admin, editor, user.
       level_1: level_1.current.value, //רמה
       level_2: level_2.current.value, //רמה
       level_3: level_3.current.value, //רמה
     };
     if (
       !userName.current.value ||
+      !personalNumber.current.value ||
       !jobTitle.current.value ||
       !unitTitle.current.value ||
       permissions.current.value == "בחר..."||
@@ -76,6 +79,23 @@ export default function Settings() {
             ></input>
           </li>{" "}
           <li className="col-lg-3 col-sm-6 list-unstyled ">
+            <label htmlFor="personalNumber">
+              מספר אישי {" "}
+              <span
+              className={error ? "text-danger" : "text-dark"}
+              >
+                *
+              </span>
+            </label>
+            <input
+              id="personalNumber"
+              ref={personalNumber}
+              type="text"
+              placeholder="מספר אישי"
+              className="form-control bg-light mt-2"
+            ></input>
+          </li>
+          <li className="col-lg-3 col-sm-6 list-unstyled ">
             <label htmlFor="unitTitle">
               שם יחידה{" "}
               <span
@@ -92,6 +112,8 @@ export default function Settings() {
               className="form-control bg-light mt-2"
             ></input>
           </li>
+          </ul>
+          <ul className="d-flex row">
           <li className="col-lg-3 col-sm-6 list-unstyled ">
             <label htmlFor="Permissions">
               הרשאות{" "}
@@ -113,9 +135,8 @@ export default function Settings() {
               <option value="viewing">צפייה</option>
             </select>
           </li>
-        </ul>
-        <ul className="d-flex row">
-          <li className="col-lg-4 col-sm-6 list-unstyled ">
+        
+          <li className="col-lg-3 col-sm-6 list-unstyled ">
             <label htmlFor="level_1">
               רמה 1{" "}
               <span
@@ -132,7 +153,7 @@ export default function Settings() {
               className="form-control bg-light mt-2"
             ></input>
           </li>
-          <li className="col-lg-4 col-sm-6 list-unstyled ">
+          <li className="col-lg-3 col-sm-6 list-unstyled ">
             <label htmlFor="level_2">
               רמה 2{" "}
               <span
@@ -149,7 +170,7 @@ export default function Settings() {
               className="form-control bg-light mt-2"
             ></input>
           </li>
-          <li className="col-lg-4 col-sm-6 list-unstyled ">
+          <li className="col-lg-3 col-sm-6 list-unstyled ">
             <label htmlFor="level_3">רמה 3 </label>
             <input
               id="level_3"
@@ -159,8 +180,7 @@ export default function Settings() {
               className="form-control bg-light mt-2"
             ></input>
           </li>
-        </ul>
-
+          </ul>
         <div className="d-flex justify-content-center mt-5">
           <div
             className="btn bg-light py-3 px-5 border"
