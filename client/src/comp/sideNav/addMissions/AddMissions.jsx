@@ -20,8 +20,7 @@ export default function AddMissions() {
   let executionCompletionDate = useRef();
   let domain = useRef();
   let internalAssociation = useRef();
-  const { currentUser, newMission } = useContext(MyContext);
-
+  const { currentUser, newMission} = useContext(MyContext);
   let sendigTask = () => {
     let newTask = {
       givenIn: givenIn.current.value,

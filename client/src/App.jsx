@@ -9,9 +9,13 @@ export const MyContext = createContext();
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
-
+  let [missions, setMissions]=useState();
   const newMission = async(mission)=>{
-    let res = await axios.get(base_url + 'mission', {params: mission});
+      let res = await axios.get(base_url + 'mission', {params: mission});
+      setMissions(res.data)
+      console.log(missions)
+    
+  
   }
 
   const setUser = async (username)=>{
@@ -23,6 +27,7 @@ export default function App() {
   let val = {
     currentUser,
     newMission,
+    missions,
 
   }
 
