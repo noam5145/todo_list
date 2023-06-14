@@ -1,0 +1,29 @@
+.side_Nav{
+    border-left:1px solid rgba(0, 0, 0, 0.21) ;
+    height: 92vh;
+    background-color: #fff;
+}
+
+
+.s_n_margin{
+    padding:10px 20px;
+    
+}
+
+.s_n_hover:hover{
+    color: rgba(208, 39, 39, 0.91);
+    cursor: pointer;
+    background-color: rgba(255, 228, 196, 0.608);
+}
+
+.iconsNavSide{
+    padding-top: 80px;
+}
+
+.b_c_icon{
+background-color: rgb(255, 228, 196);
+box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.iconsSide{
+    padding: 30px;
+}

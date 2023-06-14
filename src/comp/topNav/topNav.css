@@ -1,0 +1,31 @@
+.top_nav{
+    height: 70px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.218);
+   /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.567); */
+}
+
+.settings{
+    /* padding: 10px 20px; */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: absolute;
+    top: 75px;
+    left: 80px;
+
+}
+
+.hidden{
+    display: none;
+}
+
+.icons{
+    cursor: pointer;
+}
+.setting_options:hover{
+background-color: #ffe4c49b;
+
+}
+.setting_options{
+    font-size: 13px;
+    padding: 5px 20px;
+    background-color: #fff;
+}
