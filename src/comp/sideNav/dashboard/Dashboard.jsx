@@ -7,7 +7,7 @@ export default function Dashboard() {
       <div className='container row'>
       <h2>Dashboard</h2>
       <div className='col-6'>
-      <ExceptionTasks/>
+     
 
       </div>
 
