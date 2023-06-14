@@ -20,7 +20,7 @@ export default function AppRoutes() {
     <>
     <div className="" style={{height:"100vh", width:"100%"}}>
       <TopNav/>
-      <div className="d-flex">
+      <div className="d-flex bg-light">
       <SideNav/>
       <Routes>
         <Route path="/" element={<MainSite />} />
