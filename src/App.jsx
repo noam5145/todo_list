@@ -46,7 +46,7 @@ export default function App() {
   let val = {
     currentUser,
     newMission,
-    getUser,
+    getUser
   }
 
 
