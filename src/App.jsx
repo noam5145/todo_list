@@ -26,7 +26,7 @@ export default function App() {
   }
 
   const getUser = async(user)=>{
-    let res = await axios.get('http://localhost:5174/user/getUser', {params: user});
+    let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
       return res.data.err;
     }
