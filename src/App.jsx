@@ -11,17 +11,17 @@ export const MyContext = createContext();
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
   const [missions, setMissions] = useState([]);
-
+  const [users, setUsers] = useState([]);
   const newMission = async(mission)=>{
-    let res = await axios.post('http://localhost:5174/' + 'mission/setMission', mission);
+    let res = await axios.post(base_url + 'mission/setMission', mission);
     if(res.data.err){
       return;
     }
     setMissions([...missions, res.data]);
   }
 
-  const getAllMissions = async ()=>{
-    let res = await axios.get(base_url + 'mission/getAllMissions', {params: {token: currentUser?.token}});
+  const getAllMissions = async (token)=>{
+    let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
       return;
     }
@@ -29,7 +29,7 @@ export default function App() {
   }
 
   const setNewUser = async (user)=>{
-    let user1 = await axios.post(base_url + 'user/setUser', {...user,
+    let user1 = await axios.post(base_url + 'user/setNewUser', {...user,
       adminToken: currentUser.token,
     });
     if(user.data.err){
@@ -44,12 +44,18 @@ export default function App() {
       return res.data.err;
     }
     setCurrentUser(res.data);
+    localStorage.setItem('token', res.data.token);
+    getAllMissions(res.data.token);
   }
 
   let flag = true;
   useEffect(()=>{
     if(flag){
-      getAllMissions();
+      let t = localStorage.getItem('token');
+      if(t){
+        getUser({token: t});
+        // getAllMissions();
+      }
       flag=false;
     }
   },[])
@@ -59,6 +65,8 @@ export default function App() {
     currentUser,
     newMission,
     getUser,
+    setNewUser,
+    missions
   }
 
 
@@ -66,12 +74,8 @@ export default function App() {
   return (
     <div>
       <MyContext.Provider value={val} >
-        {/* {!currentUser ? <Login/> : ''}
-        {currentUser?.username} */}
-        {missions.map((e)=>{
-          e.status + "\n" +
-          e.daysLeft
-        })}
+        {!currentUser ? <Login/> : ''}
+         {currentUser?.username} 
         <AppRoutes />
       </MyContext.Provider>
     </div>

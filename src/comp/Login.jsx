@@ -14,13 +14,10 @@ export default function(){
         .then((result) => {
           // The signed-in user info.
           const userr = result.user;
-          sendEmailVerification(userr,)
           getUser({
             username: userr.email,
             id: num
           })
-          // setProfileUrl(userr.photoURL);
-          // setUser(userr.email);
         })
         .catch((error) => {
           console.log(error);
