@@ -1,11 +1,11 @@
-import React, { useRef, useState,useContext } from "react";
+import React, { useRef, useState,useContext, useEffect } from "react";
 import {AiOutlineClose} from "react-icons/ai"
 import './settings.css'
 import { MyContext } from "../../../App";
 import UsersList from './usersList/UsersList'
 
 export default function Settings() {
-  const {setNewUser} = useContext(MyContext);
+  const {setNewUser ,users} = useContext(MyContext);
   const [error, setError] = useState(false);
   const [addNewUser, setAddNewUser] = useState(true);
 
@@ -17,6 +17,13 @@ export default function Settings() {
   let level_1 = useRef(null);
   let level_2 = useRef(null);
   let level_3 = useRef(null);
+  
+  useEffect(() => {
+    // This effect will be triggered whenever addNewUser changes
+    // Add any additional logic here if needed
+  }, [addNewUser]);
+
+  
 
   function addUser() {
     let user = {
@@ -41,15 +48,17 @@ export default function Settings() {
       setError(true);
     } else {
       setError(false);
+      setAddNewUser(true)
       setNewUser(user);
-
-
     }
   }
+  
   return (
     <div className="container mt-5">
-      <h2 className="mt-5">סביבת עבודה</h2>
-      {addNewUser && <div onClick={()=> setAddNewUser(!addNewUser)} className="btn mt-5 bg-secondary text-light mx-3">הוסף משתמש +</div>}
+    <div className="d-flex justify-content-between">
+    <h2 className="mt-5">סביבת עבודה</h2>
+      {addNewUser && <div onClick={()=> setAddNewUser(!addNewUser)} className="btn mt-5 bg-secondary p-2 text-light mx-3">הוסף משתמש +</div>}
+    </div>
       {!addNewUser && <div className="bg-white pt-5 pb-5 mt-5">
         <ul className="d-flex row">
           <div className="d-flex justify-content-end">
@@ -217,12 +226,6 @@ export default function Settings() {
         <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">שם משתמש</div>
     </div>
     </div>
-      <UsersList/>
-      <UsersList/>
-      <UsersList/>
-      <UsersList/>
-      <UsersList/>
-      <UsersList/>
       <UsersList/>
       </div>
     </div>
