@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./taskList.css";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -6,8 +6,11 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import ChatIcon from '@mui/icons-material/Chat';
 import SendIcon from '@mui/icons-material/Send';
 import { FaPencilAlt } from "react-icons/fa";
+import { MyContext } from "../../../App";
 
 export default function TaskList() {
+
+  const {missions} = useContext(MyContext)
   const [opemId, setOpemId] = useState(false);
   const [allDataShow, setAllDataShow] = useState();
 
@@ -21,6 +24,8 @@ export default function TaskList() {
     daysLeft: false,
     status: false,
   }
+
+  console.log(missions + " momo");
 
   const SortByHighAndLow = (title) => {
     if (table[title]) {
@@ -117,7 +122,7 @@ export default function TaskList() {
               </div>
               <div className="col-1 the_table_search bg-light">----</div>
             </div></span>
-          {Array(10)
+          {/* {Array(10)
             .fill(null)
             .map((i, item) => (
               <div key={i} className="container d-flex justify-content-center p-0">
@@ -149,7 +154,7 @@ export default function TaskList() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
     </>
