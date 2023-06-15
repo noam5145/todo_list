@@ -35,6 +35,7 @@ export default function App() {
     if(user1.data.err){
       return user1.data.err;
     }
+    setUsers([...users, user1.data]);
   }
 
   const getUser = async(user)=>{
