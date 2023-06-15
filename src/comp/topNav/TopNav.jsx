@@ -47,25 +47,15 @@ export default function TopNav() {
     window.addEventListener("click", () => setSettings(false))
   }, [])
   return (
-    <div className="row m-0 align-items-center top_nav">
+    <div className="row m-0 align-items-center top_nav sticky-top">
       <div className="col-7 d-flex mx-sm-3 mx-0">
         <img src={Logo} alt="" height={30} width={190} />
       </div>
-      <div className="col-4 d-flex justify-content-between">
+      <div className="col-4 d-flex justify-content-around">
         <span>{currentTime}</span>
-        <div className="">
-          <Link className="" to={"/filter"}>
-            <RiFilter3Line size={25} color="gray" />
-          </Link>
-        </div>
         <div className="">
           <Link className=" " to={"/message"}>
             <LuMail size={25} color="gray" />
-          </Link>
-        </div>
-        <div className="">
-          <Link className="" to={"/printFile"}>
-            <AiFillPrinter size={25} color="gray" />
           </Link>
         </div>
         <div className="icons">

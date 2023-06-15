@@ -39,9 +39,11 @@ export default function App() {
   const getUser = async(user)=>{
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
+      console.log(res.data);
+
       return res.data.err;
     }
-    setCurrentUser(res.data);
+   setCurrentUser(res.data);
     localStorage.setItem('token', res.data.token);
     getAllMissions(res.data.token);
     getAllUsers(res.data)
@@ -81,8 +83,8 @@ export default function App() {
   return (
     <div>
       <MyContext.Provider value={val} >
-        {!currentUser ? <Login/> : ''}
-         {currentUser?.username} 
+        {/* {!currentUser ? <Login/> : ''}
+         {currentUser?.username}  */}
         <AppRoutes />
       </MyContext.Provider>
     </div>
