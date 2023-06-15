@@ -218,12 +218,13 @@ export default function Settings() {
       <div className="mt-5">
       <div className='d-flex justify-content-center'>
     <div className='row container'>
+    <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">שם משתמש</div>
+
         <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">תפקיד</div>
         <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">רמה 1</div>
         <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">רמה 2</div>
         <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">רמה 3</div>
         <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">הרשאות</div>
-        <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">שם משתמש</div>
     </div>
     </div>
       <UsersList/>
