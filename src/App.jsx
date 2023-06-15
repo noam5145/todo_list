@@ -27,6 +27,7 @@ export default function App() {
       return;
     }
     setMissions(res.data);
+    console.log(res.data);
   }
 
   const setNewUser = async (user)=>{
@@ -39,8 +40,6 @@ export default function App() {
   const getUser = async(user)=>{
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
-      console.log(res.data);
-
       return res.data.err;
     }
    setCurrentUser(res.data);
@@ -55,6 +54,7 @@ export default function App() {
       return res.data.err;
     }
     setUsers(res.data);
+    console.log(res.data)
   }
 
   let flag = true;
