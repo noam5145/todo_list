@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import "./usersList.css";
 import { MyContext } from "../../../../App";
 
-export default function UsersList() {
-  const { users } = useContext(MyContext);
+export default function UsersList({users}) {
+  // const { users } = useContext(MyContext);
 
   return (
     <div className="d-flex justify-content-center">
