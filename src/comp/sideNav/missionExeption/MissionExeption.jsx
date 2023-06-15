@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import ReactToPrint, { ComponentToPrint,useReactToPrint } from "react-to-print";
 
-import LayoutMissionExeption from "./LayoutMissionExeption/LayoutMissionExeption"
+import LayoutMissionExeption from "./LayoutMissionExeption/LayoutMissionExeption";
 import LocalPrintshopRoundedIcon from '@mui/icons-material/LocalPrintshopRounded';
 
  const MissionExeption = React.forwardRef((props, ref) => {
