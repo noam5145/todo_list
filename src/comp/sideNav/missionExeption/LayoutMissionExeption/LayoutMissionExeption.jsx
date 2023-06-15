@@ -12,10 +12,10 @@ const LayoutMissionExeption = React.forwardRef((props, ref) => {
 
 
     useEffect(() => {
-      window.addEventListener("click", () => {
+      window.addEventListener("click", () => {  
         setOpemId(false)
       })
-    }, [])
+    }, []) 
   
   
   
