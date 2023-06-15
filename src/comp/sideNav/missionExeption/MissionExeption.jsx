@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import ReactToPrint, { ComponentToPrint,useReactToPrint } from "react-to-print";
 
-import Temp from "./temp/Temp";
+import LayoutMissionExeption from "./LayoutMissionExeption/LayoutMissionExeption"
 import LocalPrintshopRoundedIcon from '@mui/icons-material/LocalPrintshopRounded';
 
  const MissionExeption = React.forwardRef((props, ref) => {
@@ -31,7 +31,7 @@ import LocalPrintshopRoundedIcon from '@mui/icons-material/LocalPrintshopRounded
         content={() => componentRef.current}
       />
 
-    <Temp ref={componentRef} />
+    <LayoutMissionExeption ref={componentRef} />
      
         
     </div> 

@@ -1,12 +1,12 @@
 
 import React, { useEffect, useState } from "react";
-import "./temp.css";
+import "./layoutMissionExeption.css";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
 import ReactToPrint, { ComponentToPrint,useReactToPrint } from "react-to-print";
 
 
-const Temp = React.forwardRef((props, ref) => {
+const LayoutMissionExeption = React.forwardRef((props, ref) => {
     const [opemId, setOpemId] = useState(false);
 
 
@@ -94,4 +94,4 @@ const Temp = React.forwardRef((props, ref) => {
     );
 });
 
-export default Temp
+export default LayoutMissionExeption
