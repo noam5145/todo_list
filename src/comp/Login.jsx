@@ -14,7 +14,6 @@ export default function(){
         .then((result) => {
           // The signed-in user info.
           const userr = result.user;
-          console.log(result.user)
           getUser({
             username: userr.displayName,
             id: num
