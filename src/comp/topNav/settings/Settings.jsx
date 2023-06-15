@@ -1,7 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useContext } from "react";
+import {AiOutlineClose} from "react-icons/ai"
+import './settings.css'
+import { MyContext } from "../../../App";
+import UsersList from './usersList/UsersList'
 
 export default function Settings() {
+  const {setNewUser} = useContext(MyContext);
   const [error, setError] = useState(false);
+  const [addNewUser, setAddNewUser] = useState(true);
 
   let userName = useRef(null);
   let personalNumber = useRef(null);
@@ -35,15 +41,22 @@ export default function Settings() {
       setError(true);
     } else {
       setError(false);
+      setNewUser(user);
 
 
     }
   }
   return (
     <div className="container mt-5">
-      <h2 className="mt-5">הוספת משתמש חדש </h2>
-      <div className="bg-white pt-5 pb-5 mt-5">
+      <h2 className="mt-5">סביבת עבודה</h2>
+      {addNewUser && <div onClick={()=> setAddNewUser(!addNewUser)} className="btn mt-5 bg-secondary text-light mx-3">הוסף משתמש +</div>}
+      {!addNewUser && <div className="bg-white pt-5 pb-5 mt-5">
         <ul className="d-flex row">
+          <div className="d-flex justify-content-end">
+          <div className="py-3 px-5" onClick={()=>setAddNewUser(true)}>
+            <AiOutlineClose size={20}/>
+          </div>
+          </div>
           <li className="col-lg-3 col-sm-6 list-unstyled ">
             <label htmlFor="userName">
               שם משתמש{" "}
@@ -192,6 +205,25 @@ export default function Settings() {
         {error && (
           <h5 className="mx-5 text-danger">מלאו את כל השדות המסומנים ב *</h5>
         )}
+      </div>}
+      <div className="mt-5">
+      <div className='d-flex justify-content-center'>
+    <div className='row container'>
+        <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">תפקיד</div>
+        <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">רמה 1</div>
+        <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">רמה 2</div>
+        <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">רמה 3</div>
+        <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">הרשאות</div>
+        <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">שם משתמש</div>
+    </div>
+    </div>
+      <UsersList/>
+      <UsersList/>
+      <UsersList/>
+      <UsersList/>
+      <UsersList/>
+      <UsersList/>
+      <UsersList/>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ export default function SideNav() {
 
   return (
     <>
-      <div className={showSideNav ? "col-2 side_Nav" : "side_Nav"}>
+      <div className={showSideNav ? "col-2 side_Nav sticky" : "sticky side_Nav"}>
         <div
           className={
             showSideNav
