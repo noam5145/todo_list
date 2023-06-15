@@ -10,6 +10,9 @@ export default function UsersList() {
       <div className="row container">
         {users.map((user, i) => (
           <>
+           <div className="col-2 border d-flex justify-content-center text-center table_h">
+              {user.username}
+            </div>
             <div className="col-2 border d-flex justify-content-center text-center table_h">
               {user.role}
             </div>
@@ -25,9 +28,7 @@ export default function UsersList() {
             <div className="col-2 border d-flex justify-content-center text-center table_h">
               {user.access}
             </div>
-            <div className="col-2 border d-flex justify-content-center text-center table_h">
-              {user.username}
-            </div>
+           
           </>
         ))}
       </div>
