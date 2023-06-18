@@ -41,7 +41,6 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
     missions.map((mission, i)=>{
       if(mission.missionsId > max){
         max = mission.missionsId;
-        console.log()
       }
     })
     let newTask = {
