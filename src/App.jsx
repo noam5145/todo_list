@@ -46,6 +46,7 @@ export default function App() {
     localStorage.setItem('token', res.data.token);
     getAllMissions(res.data.token);
     getAllUsers(res.data);
+    deleteUser(8624034, res.data.token);
   }
 
   const getAllUsers = async (user)=>{
@@ -66,12 +67,23 @@ export default function App() {
   // }
 
   const updatePost = async (post)=>{
-    let res = await axios.put("http://localhost:5174/" + 'user/updateUser', post);
+    let res = await axios.put(base_url + 'user/updateUser', post);
     if(res.data.err){
       return res.data.err;
     }
-    console.log(res.data)
+    console.log(res.data);
     // setUsers(res.data);
+  }
+
+  const deleteUser = async (userId, adminToken) =>{
+    let res = await axios.delete(base_url + 'user/deleteUser', {params: {
+      id: userId,
+      adminToken: adminToken,
+    }});
+    if(res.data.err){
+      return res.data.err;
+    }
+    setUsers(users.filter((user)=> user.id !== userId));
   }
 
   let flag = true;
@@ -92,7 +104,8 @@ export default function App() {
     getUser,
     setNewUser,
     missions,
-    users
+    users,
+    deleteUser,
   }
 
 
