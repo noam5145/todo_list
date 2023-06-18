@@ -217,8 +217,11 @@ const usersTable = () => {
             <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">
               רמה 3
             </div>
-            <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">
+            <div className="col-1 borTitle d-flex justify-content-center align-items-center border table_h">
               הרשאות
+            </div>
+            <div className="col-1 borTitle d-flex justify-content-center align-items-center border table_h">
+              ---
             </div>
           </div>
         </div>

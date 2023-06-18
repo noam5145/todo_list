@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import "./usersList.css";
+import {AiOutlineDelete} from "react-icons/ai"
 import { MyContext } from "../../../../App";
 
 export default function UsersList({users}) {
@@ -25,8 +26,11 @@ export default function UsersList({users}) {
             <div className="col-2 border d-flex justify-content-center text-center table_h">
               {user.level_3 ? user.level_3 : "---"}
             </div>
-            <div className="col-2 border d-flex justify-content-center text-center table_h">
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
               {user.access}
+            </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              <AiOutlineDelete size={20}/>
             </div>
            
           </>
