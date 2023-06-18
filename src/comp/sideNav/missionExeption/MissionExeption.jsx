@@ -12,6 +12,7 @@ import LocalPrintshopRoundedIcon from '@mui/icons-material/LocalPrintshopRounded
   useEffect(() => {
     window.addEventListener("click", () => {
       setOpemId(false)
+      console.log()
     })
 
   }, [])
