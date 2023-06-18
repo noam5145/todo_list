@@ -1,56 +1,91 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState ,useEffect} from "react";
 import './addMissions.css'
 import { Link } from "react-router-dom";
 import { MyContext } from "../../../App";
 
 export default function AddMissions() {
+  
+  
   let errorNote = (
     <h5 className="text-danger pb-3 pt-3 font-weight-bold">
       מלאו את כל הפרטים המסומנים ב *
     </h5>
   );
-  let [displayErrorNote, setDisplayErrorNote] = useState(false);
+
+let [displayErrorNote, setDisplayErrorNote] = useState(false);
+  let [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
+  let [displayErrorTaskDetails,setDisplayErrorTaskDetails]=useState(false)
+  let [displayErrorMeetingDate, setdisplayErrorMeetingDate] = useState(false);
+  let [displayErrorResponsibility, setDisplayErrorResponsibility] = useState(false);
+  let [displayErrorExecutionCompletionDate, setDisplayErrorExecutionCompletionDate] = useState(false);
+  let [displayErrorDomin, setDisplayErrorDomin] = useState(false);
   let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
   let [displaySuccess, setDisplaySuccess] = useState(false);
-  let [messionId, setMessionId]=useState(5)
+  let [messionId, setMessionId]=useState()
   let meetingTitle = useRef();
   let meetingDate = useRef();
   let taskDetails = useRef();
   let responsibility = useRef();
   let executionCompletionDate = useRef();
+  let domain = useRef();
   let noteCommander = useRef();
-  const { currentUser, newMission} = useContext(MyContext);
+  const { currentUser, newMission, missions } = useContext(MyContext);
+  
+  
   let sendigTask = () => {
-    let diffTime = Math.abs(executionCompletionDate.current.value - meetingDate.current.value);
-    let daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    const date1 = new Date(meetingDate.current.value);
+    const date2 = new Date(executionCompletionDate.current.value);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));  
+    let max = 0;
+    missions.map((mission, i)=>{
+      if(mission.missionsId > max){
+        max = mission.missionsId;
+      }
+    })
     let newTask = {
-      missionId: messionId,
+      missionId: max + 1, 
       status: "בתהליך",
       title: meetingTitle.current.value,
       startedAt: meetingDate.current.value,
       details: taskDetails.current.value,
       responsibility: responsibility.current.value,
       endedAt: executionCompletionDate.current.value,
-      daysLeft: daysLeft + "days",
-      noteCommand: noteCommander.current.value,
-      noteResponsibility: "",
+      daysLeft: diffDays,
+      noteCommander: noteCommander.current.value,
       token: currentUser?.token,
     };
     if (
       newTask.title != "" &&
       newTask.startedAt != "" &&
       newTask.details != "" &&
-      newTask.responsibility != "" &&
-      newTask.endedAt != ""
+      newTask.responsibility != "בחר" &&
+      newTask.endedAt != "" &&
+      newTask.domain != "בחר"
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       setDisplaySuccess(true);
       setMessionId(messionId++)
       newMission(newTask);
+      console.log(newTask)
     } else {
+      if (newTask.title == "") {
+        setDisplayErrorMeetingTitle(true)
+      }if(newTask.startedAt == ""){
+        setdisplayErrorMeetingDate(true)
+      }if(newTask.details == ""){
+        setDisplayErrorTaskDetails(true)
+      }if(newTask.responsibility == "בחר" ){
+        setDisplayErrorResponsibility
+      }
+      if(newTask.endedAt == ""){
+        setDisplayErrorExecutionCompletionDate(true)
+      }
+      if(newTask.domain == "בחר"){
+        setDisplayErrorDomin(true)
+      }
       setDisplayErrorNote(true);
-      setDisplayErrorDesign(true);
     }
   };
 
@@ -83,11 +118,11 @@ export default function AddMissions() {
         <div className="bg-white pt-5 pb-5">
           <ul className="d-flex row">
             
-            <li className="col-lg-3 col-sm-6 list-unstyled ">
+            <li className="col-lg-4 col-sm-6 list-unstyled ">
               <label htmlFor="meetingTitle">
                 כותרת הפגישה{" "}
                 <span
-                  className={displayErrorDesign ? "text-danger" : "text-dark"}
+                  className={displayErrorMeetingTitle ? "text-danger" : "text-dark"}
                 >
                   *
                 </span>
@@ -97,14 +132,14 @@ export default function AddMissions() {
                 ref={meetingTitle}
                 type="text"
                 placeholder="כותרת פגישה"
-                className="form-control bg-light "
+                className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}
               ></input>
             </li>
-            <li className="col-lg-3 col-sm-6 list-unstyled ">
+            <li className="col-lg-2 col-sm-6 list-unstyled mb-lg-5 mb-sm-4">
               <label htmlFor="meetingDate">
                 מועד הפגישה{" "}
                 <span
-                  className={displayErrorDesign ? "text-danger" : "text-dark"}
+                  className={displayErrorMeetingDate ? "text-danger" : "text-dark"}
                 >
                   *
                 </span>
@@ -117,47 +152,11 @@ export default function AddMissions() {
                 className="form-control bg-light"
               ></input>
             </li>
-            
-          </ul>
-          <h4 className="pe-4 pt-5">הדבקת נתונים</h4>
-          <ul className="d-flex row">
-            <li className="col-lg-3 list-unstyled col-sm-12 ">
-              <label htmlFor="taskDetails">
-                פירוט המשימה{" "}
-                <span
-                  className={displayErrorDesign ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span>
-              </label>
-              <textarea
-                ref={taskDetails}
-                className="form-control bg-light"
-                id="taskDetails"
-                rows="1"
-              ></textarea>
-            </li>
-            <li className="col-lg-2 list-unstyled col-sm-6 ">
-              <label htmlFor="responsibility">
-                אחריות{" "}
-                <span
-                  className={displayErrorDesign ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span>
-              </label>
-              <textarea
-                ref={responsibility}
-                className="form-control bg-light"
-                id="responsibility"
-                rows="1"
-              ></textarea>
-            </li>
-            <li className="col-lg-2 list-unstyled col-sm-6 ">
+            <li className="col-lg-2 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
               <label htmlFor="executionCompletionDate">
                 תאריך גמר ביצוע{" "}
                 <span
-                  className={displayErrorDesign ? "text-danger" : "text-dark"}
+                  className={displayErrorExecutionCompletionDate ? "text-danger" : "text-dark"}
                 >
                   *
                 </span>
@@ -169,7 +168,55 @@ export default function AddMissions() {
                 className="form-control bg-light"
               ></input>
             </li>
-            <li className="col-lg-3 list-unstyled col-sm-6 ">
+            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4 ">
+              <label htmlFor="taskDetails">
+                פירוט המשימה{" "}
+                <span
+                  className={displayErrorTaskDetails ? "text-danger" : "text-dark"}
+                >
+                  *
+                </span>
+              </label>
+              <textarea
+                ref={taskDetails}
+                className="form-control bg-light"
+                id="taskDetails"
+                rows="1"
+              ></textarea>
+            </li>
+            <li className="col-lg-4 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
+              <label htmlFor="responsibility">
+                אחריות{" "}
+                <span
+                  className={displayErrorResponsibility ? "text-danger" : "text-dark"}
+                >
+                  *
+                </span>
+              </label>
+              <select  ref={responsibility} className="form-select bg-light">
+                <option >בחר</option>
+                <option >תו"ל ותפיסות</option>
+              </select>
+            </li>
+            
+            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+              <label htmlFor="domain">תחום  <span
+                  className={displayErrorDomin ? "text-danger" : "text-dark"}
+                >
+                  *
+                </span></label>
+              <select  ref={domain} className="form-select bg-light">
+                <option >בחר</option>
+                <option >תו"ל ותפיסות</option>
+                <option >הכשרות ואימונים</option>
+                <option >אנשים</option>
+                <option >ארגון</option>
+                <option >אמל"ח</option>
+                <option >לו"ז</option>
+                <option >מבצעי</option>
+              </select>
+            </li>
+            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
               <label htmlFor="noteCommander">הערות מפקד</label>
               <textarea
                 ref={noteCommander}
@@ -180,6 +227,7 @@ export default function AddMissions() {
             </li>
             
           </ul>
+          
           <div className="row me-5">
             {displayErrorNote ? errorNote : ""}
             <button
