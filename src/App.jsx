@@ -57,14 +57,13 @@ export default function App() {
     setUsers(res.data);
   }
  
-  // const updateUser = async (user)=>{
-  //   let res = await axios.put(base_url + 'user/updateUser');
-  //   if(res.data.err){
-  //     return res.data.err;
-  //   }
-  //   console.log(res.data)
-  //   // setUsers(res.data);
-  // }
+  const updateUser = async (user)=>{
+    let res = await axios.put(base_url + 'user/updateUser');
+    if(res.data.err){
+      return res.data.err;
+    }
+    getAllUsers(currentUser);
+  }
 
   const updatePost = async (post)=>{
     let res = await axios.put(base_url + 'user/updateUser', post);
