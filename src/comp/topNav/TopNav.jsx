@@ -4,6 +4,7 @@ import { BsFilterCircleFill } from "react-icons/bs";
 import { AiFillMessage, AiFillPrinter } from "react-icons/ai";
 import {RiFilter3Line} from "react-icons/ri"
 import {LuMail} from "react-icons/lu"
+import { FaRegUser} from "react-icons/fa"
 import { IoSettingsSharp } from "react-icons/io5";
 import "./topNav.css";
 import Logo from "../../../images/todo_list_logo.png";
@@ -54,8 +55,13 @@ export default function TopNav() {
       <div className="col-4 d-flex justify-content-around">
         <span>{currentTime}</span>
         <div className="">
-          <Link className=" " to={"/message"}>
+          <Link className=" " to={"/alerts"}>
             <LuMail size={25} color="gray" />
+          </Link>
+        </div>
+        <div className="">
+          <Link className=" " to={"/user"}>
+            <FaRegUser size={25} color="gray" />
           </Link>
         </div>
         <div className="icons">
