@@ -129,16 +129,33 @@ const usersTable = () => {
             </li>
           </ul>
           <ul className="d-flex row">
-            <li className="col-lg-3 col-sm-6 list-unstyled ">
-              <label htmlFor="Permissions">
-                הרשאות{" "}
-                <span className={error ? "text-danger" : "text-dark"}>*</span>
-              </label>
-              <select
-                name=""
-                id="permissions"
-                ref={permissions}
-                className="form-control bg-light mt-2"
+          <li className="col-lg-3 col-sm-6 list-unstyled ">
+            <label htmlFor="Permissions">
+              הרשאות{" "}
+              <span
+              className={error ? "text-danger" : "text-dark"}
+              >
+                *
+              </span>
+            </label>
+            <select
+              name=""
+              id="permissions"
+              ref={permissions}
+              className="form-control bg-light mt-2"
+            >
+              <option value="בחר...">בחר...</option>
+              <option value="admin">ניהול</option>
+              <option value="editor">עריכה</option>
+              <option value="viewing">צפייה</option>
+            </select>
+          </li>
+        
+          <li className="col-lg-3 col-sm-6 list-unstyled ">
+            <label htmlFor="level_1">
+              רמה 1{" "}
+              <span
+              className={error ? "text-danger" : "text-dark"}
               >
                 <option value="בחר...">בחר...</option>
                 <option value="management">ניהול</option>
