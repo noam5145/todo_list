@@ -14,6 +14,7 @@ import Settings from "../comp/topNav/settings/Settings";
 import SideNav from "../comp/sideNav/SideNav";
 import TopNav from "../comp/topNav/TopNav";
 import MainSite from "../comp/MainSite";
+import TheChat from "../comp/sideNav/chat/TheChat";
 
 export default function AppRoutes() {
   return (
@@ -34,6 +35,7 @@ export default function AppRoutes() {
         <Route path="/message" element={<Message />} />
         <Route path="/printFile" element={<PrintFile />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/chat" element={<TheChat />} />
       </Routes>
       </div></div>
     </>
