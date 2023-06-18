@@ -13,6 +13,8 @@ export default function AddMissions() {
   );
 
 let [displayErrorNote, setDisplayErrorNote] = useState(false);
+let [displayPageOne, setDisplayPageOne] = useState(true);
+let [displayPageTwo, setDisplayPageTwo] = useState(false);
   let [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
   let [displayErrorTaskDetails,setDisplayErrorTaskDetails]=useState(false)
   let [displayErrorMeetingDate, setdisplayErrorMeetingDate] = useState(false);
@@ -21,7 +23,6 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let [displayErrorDomin, setDisplayErrorDomin] = useState(false);
   let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
   let [displaySuccess, setDisplaySuccess] = useState(false);
-  let [messionId, setMessionId]=useState()
   let meetingTitle = useRef();
   let meetingDate = useRef();
   let taskDetails = useRef();
@@ -29,9 +30,9 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let executionCompletionDate = useRef();
   let domain = useRef();
   let noteCommander = useRef();
+  let fileMission = useRef();
   const { currentUser, newMission, missions } = useContext(MyContext);
-  
-  
+
   let sendigTask = () => {
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
@@ -53,6 +54,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
       endedAt: executionCompletionDate.current.value,
       daysLeft: diffDays,
       noteCommander: noteCommander.current.value,
+      fileMission: fileMission.current.files[0],
       token: currentUser?.token,
     };
     if (
@@ -66,9 +68,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       setDisplaySuccess(true);
-      setMessionId(messionId++)
       newMission(newTask);
-      console.log(newTask)
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -90,7 +90,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
   };
 
   return (
-    <div className="container-fluid bg-light  d-flex h_page align-items-center">
+    <div dir="rtl" className="container-fluid bg-light  d-flex h_page align-items-center">
       <div
         className={displaySuccess ? "container d-block" : "container d-none"}
       >
@@ -115,10 +115,10 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
         className={displaySuccess ? "container d-none" : "container d-block"}
       >
         <h2 className=" pb-5">הוספת משימות</h2>
-        <div className="bg-white pt-5 pb-5">
+        <div className="bg-white pt-5 pb-5 ">
           <ul className="d-flex row">
             
-            <li className="col-lg-4 col-sm-6 list-unstyled ">
+            <li className="col-lg-8 col-sm-6 list-unstyled ">
               <label htmlFor="meetingTitle">
                 כותרת הפגישה{" "}
                 <span
@@ -135,7 +135,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                 className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}
               ></input>
             </li>
-            <li className="col-lg-2 col-sm-6 list-unstyled mb-lg-5 mb-sm-4">
+            <li className="col-lg-4 col-sm-6 list-unstyled mb-lg-5 mb-sm-4">
               <label htmlFor="meetingDate">
                 מועד הפגישה{" "}
                 <span
@@ -152,23 +152,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                 className="form-control bg-light"
               ></input>
             </li>
-            <li className="col-lg-2 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
-              <label htmlFor="executionCompletionDate">
-                תאריך גמר ביצוע{" "}
-                <span
-                  className={displayErrorExecutionCompletionDate ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span>
-              </label>
-              <input
-                id="meetingDate"
-                ref={executionCompletionDate}
-                type="date"
-                className="form-control bg-light"
-              ></input>
-            </li>
-            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4 ">
+            <li className="col-lg-8 list-unstyled col-sm-12  mb-lg-5 mb-sm-4 ">
               <label htmlFor="taskDetails">
                 פירוט המשימה{" "}
                 <span
@@ -185,6 +169,23 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
               ></textarea>
             </li>
             <li className="col-lg-4 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
+              <label htmlFor="executionCompletionDate">
+                תאריך גמר ביצוע{" "}
+                <span
+                  className={displayErrorExecutionCompletionDate ? "text-danger" : "text-dark"}
+                >
+                  *
+                </span>
+              </label>
+              <input
+                id="meetingDate"
+                ref={executionCompletionDate}
+                type="date"
+                className="form-control bg-light"
+              ></input>
+            </li>
+
+            <li className="col-lg-6 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
               <label htmlFor="responsibility">
                 אחריות{" "}
                 <span
@@ -199,7 +200,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
               </select>
             </li>
             
-            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
               <label htmlFor="domain">תחום  <span
                   className={displayErrorDomin ? "text-danger" : "text-dark"}
                 >
@@ -216,7 +217,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                 <option >מבצעי</option>
               </select>
             </li>
-            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
               <label htmlFor="noteCommander">הערות מפקד</label>
               <textarea
                 ref={noteCommander}
@@ -225,20 +226,24 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                 rows="1"
               ></textarea>
             </li>
-            
+            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+              <label htmlFor="fileMission"></label>
+              <input className="form-control" type="file" id="fileMission" ref={fileMission}></input>
+            </li>
           </ul>
           
           <div className="row me-5">
             {displayErrorNote ? errorNote : ""}
             <button
               onClick={sendigTask}
-              className="btn btn-light col-lg-1 col-sm-2 col-4  btn-outline-dark"
+              className="btn btn-light col-lg-10 col-sm-2 col-4  btn-outline-dark"
             >
               שמירה
             </button>
           </div>
         </div>
       </div>
+      
     </div>
   );
             }
