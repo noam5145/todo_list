@@ -152,8 +152,8 @@ export default function Settings() {
               className="form-control bg-light mt-2"
             >
               <option value="בחר...">בחר...</option>
-              <option value="management">ניהול</option>
-              <option value="editing">עריכה</option>
+              <option value="admin">ניהול</option>
+              <option value="editor">עריכה</option>
               <option value="viewing">צפייה</option>
             </select>
           </li>

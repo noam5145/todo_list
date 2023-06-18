@@ -45,7 +45,7 @@ export default function App() {
     setCurrentUser(res.data);
     localStorage.setItem('token', res.data.token);
     getAllMissions(res.data.token);
-    getAllUsers(res.data)
+    getAllUsers(res.data);
   }
 
   const getAllUsers = async (user)=>{
@@ -54,6 +54,24 @@ export default function App() {
       return res.data.err;
     }
     setUsers(res.data);
+  }
+ 
+  // const updateUser = async (user)=>{
+  //   let res = await axios.put(base_url + 'user/updateUser');
+  //   if(res.data.err){
+  //     return res.data.err;
+  //   }
+  //   console.log(res.data)
+  //   // setUsers(res.data);
+  // }
+
+  const updatePost = async (post)=>{
+    let res = await axios.put("http://localhost:5174/" + 'user/updateUser', post);
+    if(res.data.err){
+      return res.data.err;
+    }
+    console.log(res.data)
+    // setUsers(res.data);
   }
 
   let flag = true;
