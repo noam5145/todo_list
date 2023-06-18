@@ -46,7 +46,6 @@ export default function App() {
     localStorage.setItem('token', res.data.token);
     getAllMissions(res.data.token);
     getAllUsers(res.data);
-    deleteUser(8624034, res.data.token);
   }
 
   const getAllUsers = async (user)=>{
@@ -95,7 +94,6 @@ export default function App() {
       flag=false
     }
   },[])
-
 
   let val = {
     currentUser,
