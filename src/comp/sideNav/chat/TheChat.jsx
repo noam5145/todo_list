@@ -11,7 +11,7 @@ export default function TheChat({ setChatOpen, chatOpen }) {
     const { missions } = useContext(MyContext)
     const [called, setCalled] = useState(false)
     let i = 0;
-console.log(missions.title);
+    
     return (
         <>
             <div className="chat">
