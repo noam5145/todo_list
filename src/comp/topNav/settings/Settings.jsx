@@ -151,18 +151,6 @@ const usersTable = () => {
             </select>
           </li>
         
-          <li className="col-lg-3 col-sm-6 list-unstyled ">
-            <label htmlFor="level_1">
-              רמה 1{" "}
-              <span
-              className={error ? "text-danger" : "text-dark"}
-              >
-                <option value="בחר...">בחר...</option>
-                <option value="management">ניהול</option>
-                <option value="editing">עריכה</option>
-                <option value="viewing">צפייה</option>
-              </select>
-            </li>
 
             <li className="col-lg-3 col-sm-6 list-unstyled ">
               <label htmlFor="level_1">
