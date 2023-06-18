@@ -1,0 +1,60 @@
+.chat{
+    height: 420px;
+    width: 300px;
+    background-color: rgba(128, 128, 128, 0.95);
+    border: 3px double black;
+    border-radius: 5px;
+}
+.top_chat{
+    background-color: rgba(60, 87, 23, 0.5);
+    height: 50px;
+}
+.middle_chat{
+    height: 305px;
+    overflow-y: auto;
+}   
+
+.the_message{
+    border: 1px solid beige;
+    border-radius: 10px;
+    width: 210px;
+    background-color: rgba(60, 87, 23, 0.5);
+}
+.bottom_chat{
+    height: 65px;
+    display: flex;
+    align-items: center;
+
+}
+.bottom_chat_input{
+    width: 240px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+.div_icon_send{
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.div_icon_send:active{
+    transform: scale(1.1);
+}
+.icon_send{
+    transform: rotate(180deg);
+    cursor: pointer;
+}
+.icon_searc{
+    cursor: pointer;
+}
+.icon_searc:active{
+    transform: scale(1.1);
+}
+.icon_down{
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.icon_down:active{
+    transform: scale(1.1);
+}
