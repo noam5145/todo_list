@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import App from "../App";
+import UserTasks from '../comp/topNav/userTasks/UserTasks'
 import NotFound from "../NotFound";
 import AddMissions from "../comp/sideNav/addMissions/AddMissions";
 import Dashboard from "../comp/sideNav/dashboard/Dashboard";
@@ -8,13 +9,14 @@ import MissionExeption from "../comp/sideNav/missionExeption/MissionExeption";
 import PendingMissions from "../comp/sideNav/pendingMissions/PendingMissions";
 import TaskList from "../comp/sideNav/taskList/TaskList";
 import Filter from "../comp/topNav/filter/Filter";
-import Message from "../comp/topNav/message/Message";
+import Alerts from "../comp/topNav/alerts/Alerts";
 import PrintFile from "../comp/topNav/printFile/PrintFile";
 import Settings from "../comp/topNav/settings/Settings";
 import SideNav from "../comp/sideNav/SideNav";
 import TopNav from "../comp/topNav/TopNav";
 import MainSite from "../comp/MainSite";
 import TheChat from "../comp/sideNav/chat/TheChat";
+import CompletedTasks from "../comp/sideNav/completedTasks/CompletedTasks";
 
 export default function AppRoutes() {
   return (
@@ -32,10 +34,12 @@ export default function AppRoutes() {
         <Route path="/PendingMissions" element={<PendingMissions />} />
         <Route path="/taskList" element={<TaskList />} />
         <Route path="/filter" element={<Filter />} />
-        <Route path="/message" element={<Message />} />
+        <Route path="/alerts" element={<Alerts />} />
         <Route path="/printFile" element={<PrintFile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/chat" element={<TheChat />} />
+        <Route path="/UserTasks" element={<UserTasks />} />
+        <Route path="/archives" element={<CompletedTasks />} />
       </Routes>
       </div></div>
     </>

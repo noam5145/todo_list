@@ -2,26 +2,18 @@ import React, { useContext, useRef, useState ,useEffect} from "react";
 import './addMissions.css'
 import { Link } from "react-router-dom";
 import { MyContext } from "../../../App";
+import Select from "react-select";
 
 export default function AddMissions() {
   
-  
-  let errorNote = (
-    <h5 className="text-danger pb-3 pt-3 font-weight-bold">
-      מלאו את כל הפרטים המסומנים ב *
-    </h5>
-  );
-
-let [displayErrorNote, setDisplayErrorNote] = useState(false);
+  let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
   let [displayErrorTaskDetails,setDisplayErrorTaskDetails]=useState(false)
   let [displayErrorMeetingDate, setdisplayErrorMeetingDate] = useState(false);
   let [displayErrorResponsibility, setDisplayErrorResponsibility] = useState(false);
   let [displayErrorExecutionCompletionDate, setDisplayErrorExecutionCompletionDate] = useState(false);
-  let [displayErrorDomin, setDisplayErrorDomin] = useState(false);
   let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
   let [displaySuccess, setDisplaySuccess] = useState(false);
-  let [messionId, setMessionId]=useState()
   let meetingTitle = useRef();
   let meetingDate = useRef();
   let taskDetails = useRef();
@@ -29,22 +21,46 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let executionCompletionDate = useRef();
   let domain = useRef();
   let noteCommander = useRef();
-  const { currentUser, newMission, missions } = useContext(MyContext);
-  
-  
+  let fileMission = useRef();
+  const { currentUser, newMission, missions, users } = useContext(MyContext);
+  const [usersNames, setNames] = useState([]);
+  const [userSelect, setUserSelected] = useState();
+
+  useEffect(()=>{
+    if(users[0]){
+      let arr = [];
+      users.map((e, i)=>{
+        arr[i] = users[i].username;
+      })
+      setNames(arr);
+    }
+  }, [users]);
+
+  const setUserSelect = (username)=>{
+    let user = users.find((e)=> e.username === username);
+    setUserSelected(user.token);
+  }
+
+  let errorNote = (
+    <h5 className="text-danger pb-3 pt-3 font-weight-bold">
+      ודא שהפרטים שהזנת נכונים
+    </h5>
+  );
+
   let sendigTask = () => {
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));  
+    const diffTime = (date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    
     let max = 0;
     missions.map((mission, i)=>{
-      if(mission.missionsId > max){
-        max = mission.missionsId;
+      if(Number(mission.missionId) > max){
+        max = Number(mission.missionId);
       }
     })
     let newTask = {
-      missionId: max + 1, 
+      missionId: String(max + 1), 
       status: "בתהליך",
       title: meetingTitle.current.value,
       startedAt: meetingDate.current.value,
@@ -53,7 +69,8 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
       endedAt: executionCompletionDate.current.value,
       daysLeft: diffDays,
       noteCommander: noteCommander.current.value,
-      token: currentUser?.token,
+      // fileMission: fileMission.current.files[0],
+      token: userSelect,
     };
     if (
       newTask.title != "" &&
@@ -61,14 +78,13 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
       newTask.details != "" &&
       newTask.responsibility != "בחר" &&
       newTask.endedAt != "" &&
-      newTask.domain != "בחר"
+      newTask.daysLeft >= 0
+      
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       setDisplaySuccess(true);
-      setMessionId(messionId++)
       newMission(newTask);
-      console.log(newTask)
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -77,36 +93,38 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
       }if(newTask.details == ""){
         setDisplayErrorTaskDetails(true)
       }if(newTask.responsibility == "בחר" ){
-        setDisplayErrorResponsibility
+        setDisplayErrorResponsibility(true)
       }
       if(newTask.endedAt == ""){
         setDisplayErrorExecutionCompletionDate(true)
       }
-      if(newTask.domain == "בחר"){
-        setDisplayErrorDomin(true)
+      if(newTask.daysLeft <0){
+        setDisplayErrorExecutionCompletionDate(true)
+        setdisplayErrorMeetingDate(true)
+
       }
       setDisplayErrorNote(true);
     }
   };
 
   return (
-    <div className="container-fluid bg-light  d-flex h_page align-items-center">
+    <div dir="rtl" className="container-fluid bg-light  d-flex h_page align-items-center">
       <div
         className={displaySuccess ? "container d-block" : "container d-none"}
       >
         <div className="row d-flex justify-content-around">
-          <h2 className="text-center">המשימה נשלחה בהצלחה!</h2>
-          <div className="d-flex row justify-content-around col-sm-10 col-lg-4 pt-5 pb-5">
-            <Link className=" col-lg-3 col-sm-4 ms-2" to={"/dashboard"}>
-              <button className="btn btn-outline-info">דשבורד משימות</button>
+          <h2 className="text-center mb-5">המשימה נשלחה בהצלחה!</h2>
+          <div className="d-flex row justify-content-between col-10">
+            <Link className=" col-5" to={"/taskList"}>
+              <button className="btn btn-outline-info ps-5 pe-5">מאגר משימות</button>
             </Link>
             <button
               onClick={() => {
                 setDisplaySuccess(false);
               }}
-              className="btn btn-outline-dark col-sm-4 col-lg-3 me-2"
+              className="btn btn-outline-dark col-5"
             >
-              הוסף משימה
+              הוסף משימה     
             </button>
           </div>
         </div>
@@ -115,10 +133,10 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
         className={displaySuccess ? "container d-none" : "container d-block"}
       >
         <h2 className=" pb-5">הוספת משימות</h2>
-        <div className="bg-white pt-5 pb-5">
+        <div className="bg-white pt-5 pb-5 ">
           <ul className="d-flex row">
             
-            <li className="col-lg-4 col-sm-6 list-unstyled ">
+            <li className="col-lg-8 col-sm-6 list-unstyled ">
               <label htmlFor="meetingTitle">
                 כותרת הפגישה{" "}
                 <span
@@ -135,7 +153,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                 className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}
               ></input>
             </li>
-            <li className="col-lg-2 col-sm-6 list-unstyled mb-lg-5 mb-sm-4">
+            <li className="col-lg-4 col-sm-6 list-unstyled mb-lg-5 mb-sm-4">
               <label htmlFor="meetingDate">
                 מועד הפגישה{" "}
                 <span
@@ -152,23 +170,7 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                 className="form-control bg-light"
               ></input>
             </li>
-            <li className="col-lg-2 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
-              <label htmlFor="executionCompletionDate">
-                תאריך גמר ביצוע{" "}
-                <span
-                  className={displayErrorExecutionCompletionDate ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span>
-              </label>
-              <input
-                id="meetingDate"
-                ref={executionCompletionDate}
-                type="date"
-                className="form-control bg-light"
-              ></input>
-            </li>
-            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4 ">
+            <li className="col-lg-8 list-unstyled col-sm-12  mb-lg-5 mb-sm-4 ">
               <label htmlFor="taskDetails">
                 פירוט המשימה{" "}
                 <span
@@ -185,6 +187,23 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
               ></textarea>
             </li>
             <li className="col-lg-4 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
+              <label htmlFor="executionCompletionDate">
+                תאריך גמר ביצוע{" "}
+                <span
+                  className={displayErrorExecutionCompletionDate ? "text-danger" : "text-dark"}
+                >
+                  *
+                </span>
+              </label>
+              <input
+                id="meetingDate"
+                ref={executionCompletionDate}
+                type="date"
+                className="form-control bg-light"
+              ></input>
+            </li>
+
+            <li className="col-lg-6 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
               <label htmlFor="responsibility">
                 אחריות{" "}
                 <span
@@ -193,30 +212,16 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                   *
                 </span>
               </label>
-              <select  ref={responsibility} className="form-select bg-light">
+              <select onChange={(e)=> setUserSelect(e.target.value)} ref={responsibility} className="form-select bg-light">
                 <option >בחר</option>
-                <option >תו"ל ותפיסות</option>
+                {usersNames.map((user)=>(
+                  <option >{user}</option>
+                ))}
               </select>
             </li>
             
-            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
-              <label htmlFor="domain">תחום  <span
-                  className={displayErrorDomin ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span></label>
-              <select  ref={domain} className="form-select bg-light">
-                <option >בחר</option>
-                <option >תו"ל ותפיסות</option>
-                <option >הכשרות ואימונים</option>
-                <option >אנשים</option>
-                <option >ארגון</option>
-                <option >אמל"ח</option>
-                <option >לו"ז</option>
-                <option >מבצעי</option>
-              </select>
-            </li>
-            <li className="col-lg-4 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+
+            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
               <label htmlFor="noteCommander">הערות מפקד</label>
               <textarea
                 ref={noteCommander}
@@ -225,20 +230,24 @@ let [displayErrorNote, setDisplayErrorNote] = useState(false);
                 rows="1"
               ></textarea>
             </li>
-            
+            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+              <label htmlFor="fileMission"></label>
+              <input className="form-control" type="file" id="fileMission" ref={fileMission}></input>
+            </li>
           </ul>
           
           <div className="row me-5">
             {displayErrorNote ? errorNote : ""}
             <button
               onClick={sendigTask}
-              className="btn btn-light col-lg-1 col-sm-2 col-4  btn-outline-dark"
+              className="btn btn-light col-lg-10 col-sm-2 col-4  btn-outline-dark"
             >
               שמירה
             </button>
           </div>
         </div>
       </div>
+      
     </div>
   );
             }
