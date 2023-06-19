@@ -51,8 +51,8 @@ export default function AddMissions() {
     let max = 0;
     missions.map((mission, i)=>{
       console.log(mission.missionId);
-      if(Number(mission.missionsId) > max){
-        max = mission.missionsId;
+      if(Number(mission.missionId) > max){
+        max = mission.missionId;
       }
     })
     let newTask = {
