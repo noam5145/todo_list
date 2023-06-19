@@ -2,19 +2,11 @@ import React, { useContext, useRef, useState ,useEffect} from "react";
 import './addMissions.css'
 import { Link } from "react-router-dom";
 import { MyContext } from "../../../App";
+import Select from "react-select";
 
 export default function AddMissions() {
   
-  
-  let errorNote = (
-    <h5 className="text-danger pb-3 pt-3 font-weight-bold">
-      מלאו את כל הפרטים המסומנים ב *
-    </h5>
-  );
-
-let [displayErrorNote, setDisplayErrorNote] = useState(false);
-let [displayPageOne, setDisplayPageOne] = useState(true);
-let [displayPageTwo, setDisplayPageTwo] = useState(false);
+  let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
   let [displayErrorTaskDetails,setDisplayErrorTaskDetails]=useState(false)
   let [displayErrorMeetingDate, setdisplayErrorMeetingDate] = useState(false);
@@ -31,13 +23,29 @@ let [displayPageTwo, setDisplayPageTwo] = useState(false);
   let domain = useRef();
   let noteCommander = useRef();
   let fileMission = useRef();
-  const { currentUser, newMission, missions } = useContext(MyContext);
+  const { currentUser, newMission, missions, users } = useContext(MyContext);
+  const [usersNames, setNames] = useState([]);
+
+  useEffect(()=>{
+    let arr = [];
+    users.map((e, i)=>{
+      arr[i] = users[i].username;
+    })
+    setNames(arr)
+  }, [])
+
+  let errorNote = (
+    <h5 className="text-danger pb-3 pt-3 font-weight-bold">
+      מלאו את כל הפרטים המסומנים ב *
+    </h5>
+  );
 
   let sendigTask = () => {
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));  
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    
     let max = 0;
     missions.map((mission, i)=>{
       if(mission.missionsId > max){
@@ -106,7 +114,7 @@ let [displayPageTwo, setDisplayPageTwo] = useState(false);
               }}
               className="btn btn-outline-dark col-sm-4 col-lg-3 me-2"
             >
-              הוסף משימה
+              הוסף משימה     
             </button>
           </div>
         </div>
@@ -196,6 +204,9 @@ let [displayPageTwo, setDisplayPageTwo] = useState(false);
               </label>
               <select  ref={responsibility} className="form-select bg-light">
                 <option >בחר</option>
+                {usersNames.map((user)=>(
+                  <option>{user}</option>
+                ))}
                 <option >תו"ל ותפיסות</option>
               </select>
             </li>
@@ -206,6 +217,7 @@ let [displayPageTwo, setDisplayPageTwo] = useState(false);
                 >
                   *
                 </span></label>
+                
               <select  ref={domain} className="form-select bg-light">
                 <option >בחר</option>
                 <option >תו"ל ותפיסות</option>
