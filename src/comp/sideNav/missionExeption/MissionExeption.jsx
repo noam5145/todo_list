@@ -11,7 +11,7 @@ const MissionExeption = React.forwardRef((props, ref) => {
   const [opemId, setOpemId] = useState(false);
   const { missions } = useContext(MyContext);
   const [exceptionMission, setExceptionMission] = useState(missions);
-  const temp = useRef();
+  const componentToPrint = useRef();
 
   console.log(missions);
 
@@ -35,14 +35,14 @@ const MissionExeption = React.forwardRef((props, ref) => {
     return diffDays;
   }
   const handlePrintEx = useReactToPrint({
-    content: () => temp.current,
+    content: () => componentToPrint.current,
   });
 
   return (
     <>
      
 
-      <div ref={temp} className="container-fluid mt-2 mb-2">
+      <div ref={componentToPrint} className="container-fluid mt-2 mb-2">
           <div style={{ width: "90vw"}}>
         
         <div className="btn  justify-content-end d-flex mt-2  text-light ">
