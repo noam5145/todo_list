@@ -27,12 +27,14 @@ export default function AddMissions() {
   const [usersNames, setNames] = useState([]);
 
   useEffect(()=>{
-    let arr = [];
-    users.map((e, i)=>{
-      arr[i] = users[i].username;
-    })
-    setNames(arr)
-  }, [])
+    if(users[0]){
+      let arr = [];
+      users.map((e, i)=>{
+        arr[i] = users[i].username;
+      })
+      setNames(arr);
+    }
+  }, [users])
 
   let errorNote = (
     <h5 className="text-danger pb-3 pt-3 font-weight-bold">
