@@ -91,7 +91,7 @@ export default function App() {
     if(res.data.err){
       console.log(res.data.err);
     }
-    console.log(res.data);
+    setMissions(missions.filter((mission)=> mission._id !== _id));
   }
 
   let flag = true;
@@ -113,6 +113,7 @@ export default function App() {
     missions,
     users,
     deleteUser,
+    deleteMission,
   }
 
 

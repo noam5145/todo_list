@@ -131,7 +131,7 @@ export default function TaskList() {
     console.log(allDataShow);
     // console.log(notFound);
     console.log(toPrintRef);
-  }, [allDataShow]);
+  }, [allDataShow])
 
   useEffect(() => {
     window.addEventListener("click", () => {
