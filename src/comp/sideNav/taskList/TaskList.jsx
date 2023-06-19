@@ -20,7 +20,7 @@ import { useReactToPrint } from "react-to-print";
 
 export default function TaskList() {
 
-  const { missions } = useContext(MyContext)
+  const { missions, deleteMission, currentUser } = useContext(MyContext)
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
@@ -264,7 +264,7 @@ export default function TaskList() {
                         }}>
                         <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
                         <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
-                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
+                        <MenuItem onClick={()=>{closeSettings(); deleteMission(item._id, currentUser.token)}}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
                       </Menu>
                     </div>
                   </div>
