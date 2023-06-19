@@ -253,7 +253,6 @@ export default function TaskList() {
                         open={openSettings}
                         PaperProps={{
                           style: {
-                            boxShadow: 'none',
                             boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
                           },
                         }}
