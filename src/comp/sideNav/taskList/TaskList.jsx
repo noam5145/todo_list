@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import "./taskList.css";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -16,6 +16,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useReactToPrint } from "react-to-print";
 
 export default function TaskList() {
 
@@ -23,6 +24,7 @@ export default function TaskList() {
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
+  const [getIForChat, setgetIForChat] = useState();
   const [table, setTable] = useState({
     missionId: true,
     starteAt: true,
@@ -33,9 +35,9 @@ export default function TaskList() {
     daysLeft: true,
     status: true,
   });
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openSettings = Boolean(anchorEl);
+  const toPrintRef = useRef()
 
   const OpenSettings = (event) => {
     setAnchorEl(event.currentTarget);
@@ -54,7 +56,7 @@ export default function TaskList() {
 
   useEffect(() => {
     let newMissions = [...missions];
-    setAllDataShow(newMissions)
+    setAllDataShow(newMissions);
   }, [missions])
 
   const SortNumberByHighAndLow = (field) => {
@@ -123,9 +125,14 @@ export default function TaskList() {
     setAllDataShow(newFilter);
   };
 
+  const handlePrint = useReactToPrint({
+    content: () => toPrintRef.current,
+  });
+
   useEffect(() => {
-    // console.log(allDataShow);
+    console.log(allDataShow);
     // console.log(notFound);
+    console.log(toPrintRef);
   }, [allDataShow])
 
   useEffect(() => {
@@ -148,7 +155,7 @@ export default function TaskList() {
         <div className="d-flex justify-content-between mx-5">
           <h4 className="">מאגר משימות</h4>
           <span className="">
-            <button className="btn bg-secondary text-light" style={{ width: "100px" }}><samp>PDF</samp></button>
+            <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => handlePrint()}><samp>PDF</samp></button>
             <button className="btn bg-secondary mx-3 text-light" onClick={openDialog}> הוסף משימה +</button>
             <div className="row">
               <Dialog
@@ -159,7 +166,7 @@ export default function TaskList() {
               </Dialog></div>
           </span>
         </div>
-        <div className="container all_table mt-3">
+        <div className="container all_table mt-3 Ex">
           <span className="sticky-top">
             <div className=" d-flex justify-content-center">
               <div className="col-1 top_table text-center">
@@ -203,7 +210,7 @@ export default function TaskList() {
               <input className="col-1 the_table_search bg-light p-1" placeholder=" הכנס תאריך..." id="endedAt" type="date" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
               <input className="col-1 the_table_search bg-light p-1" placeholder=" הכנס מספר..." id="daysLeft" type="number" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
               <div className="col-1 the_table_search bg-light" style={{ border: "none" }}>
-                <select className="form-select" onChange={(e) => SortByContentSelect(e.target.value, e.currentTarget.id)}>
+                <select className="form-select" style={{ cursor: "pointer" }} onChange={(e) => SortByContentSelect(e.target.value, e.currentTarget.id)}>
                   <option value="בוצע">בוצע</option>
                   <option value="חריגה">חריגה</option>
                   <option value="בתהליך">בתהליך</option>
@@ -232,7 +239,12 @@ export default function TaskList() {
                 <div className="col-1 the_table text-center">{item.endedAt}</div>
                 <div className="col-1 the_table text-center">{item.daysLeft}</div>
                 <div className="col-1 the_table text-center">
-                  <div className="mx-1"><Brightness1Icon color="success" /></div>
+                  <div className="mx-1"><Brightness1Icon
+                    color={item.status == "בתהליך" ? "warning"
+                      : item.status == "בחריגה" ? "error"
+                        : item.status == "בוצע" ? "success"
+                          : item.status == "ממתין לאישור" ? "info" : "dark"} />
+                  </div>
                   <div className="">{item.status}</div>
                 </div>
                 <div className="col-1 the_table text-center">
@@ -242,11 +254,11 @@ export default function TaskList() {
                         <Badge badgeContent={2} color="primary">
                           < ChatIcon color="action" />
                         </Badge></div>
-                      <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation();}}>
+                      <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
                         <MoreVertIcon
-                        id="demo-positioned-button"
-                        onClick={OpenSettings}
-                      /></div>
+                          id="demo-positioned-button"
+                          onClick={OpenSettings}
+                        /></div>
                       <Menu
                         id="demo-positioned-menu"
                         anchorEl={anchorEl}
@@ -255,14 +267,11 @@ export default function TaskList() {
                           style: {
                             boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
                           },
-                        }}
-                      >
-                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3"/>ערוך משימה</div></MenuItem>
+                        }}>
+                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
                         <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
                         <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
                       </Menu>
-                    </div>
-                    <div className="row div_send_icon mx-1">
                     </div>
                   </div>
                 </div>
@@ -272,7 +281,23 @@ export default function TaskList() {
               <div className="fs-5"><ReportGmailerrorredIcon /></div>
               <h3 className="mx-1">התוכן לא נמצא</h3>
             </div>}
+
+          {allDataShow?.map((item, i) => (
+            <div key={i} ref={toPrintRef} className="d-flex d-none justify-content-start mt-2" dir="rtl">
+              <ul className="col-7 list-unstyled">
+                <h3 className="">{item?.title}</h3>
+                <li className="d-flex"><samp className="h5"> מזהה: </samp><b>{item?.missionId}</b> </li>
+                <li><samp className="h5"> תאריך התחלת משימה: </samp><b>{item?.endedAt}</b></li>
+                <li><samp className="h5"> תאריך סיום משימה: </samp><b>{item?.startedAt}</b></li>
+                <li><samp className="h5"> ימים שנותרו למשימה: </samp><b>{item?.daysLeft}</b></li>
+                <li><samp className="h5"> אחריות המשימה: </samp><b>{item?.responsibility}</b></li>
+                <li><samp className="h5"> פרטי משימה: </samp><div><b>{item?.details}</b></div></li>
+                <li><samp className="h5"> סטאטוס משימה: </samp><b>{item?.status}</b></li>
+              </ul>
+            </div>
+          ))}
         </div>
+        <div className="mx-5">סה"כ משימות: {allDataShow.length}</div>
         {chatOpen && <div onClick={(e) => {
           e.stopPropagation()
         }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} /></div>}

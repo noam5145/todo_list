@@ -24,6 +24,7 @@ export default function AddMissions() {
   let fileMission = useRef();
   const { currentUser, newMission, missions, users } = useContext(MyContext);
   const [usersNames, setNames] = useState([]);
+  const [userSelect, setUserSelected] = useState();
 
   useEffect(()=>{
     if(users[0]){
@@ -33,7 +34,12 @@ export default function AddMissions() {
       })
       setNames(arr);
     }
-  }, [users])
+  }, [users]);
+
+  const setUserSelect = (username)=>{
+    let user = users.find((e)=> e.username === username);
+    setUserSelected(user.token);
+  }
 
   let errorNote = (
     <h5 className="text-danger pb-3 pt-3 font-weight-bold">
@@ -49,12 +55,12 @@ export default function AddMissions() {
     
     let max = 0;
     missions.map((mission, i)=>{
-      if(mission.missionId > max){
-        max = mission.missionId;
+      if(Number(mission.missionId) > max){
+        max = Number(mission.missionId);
       }
     })
     let newTask = {
-      missionId: max + 1, 
+      missionId: String(max + 1), 
       status: "בתהליך",
       title: meetingTitle.current.value,
       startedAt: meetingDate.current.value,
@@ -63,8 +69,8 @@ export default function AddMissions() {
       endedAt: executionCompletionDate.current.value,
       daysLeft: diffDays,
       noteCommander: noteCommander.current.value,
-      fileMission: fileMission.current.files[0],
-      token: currentUser?.token,
+      // fileMission: fileMission.current.files[0],
+      token: userSelect,
     };
     if (
       newTask.title != "" &&
@@ -206,10 +212,10 @@ export default function AddMissions() {
                   *
                 </span>
               </label>
-              <select  ref={responsibility} className="form-select bg-light">
+              <select onChange={(e)=> setUserSelect(e.target.value)} ref={responsibility} className="form-select bg-light">
                 <option >בחר</option>
                 {usersNames.map((user)=>(
-                  <option>{user}</option>
+                  <option >{user}</option>
                 ))}
               </select>
             </li>
