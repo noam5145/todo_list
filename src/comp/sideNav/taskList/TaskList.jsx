@@ -130,12 +130,6 @@ export default function TaskList() {
   });
 
   useEffect(() => {
-    console.log(allDataShow);
-    // console.log(notFound);
-    console.log(toPrintRef);
-  }, [allDataShow])
-
-  useEffect(() => {
     window.addEventListener("click", () => {
       setChatOpen(false)
       closeSettings()
