@@ -7,12 +7,9 @@ import "./userTasks.css"
 export default function UserTasks() {
 
   const {missions, users, currentUser} = useContext(MyContext);
-  console.log(currentUser);
-  console.log(missions);
-
   const findMissionsByUser = ()=>{
     (users.map((user, index)=>{
-      if(currentUser.token === user.token){
+      if(currentUser.token != user.token){
         return(
           <div>
           12345678
@@ -24,7 +21,7 @@ export default function UserTasks() {
   }
   return (
     <div>{users.map((user, index)=>{
-      if(currentUser.token == user.token){
+      if(currentUser.token != user.token){
         return(
           <div>
           12345678
