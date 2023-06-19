@@ -20,7 +20,7 @@ import { useReactToPrint } from "react-to-print";
 
 export default function TaskList() {
 
-  const { missions, deleteMission } = useContext(MyContext)
+  const { missions, deleteMission, currentUser } = useContext(MyContext)
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
@@ -152,16 +152,6 @@ export default function TaskList() {
 
     console.log("confrirmed");
   }
-  
-  
-  
-
-  useEffect(() => {
-    // console.log(allDataShow);
-    // console.log(notFound);
-    // console.log(toPrintRef);
-  }, [allDataShow])
-
   useEffect(() => {
     window.addEventListener("click", () => {
       setChatOpen(false)
@@ -295,9 +285,9 @@ export default function TaskList() {
                             boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
                           },
                         }}>
-                        <MenuItem onClick={editMissions}><div className="d-flex justify-content-center" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
-                        <MenuItem onClick={confirmedMissions}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-2 icon_send" /></div>שלח לאישור משימה</MenuItem>
-                        <MenuItem onClick={() => delMissions(item._id,item.token)}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
+                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
+                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
+                        <MenuItem onClick={()=>{closeSettings(); deleteMission(item._id, currentUser.token)}}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
                       </Menu>
                     </div>
                   </div>

@@ -12,7 +12,6 @@ export default function AddMissions() {
   let [displayErrorMeetingDate, setdisplayErrorMeetingDate] = useState(false);
   let [displayErrorResponsibility, setDisplayErrorResponsibility] = useState(false);
   let [displayErrorExecutionCompletionDate, setDisplayErrorExecutionCompletionDate] = useState(false);
-  let [displayErrorDomin, setDisplayErrorDomin] = useState(false);
   let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
   let [displaySuccess, setDisplaySuccess] = useState(false);
   let meetingTitle = useRef();
@@ -44,14 +43,14 @@ export default function AddMissions() {
 
   let errorNote = (
     <h5 className="text-danger pb-3 pt-3 font-weight-bold">
-      מלאו את כל הפרטים המסומנים ב *
+      ודא שהפרטים שהזנת נכונים
     </h5>
   );
 
   let sendigTask = () => {
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
-    const diffTime = Math.abs(date2 - date1);
+    const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     
     let max = 0;
@@ -79,7 +78,8 @@ export default function AddMissions() {
       newTask.details != "" &&
       newTask.responsibility != "בחר" &&
       newTask.endedAt != "" &&
-      newTask.domain != "בחר"
+      newTask.daysLeft >= 0
+      
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
@@ -93,13 +93,15 @@ export default function AddMissions() {
       }if(newTask.details == ""){
         setDisplayErrorTaskDetails(true)
       }if(newTask.responsibility == "בחר" ){
-        setDisplayErrorResponsibility
+        setDisplayErrorResponsibility(true)
       }
       if(newTask.endedAt == ""){
         setDisplayErrorExecutionCompletionDate(true)
       }
-      if(newTask.domain == "בחר"){
-        setDisplayErrorDomin(true)
+      if(newTask.daysLeft <0){
+        setDisplayErrorExecutionCompletionDate(true)
+        setdisplayErrorMeetingDate(true)
+
       }
       setDisplayErrorNote(true);
     }
@@ -111,16 +113,16 @@ export default function AddMissions() {
         className={displaySuccess ? "container d-block" : "container d-none"}
       >
         <div className="row d-flex justify-content-around">
-          <h2 className="text-center">המשימה נשלחה בהצלחה!</h2>
-          <div className="d-flex row justify-content-around col-sm-10 col-lg-4 pt-5 pb-5">
-            <Link className=" col-lg-3 col-sm-4 ms-2" to={"/dashboard"}>
-              <button className="btn btn-outline-info">דשבורד משימות</button>
+          <h2 className="text-center mb-5">המשימה נשלחה בהצלחה!</h2>
+          <div className="d-flex row justify-content-between col-10">
+            <Link className=" col-5" to={"/taskList"}>
+              <button className="btn btn-outline-info ps-5 pe-5">מאגר משימות</button>
             </Link>
             <button
               onClick={() => {
                 setDisplaySuccess(false);
               }}
-              className="btn btn-outline-dark col-sm-4 col-lg-3 me-2"
+              className="btn btn-outline-dark col-5"
             >
               הוסף משימה     
             </button>
@@ -215,28 +217,10 @@ export default function AddMissions() {
                 {usersNames.map((user)=>(
                   <option >{user}</option>
                 ))}
-                <option >תו"ל ותפיסות</option>
               </select>
             </li>
             
-            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
-              <label htmlFor="domain">תחום  <span
-                  className={displayErrorDomin ? "text-danger" : "text-dark"}
-                >
-                  *
-                </span></label>
-                
-              <select  ref={domain} className="form-select bg-light">
-                <option >בחר</option>
-                <option >תו"ל ותפיסות</option>
-                <option >הכשרות ואימונים</option>
-                <option >אנשים</option>
-                <option >ארגון</option>
-                <option >אמל"ח</option>
-                <option >לו"ז</option>
-                <option >מבצעי</option>
-              </select>
-            </li>
+
             <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
               <label htmlFor="noteCommander">הערות מפקד</label>
               <textarea
