@@ -3,7 +3,7 @@ import MainSite from "./comp/MainSite";
 import axios from 'axios';
 import AppRoutes from "./routes/AppRoutes";
 const base_url = 'https://server-todolist-xr2q.onrender.com/';
-import Login from "./comp/Login";
+// import Login from "./comp/Login";
 
 export const MyContext = createContext();
 
@@ -46,8 +46,7 @@ export default function App() {
     localStorage.setItem('token', res.data.token);
     getAllMissions(res.data.token);
     getAllUsers(res.data);
-    deleteUser(8624034, res.data.token);
-  }
+   }
 
   const getAllUsers = async (user)=>{
     let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
@@ -57,14 +56,13 @@ export default function App() {
     setUsers(res.data);
   }
  
-  // const updateUser = async (user)=>{
-  //   let res = await axios.put(base_url + 'user/updateUser');
-  //   if(res.data.err){
-  //     return res.data.err;
-  //   }
-  //   console.log(res.data)
-  //   // setUsers(res.data);
-  // }
+  const updateUser = async (user)=>{
+    let res = await axios.put(base_url + 'user/updateUser');
+    if(res.data.err){
+      return res.data.err;
+    }
+    getAllUsers(currentUser);
+  }
 
   const updatePost = async (post)=>{
     let res = await axios.put(base_url + 'user/updateUser', post);
@@ -72,18 +70,28 @@ export default function App() {
       return res.data.err;
     }
     console.log(res.data);
-    // setUsers(res.data);
   }
 
-  const deleteUser = async (userId, adminToken) =>{
+  const deleteUser = async (_id, adminToken) =>{
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
-      id: userId,
+      _id: _id,
       adminToken: adminToken,
     }});
     if(res.data.err){
       return res.data.err;
     }
-    setUsers(users.filter((user)=> user.id !== userId));
+    setUsers(users.filter((user)=> user._id !== _id));
+  }
+
+  const deleteMission = async (_id, adminToken) =>{
+    let res = await axios.delete(base_url + 'mission/deleteMission', {params: {
+      _id: _id,
+      adminToken: adminToken,
+    }});
+    if(res.data.err){
+      console.log(res.data.err);
+    }
+    console.log(res.data);
   }
 
   let flag = true;
@@ -96,7 +104,6 @@ export default function App() {
       flag=false
     }
   },[])
-
 
   let val = {
     currentUser,
@@ -113,8 +120,6 @@ export default function App() {
   return (
     <div>
       <MyContext.Provider value={val} >
-        {!currentUser ? <Login/> : ''}
-         {currentUser?.username} 
         <AppRoutes />
       </MyContext.Provider>
     </div>

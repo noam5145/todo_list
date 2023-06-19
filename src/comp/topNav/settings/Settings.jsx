@@ -206,7 +206,8 @@ const usersTable = () => {
       <div className="mt-5 mb-5">
         <div className="d-flex justify-content-center ">
           <div className="row container">
-            <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">
+           <div className="d-flex">
+           <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">
               שם משתמש
             </div>
             <div className="col-2 borTitle d-flex justify-content-center align-items-center border table_h">
@@ -227,6 +228,7 @@ const usersTable = () => {
             <div className="col-1 borTitle d-flex justify-content-center align-items-center border table_h">
               ---
             </div>
+           </div>
           </div>
         </div>
        {usersTable()}

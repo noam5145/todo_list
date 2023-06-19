@@ -55,7 +55,7 @@ export default function TaskList() {
 
   useEffect(() => {
     let newMissions = [...missions];
-    setAllDataShow(newMissions)
+    setAllDataShow(newMissions);
   }, [missions])
 
   const SortNumberByHighAndLow = (field) => {
