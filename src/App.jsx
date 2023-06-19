@@ -73,15 +73,26 @@ export default function App() {
     // setUsers(res.data);
   }
 
-  const deleteUser = async (userId, adminToken) =>{
+  const deleteUser = async (_id, adminToken) =>{
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
-      id: userId,
+      _id: _id,
       adminToken: adminToken,
     }});
     if(res.data.err){
       return res.data.err;
     }
-    setUsers(users.filter((user)=> user.id !== userId));
+    setUsers(users.filter((user)=> user._id !== _id));
+  }
+
+  const deleteMission = async (_id, adminToken) =>{
+    let res = await axios.delete(base_url + 'mission/deleteMission', {params: {
+      _id: _id,
+      adminToken: adminToken,
+    }});
+    if(res.data.err){
+      console.log(res.data.err);
+    }
+    console.log(res.data);
   }
 
   let flag = true;
