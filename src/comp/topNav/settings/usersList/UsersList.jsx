@@ -1,17 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./usersList.css";
 import {AiOutlineDelete} from "react-icons/ai"
 import { MyContext } from "../../../../App";
 
 export default function UsersList({users}) {
-  // const { users } = useContext(MyContext);
+  const { deleteUser} = useContext(MyContext);
+  const token = localStorage.getItem("token");
+
+  const [per, setPer] = useState(false);
+
+
+
+const delete_user = (_id, token)=>{
+
+
+deleteUser(_id, token);
+}
 
   return (
     <div className="d-flex justify-content-center">
       <div className="row container">
         {users.map((user, i) => (
-          <>
-           <div className="col-2 border d-flex justify-content-center text-center table_h">
+          <div className="d-flex" key={i}>
+           <div  className="col-2 border d-flex justify-content-center text-center table_h">
               {user.username}
             </div>
             <div className="col-2 border d-flex justify-content-center text-center table_h">
@@ -29,11 +40,15 @@ export default function UsersList({users}) {
             <div className="col-1 border d-flex justify-content-center text-center table_h">
               {user.access}
             </div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">
-              <AiOutlineDelete size={20}/>
+            <div className="col-1 border d-flex justify-content-center text-center table_h"
+              onClick={()=> delete_user(user._id,token)}
+            >
+              <AiOutlineDelete className="cursor" size={20} 
+            
+              />
             </div>
            
-          </>
+          </div>
         ))}
       </div>
     </div>
