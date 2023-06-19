@@ -57,10 +57,7 @@
       background-color: rgb(255, 228,196 ,0.908);
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
     } 
-    .the_table-Ex:hover{
-      /* background-color: rgb(255, 228,196 ,0.4); */
-      transform: scale(1.03);
-    }
+    
     
     .p_taskdetail-Ex{
       height: 90px;
