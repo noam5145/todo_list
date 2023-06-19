@@ -7,9 +7,6 @@ import "./userTasks.css"
 export default function UserTasks() {
 
   const {missions, users, currentUser} = useContext(MyContext);
-  console.log(currentUser);
-  console.log(missions);
-
   const findMissionsByUser = ()=>{
     (users.map((user, index)=>{
       if(currentUser.token != user.token){

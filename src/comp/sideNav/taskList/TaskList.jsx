@@ -24,6 +24,7 @@ export default function TaskList() {
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
+  const [getIForChat, setgetIForChat] = useState();
   const [table, setTable] = useState({
     missionId: true,
     starteAt: true,
@@ -165,8 +166,8 @@ export default function TaskList() {
               </Dialog></div>
           </span>
         </div>
-        <div ref={toPrintRef} className="container all_table mt-3 Ex">
-          {/* <span className="sticky-top">
+        <div className="container all_table mt-3 Ex">
+          <span className="sticky-top">
             <div className=" d-flex justify-content-center">
               <div className="col-1 top_table text-center">
                 מזהה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="missionId" onClick={(e) => SortNumberByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
@@ -209,7 +210,7 @@ export default function TaskList() {
               <input className="col-1 the_table_search bg-light p-1" placeholder=" הכנס תאריך..." id="endedAt" type="date" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
               <input className="col-1 the_table_search bg-light p-1" placeholder=" הכנס מספר..." id="daysLeft" type="number" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
               <div className="col-1 the_table_search bg-light" style={{ border: "none" }}>
-                <select className="form-select" style={{cursor:"pointer"}} onChange={(e) => SortByContentSelect(e.target.value, e.currentTarget.id)}>
+                <select className="form-select" style={{ cursor: "pointer" }} onChange={(e) => SortByContentSelect(e.target.value, e.currentTarget.id)}>
                   <option value="בוצע">בוצע</option>
                   <option value="חריגה">חריגה</option>
                   <option value="בתהליך">בתהליך</option>
@@ -239,11 +240,11 @@ export default function TaskList() {
                 <div className="col-1 the_table text-center">{item.daysLeft}</div>
                 <div className="col-1 the_table text-center">
                   <div className="mx-1"><Brightness1Icon
-                   color={ item.status == "בתהליך" ? "warning"
-                   :item.status =="בחריגה" ? "error"
-                   :item.status == "בוצע" ? "success"
-                   :item.status == "ממתין לאישור" ? "info" :"dark"} />
-                   </div>
+                    color={item.status == "בתהליך" ? "warning"
+                      : item.status == "בחריגה" ? "error"
+                        : item.status == "בוצע" ? "success"
+                          : item.status == "ממתין לאישור" ? "info" : "dark"} />
+                  </div>
                   <div className="">{item.status}</div>
                 </div>
                 <div className="col-1 the_table text-center">
@@ -253,11 +254,11 @@ export default function TaskList() {
                         <Badge badgeContent={2} color="primary">
                           < ChatIcon color="action" />
                         </Badge></div>
-                      <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation();}}>
+                      <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
                         <MoreVertIcon
-                        id="demo-positioned-button"
-                        onClick={OpenSettings}
-                      /></div>
+                          id="demo-positioned-button"
+                          onClick={OpenSettings}
+                        /></div>
                       <Menu
                         id="demo-positioned-menu"
                         anchorEl={anchorEl}
@@ -265,8 +266,9 @@ export default function TaskList() {
                         PaperProps={{
                           style: {
                             boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
-                          },}}>
-                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3"/>ערוך משימה</div></MenuItem>
+                          },
+                        }}>
+                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
                         <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
                         <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
                       </Menu>
@@ -278,12 +280,11 @@ export default function TaskList() {
             : <div className="container d-flex justify-content-center mt-5">
               <div className="fs-5"><ReportGmailerrorredIcon /></div>
               <h3 className="mx-1">התוכן לא נמצא</h3>
-            </div>} */}
-
+            </div>}
 
           {allDataShow?.map((item, i) => (
-            <div key={i} className="d-flex justify-content-center mt-2">
-              <ul className="col-7">
+            <div key={i} ref={toPrintRef} className="d-flex d-none justify-content-start mt-2" dir="rtl">
+              <ul className="col-7 list-unstyled">
                 <h3 className="">{item?.title}</h3>
                 <li className="d-flex"><samp className="h5"> מזהה: </samp><b>{item?.missionId}</b> </li>
                 <li><samp className="h5"> תאריך התחלת משימה: </samp><b>{item?.endedAt}</b></li>
@@ -296,6 +297,7 @@ export default function TaskList() {
             </div>
           ))}
         </div>
+        <div className="mx-5">סה"כ משימות: {allDataShow.length}</div>
         {chatOpen && <div onClick={(e) => {
           e.stopPropagation()
         }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} /></div>}
