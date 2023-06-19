@@ -50,13 +50,12 @@ export default function AddMissions() {
     
     let max = 0;
     missions.map((mission, i)=>{
-      console.log(mission.missionId);
       if(Number(mission.missionId) > max){
-        max = mission.missionId;
+        max = Number(mission.missionId);
       }
     })
     let newTask = {
-      missionId: max + 1, 
+      missionId: String(max + 1), 
       status: "בתהליך",
       title: meetingTitle.current.value,
       startedAt: meetingDate.current.value,
