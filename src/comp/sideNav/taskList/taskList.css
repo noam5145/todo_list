@@ -118,3 +118,10 @@
     justify-content: center;
     /* background-color: blue; */
 }
+@media print {
+    .Ex {
+      overflow: visible !important;
+      /* height: auto !important; */
+      width: 100vw !important;
+    }
+}
