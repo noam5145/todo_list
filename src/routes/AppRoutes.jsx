@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import App from "../App";
-import User from '../comp/topNav/user/User'
+import UserTasks from '../comp/topNav/userTasks/UserTasks'
 import NotFound from "../NotFound";
 import AddMissions from "../comp/sideNav/addMissions/AddMissions";
 import Dashboard from "../comp/sideNav/dashboard/Dashboard";
@@ -37,7 +37,7 @@ export default function AppRoutes() {
         <Route path="/printFile" element={<PrintFile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/chat" element={<TheChat />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/UserTasks" element={<UserTasks />} />
       </Routes>
       </div></div>
     </>

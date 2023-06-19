@@ -3,7 +3,7 @@ import MainSite from "./comp/MainSite";
 import axios from 'axios';
 import AppRoutes from "./routes/AppRoutes";
 const base_url = 'https://server-todolist-xr2q.onrender.com/';
-import Login from "./comp/Login";
+// import Login from "./comp/Login";
 
 export const MyContext = createContext();
 
@@ -46,7 +46,7 @@ export default function App() {
     localStorage.setItem('token', res.data.token);
     getAllMissions(res.data.token);
     getAllUsers(res.data);
-    deleteUser(8624034, res.data.token);
+    // deleteUser(8624034, res.data.token);
   }
 
   const getAllUsers = async (user)=>{
@@ -86,6 +86,27 @@ export default function App() {
     setUsers(users.filter((user)=> user.id !== userId));
   }
 
+  // let deleteUser = async (userId, adminToken) => {
+  //   console.log(userId);
+  //   try {
+  //     console.log(adminToken);
+  //     await axios.delete(base_url + 'user/deleteUser', {
+  //       params: {
+  //         id: userId,
+  //         adminToken: adminToken,
+  //       },
+  //     });
+     
+  //     // if (res.data.err) {
+  //     //   return res.data.err;
+  //     // }
+  //     setUsers(users.filter((user) => user.id !== userId));
+  //   } catch (error) {
+  //     // Handle the error appropriately
+  //     console.error('Error deleting user:', error);
+  //   }
+  // };
+
   let flag = true;
   useEffect(()=>{
     if(flag){
@@ -113,8 +134,6 @@ export default function App() {
   return (
     <div>
       <MyContext.Provider value={val} >
-        {!currentUser ? <Login/> : ''}
-         {currentUser?.username} 
         <AppRoutes />
       </MyContext.Provider>
     </div>
