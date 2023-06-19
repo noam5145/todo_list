@@ -1,0 +1,222 @@
+
+
+::-webkit-scrollbar-Ex {
+    width: 10px;
+    height: 10px;
+    }
+    
+    ::-webkit-scrollbar-track-Ex {
+      background: #0638ed ; 
+      box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.5); 
+      border-radius: 10px;
+    }
+     
+    ::-webkit-scrollbar-thumb-Ex {
+      background: #051ce8; 
+      border-radius: 10px;
+    
+    }
+    
+    ::-webkit-scrollbar-thumb-Ex:hover {
+      background: #08ec32; 
+    }
+    .all_table-Ex{
+      height: 75vh;
+      overflow: auto;
+      padding-left: 3px;
+   
+    }
+    .top_table-Ex{
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0.5px solid rgba(0, 0, 0, 0.1);
+      background-color: rgb(245, 7, 7);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
+      font-weight: bold;
+    }
+    .the_table_search-Ex{
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0.5px solid rgba(0, 0, 0, 0.1);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
+      font-weight: bolder;
+      font-size: small;
+    
+    
+    }
+    .the_table-Ex{
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0.5px solid  rgba(245, 7, 7,0.3);
+      background-color: rgb(255, 228,196 ,0.908);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
+    } 
+    .the_table-Ex:hover{
+      /* background-color: rgb(255, 228,196 ,0.4); */
+      transform: scale(1.03);
+    }
+    
+    .p_taskdetail-Ex{
+      height: 90px;
+      margin: 0;
+      overflow-y: auto;
+      font-size: large;
+    }
+    .cursor-ex{
+      cursor: pointer;
+    }
+    .cursor-ex:active {
+      transform: scale(1.10);
+    }
+    .t_l_search_screen-Ex{
+      height: 70px;
+      width: 500px;
+      background-color: rgb(250, 69, 9);
+      position: absolute;
+      top:70px;
+      right: 60px;
+      z-index: 1000;
+      border: 1px solid rgba(128, 128, 128, 0.5);
+      border-radius: 5px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    }
+    .t_l_search_input-Ex{
+      height: 35px;
+      border-radius: 5px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      font-weight: bolder;
+      background-color: rgba(248, 69, 5, 0.608);
+      font-size: large;
+      border: none;
+    }
+    .exp-title-ex{
+      color: red;
+      font-weight: bolder;
+      font-size: 50px;
+    }
+    .exp-title-ex-div{
+      height: 9vh;
+      width: 90vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    
+    
+    @media print {
+      .table-container-Ex {
+        overflow: visible !important;
+        height: auto !important;
+        width: 100vw !important;
+      }
+      .the_table-Ex{
+  
+       height: auto;
+      }
+      .p_taskdetail-Ex{
+       height: auto;
+      
+      }
+  
+    }
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /* 
+    
+    
+    
+    
+    
+    .euSBsj div:first-child {
+        height: 50px;
+        padding-top: 13px;
+        
+        
+      }
+      .ikexHN{
+         border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+      }
+      .cygFkb{
+        border-left: none !important;
+      }
+      
+       .euSBsj{
+        border-left: 1px solid black;
+        
+      } 
+      .jbGVAn{
+        justify-content: center !important;
+      }
+      
+      
+      .gocYik{   
+         font-weight: bold; 
+    
+        word-wrap: break-word;
+      }
+      
+      
+      .kqWIVd{
+        justify-content: flex-start !important
+      }
+      
+    
+      .brFloq{
+        white-space: pre-wrap !important;
+        overflow: visible !important;
+        
+      }
+      .gocYik{
+        background-color: red !important;
+        color: aliceblue;
+      
+      }
+      
+      .bSqufN{
+        overflow: hidden !important; 
+      } 
+     
+      
+      
+      .search-input-table{
+        border-radius: 10px;
+        margin: 10px;
+        width: 250px;
+      }
+      @media only screen and (max-width: 768px) {
+    
+        .bSqufN{
+          overflow: visible !important;
+    
+        }
+      }
+      .exception-title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        color: red;
+      } */
