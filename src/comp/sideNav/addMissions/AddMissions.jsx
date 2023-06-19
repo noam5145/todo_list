@@ -14,7 +14,7 @@ export default function AddMissions() {
   let [displayErrorExecutionCompletionDate, setDisplayErrorExecutionCompletionDate] = useState(false);
   let [displayErrorDomin, setDisplayErrorDomin] = useState(false);
   let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
-  let [displaySuccess, setDisplaySuccess] = useState(false);
+  let [displaySuccess, setDisplaySuccess] = useState(true);
   let meetingTitle = useRef();
   let meetingDate = useRef();
   let taskDetails = useRef();
@@ -50,8 +50,8 @@ export default function AddMissions() {
     
     let max = 0;
     missions.map((mission, i)=>{
-      if(mission.missionsId > max){
-        max = mission.missionsId;
+      if(mission.missionId > max){
+        max = mission.missionId;
       }
     })
     let newTask = {
@@ -106,15 +106,15 @@ export default function AddMissions() {
       >
         <div className="row d-flex justify-content-around">
           <h2 className="text-center">המשימה נשלחה בהצלחה!</h2>
-          <div className="d-flex row justify-content-around col-sm-10 col-lg-4 pt-5 pb-5">
-            <Link className=" col-lg-3 col-sm-4 ms-2" to={"/dashboard"}>
-              <button className="btn btn-outline-info">דשבורד משימות</button>
+          <div className="d-flex row justify-content-between  col-lg-10 pt-5 pb-5">
+            <Link className=" col-lg-5  ms-4" to={"/dashboard"}>
+              <button className="btn btn-outline-info ">דשבורד משימות</button>
             </Link>
             <button
               onClick={() => {
                 setDisplaySuccess(false);
               }}
-              className="btn btn-outline-dark col-sm-4 col-lg-3 me-2"
+              className="btn btn-outline-dark  col-lg-5 me-4"
             >
               הוסף משימה     
             </button>
