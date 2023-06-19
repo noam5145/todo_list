@@ -1,7 +1,8 @@
 
 
 ::-webkit-scrollbar-Ex {
-    width: 100px;
+  width: 10px;
+  height: 10px;
   }
   
   ::-webkit-scrollbar-track-Ex {
@@ -20,10 +21,10 @@
     background: #08ec32; 
   }
   .all_table-Ex{
-    height: 90vh;
+    height: 75vh;
     overflow: auto;
     padding-left: 3px;
-    margin-right: 2px;
+ 
   }
   .top_table-Ex{
     height: 60px;
@@ -31,8 +32,9 @@
     justify-content: center;
     align-items: center;
     border: 0.5px solid rgba(0, 0, 0, 0.1);
-    background-color: rgb(248, 4, 4);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        font-weight: bold;
+    background-color: rgb(245, 7, 7);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
+    font-weight: bold;
   }
   .the_table_search-Ex{
     height: 45px;
@@ -40,7 +42,6 @@
     justify-content: center;
     align-items: center;
     border: 0.5px solid rgba(0, 0, 0, 0.1);
-    /* background-color: rgb(255, 228,196 ,0.608); */
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
     font-weight: bolder;
     font-size: small;
@@ -52,8 +53,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.5px solid rgba(0, 0, 0, 0.1);
-    background-color: rgba(245, 6, 6, 0.4);
+    border: 0.5px solid  rgba(245, 7, 7,0.3);
+    background-color: rgb(255, 228,196 ,0.908);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
   } 
   .the_table-Ex:hover{
@@ -67,10 +68,10 @@
     overflow-y: auto;
     font-size: large;
   }
-  .cursor{
+  .cursor-ex{
     cursor: pointer;
   }
-  .cursor:active {
+  .cursor-ex:active {
     transform: scale(1.10);
   }
   .t_l_search_screen-Ex{
@@ -94,11 +95,12 @@
     font-size: large;
     border: none;
   }
-  .exp-title{
+  .exp-title-ex{
     color: red;
-    font-weight: bold;
+    font-weight: bolder;
+    font-size: 50px;
   }
-  .exp-title-div{
+  .exp-title-ex-div{
     height: 9vh;
     width: 90vw;
     display: flex;
@@ -112,10 +114,20 @@
     .table-container-Ex {
       overflow: visible !important;
       height: auto !important;
+      width: 100vw !important;
     }
+    .the_table-Ex{
+
+     height: auto;
+    }
+    .p_taskdetail-Ex{
+     height: auto;
+    
+    }
+
   }
   
-  
+ 
   
   
   
