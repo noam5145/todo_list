@@ -73,7 +73,7 @@ export default function App() {
   }
 
   const deleteUser = async (_id, adminToken) =>{
-    let res = await axios.delete('http://localhost:5174/' + 'user/deleteUser', {params: {
+    let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
     }});
