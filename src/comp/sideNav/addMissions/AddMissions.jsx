@@ -5,7 +5,6 @@ import { MyContext } from "../../../App";
 import Select from "react-select";
 
 export default function AddMissions() {
-  
   let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
   let [displayErrorTaskDetails,setDisplayErrorTaskDetails]=useState(false)
@@ -13,7 +12,7 @@ export default function AddMissions() {
   let [displayErrorResponsibility, setDisplayErrorResponsibility] = useState(false);
   let [displayErrorExecutionCompletionDate, setDisplayErrorExecutionCompletionDate] = useState(false);
   let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
-  let [displaySuccess, setDisplaySuccess] = useState(false);
+  let [displaySecondTask, setDisplaySecondTask] = useState(false);
   let meetingTitle = useRef();
   let meetingDate = useRef();
   let taskDetails = useRef();
@@ -36,6 +35,18 @@ export default function AddMissions() {
     }
   }, [users]);
 
+  let newTask = ()=>{
+    setDisplaySecondTask(true)
+    sendigTask();
+    meetingTitle.current.value = "";
+    meetingDate.current.value = "";
+    taskDetails.current.value = "";
+    responsibility.current.value = "";
+    executionCompletionDate.current.value="";
+    noteCommander.current.value="";
+    fileMission.current.files[0]=""
+    
+  }
   const setUserSelect = (username)=>{
     let user = users.find((e)=> e.username === username);
     setUserSelected(user.token);
@@ -83,57 +94,45 @@ export default function AddMissions() {
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
-      setDisplaySuccess(true);
-      newMission(newTask);
+      if(displaySecondTask){
+        newMission(newTask);
+      }else{
+        newMission(newTask);
+      }
+
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
-      }if(newTask.startedAt == ""){
+      }else(setDisplayErrorMeetingTitle(false))
+      if(newTask.startedAt == ""){
         setdisplayErrorMeetingDate(true)
-      }if(newTask.details == ""){
+      }else(setdisplayErrorMeetingDate(false))
+      if(newTask.details == ""){
         setDisplayErrorTaskDetails(true)
-      }if(newTask.responsibility == "בחר" ){
+      }else(setDisplayErrorTaskDetails(false))
+      if(newTask.responsibility == "בחר" ){
         setDisplayErrorResponsibility(true)
-      }
+      }else(setDisplayErrorResponsibility(false))
       if(newTask.endedAt == ""){
         setDisplayErrorExecutionCompletionDate(true)
-      }
+      }else(setDisplayErrorExecutionCompletionDate(false))
       if(newTask.daysLeft <0){
         setDisplayErrorExecutionCompletionDate(true)
         setdisplayErrorMeetingDate(true)
-
-      }
+      }else(
+        setDisplayErrorExecutionCompletionDate(false),
+        setdisplayErrorMeetingDate(false))
       setDisplayErrorNote(true);
     }
   };
 
   return (
-    <div dir="rtl" className="container-fluid bg-light  d-flex h_page align-items-center">
+    <div dir="rtl" className="container-fluid bg-light mt-5 mb-5 d-flex align-items-center">
       <div
-        className={displaySuccess ? "container d-block" : "container d-none"}
-      >
-        <div className="row d-flex justify-content-around">
-          <h2 className="text-center mb-5">המשימה נשלחה בהצלחה!</h2>
-          <div className="d-flex row justify-content-between col-10">
-            <Link className=" col-5" to={"/taskList"}>
-              <button className="btn btn-outline-info ps-5 pe-5">מאגר משימות</button>
-            </Link>
-            <button
-              onClick={() => {
-                setDisplaySuccess(false);
-              }}
-              className="btn btn-outline-dark col-5"
-            >
-              הוסף משימה     
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        className={displaySuccess ? "container d-none" : "container d-block"}
-      >
-        <h2 className=" pb-5">הוספת משימות</h2>
-        <div className="bg-white pt-5 pb-5 ">
+        className="container">
+      
+        <h2 >הוספת משימות</h2>
+        <div className="bg-white mt-5 pt-5 pb-5 ">
           <ul className="d-flex row">
             
             <li className="col-lg-8 col-sm-6 list-unstyled ">
@@ -153,7 +152,7 @@ export default function AddMissions() {
                 className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}
               ></input>
             </li>
-            <li className="col-lg-4 col-sm-6 list-unstyled mb-lg-5 mb-sm-4">
+            <li className="col-lg-4 col-sm-6 list-unstyled mb-4 ">
               <label htmlFor="meetingDate">
                 מועד הפגישה{" "}
                 <span
@@ -168,9 +167,10 @@ export default function AddMissions() {
                 type="date"
                 placeholder="מועד הפגישה"
                 className="form-control bg-light"
+                
               ></input>
             </li>
-            <li className="col-lg-8 list-unstyled col-sm-12  mb-lg-5 mb-sm-4 ">
+            <li className="col-lg-8 list-unstyled col-sm-12  mb-lg-4 ">
               <label htmlFor="taskDetails">
                 פירוט המשימה{" "}
                 <span
@@ -186,7 +186,7 @@ export default function AddMissions() {
                 rows="1"
               ></textarea>
             </li>
-            <li className="col-lg-4 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
+            <li className="col-lg-4 list-unstyled col-sm-6  mb-lg-4">
               <label htmlFor="executionCompletionDate">
                 תאריך גמר ביצוע{" "}
                 <span
@@ -203,7 +203,7 @@ export default function AddMissions() {
               ></input>
             </li>
 
-            <li className="col-lg-6 list-unstyled col-sm-6  mb-lg-5 mb-sm-4">
+            <li className="col-lg-6 list-unstyled col-sm-6  mb-4">
               <label htmlFor="responsibility">
                 אחריות{" "}
                 <span
@@ -214,14 +214,14 @@ export default function AddMissions() {
               </label>
               <select onChange={(e)=> setUserSelect(e.target.value)} ref={responsibility} className="form-select bg-light">
                 <option >בחר</option>
-                {usersNames.map((user)=>(
-                  <option >{user}</option>
+                {usersNames.map((user,i)=>(
+                  <option key={i}>{user}</option>
                 ))}
               </select>
             </li>
             
 
-            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+            <li className="col-6 list-unstyled   mb-4">
               <label htmlFor="noteCommander">הערות מפקד</label>
               <textarea
                 ref={noteCommander}
@@ -230,17 +230,23 @@ export default function AddMissions() {
                 rows="1"
               ></textarea>
             </li>
-            <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-5 mb-sm-4">
+            <li className="col-6 list-unstyled mb-4">
               <label htmlFor="fileMission"></label>
               <input className="form-control" type="file" id="fileMission" ref={fileMission}></input>
             </li>
           </ul>
           
-          <div className="row me-5">
+          <div className="row  d-flex justify-content-around mt-5">
             {displayErrorNote ? errorNote : ""}
             <button
+              onClick={newTask}
+              className="btn btn-light  col-4  btn-outline-dark"
+            >
+              יצירת משימה חדשה
+            </button>
+            <button
               onClick={sendigTask}
-              className="btn btn-light col-lg-10 col-sm-2 col-4  btn-outline-dark"
+              className="btn btn-light  col-4  btn-outline-dark"
             >
               שמירה
             </button>
