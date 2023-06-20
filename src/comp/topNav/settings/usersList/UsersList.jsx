@@ -4,8 +4,7 @@ import {AiOutlineDelete} from "react-icons/ai"
 import { MyContext } from "../../../../App";
 
 export default function UsersList({users}) {
-  const { deleteUser} = useContext(MyContext);
-  const token = localStorage.getItem("token");
+  const { deleteUser, currentUser} = useContext(MyContext);
 
   const [per, setPer] = useState(false);
 
@@ -41,7 +40,7 @@ deleteUser(_id, token);
               {user.access}
             </div>
             <div className="col-1 border d-flex justify-content-center text-center table_h"
-              onClick={()=> delete_user(user._id,token)}
+              onClick={()=> delete_user(user._id,currentUser.token)}
             >
               <AiOutlineDelete className="cursor" size={20} 
             
