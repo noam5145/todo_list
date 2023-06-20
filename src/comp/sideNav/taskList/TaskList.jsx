@@ -68,6 +68,8 @@ export default function TaskList() {
         }
       });
       setAllDataShow(newMissions);
+    } else {
+      setAllDataShow([]);
     }
   }, [missions])
 
@@ -142,16 +144,27 @@ export default function TaskList() {
   });
   
   const editMissions = () => {
-    closeSettings()  // של איקונים menu  סוגר את 
-
     console.log("edit");
   }
 
   const confirmedMissions = () => {
-    closeSettings()  // של איקונים menu  סוגר את 
 
     console.log("confrirmed");
   }
+
+    const dalMissions = (_id,token) => {
+    let dal = window.confirm(" האם אתה בטוח רוצה למחוק משימה  ?");
+    if (dal) {
+      deleteMission(_id,token)
+      // let dalMissions = missions.filter((mission) => mission._id !== _id); 
+      // console.log(missions);
+      // setAllDataShow(delMissions);
+      alert("בסדר נמחק 😃 ")
+    }
+
+    console.log("dal");
+  }
+
   useEffect(() => {
     window.addEventListener("click", () => {
       setChatOpen(false)
@@ -271,7 +284,7 @@ export default function TaskList() {
                         <Badge badgeContent={2} color="primary">
                           < ChatIcon color="action" />
                         </Badge></div>
-                      <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
+                      <div className="cursor col-6 p-0" title="פתח הגדרות" onClick={(e) => { e.stopPropagation(); }}>
                         <MoreVertIcon
                           id="demo-positioned-button"
                           onClick={OpenSettings}
@@ -285,9 +298,9 @@ export default function TaskList() {
                             boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
                           },
                         }}>
-                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
-                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
-                        <MenuItem onClick={()=>{closeSettings(); deleteMission(item._id, currentUser.token)}}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
+                        <MenuItem onClick={()=>{closeSettings(); editMissions();}}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
+                        <MenuItem onClick={()=>{closeSettings();confirmedMissions()}}><div className="d-flex justify-content-center icon_send" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
+                        <MenuItem onClick={()=>{closeSettings(); dalMissions(item._id, currentUser.token)}}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
                       </Menu>
                     </div>
                   </div>
