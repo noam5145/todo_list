@@ -56,29 +56,29 @@ export default function App() {
     setUsers(res.data);
   }
  
-  const updateUser = async (user)=>{
-    let res = await axios.put(base_url + 'user/updateUser');
+  const updateUser = async (user, adminToken)=>{
+    let res = await axios.put(base_url + 'user/updateUser', {...user, adminToken: adminToken});
     if(res.data.err){
       return res.data.err;
     }
     getAllUsers(currentUser);
   }
 
-  const updatePost = async (post)=>{
-    let res = await axios.put(base_url + 'user/updateUser', post);
+  const updateMission = async (mission, adminToken)=>{
+    let res = await axios.put(base_url + 'post/updatePost', {...mission, adminToken: adminToken});
     if(res.data.err){
       return res.data.err;
     }
-    console.log(res.data);
+    getAllMissions(currentUser.token);
   }
 
   const deleteUser = async (_id, adminToken) =>{
-    let res = await axios.delete(base_url + 'user/deleteUser', {params: {
+    let res = await axios.delete('http://localhost:5174/' + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
     }});
     if(res.data.err){
-      return res.data.err;
+      return(res.data);
     }
     setUsers(users.filter((user)=> user._id !== _id));
   }
