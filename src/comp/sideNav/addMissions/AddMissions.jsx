@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { MyContext } from "../../../App";
 import Select from "react-select";
 
-export default function AddMissions() {
+export default function AddMissions({editSingleMission}) {
   
   let [displayErrorNote, setDisplayErrorNote] = useState(false);
   let [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
@@ -107,6 +107,8 @@ export default function AddMissions() {
     }
   };
 
+  // console.log(editSingleMission);
+
   return (
     <div dir="rtl" className="container-fluid bg-light  d-flex h_page align-items-center">
       <div
@@ -145,13 +147,21 @@ export default function AddMissions() {
                   *
                 </span>
               </label>
+              {!editSingleMission ?
               <input
                 id="meetingTitle"
                 ref={meetingTitle}
                 type="text"
                 placeholder="כותרת פגישה"
                 className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}
-              ></input>
+              />:
+              <input
+                id="meetingTitle"
+                ref={meetingTitle}
+                type="text"
+                placeholder={editSingleMission.title}
+                className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}
+              />}
             </li>
             <li className="col-lg-4 col-sm-6 list-unstyled mb-lg-5 mb-sm-4">
               <label htmlFor="meetingDate">
@@ -214,8 +224,8 @@ export default function AddMissions() {
               </label>
               <select onChange={(e)=> setUserSelect(e.target.value)} ref={responsibility} className="form-select bg-light">
                 <option >בחר</option>
-                {usersNames.map((user)=>(
-                  <option >{user}</option>
+                {usersNames.map((user,i)=>(
+                  <option key={i} >{user}</option>
                 ))}
               </select>
             </li>

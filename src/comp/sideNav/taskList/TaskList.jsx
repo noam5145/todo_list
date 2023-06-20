@@ -183,8 +183,7 @@ export default function TaskList() {
           <h4 className="">מאגר משימות</h4>
           <span className="">
             <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => handlePrint()}><samp>PDF</samp></button>
-            <button className="btn bg-secondary mx-3 text-light" onClick={openDialog}> הוסף משימה +</button>
-
+            <button className="btn bg-secondary mx-3 text-light" onClick={()=>{openDialog(); setEditSingleMission("")}}> הוסף משימה +</button>
             <div className="row">
               <Dialog
                 open={open}
