@@ -55,8 +55,20 @@ export default function TaskList() {
 
 
   useEffect(() => {
-    let newMissions = [...missions];
-    setAllDataShow(newMissions);
+        let newMissions;
+        const nowTime = new Date();
+        if (missions[0]) {
+          newMissions = [...missions];
+          newMissions?.map((item, i) => {
+            const endTime = new Date(item.endedAt);
+            if (endTime.getTime() < nowTime.getTime() && item.status !== "בוצע") {
+              item.status = "בחריגה";
+            }
+          });
+          setAllDataShow(newMissions);
+        } else {
+          setAllDataShow([]);
+        }
   }, [missions])
 
   const SortNumberByHighAndLow = (field) => {
