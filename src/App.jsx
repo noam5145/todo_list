@@ -16,7 +16,7 @@ export default function App() {
   const newMission = async(mission)=>{
     let res = await axios.post(base_url + 'mission/setMission', mission);
     if(res.data.err){
-      return console.log(res.data.err);
+      return;
     }
     setMissions([...missions, res.data]);
   }
@@ -24,7 +24,7 @@ export default function App() {
   const getAllMissions = async (token)=>{
     let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
-      return console.log(res.data.err);
+      return;
     }
     setMissions(res.data);
   }
@@ -32,7 +32,7 @@ export default function App() {
   const setNewUser = async (user)=>{
     let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
     if(user1.data.err){
-      return console.log(user1.data.err);
+      return user1.data.err;
     }
     setUsers([...users, user1.data]);
   }
@@ -40,7 +40,7 @@ export default function App() {
   const getUser = async(user)=>{
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
-      return console.log(res.data.err);
+      return res.data.err;
     }
     setCurrentUser(res.data);
     localStorage.setItem('token', res.data.token);
@@ -51,7 +51,7 @@ export default function App() {
   const getAllUsers = async (user)=>{
     let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
     if(res.data.err){
-      return console.log(res.data.err);
+      return res.data.err;
     }
     setUsers(res.data);
   }
@@ -59,7 +59,7 @@ export default function App() {
   const updateUser = async (user, adminToken)=>{
     let res = await axios.put(base_url + 'user/updateUser', {...user, adminToken: adminToken});
     if(res.data.err){
-      return console.log(res.data.err);
+      return res.data.err;
     }
     getAllUsers(currentUser);
   }
@@ -67,7 +67,7 @@ export default function App() {
   const updateMission = async (mission, adminToken)=>{
     let res = await axios.put(base_url + 'post/updatePost', {...mission, adminToken: adminToken});
     if(res.data.err){
-      return console.log(res.data.err);
+      return res.data.err;
     }
     getAllMissions(currentUser.token);
   }
@@ -78,7 +78,7 @@ export default function App() {
       adminToken: adminToken,
     }});
     if(res.data.err){
-      return console.log(res.data.err);
+      return(res.data);
     }
     setUsers(users.filter((user)=> user._id !== _id));
   }
@@ -89,7 +89,7 @@ export default function App() {
       adminToken: adminToken,
     }});
     if(res.data.err){
-      return console.log(res.data.err);
+      console.log(res.data.err);
     }
     setMissions(missions.filter((mission)=> mission._id !== _id));
   }
