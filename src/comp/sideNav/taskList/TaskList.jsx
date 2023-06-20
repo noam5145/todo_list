@@ -16,6 +16,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+
 import { useReactToPrint } from "react-to-print";
 
 export default function TaskList() {
@@ -70,6 +71,7 @@ export default function TaskList() {
           setAllDataShow([]);
         }
   }, [missions])
+
 
   const SortNumberByHighAndLow = (field) => {
     let newSort;
@@ -141,6 +143,7 @@ export default function TaskList() {
     content: () => toPrintRef.current,
   });
 
+
   useEffect(() => {
     window.addEventListener("click", () => {
       setChatOpen(false)
@@ -151,7 +154,7 @@ export default function TaskList() {
   const ConfirmDownload = () => {
     let dal = window.confirm(" האם אתה בטוח רוצה להוריד מסמך  ?");
     if (dal) {
-      alert("בסדר 😃")
+
     }
   }
 
@@ -163,6 +166,7 @@ export default function TaskList() {
           <span className="">
             <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => handlePrint()}><samp>PDF</samp></button>
             <button className="btn bg-secondary mx-3 text-light" onClick={openDialog}> הוסף משימה +</button>
+
             <div className="row">
               <Dialog
                 open={open}
@@ -226,6 +230,7 @@ export default function TaskList() {
               <div className="col-1 the_table_search bg-light">----</div>
             </div></span>
           {allDataShow.length != 0 ?
+
             allDataShow?.map((item, i) => (
               <div key={i} className="container d-flex justify-content-center p-0">
                 <div className="col-1 the_table text-center">{item.missionId}</div>
@@ -235,6 +240,7 @@ export default function TaskList() {
                   <p className="p_taskdetail p-2 ">
                     {item.details}
                   </p>
+
                 </div>
                 <div className="col-1 the_table_file text-center" title="לחץ להורדת מסמך" onClick={ConfirmDownload}>
                   <div className="mt-4">
@@ -250,6 +256,7 @@ export default function TaskList() {
                       : item.status == "בחריגה" ? "error"
                         : item.status == "בוצע" ? "success"
                           : item.status == "ממתין לאישור" ? "info" : "dark"} />
+
                   </div>
                   <div className="">{item.status}</div>
                 </div>
@@ -261,6 +268,7 @@ export default function TaskList() {
                           < ChatIcon color="action" />
                         </Badge></div>
                       <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
+
                         <MoreVertIcon
                           id="demo-positioned-button"
                           onClick={OpenSettings}
@@ -287,9 +295,9 @@ export default function TaskList() {
               <div className="fs-5"><ReportGmailerrorredIcon /></div>
               <h3 className="mx-1">התוכן לא נמצא</h3>
             </div>}
-
           {allDataShow?.map((item, i) => (
             <div key={i} ref={toPrintRef} className="d-flex d-none justify-content-start mt-2" dir="rtl">
+
               <ul className="col-7 list-unstyled">
                 <h3 className="">{item?.title}</h3>
                 <li className="d-flex"><samp className="h5"> מזהה: </samp><b>{item?.missionId}</b> </li>
@@ -307,6 +315,7 @@ export default function TaskList() {
         {chatOpen && <div onClick={(e) => {
           e.stopPropagation()
         }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} /></div>}
+
       </div>
     </>
   );
