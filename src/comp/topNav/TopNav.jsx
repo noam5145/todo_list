@@ -51,7 +51,7 @@ export default function TopNav() {
     window.addEventListener("click", () => setSettings(false));
   }, []);
   return (
-    <div className="row m-0 align-items-center top_nav sticky-top">
+    <div className="row m-0 align-items-center top_nav sticky-top" style={{zIndex:"9999"}}>
       <div className="col-4 d-flex mx-sm-3 mx-0">
         <img src={Logo} alt="" height={30} width={190} />
       </div>

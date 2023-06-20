@@ -4,16 +4,17 @@ import { FaBars, FaHourglassHalf } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose, AiOutlineDashboard } from "react-icons/ai";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
+import { LuArchiveRestore } from "react-icons/lu";
 import { RiInsertRowTop } from "react-icons/ri";
 import { BsListTask } from "react-icons/bs";
 import "./sideNav.css";
 
 export default function SideNav() {
   const [showSideNav, setShowSideNav] = useState(false);
-  const [click, setClick] = useState([false, false, false, false, false]);
+  const [click, setClick] = useState([false, false, false, false, false, false]);
 
   function changeClick(num) {
-    const newArray = [false, false, false, false, false];
+    const newArray = [false, false, false, false, false, false];
     newArray[num] = true;
     setClick(newArray);
   }
@@ -167,6 +168,30 @@ export default function SideNav() {
             </Link>
           </div>
         </div>
+        <div
+            onClick={() => changeClick(5)}
+            className={click[5] ? "b_c_icon" : ""}
+          >
+            <Link
+              to={"/archives"}
+              className={
+                showSideNav
+                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
+              }
+            >
+              <LuArchiveRestore
+                className="iconNavSaid"
+                size={showSideNav ? "25" : "40"}
+              />
+
+              {showSideNav && (
+                <div className="d-flex align-items-center mb-0 s_n_margin">
+                  ארכיון
+                </div>
+              )}
+            </Link>
+          </div>
       </div>
     </>
   );
