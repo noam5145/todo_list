@@ -13,14 +13,20 @@ const [alert, setAlert] = useState([]);
     }
   }, [missions]);
   return (
- <>
+ <div className='container d-flex justify-content-center'>
     
     {alert[0]? (
-      <div className='container d-flex justify-content-center'>
-      <h1 className='m-5 text-info'>אין התראות חדשות</h1>
+      <div className=''>
+      <h1 className='m-5 text-secondary'>אין התראות חדשות</h1>
     </div>
-    ): alert.map((e, i)=>(
+    ): <div className=' mt-5'>
+      <h3 className='text-success'>
+      התקבלו משימות חדשות עבורך 
+
+      </h3>
+      {alert.map((e, i)=>(
       <div>{e.title}</div>
-    ))}</>
+    ))}
+    </div>}</div>
   )
 }

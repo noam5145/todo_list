@@ -12,15 +12,20 @@ export default function UserTasks() {
       setListUserMissions(
         missions.filter((m) => m.token === currentUser.token)
       );
+      console.log(listUserMissions);
     }
   }, [missions]);
-  console.log(users);
+  // console.log(users);
 
   return (
     <div className="container mt-5">
       <h2>המשימות שלי </h2>
 
-      <div className=" row d-flex justify-content-center mt-5">
+      {!listUserMissions[0]? (<div className="d-flex justify-content-center mt-5">
+        <h4 className="text-secondary">
+      אין משימות להצגה 
+      </h4 >
+      </div>):(<div className=" row d-flex justify-content-center mt-5">
         <div className="col-1 top_table text-center">מזהה</div>
         <div className="col-1 top_table text-center">מועד משימה </div>
         <div className="col-1 top_table text-center">כותרת משימה </div>
@@ -30,7 +35,7 @@ export default function UserTasks() {
         <div className="col-1 top_table text-center">תג"ב </div>
         <div className="col-1 top_table text-center">ימים שנותרו </div>
         <div className="col-1 top_table text-center">סטאטוס </div>
-      </div>
+      </div>)}
       {/* {
         listUserMissions.map((mission, i)=>(
           <div>
