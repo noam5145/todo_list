@@ -14,7 +14,7 @@ export default function UserTasks() {
       );
     }
   }, [missions]);
-  console.log(missions);
+  console.log(users);
 
   return (
     <div className="container mt-5">
@@ -38,24 +38,38 @@ export default function UserTasks() {
           </div>
         ))
       } */}
-      {missions.map((mission, index)=>{
-        if(currentUser.token == mission.token){
-          return(
-            <div className="row d-flex justify-content-center">
+      {listUserMissions.map((mission, index) => {
+        return (
+          <div className="row d-flex justify-content-center">
             <div className="col-1 border d-flex justify-content-center table_h">
-            {mission.missionId}
+              {mission.missionId}
             </div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">{mission.startedAt}</div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">{mission.title}</div>
-            <div className="col-3 col-1 border d-flex justify-content-center text-center table_h">{mission.details}</div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">---</div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">{mission.responsibility} </div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">{mission.endedAt}</div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">---</div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">{mission.status} </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              {mission.startedAt}
+            </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              {mission.title}
+            </div>
+            <div className="col-3 col-1 border d-flex justify-content-center text-center table_h">
+              {mission.details}
+            </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              ---
+            </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              {mission.responsibility}{" "}
+            </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              {mission.endedAt}
+            </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              ---
+            </div>
+            <div className="col-1 border d-flex justify-content-center text-center table_h">
+              {mission.status}{" "}
+            </div>
           </div>
-          )
-        }
+        );
       })}
     </div>
   );
