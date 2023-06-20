@@ -10,13 +10,12 @@ import { MyContext } from "../../../App";
 import TheChat from "../chat/TheChat";
 import { Badge, Dialog } from "@mui/material";
 import AddMissions from "../addMissions/AddMissions";
-import TripOriginIcon from '@mui/icons-material/TripOrigin';
-import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
+import Brightness1Icon from "@mui/icons-material/Brightness1";
+import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useReactToPrint } from "react-to-print";
 
 export default function TaskList() {
@@ -25,8 +24,7 @@ export default function TaskList() {
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
-  const [iForChat, setIForChat] = useState();
-  const [seePrint, setSeeprint] = useState(true);
+  const [getIForChat, setgetIForChat] = useState();
   const [table, setTable] = useState({
     missionId: true,
     starteAt: true,
@@ -56,23 +54,9 @@ export default function TaskList() {
   };
 
   useEffect(() => {
-    let newMissions;
-    const nowTime = new Date();
-
-    if (missions[0]) {
-      newMissions = [...missions];
-      newMissions?.map((item, i) => {
-        const endTime = new Date(item.endedAt);
-        if (endTime.getTime() < nowTime.getTime() && item.status !== "בוצע") {
-          item.status = "בחריגה"
-        }
-      });
-      setAllDataShow(newMissions);
-    } else {
-      setAllDataShow([]);
-    }
-  }, [missions])
-
+    let newMissions = [...missions];
+    setAllDataShow(newMissions);
+  }, [missions]);
 
   const SortNumberByHighAndLow = (field) => {
     let newSort;
@@ -143,25 +127,6 @@ export default function TaskList() {
   const handlePrint = useReactToPrint({
     content: () => toPrintRef.current,
   });
-  
-  const editMissions = () => {
-  }
-
-  const confirmedMissions = () => {
-
-  }
-
-    const dalMissions = (_id,token) => {
-    let dal = window.confirm(" האם אתה בטוח רוצה למחוק משימה  ?");
-    if (dal) {
-      deleteMission(_id,token)
-      // let dalMissions = missions.filter((mission) => mission._id !== _id); 
-      // console.log(missions);
-      // setAllDataShow(delMissions);
-      alert("בסדר נמחק 😃 ")
-    }
-
-  }
 
   useEffect(() => {
     console.log(allDataShow);
@@ -177,10 +142,9 @@ export default function TaskList() {
   }, []);
 
   const ConfirmDownload = () => {
-    let dow = window.confirm(" האם אתה בטוח רוצה להוריד מסמך  ?");
-    if (dow) {
-      alert("בסדר 😃")
-
+    let dal = window.confirm(" האם אתה בטוח רוצה להוריד מסמך  ?");
+    if (dal) {
+      alert("בסדר 😃");
     }
   };
 
@@ -190,9 +154,20 @@ export default function TaskList() {
         <div className="d-flex justify-content-between mx-5">
           <h4 className="">מאגר משימות</h4>
           <span className="">
-            <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => { setSeeprint(!seePrint); setTimeout(handlePrint(), 10000); }}><samp>PDF</samp></button>
-            <button className="btn bg-secondary mx-3 text-light" onClick={openDialog}> הוסף משימה +</button>
-
+            <button
+              className="btn bg-secondary text-light"
+              style={{ width: "100px" }}
+              onClick={() => handlePrint()}
+            >
+              <samp>PDF</samp>
+            </button>
+            <button
+              className="btn bg-secondary mx-3 text-light"
+              onClick={openDialog}
+            >
+              {" "}
+              הוסף משימה +
+            </button>
             <div className="row">
               <Dialog open={open} className="row" onClose={closeDialog}>
                 <AddMissions />
@@ -372,9 +347,9 @@ export default function TaskList() {
                 </select>
               </div>
               <div className="col-1 the_table_search bg-light">----</div>
-            </div></span>
-          {allDataShow?.length != 0 ?
-
+            </div>
+          </span>
+          {allDataShow.length != 0 ? (
             allDataShow?.map((item, i) => (
               <div
                 key={i}
@@ -387,11 +362,8 @@ export default function TaskList() {
                   {item.startedAt}
                 </div>
                 <div className="col-1 the_table text-center">{item.title}</div>
-                <div className="col-3 the_table text-center">
-                  <p className="p_taskdetail p-2 text-center">
-                    {item.details}
-                  </p>
-
+                <div className="col-3 the_table text-center align-items-center">
+                  <p className="p_taskdetail p-2 ">{item.details}</p>
                 </div>
                 <div
                   className="col-1 the_table_file text-center"
@@ -409,24 +381,50 @@ export default function TaskList() {
                   </samp>
                 </div>
                 <div className="col-1 the_table text-center">
-                  <div className="mx-1"><TripOriginIcon
-                    color={item.status === "בתהליך" ? "warning"
-                      : item.status === "בחריגה" ? "error"
-                        : item.status === "בוצע" ? "success"
-                          : item.status === "ממתין לאישור" ? "info" : ""} />
-
+                  {item.endedAt}
+                </div>
+                <div className="col-1 the_table text-center">
+                  {item.daysLeft}
+                </div>
+                <div className="col-1 the_table text-center">
+                  <div className="mx-1">
+                    <Brightness1Icon
+                      color={
+                        item.status == "בתהליך"
+                          ? "warning"
+                          : item.status == "בחריגה"
+                          ? "error"
+                          : item.status == "בוצע"
+                          ? "success"
+                          : item.status == "ממתין לאישור"
+                          ? "info"
+                          : "dark"
+                      }
+                    />
                   </div>
                   <div className="">{item.status}</div>
                 </div>
                 <div className="col-1 the_table text-center">
                   <div className="d-flex align-items-center">
                     <div className="row div_chat_fan_icon mx-1">
-                      <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i) }}>
+                      <div
+                        className="cursor col-6 p-0"
+                        title="פתח צא'ט משימה"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setChatOpen(!chatOpen);
+                        }}
+                      >
                         <Badge badgeContent={2} color="primary">
-                          < ChatIcon color="action" />
-                        </Badge></div>
-                      <div className="cursor col-6 p-0" title="פתח הגדרות" onClick={(e) => { e.stopPropagation(); }}>
-
+                          <ChatIcon color="action" />
+                        </Badge>
+                      </div>
+                      <div
+                        className="cursor col-6 p-0"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
                         <MoreVertIcon
                           id="demo-positioned-button"
                           onClick={OpenSettings}
@@ -441,24 +439,31 @@ export default function TaskList() {
                             boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
                           },
                         }}>
-                        <MenuItem onClick={()=>{closeSettings(); editMissions();}}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
-                        <MenuItem onClick={()=>{closeSettings();confirmedMissions()}}><div className="d-flex justify-content-center icon_send" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
-                        <MenuItem onClick={()=>{closeSettings(); dalMissions(item._id, currentUser.token)}}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
-
+                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
+                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
+                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
                       </Menu>
                     </div>
                   </div>
                 </div>
               </div>
             ))
-            : <div className="container d-flex justify-content-center mt-5">
-              <div className="fs-5"><ReportGmailerrorredIcon /></div>
-              <h3 className="mx-1">המשימה לא נמצאה</h3>
-            </div>}
+          ) : (
+            <div className="container d-flex justify-content-center mt-5">
+              <div className="fs-5">
+                <ReportGmailerrorredIcon />
+              </div>
+              <h3 className="mx-1">התוכן לא נמצא</h3>
+            </div>
+          )}
 
-          {/* {allDataShow?.map((item, i) => (
-            <div key={i} ref={toPrintRef} className={seePrint ?"d-flex d-none justify-content-start mt-2" : "d-flex justify-content-start mt-2"} dir="rtl">
-
+          {allDataShow?.map((item, i) => (
+            <div
+              key={i}
+              ref={toPrintRef}
+              className="d-flex d-none justify-content-start mt-2"
+              dir="rtl"
+            >
               <ul className="col-7 list-unstyled">
                 <h3 className="">{item?.title}</h3>
                 <li className="d-flex">
@@ -493,13 +498,19 @@ export default function TaskList() {
                 </li>
               </ul>
             </div>
-          ))} */}
+          ))}
         </div>
-        <div className="mx-5">סה"כ משימות: {allDataShow?.length}</div>
-        {chatOpen && <div onClick={(e) => {
-          e.stopPropagation()
-        }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} iForChat={iForChat} /></div>}
-
+        <div className="mx-5">סה"כ משימות: {allDataShow.length}</div>
+        {chatOpen && (
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className="the_chat"
+          >
+            <TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} />
+          </div>
+        )}
       </div>
     </>
   );
