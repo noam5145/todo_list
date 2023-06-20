@@ -25,7 +25,8 @@ export default function TaskList() {
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
-  const [getIForChat, setgetIForChat] = useState();
+  const [iForChat, setIForChat] = useState();
+  const [editSingleMission, setEditSingleMission] = useState();
   const [table, setTable] = useState({
     missionId: true,
     starteAt: true,
@@ -57,12 +58,14 @@ export default function TaskList() {
 
   useEffect(() => {
         let newMissions;
-        const nowTime = new Date();
+        const time = new Date();
+        const nowTime = new Date(time.getTime() - 24 * 60 * 60 * 1000);
+
         if (missions[0]) {
           newMissions = [...missions];
           newMissions?.map((item, i) => {
             const endTime = new Date(item.endedAt);
-            if (endTime.getTime() < nowTime.getTime() && item.status !== "בוצע") {
+            if (endTime < nowTime && item.status !== "בוצע") {
               item.status = "בחריגה";
             }
           });
@@ -71,7 +74,6 @@ export default function TaskList() {
           setAllDataShow([]);
         }
   }, [missions])
-
 
   const SortNumberByHighAndLow = (field) => {
     let newSort;
@@ -143,6 +145,22 @@ export default function TaskList() {
     content: () => toPrintRef.current,
   });
 
+  const editMission = (item)=>{
+  openDialog()
+  setEditSingleMission(item);
+  console.log(item);
+  }
+
+  const SubmitMission = ()=>{
+    console.log("SubmitMission");
+  }
+  const delMission = (_id,token )=>{
+    let del = window.confirm(" האם אתה בטוח רוצה למחוק משימה  ?");
+    if (del) {
+       deleteMission(_id,token )
+       alert("נמחק")
+        }
+  }
 
   useEffect(() => {
     window.addEventListener("click", () => {
@@ -165,14 +183,13 @@ export default function TaskList() {
           <h4 className="">מאגר משימות</h4>
           <span className="">
             <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => handlePrint()}><samp>PDF</samp></button>
-            <button className="btn bg-secondary mx-3 text-light" onClick={openDialog}> הוסף משימה +</button>
-
+            <button className="btn bg-secondary mx-3 text-light" onClick={()=>{openDialog(); setEditSingleMission("")}}> הוסף משימה +</button>
             <div className="row">
               <Dialog
                 open={open}
                 className="row"
                 onClose={closeDialog}>
-                <AddMissions />
+                <AddMissions editSingleMission={editSingleMission}/>
               </Dialog></div>
           </span>
         </div>
@@ -256,7 +273,6 @@ export default function TaskList() {
                       : item.status == "בחריגה" ? "error"
                         : item.status == "בוצע" ? "success"
                           : item.status == "ממתין לאישור" ? "info" : "dark"} />
-
                   </div>
                   <div className="">{item.status}</div>
                 </div>
@@ -265,10 +281,9 @@ export default function TaskList() {
                     <div className="row div_chat_fan_icon mx-1">
                       <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen) }}>
                         <Badge badgeContent={2} color="primary">
-                          < ChatIcon color="action" />
+                          < ChatIcon color="action" onClick={()=> setIForChat(i) }/>
                         </Badge></div>
-                      <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
-
+                      <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation();}}>
                         <MoreVertIcon
                           id="demo-positioned-button"
                           onClick={OpenSettings}
@@ -282,9 +297,9 @@ export default function TaskList() {
                             boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
                           },
                         }}>
-                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
-                        <MenuItem onClick={closeSettings}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
-                        <MenuItem onClick={()=>{closeSettings(); deleteMission(item._id, currentUser.token)}}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
+                        <MenuItem onClick={()=>{closeSettings(); editMission(item);}}><div className="d-flex justify-content-center צס-1" title="ערוך משימה"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
+                        <MenuItem onClick={()=>{closeSettings(); SubmitMission();}}><div className="d-flex justify-content-center" title="שלח לאישור סיום"><SendIcon className="mx-3" /></div>שלח לאישור משימה</MenuItem>
+                        <MenuItem onClick={()=>{closeSettings(); delMission(item._id, currentUser.token)}}><div className="d-flex justify-content-center" title="מחק משימה"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
                       </Menu>
                     </div>
                   </div>
@@ -314,7 +329,7 @@ export default function TaskList() {
         <div className="mx-5">סה"כ משימות: {allDataShow.length}</div>
         {chatOpen && <div onClick={(e) => {
           e.stopPropagation()
-        }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} /></div>}
+        }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} iForChat={iForChat}/></div>}
 
       </div>
     </>
