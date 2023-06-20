@@ -39,12 +39,12 @@ const MissionExeption = React.forwardRef((props, ref) => {
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
-  if (loadingEx) {
+ 
     return (
       <>
-        <div ref={componentToPrint} className="container-fluid mt-2 mb-2">
+        <div ref={componentToPrint} className="container mt-2 mb-2">
           <div style={{ width: "90vw" }}>
-            <div className="btn  justify-content-end d-flex mt-2  text-light ">
+            <div className="btn justify-content-end d-flex mt-2  text-light ">
               <button
                 className="btn   bg-secondary text-light mx-3"
                 onClick={handlePrintEx}
@@ -59,7 +59,6 @@ const MissionExeption = React.forwardRef((props, ref) => {
               <h2 className="exp-title-ex">
               </h2>
             </div>
-   ת
             <span></span>
           </div>
           <div className="container  table-container-Ex all_table-Ex mt-3 ml-3">
@@ -136,13 +135,8 @@ const MissionExeption = React.forwardRef((props, ref) => {
         </div>
       </>
     );
-  } else {
-    return (
-      <div>
-        <h1>loading</h1>
-      </div>
-    );
-  }
+  
+  
 });
 
 export default MissionExeption;
