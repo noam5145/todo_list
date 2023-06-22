@@ -66,7 +66,7 @@ export default function App() {
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
-    localStorage.setItem('token', res.data.token);
+    // document.cookie = "T_L_U=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
@@ -97,7 +97,7 @@ export default function App() {
     getAllMissions(currentUser.token);
   }
 
-  const deleteUser = async (_id, adminToken) =>{
+  const deleteUser = async (_id, adminToken) =>{   
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -116,12 +116,12 @@ export default function App() {
     if(res.data.err){
       return console.log(res.data.err);
     }
-    setMissions(missions.filter((mission)=> mission._id !== _id));
+    getAllMissions(adminToken);
   }
 
   useEffect(()=>{
     if(flag){
-      let t = localStorage.getItem('token');
+      let t = document.cookie.split('T_L_U=')[1].split(';')[0];
       if(t){
         getUser({token: t});
       }
