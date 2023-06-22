@@ -150,8 +150,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       __v: editSingleMission.__v,
 
     };
-    console.log(newEditTask);
-    console.log(editSingleMission);
     if (
       newEditTask.title != "" &&
       newEditTask.startedAt != "" &&
