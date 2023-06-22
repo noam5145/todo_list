@@ -90,7 +90,7 @@ export default function App() {
   }
 
   const updateMission = async (mission, adminToken)=>{
-    let res = await axios.put(base_url + 'post/updatePost', {...mission, adminToken: adminToken});
+    let res = await axios.put(base_url + 'mission/updateMission', {...mission, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
@@ -139,6 +139,7 @@ export default function App() {
     deleteUser,
     deleteMission,
     newMissions,
+    updateMission,
   }
 
 

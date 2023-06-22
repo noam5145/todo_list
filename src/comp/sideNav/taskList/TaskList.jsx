@@ -75,7 +75,8 @@ export default function TaskList() {
         <div className="linear">
           <div className="d-flex justify-content-between mx-5">
             <h4 className="">מאגר משימות</h4>
-            <span className="">
+            <span className="d-flex">
+            <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
               <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => handlePrint()}><samp>PDF</samp></button>
               <button className="btn bg-secondary mx-3 text-light" onClick={() => { openDialog(); setEditSingleMission("") }}> הוסף משימה +</button>
               <div className="row">

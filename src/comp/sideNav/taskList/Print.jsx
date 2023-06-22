@@ -4,7 +4,7 @@ export default function Print({ allDataShow,toPrintRef }) {
     return (
         <>
             {allDataShow?.map((item, i) => (
-                <div key={i} ref={toPrintRef} className="d-flex justify-content-start print mt-2" dir="rtl">
+                <div key={i} ref={toPrintRef} className="d-flex d-black justify-content-start print mt-2" dir="rtl">
                     <ul className="col-7 list-unstyled">
                         <h3 className="">{item?.title}</h3>
                         <li className="d-flex"><samp className="h5"> מזהה: </samp><b>{item?.missionId}</b> </li>
