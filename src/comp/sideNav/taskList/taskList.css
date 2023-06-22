@@ -61,12 +61,14 @@
     background-color: rgb(255, 228,196 ,0.608);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
     user-select: none;
+    cursor: pointer;
 } 
 .the_table_file:hover{
     background-color: rgb(255, 228,196 ,0.4);
 } 
 .the_table_file:active{
-    transform: scale(1.10);
+    transform: scale(1.05);
+    font-weight: bold;
     background-color: rgba(236, 17, 9, 0.608);
 } 
 
@@ -118,10 +120,21 @@
     justify-content: center;
     /* background-color: blue; */
 }
+.linear{
+background-image: linear-gradient(white,rgba(128, 128, 128, 0.3));
+}
+.Total_tasks{
+height: 100px;
+}
+
 @media print {
     .Ex {
       overflow: visible !important;
       /* height: auto !important; */
       width: 100vw !important;
+    }
+    .print{
+        /* display: block; */
+        opacity: 1;
     }
 }
