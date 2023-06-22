@@ -15,8 +15,8 @@ import Settings from "../comp/topNav/settings/Settings";
 import SideNav from "../comp/sideNav/SideNav";
 import TopNav from "../comp/topNav/TopNav";
 import MainSite from "../comp/MainSite";
-import TheChat from "../comp/sideNav/chat/TheChat";
 import CompletedTasks from "../comp/sideNav/completedTasks/CompletedTasks";
+import TheChat from "../comp/sideNav/taskList/chat/TheChat";
 
 export default function AppRoutes() {
   return (
