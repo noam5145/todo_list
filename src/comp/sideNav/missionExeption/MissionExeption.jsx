@@ -38,13 +38,16 @@ setData(temp.filter((item)=>item!=""));
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
-
   if (missions) {
     return (
       <>
         <div  className="container-fluid  mb-2">
           <div style={{ width: "90vw" }}>
+<<<<<<< HEAD
             <div className="btn  justify-content-end d-flex   text-light ">
+=======
+            <div className="btn justify-content-end d-flex mt-2  text-light ">
+>>>>>>> 3d6b577edbae6a9fdc8d6e576aaded4236c3bb9e
               <button
                 className="btn   bg-secondary text-light mx-3"
                 onClick={handlePrintEx}
@@ -59,7 +62,6 @@ setData(temp.filter((item)=>item!=""));
               <h2 className="exp-title-ex">דו"ח חריגה</h2>
               <h2 className="exp-title-ex"></h2>
             </div>
-
             <span></span>
           </div>
           <div className="container  table-container-Ex all_table-Ex  ml-3">
@@ -153,4 +155,5 @@ setData(temp.filter((item)=>item!=""));
     );
   }
 }
+
 
