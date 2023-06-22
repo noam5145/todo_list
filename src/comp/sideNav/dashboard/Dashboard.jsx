@@ -1,28 +1,29 @@
-import React, {useContext,useEffect} from 'react'
+import React, {useContext,useEffect,useState} from 'react'
 import { MyContext } from "../../../App";
-import ExceptionTasks from '../missionExeption/MissionExeption'
 export default function Dashboard() {
   const {  missions} = useContext(MyContext);
-  
-    let counterTasksInProgress=0;
-    let counterExceptionTasks=0;
-    let counterPendingApproval=0;
-    missions.map((item)=>{
-      if (item.status== 'בתהליך') {
-        counterTasksInProgress++
-      }
-      if (item.status== 'בחריגה') {
-        counterExceptionTasks++
-      }
-      if (item.status== 'ממתין לאישור') {
-        counterPendingApproval++
-      }
+  let [data,setData]=useState([])
+  useEffect(()=>{
+    console.log(missions)
+    let arr=[];
+    let temp=missions.map((mission)=>{
+           let flag=false;
+           arr.map((item)=>{
+            if (item.responsibility==mission.responsibility) {
+              flag=true;
+              item.count++;
+            }
+           })
+          if (!flag) {
+            arr=[...arr,{responsibility:mission.responsibility,count:1}]
+          }
+
+        
     })
-    let counterToDashbord={
-      counterTasksInProgress,
-      counterExceptionTasks,
-      counterPendingApproval
-    }
+   setData(arr)
+
+console.log(arr)
+  },[missions])
     
   
   return (
@@ -32,9 +33,10 @@ export default function Dashboard() {
       <h2>Dashboard</h2>
       <div className='col-6'>
         <ul className='row'>
-          <li className='col-4'>{counterToDashbord.counterExceptionTasks}</li>
-          <li className='col-4'>{counterToDashbord.counterPendingApproval}</li>
-          <li className='col-4'>{counterToDashbord.counterTasksInProgress}</li>
+          <li className='col-4'></li>
+          <li className='col-4'></li>
+          <li className='col-4'></li>
+         
         </ul>
       </div>
       <div className='col-3'>
