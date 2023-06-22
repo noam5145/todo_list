@@ -41,9 +41,13 @@ setData(temp.filter((item)=>item!=""));
   if (missions) {
     return (
       <>
-        <div  className="container-fluid mt-2 mb-2">
+        <div  className="container-fluid  mb-2">
           <div style={{ width: "90vw" }}>
+<<<<<<< HEAD
+            <div className="btn  justify-content-end d-flex   text-light ">
+=======
             <div className="btn justify-content-end d-flex mt-2  text-light ">
+>>>>>>> 3d6b577edbae6a9fdc8d6e576aaded4236c3bb9e
               <button
                 className="btn   bg-secondary text-light mx-3"
                 onClick={handlePrintEx}
@@ -60,7 +64,7 @@ setData(temp.filter((item)=>item!=""));
             </div>
             <span></span>
           </div>
-          <div className="container  table-container-Ex all_table-Ex mt-3 ml-3">
+          <div className="container  table-container-Ex all_table-Ex  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">

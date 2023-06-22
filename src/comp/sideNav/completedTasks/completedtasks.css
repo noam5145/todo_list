@@ -95,12 +95,12 @@
       font-size: large;
       border: none;
     }
-    .exp-title-Archive{
+    .p-title-Archive{
       color: rgb(24, 207, 33);
       font-weight: bolder;
       font-size: 50px;
     }
-    .exp-title-Archive-div{
+    .p-title-Archive-div{
       height: 9vh;
       width: 90vw;
       display: flex;
