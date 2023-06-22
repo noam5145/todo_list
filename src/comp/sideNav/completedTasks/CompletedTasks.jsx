@@ -15,7 +15,8 @@ export default function CompletedTasks() {
 
   useEffect(()=>{
      let temp=missions.filter((mission)=>{
-      if (cheakStatus(mission)) {
+      console.log(mission);
+      if (cheakStatus(mission.status)) {
         return mission;
       }
      })
@@ -35,7 +36,6 @@ export default function CompletedTasks() {
       return false
     }
     else{
-      archiveMission=false;
       return true;
     }
   }
@@ -44,9 +44,9 @@ export default function CompletedTasks() {
       return (
       <>
      
-        <div className="container-fluid mt-2 mb-2">
+        <div className="container-fluid  mb-2">
           <div style={{ width: "90vw" }}>
-            <div className="btn  justify-content-end d-flex mt-2  text-light ">
+            <div className="btn  justify-content-end d-flex   text-light ">
               <button
                 className="btn   bg-secondary text-light mx-3"
                 onClick={handlePrintEx}
@@ -57,15 +57,15 @@ export default function CompletedTasks() {
           </div>
           <div  ref={componentToPrint}>
           <div  className="d-flex justify-content-between mx-5">
-            <div className="exp-title-Archive-div">
-              <h2 className="exp-title-Archive">ארכיון</h2>
-              <h2 className="exp-title-Archive">
+            <div className="p-title-Archive-div">
+              <h2 className="p-title-Archive">ארכיון</h2>
+              <h2 className="p-title-Archive">
               </h2>
             </div>
   
             <span></span>
           </div>
-          <div className="container  table-container-Archive all_table-Archive mt-3 ml-3">
+          <div className="container  table-container-Archive all_table-Archive  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Archive text-center">
@@ -155,5 +155,6 @@ export default function CompletedTasks() {
     
   }
 };
+
 
 
