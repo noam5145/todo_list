@@ -66,8 +66,7 @@ export default function App() {
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
-    // console.log(document.cookie += ';\n' + res.data.token)
-    localStorage.setItem('token', res.data.token);
+    // document.cookie = "T_L_U=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
@@ -122,7 +121,7 @@ export default function App() {
 
   useEffect(()=>{
     if(flag){
-      let t = localStorage.getItem('token');
+      let t = document.cookie.split('T_L_U=')[1].split(';')[0];
       if(t){
         getUser({token: t});
       }
