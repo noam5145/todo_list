@@ -27,8 +27,24 @@ setData(temp.filter((item)=>item!=""));
     if (status=="בוצע") {// cheak if the mission has done
       return 1;
     }
+ 
+console.log(endTime);
+
+var today = new Date();
+
+// Set the target date (22/06/2023)
+var targetDate = new Date(2023, 5, 22); // Note: Months are zero-based, so June is represented by 5
+
+// Calculate the time difference in milliseconds
+var timeDiff = targetDate.getTime() - today.getTime();
+
+// Calculate the number of days
+var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+console.log(daysDiff); // Output the difference in days
+
     const dateToday = new Date();
-    const dateEnd = new Date(endTime);
+    const dateEnd = new Date();
     const diffTime = dateEnd - dateToday;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
@@ -42,9 +58,9 @@ setData(temp.filter((item)=>item!=""));
   if (missions) {
     return (
       <>
-        <div  className="container-fluid  mb-2">
-          <div style={{ width: "90vw" }}>
-            <div className="btn  justify-content-end d-flex   text-light ">
+        <div  className="container  mb-2">
+          <div>
+            <div className=" justify-content-end d-flex   text-light ">
               <button
                 className="btn   bg-secondary text-light mx-3"
                 onClick={handlePrintEx}
@@ -56,7 +72,7 @@ setData(temp.filter((item)=>item!=""));
           <div ref={componentToPrint}>
           <div className="d-flex justify-content-between mx-5">
             <div className="exp-title-ex-div">
-              <h2 className="exp-title-ex">דו"ח חריגה</h2>
+              <h2 className="exp-title-ex">דו"ח משימות בחריגה</h2>
               <h2 className="exp-title-ex"></h2>
             </div>
 
@@ -66,7 +82,7 @@ setData(temp.filter((item)=>item!=""));
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">
-                  מזהה <span title="מיין לפי גדול/קטן"></span>
+                  מסד <span title="מיין לפי גדול/קטן"></span>
                 </div>
                 <div className="col-1 top_table-Ex text-center">
                   אחריות<span title="מיין לפי גדול/קטן"></span>
