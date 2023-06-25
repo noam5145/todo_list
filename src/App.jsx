@@ -120,10 +120,7 @@ export default function App() {
 
   useEffect(()=>{
     if(flag){
-      let t;
-      if(typeof(document.cookie) === 'string') {
-        t = document.cookie.split('T_L_T=')[1]?.split(';')[0]
-      } 
+      let t = document.cookie.split('T_L_T=')[1]?.split(';')[0]
       if(t){
         getUser({token: t});
       }
