@@ -11,8 +11,8 @@ export default function MissionExeption() {
 
   const { missions } = useContext(MyContext);
   const componentToPrint = useRef();
-  let [dataExMission,setData]=useState([]);
-
+  let [dataExMission,setData]=useState(null);
+  console.log(missions);
 
 
  useEffect(()=>{
@@ -23,31 +23,35 @@ setData(temp.filter((item)=>item!=""));
 },[missions])
 
 
+function endAtChanged(endTime)
+{
+ const partsStartTime = endTime.split('-');
+    const reversStartendTime = partsStartTime.reverse().join('/');
+   return reversStartendTime;
+}
+
   function daysOff(endTime,status) {
     if (status=="בוצע") {// cheak if the mission has done
       return 1;
     }
- 
-console.log(endTime);
+   endTime=endAtChanged(endTime);
 
+  
+
+// took the days,months,years from string(endTime)
+let day=Number(endTime[0]+endTime[1]);
+let month=Number(endTime[3]+endTime[4])-1;// Note: Months are zero-based, so June is represented by 5
+let year=Number(endTime[6]+endTime[7]+endTime[8]+endTime[9]);
+
+var targetDate = new Date(year,month,day); 
 var today = new Date();
-
-// Set the target date (22/06/2023)
-var targetDate = new Date(2023, 5, 22); // Note: Months are zero-based, so June is represented by 5
 
 // Calculate the time difference in milliseconds
 var timeDiff = targetDate.getTime() - today.getTime();
 
 // Calculate the number of days
 var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-console.log(daysDiff); // Output the difference in days
-
-    const dateToday = new Date();
-    const dateEnd = new Date();
-    const diffTime = dateEnd - dateToday;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    return daysDiff;
   }
   
 
@@ -55,7 +59,7 @@ console.log(daysDiff); // Output the difference in days
     content: () => componentToPrint.current,
   });
 
-  if (missions) {
+  if (missions&&dataExMission) {
     return (
       <>
         <div  className="container  mb-2">
@@ -130,7 +134,7 @@ console.log(daysDiff); // Output the difference in days
                           </p>
                         </div>
                         <div className="col-1 the_table-Ex  text-center">
-                          {mission.endedAt}
+                          { endAtChanged(mission.endedAt)  }
                         </div>
                         <div className="col-1 the_table-Ex text-center ">
                           { Math.abs( daysOff(mission.endedAt))}

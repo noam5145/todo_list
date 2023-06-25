@@ -11,8 +11,8 @@ export default function PendingMissions() {
 
   const { missions } = useContext(MyContext);
   const componentToPrint = useRef();
-  let [dataExMission,setData]=useState([]);
-
+  let [dataPenMission,setData]=useState([]);
+console.log(missions);
 
 
  useEffect(()=>{
@@ -26,6 +26,11 @@ setData(temp.filter((item)=>item!=""));
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
+
+
+  const aprrove=(token)=>{
+        
+  }
 
   if (missions) {
     return (
@@ -65,7 +70,7 @@ setData(temp.filter((item)=>item!=""));
                 <div className="col-1 top_table-pen text-center">
                   כותרת הפגישה <span title="מיין לפי גדול/קטן"></span>
                 </div>
-                <div className="col-3 top_table-pen text-center">
+                <div className="col-2 top_table-pen text-center">
                   פירוט הפגישה <span title="מיין לפי גדול/קטן"></span>
                 </div>
                 <div className="col-1 top_table-pen text-center">
@@ -80,11 +85,14 @@ setData(temp.filter((item)=>item!=""));
                 <div className="col-2 top_table-pen text-center">
                   הערות מפקד<span title="מיין לפי גדול/קטן"></span>
                 </div>
+                <div className="col-1 top_table-pen text-center">
+                אישור<span title="מיין לפי גדול/קטן"></span>
+                </div>
               </div>
             </span>
             {
-           dataExMission.length != 0 ?
-           dataExMission.map((mission, i)  =>
+           dataPenMission.length != 0 ?
+           dataPenMission.map((mission, i)  =>
                     (
                       <div
                         key={i}
@@ -102,7 +110,7 @@ setData(temp.filter((item)=>item!=""));
                         <div className="col-1 the_table-pen text-center">
                           {mission.title}
                         </div>
-                        <div className="col-3 the_table-pen text-center align-missions-center">
+                        <div className="col-2 the_table-pen text-center align-missions-center">
                           <p className="p_taskdetail-pen p-2 ">
                             {mission.details}
                           </p>
@@ -110,9 +118,7 @@ setData(temp.filter((item)=>item!=""));
                         <div className="col-1 the_table-pen  text-center">
                           {mission.endedAt}
                         </div>
-                        <div className="col-1 the_table-pen text-center ">
-                          {/* { Math.abs( daysOff(mission.endedAt))} */}
-                        </div>
+                       
                         <div className="col-2 the_table-pen  text-center align-missions-center ">
                           <p className="p_taskdetail-pen p-2 ">
                             {mission.noteResponsibility}
@@ -123,6 +129,9 @@ setData(temp.filter((item)=>item!=""));
                             {mission.noteCommand}
                           </p>
                         </div>
+                        <div className="col-1 the_table-pen text-center">
+                         <button onClick={()=>aprrove(mission.token)} style={{background:"none",border:"none"}}>👍</button> 
+                        </div>
                       </div>
                     )
               )
@@ -131,7 +140,7 @@ setData(temp.filter((item)=>item!=""));
               <h2 >אין משימות בהמתנה לאישור כרגע</h2></div>}
           </div>
  <div>
-          <h2 className="numOfExMission">סה"כ משימות בהמתנה לאישור:  {dataExMission.length} </h2>
+          <h2 className="numOfExMission">סה"כ משימות בהמתנה לאישור:  {dataPenMission.length} </h2>
         </div>
         </div>
        

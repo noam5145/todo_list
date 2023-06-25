@@ -133,7 +133,7 @@ export default function CompletedTasks() {
                 </div>
               ))
             ) : (
-              <div className="col-12 d-flex  justify-content-center mt-5 ">
+              <div className="col-11 d-flex the_table-Archive container justify-content-center  ">
                 <h2 style={{ fontSize: "40px" }}>אין משימות בארכיון כרגע</h2>
               </div>
             )}
