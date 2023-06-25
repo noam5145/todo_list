@@ -82,10 +82,10 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       responsibility: responsibility?.current?.value,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
-      messages: {
+      chat:{ messages: {
         noteCommander: {msg: noteCommander.current?.value? noteCommander.current.value : '', readed: false, time: t},
         noteResponsibility : {msg:'', readed: false, time: ''}
-      },
+      }},
       // fileMission: fileMission?.current?.files[0],
       token: userSelect,
     };

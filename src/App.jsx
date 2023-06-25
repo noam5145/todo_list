@@ -51,6 +51,7 @@ export default function App() {
       getNewMissions(missions);
     }
   }, [missions])
+  
   const setNewUser = async (user)=>{
     let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
     if(user1.data.err){

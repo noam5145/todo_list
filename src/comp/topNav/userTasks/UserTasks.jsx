@@ -4,7 +4,7 @@ import { MyContext } from "../../../App";
 import "./userTasks.css";
 
 export default function UserTasks() {
-  const { missions, users, currentUser } = useContext(MyContext);
+  const { missions, currentUser } = useContext(MyContext);
   const [listUserMissions, setListUserMissions] = useState([]);
 
   useEffect(() => {
@@ -30,13 +30,6 @@ export default function UserTasks() {
         <div className="col-1 top_table text-center">ימים שנותרו </div>
         <div className="col-1 top_table text-center">סטאטוס </div>
       </div>
-      {/* {
-        listUserMissions.map((mission, i)=>(
-          <div>
-            {mission.title}
-          </div>
-        ))
-      } */}
       {listUserMissions.map((mission, index) => {
         return (
           <div className="row d-flex justify-content-center">
