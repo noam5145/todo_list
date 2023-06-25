@@ -15,11 +15,16 @@ export default function UserTasks() {
     }
   }, [missions]);
 
+
   return (
     <div className="container mt-5">
       <h2>המשימות שלי </h2>
 
-      <div className=" row d-flex justify-content-center mt-5">
+      {!listUserMissions[0]? (<div className="d-flex justify-content-center mt-5">
+        <h4 className="text-secondary">
+      אין משימות להצגה 
+      </h4 >
+      </div>):(<div className=" row d-flex justify-content-center mt-5">
         <div className="col-1 top_table text-center">מזהה</div>
         <div className="col-1 top_table text-center">מועד משימה </div>
         <div className="col-1 top_table text-center">כותרת משימה </div>

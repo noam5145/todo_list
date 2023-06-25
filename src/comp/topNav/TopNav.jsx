@@ -58,7 +58,7 @@ export default function TopNav() {
         <span>{currentTime}</span>
         <div className="">
           <Link className=" " to={"/alerts"}>
-            <LuMail className="cursor" size={25} color="gray" />
+            <LuMail className="cursor" size={25} color="red" />
           </Link>
         </div>
         <div className="">
