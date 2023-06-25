@@ -15,7 +15,7 @@ const [alert, setAlert] = useState([]);
   return (
  <>
     
-    {alert[0]? (
+    {!alert[0]? (
       <div className='container d-flex justify-content-center'>
       <h1 className='m-5 text-info'>אין התראות חדשות</h1>
     </div>
