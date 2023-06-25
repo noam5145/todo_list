@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBars, FaHourglassHalf } from "react-icons/fa";
+import { CiWarning } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { AiOutlineClose, AiOutlineDashboard } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineDashboard, AiOutlineWarning } from "react-icons/ai";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { LuArchiveRestore } from "react-icons/lu";
-import { RiInsertRowTop } from "react-icons/ri";
-import { BsListTask } from "react-icons/bs";
+import { MdHourglassEmpty, MdWarning    } from 'react-icons/md';import { BsListTask } from "react-icons/bs";
 import "./sideNav.css";
 
 export default function SideNav() {
@@ -83,7 +82,7 @@ export default function SideNav() {
                   : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
-              <MdOutlineCreateNewFolder
+              <BsListTask
                 className="iconNavSaid"
                 size={showSideNav ? "25" : "40"}
               />
@@ -107,7 +106,7 @@ export default function SideNav() {
                   : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
-              <FaHourglassHalf
+              <AiOutlineWarning  
                 className="iconNavSaid"
                 size={showSideNav ? "25" : "40"}
               />
@@ -130,7 +129,7 @@ export default function SideNav() {
                   : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
-              <RiInsertRowTop
+              <MdHourglassEmpty  
                 className="iconNavSaid"
                 size={showSideNav ? "25" : "40"}
               />
@@ -155,7 +154,7 @@ export default function SideNav() {
                   : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
               }
             >
-              <BsListTask
+              <MdOutlineCreateNewFolder
                 className="iconNavSaid"
                 size={showSideNav ? "25" : "40"}
               />

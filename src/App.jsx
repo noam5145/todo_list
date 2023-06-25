@@ -26,6 +26,34 @@ export default function App() {
     setMissions(res.data);
   }
   let num =0;
+  function endAtChanged(endTime) {
+    const partsStartTime = endTime.split("-");
+    const reversStartendTime = partsStartTime.reverse().join("/");
+    return reversStartendTime;
+  }
+  function daysOff(endTime) {
+    endTime = endAtChanged(endTime);
+    // took the days,months,years from string(endTime)
+    let day = Number(endTime[0] + endTime[1]);
+    let month = Number(endTime[3] + endTime[4]) - 1; // Note: Months are zero-based, so June is represented by 5
+    let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
+    var targetDate = new Date(year, month, day);
+    var today = new Date();
+    // Calculate the time difference in milliseconds
+    var timeDiff = targetDate.getTime() - today.getTime();
+    // Calculate the number of days
+    var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff;
+  }
+
+  const changeStatus = (item) =>{
+    if(daysOff(item) < 0 ){
+      return "בחריגה";
+    }
+    else{
+      return item;    }
+
+  }
 
 
   const getNewMissions = async (missions)=>{
@@ -46,6 +74,7 @@ export default function App() {
       getNewMissions(missions);
     }
   }, [missions])
+
   
   const setNewUser = async (user)=>{
     let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
@@ -131,6 +160,13 @@ export default function App() {
     deleteMission,
     newMissions,
     updateMission,
+    updateUser,
+    setNewMissions,
+    daysOff,
+    changeStatus,
+    endAtChanged,
+
+
 
   }
   return (
