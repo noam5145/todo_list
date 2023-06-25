@@ -1,3 +1,27 @@
 .h_page{
     height: 92vh;
 }
+.hide_file_container{
+    border-radius: 5px;
+    width: 400px;
+    height:100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:5px;
+    border: dashed 3px black;
+    /* background-color: rgb(25, 106, 178); */
+    user-select: none;
+    cursor: pointer;
+
+}
+.hide_file{
+    width: 400px;
+    height: 100px;
+    border-radius: 5px;
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    cursor: pointer;
+
+}
