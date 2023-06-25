@@ -109,10 +109,11 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       responsibility: personNames,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
-      messages: {
-        noteCommander: { msg: noteCommander.current?.value ? noteCommander.current.value : '', readed: false, time: t },
-        noteResponsibility: { msg: '', readed: false, time: '' }
-      },
+
+      chat:{ messages: {
+        noteCommander: {msg: noteCommander.current?.value? noteCommander.current.value : '', readed: false, time: t},
+        noteResponsibility : {msg:'', readed: false, time: ''}
+      }},
       // fileMission: fileMission?.current?.files[0],
       token: userSelect,
     };
@@ -178,12 +179,8 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       responsibility: personNames,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: String(diffDays),
-      chat: {
-        messages: {
-          noteCommander: { msg: noteCommander.current?.value ? noteCommander.current.value : "", readed: false, time: new Date().getDate() },
-          noteResponsibility: { msg: "", readed: false }
-        }
-      },
+
+      chat: editSingleMission.chat,
       // fileMission: fileMission?.current?.files[0],
       token: editSingleMission.token,
       _id: editSingleMission._id,
