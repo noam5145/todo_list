@@ -14,7 +14,6 @@ export default function UserTasks() {
       );
     }
   }, [missions]);
-  console.log(users);
 
   return (
     <div className="container mt-5">
