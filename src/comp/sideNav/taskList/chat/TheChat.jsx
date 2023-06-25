@@ -54,8 +54,8 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                     </div>
                     </div>
                     <a href="#Down">
-                        <div className="d-flex justify-content-end sticky-bottom mx-3" title='למטה'
-                        ><KeyboardDoubleArrowDownIcon color='warning' className='icon_down mb-1 bg-light' /></div>
+                        <div className="d-flex justify-content-end sticky-bottom mx-3" 
+                        ><KeyboardDoubleArrowDownIcon color='warning' title='למטה' className='icon_down mb-1 bg-light' /></div>
                     </a>
                 </div>
                 <div className="bottom_chat d-flex">

@@ -79,7 +79,7 @@ export default function TopTable({setAllDataShow}) {
         <>
             <div className=" d-flex justify-content-center">
                 <div className="col-1 top_table text-center">
-                    מזהה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="missionId" onClick={(e) => SortNumberByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
+                    מסד <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="missionId" onClick={(e) => SortNumberByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center" >
                     מועד משימה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="startedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
@@ -97,7 +97,7 @@ export default function TopTable({setAllDataShow}) {
                     אחריות <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="responsibility" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
-                    תג"ב <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="endedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
+                  תג"מ <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="endedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
                     ימים שנותרו <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="daysLeft" onClick={(e) => SortNumberByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
