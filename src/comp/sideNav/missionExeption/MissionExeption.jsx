@@ -5,46 +5,46 @@ import "./missionExeption.css";
 import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
 
-const MissionExeption = React.forwardRef((props, ref) => {
-  const [opemId, setOpemId] = useState(false);
+
+
+export default function MissionExeption() {
+
   const { missions } = useContext(MyContext);
-  const [exceptionMission, setExceptionMission] = useState(missions);
   const componentToPrint = useRef();
-  const [loadingEx, setLoadingEx] = useState(false);
+  let [dataExMission,setData]=useState([]);
 
-  console.log(missions);
 
-  useEffect(() => {
-    window.addEventListener("click", () => {
-      setOpemId(false);
-    });
-    let temp = exceptionMission.filter((item) => {
-      daysOff(item.endedAt) > 0;
-    });
-    setExceptionMission(temp);
-    setTimeout(() => {
-      setLoadingEx(true);
-    }, [2000]);
-  }, []);
-  const date = new Date();
 
-  function daysOff(endTime) {
-    const date1 = new Date();
-    const date2 = new Date(endTime);
-    const diffTime = date2 - date1;
+ useEffect(()=>{
+   let temp=missions.map((mission)=>{
+   return daysOff(mission.endedAt,mission.status)<0?mission:""
+})
+setData(temp.filter((item)=>item!=""));
+},[missions])
+
+
+  function daysOff(endTime,status) {
+    if (status=="בוצע") {// cheak if the mission has done
+      return 1;
+    }
+    const dateToday = new Date();
+    const dateEnd = new Date(endTime);
+    const diffTime = dateEnd - dateToday;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
     return diffDays;
   }
+  
+
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
- 
+
+  if (missions) {
     return (
       <>
-        <div ref={componentToPrint} className="container mt-2 mb-2">
+        <div  className="container-fluid  mb-2">
           <div style={{ width: "90vw" }}>
-            <div className="btn justify-content-end d-flex mt-2  text-light ">
+            <div className="btn  justify-content-end d-flex   text-light ">
               <button
                 className="btn   bg-secondary text-light mx-3"
                 onClick={handlePrintEx}
@@ -53,15 +53,16 @@ const MissionExeption = React.forwardRef((props, ref) => {
               </button>
             </div>
           </div>
+          <div ref={componentToPrint}>
           <div className="d-flex justify-content-between mx-5">
             <div className="exp-title-ex-div">
               <h2 className="exp-title-ex">דו"ח חריגה</h2>
-              <h2 className="exp-title-ex">
-              </h2>
+              <h2 className="exp-title-ex"></h2>
             </div>
+
             <span></span>
           </div>
-          <div className="container  table-container-Ex all_table-Ex mt-3 ml-3">
+          <div className="container  table-container-Ex all_table-Ex  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">
@@ -90,53 +91,66 @@ const MissionExeption = React.forwardRef((props, ref) => {
                 </div>
               </div>
             </span>
-            {missions.length > 0 ? (
-              missions.map((mission, i) => (
-                <div
-                  key={i}
-                  className="container-fluid d-flex justify-content-center p-0"
-                >
-                  <div className="col-1 the_table-Ex text-center">
-                    {mission.missionId}
-                  </div>
-                  <div className="col-1 the_table-Ex text-center">
-                    {mission.responsibility}
-                  </div>
-                  <div className="col-1 the_table-Ex text-center">
-                    {mission.title}
-                  </div>
-                  <div className="col-3 the_table-Ex text-center align-missions-center">
-                    <p className="p_taskdetail-Ex p-2 ">{mission.details}</p>
-                  </div>
-                  <div className="col-1 the_table-Ex  text-center">
-                    {mission.endedAt}
-                  </div>
-                  <div className="col-1 the_table-Ex text-center ">
-                    {daysOff(mission.endedAt)}
-                  </div>
-                  <div className="col-2 the_table-Ex  text-center align-missions-center ">
-                    <p className="p_taskdetail-Ex p-2 ">
-                      {mission.noteResponsibility}
-                    </p>
-                  </div>
-                  <div className="col-2 the_table-Ex  text-center  align-missions-center">
-                    <p className="p_taskdetail-Ex p-2 ">
-                      {mission.noteCommand}
-                    </p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="col-12 d-flex justify-content-center mt-5 ">
-                <h2 style={{ fontSize: "60px" }}> אין משימות בחריגה כעת</h2>
-              </div>
-            )}
+            {
+           dataExMission.length != 0 ?
+           dataExMission.map((mission, i)  =>
+                    (// use state-> to cheak if the table is empty
+                      <div
+                        key={i}
+                        className="container-fluid d-flex justify-content-center p-0"
+                      >
+                        <div className="col-1 the_table-Ex text-center">
+                          {mission.missionId}
+                        </div>
+                        <div className="col-1 the_table-Ex text-center">
+                          {mission.responsibility}
+                        </div>
+                        <div className="col-1 the_table-Ex text-center">
+                          {mission.title}
+                        </div>
+                        <div className="col-3 the_table-Ex text-center align-missions-center">
+                          <p className="p_taskdetail-Ex p-2 ">
+                            {mission.details}
+                          </p>
+                        </div>
+                        <div className="col-1 the_table-Ex  text-center">
+                          {mission.endedAt}
+                        </div>
+                        <div className="col-1 the_table-Ex text-center ">
+                          { Math.abs( daysOff(mission.endedAt))}
+                        </div>
+                        <div className="col-2 the_table-Ex  text-center align-missions-center ">
+                          <p className="p_taskdetail-Ex p-2 ">
+                            {mission.noteResponsibility}
+                          </p>
+                        </div>
+                        <div className="col-2 the_table-Ex  text-center  align-missions-center">
+                          <p className="p_taskdetail-Ex p-2 ">
+                            {mission.noteCommand}
+                          </p>
+                        </div>
+                      </div>
+                    )
+              )
+              
+            : <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
+              <h2 > אין משימות בחריגה כעת</h2></div>}
           </div>
+ <div>
+          <h2 className="numOfExMission">סה"כ משימות בחריגה: {dataExMission.length} </h2>
+        </div>
+        </div>
+       
         </div>
       </>
     );
-  
-  
-});
+  }
+   else {
+    return (
+      <div className="col-12 d-flex justify-content-center mt-5 ">
+       <h1 className="loader-Ex-table"> </h1>
+    </div>
+    );
+  }
+}
 
-export default MissionExeption;

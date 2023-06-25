@@ -131,6 +131,7 @@ console.log("toExcel");
             <span className="d-flex">
             <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
               <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => toExcel()}><samp><GrDocumentExcel color="white"/> Excel</samp></button>
+
               <button className="btn bg-secondary mx-3 text-light" onClick={() => { openDialog(); setEditSingleMission("") }}> הוסף משימה +</button>
               <div className="row">
                 <Dialog open={open} className="row" onClose={closeDialog}>

@@ -44,6 +44,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     responsibility.current.value = "";
     executionCompletionDate.current.value = "";
     noteCommander.current.value = "";
+
     // fileMission.current.files[0] = ""
 
   }
@@ -97,6 +98,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorDesign(false);
       if (displaySecondTask) {
         newMission(newTask);
+
       } else {
         newMission(newTask);
       }
@@ -134,7 +136,9 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     let newEditTask = {
+
       missionId: editSingleMission.missionId,
+
       status: "בתהליך",
       title: meetingTitle?.current?.value,
       startedAt: meetingDate?.current?.value,
@@ -142,7 +146,9 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       responsibility: responsibility?.current?.value,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: String(diffDays),
+
       noteCommander: noteCommander?.current?.value ? noteCommander.current.value : "",
+
       // fileMission: fileMission?.current?.files[0],
       token: editSingleMission.token,
       _id: editSingleMission._id,
@@ -151,6 +157,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     };
     console.log(newEditTask);
     console.log(editSingleMission);
+
     if (
       newEditTask.title != "" &&
       newEditTask.startedAt != "" &&
@@ -190,6 +197,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorNote(true);
     }
   }
+
 
   return (
     <div dir="rtl" className="container d-flex">
@@ -392,6 +400,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
           </button>
         </div>
       </div>
+
     </div>
   );
 }
