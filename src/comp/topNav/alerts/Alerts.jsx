@@ -1,15 +1,14 @@
 import React, {useEffect, useContext, useState} from 'react'
 import { MyContext } from '../../../App';
-
+import { FcApproval } from 'react-icons/fc';
 export default function Message() {
 const { newMissions, currentUser, updateUser} =  useContext(MyContext);
 const [alert, setAlert] = useState([]);
-// console.log(currentUser);
-// const location = useLocation();
+
+
 
 
 useEffect(()=>{
-  console.log(newMissions);
   if(newMissions[0]){
     setAlert(newMissions)
   }
@@ -17,10 +16,10 @@ useEffect(()=>{
 
 
 
-function deletAletrs(){
-    currentUser.newMissions = [];
+function deletAletrs(missionId){
+    currentUser.newMissions = alert.filter((mission, i )=> mission.missionId !== missionId);
+    setAlert(alert.filter((mission, i )=> mission.missionId !== missionId));
     updateUser(currentUser, currentUser.token)
-    console.log(currentUser);
      
   }
 
@@ -39,7 +38,6 @@ function deletAletrs(){
       התקבלו משימות חדשות עבורך 
 
       </h3>
-      <div className="btn" onClick={deletAletrs}>אשר קריאה </div>
       <div className="mt-5">
       <div className=" row d-flex justify-content-center">
         <div className="col-1 top_table text-center">מזהה</div>
@@ -51,6 +49,7 @@ function deletAletrs(){
         <div className="col-1 top_table text-center">תג"ב </div>
         <div className="col-1 top_table text-center">ימים שנותרו </div>
         <div className="col-1 top_table text-center">סטאטוס </div>
+        <div className="col-1 top_table text-center">אשר קריאה  </div>
       </div>
    
 
@@ -80,10 +79,13 @@ function deletAletrs(){
               {mission.endedAt}
             </div>
             <div className="col-1 border d-flex justify-content-center text-center table_h">
-              ---
+             {mission.daysLeft}
             </div>
             <div className="col-1 border d-flex justify-content-center text-center table_h">
               {mission.status}{" "}
+            </div> 
+            <div className="col-1 border d-flex justify-content-center text-center table_h  " onClick={()=>deletAletrs(mission.missionId)}>
+            <FcApproval  size={40} /> 
             </div>
           </div>
         );

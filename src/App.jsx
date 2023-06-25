@@ -131,6 +131,7 @@ export default function App() {
     deleteMission,
     newMissions,
     updateMission,
+    updateUser
 
   }
   return (
