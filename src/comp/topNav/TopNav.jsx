@@ -1,20 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { BsFilterCircleFill, BsDot } from "react-icons/bs";
-import { AiFillMessage, AiFillPrinter } from "react-icons/ai";
-import { RiFilter3Line } from "react-icons/ri";
 import { LuMail } from "react-icons/lu";
 import { FaTasks } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import "./topNav.css";
 import { MyContext } from "../../App";
 import Logo from "../../../images/todo_list_logo.png";
-import { Badge } from "@mui/material";
+import { Badge } from '@mui/material';
 
 export default function TopNav() {
   const [currentTime, setCurrentTime] = useState(time());
   const [settings, setSettings] = useState(false);
-  const { currentUser } = useContext(MyContext);
+  const { currentUser , newMissions, missions} = useContext(MyContext);
+  const [renderMissions, setRenderMissions] = useState(newMissions)
   // const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
@@ -22,10 +20,16 @@ export default function TopNav() {
       setCurrentTime(time());
     }, 1000);
 
+  
+
     return () => {
       clearInterval(timer);
     };
   }, []);
+
+  useEffect(() =>{
+    setRenderMissions(newMissions);
+  },[missions])
 
   function getForeignDateTime(foreignDate) {
     var options = {
@@ -60,12 +64,12 @@ export default function TopNav() {
         <div className="">
           <Link className=" " to={"/alerts"}>
             <span>
-              <LuMail className="cursor" size={25} color="gray" />
             </span>
             <div>
               {" "}
-              <Badge badgeContent={3}>
-            
+              <Badge badgeContent={newMissions.length} color="secondary">
+              <LuMail className="cursor" size={25} color="gray" />
+
               </Badge>
             </div>
           </Link>
