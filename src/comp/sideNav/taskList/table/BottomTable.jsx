@@ -15,7 +15,7 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 
 
 export default function BottomTable({ item, i, openDialog, setEditSingleMission, setIForChat, setChatOpen, chatOpen, notifyDel, notifySend }) {
-  const { deleteMission, currentUser } = useContext(MyContext)
+  const {deleteMission, currentUser ,updateMission} = useContext(MyContext)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openSettings = Boolean(anchorEl);
 
@@ -32,14 +32,17 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
     setEditSingleMission(item);
   }
 
-  const SubmitMission = () => {
-
-
+  const SubmitMission = (item) => {
+   const newItem = item;
+   newItem.status = 'ממתין לאישור';
+   console.log(item);
+   console.log(newItem);
+    updateMission(newItem,currentUser.token)
     notifySend()
   };
 
   const delMission = (_id, token) => {
-    let del = window.confirm(" האם אתה בטוח רוצה למחוק משימה  ?");
+    let del = window.confirm(" האם אתה בטוח רוצה למחוק משימה ?");
     if (del) {
       deleteMission(_id, token)
       setTimeout(() => {
@@ -74,11 +77,11 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
       <div className="col-1 the_table_file text-center" title="לחץ להורדת מסמך" onClick={ConfirmDownload}>
         <div className="mt-4"><div> הורדת מסמך</div><AiOutlineFilePdf size={25} /></div>
       </div>
-      <div className="col-1 the_table text-center"><samp className="p_taskdetail p-2 d-flex justify-content-center align-items-center">{item.responsibility}</samp></div>
+      <div className="col-1 the_table text-center"><div className="p_taskdetail p-2 d-flex justify-content-center align-items-center">{item.responsibility}</div></div>
       <div className="col-1 the_table text-center">{item.endedAt}</div>
       <div className="col-1 the_table text-center">{item.daysLeft}</div>
-      <div className="col-1 the_table text-center">
-        <div className="mx-1"><Brightness1Icon
+      <div className="col-1 the_table text-center d-flex justify-content-start">
+        <div className="mx-2"><Brightness1Icon
           color={item.status == "בתהליך" ? "warning"
             : item.status == "בחריגה" ? "error"
               : item.status == "בוצע" ? "success"
@@ -108,7 +111,7 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
                 },
               }}>
               <MenuItem onClick={() => { closeSettings(); editMission(item); }} title="ערוך משימה"><div className="d-flex justify-content-center"><FaPencilAlt size={18} className="mx-3" />ערוך משימה</div></MenuItem>
-              <MenuItem onClick={() => { closeSettings(); SubmitMission(); }}  title="שלח לאישור סיום"><div className="d-flex justify-content-center icon_send"><SendIcon className="mx-2" /></div>שלח לאישור משימה</MenuItem>
+              <MenuItem onClick={() => { closeSettings(); SubmitMission(item); }}  title="שלח לאישור סיום"><div className="d-flex justify-content-center icon_send"><SendIcon className="mx-2" /></div>שלח לאישור משימה</MenuItem>
               <MenuItem onClick={() => { closeSettings(); delMission(item._id, currentUser.token) }}  title="מחק משימה"><div className="d-flex justify-content-center"><DeleteOutlineIcon className="mx-3" /></div>מחק משימה</MenuItem>
             </Menu>
           </div>

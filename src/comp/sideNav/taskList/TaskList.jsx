@@ -5,7 +5,6 @@ import TheChat from "./chat/TheChat";
 import { CircularProgress, Dialog } from "@mui/material";
 import AddMissions from "../addMissions/AddMissions";
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
-import { useReactToPrint } from "react-to-print";
 import BottomTable from "./table/BottomTable";
 import TopTable from "./table/TopTable";
 import FilterTable from "./table/FilterTable";
@@ -13,7 +12,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyDel } from "./notify";
 import { notifySend } from "./notify";
-import Print from "./Print";
+import * as XLSX from 'xlsx/xlsx.mjs';
+import { GrDocumentExcel } from "react-icons/gr";
+
+
 
 export default function TaskList() {
 
@@ -24,8 +26,8 @@ export default function TaskList() {
   const [iForChat, setIForChat] = useState();
   const [editSingleMission, setEditSingleMission] = useState();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [ToExcel, setToExcel] = useState([]);
   const [load, setLoad] = useState(true);
-  const toPrintRef = useRef(null)
 
   const openDialog = () => {
     setOpenDialog(true);
@@ -35,11 +37,10 @@ export default function TaskList() {
   };
 
   useEffect(() => {
-    setLoad(true)
-    let newMissions;
+    let newMissions = [];
     const time = new Date();
     const nowTime = new Date(time.getTime() - 24 * 60 * 60 * 1000);
-
+  
     if (missions[0]) {
       newMissions = [...missions];
       newMissions?.map((item, i) => {
@@ -47,20 +48,72 @@ export default function TaskList() {
         if (endTime < nowTime && item.status !== "בוצע") {
           item.status = "בחריגה";
         }
+
+        // startedAt
+        const partsStartTime = item?.startedAt.split('-');
+        const reversStartendTime = partsStartTime.reverse().join('/');
+        item.startedAt = reversStartendTime;
+
+        // endedAt
+        const partsEndTime = item?.endedAt.split('-');
+        const reversedEndTime = partsEndTime.reverse().join('/');
+        item.endedAt = reversedEndTime;
       });
       setAllDataShow(newMissions);
     } else {
       setAllDataShow([]);
     }
-    setTimeout(() => {
-      setLoad(false);
-    }, 2000);
+  }, [missions]);
+  
+      
+  useEffect(() => {
+    const excelMissions = JSON.parse(JSON.stringify(missions));
+    for (let i = 0; i < excelMissions.length; i++) {
+      delete excelMissions[i]._id;
+      delete excelMissions[i].token;
+      delete excelMissions[i].__v;
+      excelMissions[i]['כותרת המשימה'] = excelMissions[i].title;
+      delete excelMissions[i].title;
+      excelMissions[i]['ימים שנותרו'] = excelMissions[i].daysLeft;
+      delete excelMissions[i].daysLeft;
+      excelMissions[i]['פרטי משימה'] = excelMissions[i].details;
+      delete excelMissions[i].details;
+      excelMissions[i]['מועד משימה'] = excelMissions[i].endedAt;
+      delete excelMissions[i].endedAt;
+      excelMissions[i]['מסד'] = excelMissions[i].missionId;
+      delete excelMissions[i].missionId;
+      excelMissions[i]['אחריות'] = excelMissions[i].responsibility;
+      delete excelMissions[i].responsibility;
+      excelMissions[i]['תג"מ'] = excelMissions[i].startedAt;
+      delete excelMissions[i].startedAt;
+      excelMissions[i]['הערות מפקד'] = excelMissions[i].noteCommander;
+      delete excelMissions[i].noteCommander;
+      excelMissions[i]['סטאטוס'] = excelMissions[i].status;
+      delete excelMissions[i].status;
+    }
+    setToExcel(excelMissions)
   }, [missions])
+  
 
+useEffect(() => {
+  // console.log(ToExcel);
+  // console.log(allDataShow);
+}, [ToExcel])
 
-  const handlePrint = useReactToPrint({
-    content: () => toPrintRef.current,
-  });
+  const toExcel=()=>{
+
+    setTimeout(() => {
+      const wb = XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(ToExcel);
+  
+      XLSX.utils.book_append_sheet(wb,ws,"mySheet1")
+  
+      XLSX.writeFile(wb, "TableMissions .xlsx");
+      }, 2000);
+
+console.log("toExcel");
+  }
+
 
   useEffect(() => {
     window.addEventListener("click", () => {
@@ -77,7 +130,8 @@ export default function TaskList() {
             <h4 className="">מאגר משימות</h4>
             <span className="d-flex">
             <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
-              <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => handlePrint()}><samp>PDF</samp></button>
+              <button className="btn bg-secondary text-light" style={{ width: "100px" }} onClick={() => toExcel()}><samp><GrDocumentExcel color="white"/> Excel</samp></button>
+
               <button className="btn bg-secondary mx-3 text-light" onClick={() => { openDialog(); setEditSingleMission("") }}> הוסף משימה +</button>
               <div className="row">
                 <Dialog open={open} className="row" onClose={closeDialog}>
@@ -92,7 +146,7 @@ export default function TaskList() {
             </span>
             {allDataShow.length != 0 ?
               allDataShow?.map((item, i) => (
-                <BottomTable key={i} item={item} i={i}
+                <BottomTable key={i} item={item} i={i} 
                   openDialog={openDialog} setEditSingleMission={setEditSingleMission}
                   setIForChat={setIForChat} setChatOpen={setChatOpen} chatOpen={chatOpen} notifyDel={notifyDel} notifySend={notifySend} />
               ))
@@ -106,11 +160,9 @@ export default function TaskList() {
                 </div>}
                 {/* <Print allDataShow={allDataShow} toPrintRef={toPrintRef}/> */}
           </div>
-          <div className="mx-5 pt-2 Total_tasks">סה"כ משימות: {allDataShow.length}
-            <div>
+          <div className=" Total_tasks">
               <ToastContainer position="bottom-right" autoClose={5000}
                 closeOnClick  pauseOnFocusLoss draggable pauseOnHover theme="light" />
-            </div>
           </div>
         </div>
         {chatOpen && <div onClick={(e) => {
