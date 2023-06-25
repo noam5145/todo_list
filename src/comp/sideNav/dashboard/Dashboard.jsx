@@ -4,7 +4,7 @@ export default function Dashboard() {
   const {  missions} = useContext(MyContext);
   let [data,setData]=useState([])
   useEffect(()=>{
-    console.log(missions)
+    // console.log(missions)
     let arr=[];
     let temp=missions.map((mission)=>{
            let flag=false;
@@ -16,13 +16,11 @@ export default function Dashboard() {
            })
           if (!flag) {
             arr=[...arr,{responsibility:mission.responsibility,count:1}]
-          }
-
-        
+          } 
     })
    setData(arr)
 
-console.log(arr)
+// console.log(arr)
   },[missions])
     
   
