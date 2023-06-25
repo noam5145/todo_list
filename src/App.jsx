@@ -4,17 +4,13 @@ import axios from 'axios';
 import AppRoutes from "./routes/AppRoutes";
 const base_url = 'https://server-todolist-xr2q.onrender.com/';
 // import Login from "./comp/Login";
-
 export const MyContext = createContext();
-
-
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
   const [missions, setMissions] = useState([]);
   const [users, setUsers] = useState([]);
   const [newMissions, setNewMissions] = useState([]);
   let flag = true;
-
   const newMission = async(mission)=>{
     let res = await axios.post(base_url + 'mission/setMission', mission);
     if(res.data.err){
@@ -22,7 +18,6 @@ export default function App() {
     }
     setMissions([...missions, res.data]);
   }
-
   const getAllMissions = async (token)=>{
     let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
@@ -31,7 +26,6 @@ export default function App() {
     setMissions(res.data);
   }
   let num =0;
-
   const getNewMissions = async (missions)=>{
     if(currentUser?.newMissions){
       let arr =[];
@@ -44,9 +38,7 @@ export default function App() {
       }
       setNewMissions(arr);
     }
-
   }
-
   useEffect(()=>{
     if(missions[0]){
       getNewMissions(missions);
@@ -59,20 +51,18 @@ export default function App() {
     }
     setUsers([...users, user1.data]);
   }
-
   const getUser = async(user)=>{
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
-    localStorage.setItem('token', res.data.token);
+    document.cookie = "T_L_U=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
     }
    }
-
   const getAllUsers = async (user)=>{
     let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
     if(res.data.err){
@@ -80,7 +70,6 @@ export default function App() {
     }
     setUsers(res.data);
   }
- 
   const updateUser = async (user, adminToken)=>{
     let res = await axios.put(base_url + 'user/updateUser', {...user, adminToken: adminToken});
     if(res.data.err){
@@ -88,15 +77,13 @@ export default function App() {
     }
     getAllUsers(currentUser);
   }
-
   const updateMission = async (mission, adminToken)=>{
-    let res = await axios.put(base_url + 'post/updatePost', {...mission, adminToken: adminToken});
+    let res = await axios.put(base_url + 'mission/updateMission', {...mission, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
     getAllMissions(currentUser.token);
   }
-
   const deleteUser = async (_id, adminToken) =>{
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
@@ -107,7 +94,6 @@ export default function App() {
     }
     setUsers(users.filter((user)=> user._id !== _id));
   }
-
   const deleteMission = async (_id, adminToken) =>{
     let res = await axios.delete(base_url + 'mission/deleteMission', {params: {
       _id: _id,
@@ -116,19 +102,17 @@ export default function App() {
     if(res.data.err){
       return console.log(res.data.err);
     }
-    setMissions(missions.filter((mission)=> mission._id !== _id));
+    getAllMissions(adminToken);
   }
-
   useEffect(()=>{
     if(flag){
-      let t = localStorage.getItem('token');
-      if(t){
-        getUser({token: t});
-      }
+      // let t = document.cookie.split('T_L_U=')[1].split(';')[0];
+      // if(t){
+      //   getUser({token: t});
+      // }
       flag=false
     }
   },[])
-
   let val = {
     currentUser,
     newMission,
@@ -139,10 +123,9 @@ export default function App() {
     deleteUser,
     deleteMission,
     newMissions,
+    updateMission,
+    updateUser,
   }
-
-
- 
   return (
     <div>
       <MyContext.Provider value={val} >
@@ -151,3 +134,10 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
+
+
+

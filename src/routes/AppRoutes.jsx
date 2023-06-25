@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import App from "../App";
 import UserTasks from '../comp/topNav/userTasks/UserTasks'
 import NotFound from "../NotFound";
 import AddMissions from "../comp/sideNav/addMissions/AddMissions";
@@ -18,7 +17,12 @@ import MainSite from "../comp/MainSite";
 import TheChat from "../comp/sideNav/chat/TheChat";
 import CompletedTasks from "../comp/sideNav/completedTasks/CompletedTasks";
 
+
 export default function AppRoutes() {
+
+
+
+
   return (
     <>
     <div className="" style={{height:"100vh", width:"100%"}}>
