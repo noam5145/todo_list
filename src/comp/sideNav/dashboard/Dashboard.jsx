@@ -4,7 +4,7 @@ export default function Dashboard() {
   const {  missions} = useContext(MyContext);
   let [data,setData]=useState([])
   useEffect(()=>{
-    // console.log(missions)
+    console.log(missions)
     let arr=[];
     let temp=missions.map((mission)=>{
            let flag=false;
@@ -20,35 +20,14 @@ export default function Dashboard() {
     })
    setData(arr)
 
-// console.log(arr)
+console.log(arr)
   },[missions])
     
+  
   
   return (
     <div className='container-fluid'>
       <div className='container'>
-      <div className='container row'>
-      <h2>Dashboard</h2>
-      <div className='col-6'>
-        <ul className='row'>
-          <li className='col-4'></li>
-          <li className='col-4'></li>
-          <li className='col-4'></li>
-         
-        </ul>
-      </div>
-      <div className='col-3'>
-        <ul className='row'>
-          <li className='col-12'></li>
-        </ul>
-      </div>
-      <div className='col-3'>
-        <ul className='row'>
-          <li className='col-12'></li>
-        </ul>
-      </div>
-      
-      </div>
       </div>
     </div>
   )
