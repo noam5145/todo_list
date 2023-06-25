@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
+
 import UserTasks from '../comp/topNav/userTasks/UserTasks'
 import NotFound from "../NotFound";
 import AddMissions from "../comp/sideNav/addMissions/AddMissions";
@@ -14,7 +15,6 @@ import Settings from "../comp/topNav/settings/Settings";
 import SideNav from "../comp/sideNav/SideNav";
 import TopNav from "../comp/topNav/TopNav";
 import MainSite from "../comp/MainSite";
-import TheChat from "../comp/sideNav/chat/TheChat";
 import CompletedTasks from "../comp/sideNav/completedTasks/CompletedTasks";
 
 
@@ -23,9 +23,11 @@ export default function AppRoutes() {
 
 
 
+
   return (
     <>
     <div className="" style={{height:"100vh", width:"100%"}}>
+      {currentUser?.username ? <>
       <TopNav/>
       <div className="d-flex bg-light">
       <SideNav/>
@@ -45,7 +47,9 @@ export default function AppRoutes() {
         <Route path="/UserTasks" element={<UserTasks />} />
         <Route path="/archives" element={<CompletedTasks />} />
       </Routes>
-      </div></div>
+      </div></>
+      :  <Login />}
+      </div>
     </>
   );
 }

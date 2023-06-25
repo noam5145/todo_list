@@ -53,6 +53,7 @@ function deletAletrs(){
         <div className="col-1 top_table text-center">סטאטוס </div>
       </div>
    
+
     </div>
     {alert.map((mission, index) => {
         return (

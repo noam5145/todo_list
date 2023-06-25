@@ -26,6 +26,8 @@ export default function App() {
     setMissions(res.data);
   }
   let num =0;
+
+
   const getNewMissions = async (missions)=>{
     if(currentUser?.newMissions){
       let arr =[];
@@ -57,7 +59,8 @@ export default function App() {
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
-    document.cookie = "T_L_U=" + res.data.token;
+
+    document.cookie = "T_L_T=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
@@ -84,7 +87,9 @@ export default function App() {
     }
     getAllMissions(currentUser.token);
   }
-  const deleteUser = async (_id, adminToken) =>{
+
+
+  const deleteUser = async (_id, adminToken) =>{   
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -106,10 +111,11 @@ export default function App() {
   }
   useEffect(()=>{
     if(flag){
-      // let t = document.cookie.split('T_L_U=')[1].split(';')[0];
-      // if(t){
-      //   getUser({token: t});
-      // }
+
+      let t = document.cookie.split('T_L_T=')[1]?.split(';')[0]
+      if(t){
+        getUser({token: t});
+      }
       flag=false
     }
   },[])
@@ -124,7 +130,7 @@ export default function App() {
     deleteMission,
     newMissions,
     updateMission,
-    updateUser,
+
   }
   return (
     <div>

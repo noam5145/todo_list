@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import Login from "../Login";
 import { BsFilterCircleFill } from "react-icons/bs";
 import { AiFillMessage, AiFillPrinter } from "react-icons/ai";
 import { RiFilter3Line } from "react-icons/ri";
@@ -84,7 +83,6 @@ export default function TopNav() {
             <div className="setting_options">סביבת העבודה שלי </div>
           </div>
         </div>
-        {!currentUser ? <Login /> : ""}
         {currentUser?.username}
       </div>
     </div>

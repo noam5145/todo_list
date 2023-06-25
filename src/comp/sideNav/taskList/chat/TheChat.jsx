@@ -5,7 +5,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import { BsCheck2All } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiSearchAlt } from 'react-icons/bi';
-import { MyContext } from '../../../App';
+import { MyContext } from '../../../../App';
 
 export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
     const { missions, currentUser } = useContext(MyContext)
@@ -40,7 +40,8 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                         <div className="icon_searc mx-1" title='סגור'> <AiOutlineClose size={25} onClick={() => setChatOpen(!chatOpen)} /></div>
                     </div>
                 </div>
-                <div className="middle_chat">
+                <div className="middle_chat mx-1">
+                <div className="d-flex justify-content-end">
                     <div className="the_message mx-1 p-1 mt-2 text-light">
                         <div className="mb-1 taxt-dark text-info">{missions[iForChat]?.responsibility}</div>
                         <samp>
@@ -51,9 +52,10 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                             </div> : <div className='d-flex justify-content-end mx-2'><BsCheck2All color='skyblue' /></div>}
                         </samp>
                     </div>
+                    </div>
                     <a href="#Down">
-                        <div className="d-flex justify-content-end sticky-bottom mx-3" title='למטה'
-                        ><KeyboardDoubleArrowDownIcon color='dark' className='icon_down mb-1' /></div>
+                        <div className="d-flex justify-content-end sticky-bottom mx-3" 
+                        ><KeyboardDoubleArrowDownIcon color='warning' title='למטה' className='icon_down mb-1 bg-light' /></div>
                     </a>
                 </div>
                 <div className="bottom_chat d-flex">

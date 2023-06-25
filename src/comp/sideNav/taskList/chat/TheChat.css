@@ -12,6 +12,8 @@
 .middle_chat{
     height: 305px;
     overflow-y: auto;
+    background-image: linear-gradient(white,rgba(128, 128, 128, 0.4));
+
 }   
 
 .the_message{
