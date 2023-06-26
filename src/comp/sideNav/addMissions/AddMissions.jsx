@@ -19,7 +19,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   let taskDetails = useRef();
   let responsibility = useRef();
   let executionCompletionDate = useRef();
-  let domain = useRef();
   let noteCommander = useRef();
   let fileMission = useRef();
   const [usersNames, setNames] = useState([]);
