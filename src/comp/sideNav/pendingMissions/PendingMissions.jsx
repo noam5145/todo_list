@@ -9,10 +9,10 @@ import { MyContext } from "../../../App";
 
 export default function PendingMissions() {
 
-  const { missions } = useContext(MyContext);
+  const { missions ,updateMission, currentUser} = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataPenMission,setData]=useState([]);
-console.log(missions);
+
 
 
  useEffect(()=>{
@@ -28,8 +28,15 @@ setData(temp.filter((item)=>item!=""));
   });
 
 
-  const aprrove=(token)=>{
-        
+  const aprrove=(id)=>{
+     
+let tempMission=missions.filter((mission)=>{
+ return mission._id==id
+})
+tempMission[0].status="בוצע"
+    if (confirm("אתה רוצה לאשר?")) {
+        updateMission(tempMission[0],currentUser.token)
+    }
   }
 
   if (missions) {
@@ -104,8 +111,10 @@ setData(temp.filter((item)=>item!=""));
                         <div className="col-1 the_table-pen text-center">
                           {mission.startedAt}
                         </div>
-                        <div className="col-1 the_table-pen text-center">
-                          {mission.responsibility}
+                        <div className="col-1 flex-column the_table-pen text-center">
+                        <p className="p_taskdetail-pen p-2 ">
+                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{name},</div>})}
+                    </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">
                           {mission.title}
@@ -130,7 +139,7 @@ setData(temp.filter((item)=>item!=""));
                           </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">
-                         <button onClick={()=>aprrove(mission.token)} style={{background:"none",border:"none"}}>👍</button> 
+                         <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>👍</button> 
                         </div>
                       </div>
                     )

@@ -31,7 +31,7 @@ function endAtChanged(endTime)
 }
 
   function daysOff(endTime,status) {
-    if (status=="בוצע") {// cheak if the mission has done
+    if (status=="בוצע"||status=="ממתין לאישור") {// cheak if the mission has done
       return 1;
     }
    endTime=endAtChanged(endTime);
@@ -122,8 +122,11 @@ var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
                         <div className="col-1 the_table-Ex text-center">
                           {mission.missionId}
                         </div>
-                        <div className="col-1 the_table-Ex text-center">
-                          {mission.responsibility}
+                        <div className="col-1 flex-column the_table-Ex text-center">
+                        <p className="p_taskdetail-Ex w-100 py-1 ">
+                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{name},</div>})}
+                    </p>
+                   
                         </div>
                         <div className="col-1 the_table-Ex text-center">
                           {mission.title}
