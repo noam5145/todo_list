@@ -33,15 +33,12 @@ export default function App() {
   }
   function daysOff(endTime) {
     endTime = endAtChanged(endTime);
-    // took the days,months,years from string(endTime)
     let day = Number(endTime[0] + endTime[1]);
-    let month = Number(endTime[3] + endTime[4]) - 1; // Note: Months are zero-based, so June is represented by 5
+    let month = Number(endTime[3] + endTime[4]) - 1;
     let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
     var targetDate = new Date(year, month, day);
     var today = new Date();
-    // Calculate the time difference in milliseconds
     var timeDiff = targetDate.getTime() - today.getTime();
-    // Calculate the number of days
     var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
     return daysDiff;
   }
@@ -72,7 +69,9 @@ export default function App() {
   useEffect(()=>{
     if(missions[0]){
       getNewMissions(missions);
+      change(missions);
     }
+    
   }, [missions])
 
   
@@ -149,6 +148,17 @@ export default function App() {
       flag=false
     }
   },[])
+
+  const change = (missions)=>{
+    missions.map((mission, index)=>{
+      if(daysOff(mission.startedAt) < 0 ){
+        mission.status = "בחריגה"
+      }
+    })
+
+  }
+
+
   let val = {
     currentUser,
     newMission,
