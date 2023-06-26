@@ -9,8 +9,6 @@
     justify-content: center;
     align-items: center;
     border-radius:5px;
-    border: dashed 3px black;
-    /* background-color: rgb(25, 106, 178); */
     user-select: none;
     cursor: pointer;
 

@@ -44,8 +44,8 @@ export default function CompletedTasks() {
       return (
       <>
      
-        <div className="container-fluid  mb-2">
-          <div style={{ width: "90vw" }}>
+        <div className="container  mb-2">
+          <div >
             <div className="btn  justify-content-end d-flex   text-light ">
               <button
                 className="btn   bg-secondary text-light mx-3"
@@ -58,18 +58,18 @@ export default function CompletedTasks() {
           <div  ref={componentToPrint}>
           <div  className="d-flex justify-content-between mx-5">
             <div className="p-title-Archive-div">
-              <h2 className="p-title-Archive">ארכיון</h2>
+              <h2 className="p-title-Archive">ארכיון משימות</h2>
               <h2 className="p-title-Archive">
               </h2>
             </div>
   
             <span></span>
           </div>
-          <div className="container  table-container-Archive all_table-Archive  ml-3">
+          <div className="container  table-container-Archive all_table-Archive">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Archive text-center">
-                  מזהה <span title="מיין לפי גדול/קטן"></span>
+              מסד <span title="מיין לפי גדול/קטן"></span>
                 </div>
                 <div className="col-1 top_table-Archive text-center">
                   אחריות<span title="מיין לפי גדול/קטן"></span>
@@ -133,8 +133,8 @@ export default function CompletedTasks() {
                 </div>
               ))
             ) : (
-              <div className="col-12 d-flex justify-content-center mt-5 ">
-                <h2 style={{ fontSize: "60px" }}>אין משימות בארכיון כרגע</h2>
+              <div className="col-11 d-flex the_table-Archive container justify-content-center  ">
+                <h2 style={{ fontSize: "40px" }}>אין משימות בארכיון כרגע</h2>
               </div>
             )}
           </div>

@@ -125,15 +125,3 @@ background-image: linear-gradient(white,rgba(128, 128, 128, 0.3));
 .Total_tasks{
 height: 100px;
 }
-
-@media print {
-    .Ex {
-      overflow: visible !important;
-      /* height: auto !important; */
-      width: 100vw !important;
-    }
-    .print{
-        /* display: block; */
-        opacity: 1;
-    }
-}

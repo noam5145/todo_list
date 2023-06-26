@@ -11,8 +11,8 @@ export default function MissionExeption() {
 
   const { missions } = useContext(MyContext);
   const componentToPrint = useRef();
-  let [dataExMission,setData]=useState([]);
-
+  let [dataExMission,setData]=useState(null);
+  console.log(missions);
 
 
  useEffect(()=>{
@@ -23,15 +23,35 @@ setData(temp.filter((item)=>item!=""));
 },[missions])
 
 
+function endAtChanged(endTime)
+{
+ const partsStartTime = endTime.split('-');
+    const reversStartendTime = partsStartTime.reverse().join('/');
+   return reversStartendTime;
+}
+
   function daysOff(endTime,status) {
     if (status=="בוצע") {// cheak if the mission has done
       return 1;
     }
-    const dateToday = new Date();
-    const dateEnd = new Date(endTime);
-    const diffTime = dateEnd - dateToday;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+   endTime=endAtChanged(endTime);
+
+  
+
+// took the days,months,years from string(endTime)
+let day=Number(endTime[0]+endTime[1]);
+let month=Number(endTime[3]+endTime[4])-1;// Note: Months are zero-based, so June is represented by 5
+let year=Number(endTime[6]+endTime[7]+endTime[8]+endTime[9]);
+
+var targetDate = new Date(year,month,day); 
+var today = new Date();
+
+// Calculate the time difference in milliseconds
+var timeDiff = targetDate.getTime() - today.getTime();
+
+// Calculate the number of days
+var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff;
   }
   
 
@@ -39,12 +59,12 @@ setData(temp.filter((item)=>item!=""));
     content: () => componentToPrint.current,
   });
 
-  if (missions) {
+  if (missions&&dataExMission) {
     return (
       <>
-        <div  className="container-fluid  mb-2">
-          <div style={{ width: "90vw" }}>
-            <div className="btn  justify-content-end d-flex   text-light ">
+        <div  className="container  mb-2">
+          <div>
+            <div className=" justify-content-end d-flex   text-light ">
               <button
                 className="btn   bg-secondary text-light mx-3"
                 onClick={handlePrintEx}
@@ -56,7 +76,7 @@ setData(temp.filter((item)=>item!=""));
           <div ref={componentToPrint}>
           <div className="d-flex justify-content-between mx-5">
             <div className="exp-title-ex-div">
-              <h2 className="exp-title-ex">דו"ח חריגה</h2>
+              <h2 className="exp-title-ex">דו"ח משימות בחריגה</h2>
               <h2 className="exp-title-ex"></h2>
             </div>
 
@@ -66,7 +86,7 @@ setData(temp.filter((item)=>item!=""));
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">
-                  מזהה <span title="מיין לפי גדול/קטן"></span>
+                  מסד <span title="מיין לפי גדול/קטן"></span>
                 </div>
                 <div className="col-1 top_table-Ex text-center">
                   אחריות<span title="מיין לפי גדול/קטן"></span>
@@ -114,7 +134,7 @@ setData(temp.filter((item)=>item!=""));
                           </p>
                         </div>
                         <div className="col-1 the_table-Ex  text-center">
-                          {mission.endedAt}
+                          { endAtChanged(mission.endedAt)  }
                         </div>
                         <div className="col-1 the_table-Ex text-center ">
                           { Math.abs( daysOff(mission.endedAt))}
