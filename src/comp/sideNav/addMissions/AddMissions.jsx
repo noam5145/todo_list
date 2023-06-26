@@ -128,6 +128,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       newMission(newTask);
+      setUserSelected([]);
       closeDialog()
     } else {
       if (newTask.title == "") {
