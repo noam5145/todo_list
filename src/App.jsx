@@ -8,6 +8,7 @@ export const MyContext = createContext();
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
   const [missions, setMissions] = useState([]);
+  const [archive, setArchive] = useState([]);
   const [users, setUsers] = useState([]);
   const [newMissions, setNewMissions] = useState([]);
   let flag = true;
@@ -25,6 +26,20 @@ export default function App() {
     }
     setMissions(res.data);
   }
+  const getAllArchives = async (adminToken)=>{
+    let res = await axios.get( base_url + 'mission/getArchive', {params: {adminToken: adminToken}});
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    setArchive(res.data);
+  }
+  const sendToArchives = async (_id , adminToken)=>{
+    let res = await axios.post( base_url + 'mission/sendToArchive', {adminToken: adminToken, _id: _id});
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    getAllArchives(adminToken);
+  }
   let num =0;
   function endAtChanged(endTime) {
     const partsStartTime = endTime.split("-");
@@ -33,15 +48,13 @@ export default function App() {
   }
   function daysOff(endTime) {
     endTime = endAtChanged(endTime);
-    // took the days,months,years from string(endTime)
+    console.log(endTime);
     let day = Number(endTime[0] + endTime[1]);
-    let month = Number(endTime[3] + endTime[4]) - 1; // Note: Months are zero-based, so June is represented by 5
+    let month = Number(endTime[3] + endTime[4]) - 1;
     let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
     var targetDate = new Date(year, month, day);
     var today = new Date();
-    // Calculate the time difference in milliseconds
     var timeDiff = targetDate.getTime() - today.getTime();
-    // Calculate the number of days
     var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
     return daysDiff;
   }
@@ -72,7 +85,9 @@ export default function App() {
   useEffect(()=>{
     if(missions[0]){
       getNewMissions(missions);
+      change(missions);
     }
+    
   }, [missions])
 
   
@@ -94,6 +109,7 @@ export default function App() {
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
+      getAllArchives(res.data.token);
     }
    }
   const getAllUsers = async (user)=>{
@@ -149,6 +165,31 @@ export default function App() {
       flag=false
     }
   },[])
+
+  const change = (missions)=>{
+    let newMissions = [];
+    const time = new Date();
+    const nowTime = new Date(time.getTime() - 24 * 60 * 60 * 1000);
+
+    if (missions[0]) {
+      newMissions = [...missions];
+      newMissions?.map((item, i) => {
+        const endTime = new Date(item.endedAt);
+        if (endTime < nowTime && item.status !== "בוצע") {
+          item.status = "בחריגה";
+        }})}
+
+        if(missions[0]){
+          console.log(missions);
+          missions.map((item, index)=>{
+            item.daysLeft = daysOff(item.endedAt);
+
+          })
+        }
+
+      }
+
+
   let val = {
     currentUser,
     newMission,

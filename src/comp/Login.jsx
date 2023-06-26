@@ -66,7 +66,7 @@ export default function(){
            <LockOutlinedIcon />
          </Avatar>
          <Typography component="h1" variant="h5">
-        תכניס מספר אישי
+        הכנס מספר אישי
          </Typography>
          <Box noValidate sx={{ mt: 1 }}>
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import "./alerts.css"
 import { MyContext } from "../../../App";
 import { FcApproval } from "react-icons/fc";
 import { IoMdCheckmarkCircle } from "react-icons/io";
@@ -12,6 +13,8 @@ export default function Message() {
     daysOff,
     changeStatus,
     endAtChanged,
+    setMissions,
+    missions
   } = useContext(MyContext);
   const [alert, setAlert] = useState([]);
 
@@ -21,17 +24,23 @@ export default function Message() {
     }
   }, [newMissions]);
 
+  useEffect(()=>{
+
+  },[missions])
+  
+
+
   function deletAletrs(missionId) {
+    console.log("aervaer");
     currentUser.newMissions = alert.filter(
       (mission, i) => mission.missionId !== missionId
     );
-    setAlert(alert.filter((mission, i) => mission.missionId !== missionId));
+    setAlert(currentUser.newMissions);
     updateUser(currentUser, currentUser.token);
     setNewMissions(
       alert.filter((mission, i) => mission.missionId !== missionId)
     );
   }
-
 
   return (
     <div className="container d-flex justify-content-center">
@@ -46,7 +55,7 @@ export default function Message() {
           </h3>
           <div className="mt-5">
             <div className=" row d-flex justify-content-center">
-              <div className="col-1 top_table text-center">מזהה</div>
+              <div className="col-1 top_table text-center">מסד</div>
               <div className="col-1 top_table text-center">מועד משימה </div>
               <div className="col-1 top_table text-center">כותרת משימה </div>
               <div className="col-3 top_table text-center">פירוט משימה </div>
@@ -61,35 +70,52 @@ export default function Message() {
           {alert.map((mission, index) => {
             return (
               <div className="row d-flex justify-content-center" key={index}>
-                <div className="col-1 border d-flex justify-content-center table_h">
+                <div className="col-1  the_table d-flex justify-content-center text-center ">
                   {mission.missionId}
                 </div>
-                <div className="col-1 border d-flex justify-content-center text-center table_h">
+                <div className="col-1  the_table d-flex justify-content-center text-center ">
                   {endAtChanged(mission.startedAt)}
                 </div>
-                <div className="col-1 border d-flex justify-content-center text-center table_h">
+                <div className="col-1  the_table d-flex justify-content-center text-center ">
                   {mission.title}
                 </div>
-                <div className="col-3 col-1 border d-flex justify-content-center text-center table_h">
+                <div className="col-3 col-1  the_table d-flex justify-content-center text-center ">
                   {mission.details}
                 </div>
-                <div className="col-1 border d-flex justify-content-center text-center table_h">
+                <div className="col-1  the_table d-flex justify-content-center text-center ">
                   ---
                 </div>
-                <div className="col-1 border d-flex justify-content-center text-center table_h">
-                  {mission.responsibility}{" "}
+                <div className="col-1 the_table text-center d-flex align-items-center p-0">
+                  <div
+                    className={`p_task_responsibility ${
+                      mission.responsibility.length < 4
+                        ? "d-flex align-items-center"
+                        : ""
+                    }`}
+                  >
+                    <div>
+                      {mission.responsibility.map((name, i) => (
+                        <div key={i}>
+                          {!(i == mission.responsibility.length - 1)
+                            ? name + ","
+                            : name + "."}
+                        </div>
+                      ))}
+                    </div>
+                  
                 </div>
-                <div className="col-1 border d-flex justify-content-center text-center table_h">
+              </div>
+                <div className="col-1  the_table d-flex justify-content-center text-center">
                   {endAtChanged(mission.endedAt)}
                 </div>
-                <div className="col-1 border d-flex justify-content-center text-center table_h">
-                  {daysOff(mission.endedAt)}
+                <div className="col-1  the_table d-flex justify-content-center text-center">
+                {daysOff(mission.endedAt) < 0 ? (Math.abs(daysOff(mission.endedAt))  + "-"):(daysOff(mission.endedAt))}
                 </div>
-                <div className="col-1 border d-flex justify-content-center text-center table_h">
-                  {changeStatus(mission.endedAt)}
+                <div className="col-1  the_table d-flex justify-content-center text-center">
+                  {mission.status}
                 </div>
                 <div
-                  className="col-1 border d-flex justify-content-center text-center table_h  "
+                  className="col-1  the_table d-flex justify-content-center text-center  "
                   onClick={() => deletAletrs(mission.missionId)}
                 >
                   <IoMdCheckmarkCircle

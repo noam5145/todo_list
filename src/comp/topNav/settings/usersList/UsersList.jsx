@@ -21,25 +21,25 @@ deleteUser(_id, token);
       <div className="row container">
         {users.map((user, i) => (
           <div className="d-flex" key={i}>
-           <div  className="col-2 border d-flex justify-content-center text-center table_h">
+           <div  className="col-2 the_table d-flex justify-content-center text-center ">
               {user.username}
             </div>
-            <div className="col-2 border d-flex justify-content-center text-center table_h">
+            <div className="col-2 the_table d-flex justify-content-center text-center ">
               {user.role}
             </div>
-            <div className="col-2 border d-flex justify-content-center text-center table_h">
+            <div className="col-2 the_table d-flex justify-content-center text-center ">
               {user.level_1}
             </div>
-            <div className="col-2 border d-flex justify-content-center text-center table_h">
+            <div className="col-2 the_table d-flex justify-content-center text-center ">
               {user.level_2}
             </div>
-            <div className="col-2 border d-flex justify-content-center text-center table_h">
+            <div className="col-2 the_table d-flex justify-content-center text-center ">
               {user.level_3 ? user.level_3 : "---"}
             </div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h">
+            <div className="col-1 the_table d-flex justify-content-center text-center ">
               {user.access}
             </div>
-            <div className="col-1 border d-flex justify-content-center text-center table_h"
+            <div className="col-1 the_table d-flex justify-content-center text-center "
               onClick={()=> delete_user(user._id,currentUser.token)}
             >
               <AiOutlineDelete className="cursor" size={20} 
