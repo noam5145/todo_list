@@ -43,15 +43,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   const [personNames, setPersonNames] = useState([editSingleMission && editSingleMission.responsibility]);
 
 
-  // useEffect(() => {
-  //   if (users[0]) {
-  //     let arr = [];
-  //     users.map((e, i) => {
-  //       arr[i] = users[i].username;
-  //     })
-  //     setNames(arr);
-  //   }
-  // }, [users]);
+
 
   let newTask = () => {
     sendigTask();
@@ -74,7 +66,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
         }
       }
     }
-    console.log(userSelect);
   }
   console.log(filess);
 
@@ -90,8 +81,10 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if (personNames[0] === "") {
-      setPersonNames(personNames.slice(1));
+    let arr = [];
+    if(personNames[0] === ""){
+      arr = personNames.slice(1);
+      setPersonNames(arr);
     }
     let max = 0;
     missions.map((mission, i) => {
@@ -107,20 +100,16 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       title: meetingTitle?.current?.value,
       startedAt: meetingDate?.current?.value,
       details: taskDetails?.current?.value,
-      responsibility: personNames,
+      responsibility: arr,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
-
-      chat: {
-        messages: {
-          noteCommander: { msg: noteCommander.current?.value ? noteCommander.current.value : '', readed: false, time: t },
-          noteResponsibility: { msg: '', readed: false, time: '' }
-        }
-      },
+      chat:{ messages: {
+        noteCommander: {msg: noteCommander.current?.value? noteCommander.current.value : '', readed: false, time: t},
+        noteResponsibility : {msg:'', readed: false, time: ''}
+      }},
       // fileMission: fileMission?.current?.files[0],
       token: userSelect,
     };
-    console.log(newTask);
     if (
       newTask.title != "" &&
       newTask.startedAt != "" &&
@@ -132,14 +121,8 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
-      if (displaySecondTask) {
-        newMission(newTask);
-
-      } else {
-        newMission(newTask);
-        // closeDialog()
-
-      }
+      newMission(newTask);
+      closeDialog()
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
