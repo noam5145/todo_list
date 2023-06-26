@@ -99,7 +99,7 @@ export default function TaskList() {
 useEffect(() => {
   // console.log(ToExcel);
   // console.log(allDataShow);
-}, [missions])
+}, [allDataShow])
 
   const toExcel=()=>{
 

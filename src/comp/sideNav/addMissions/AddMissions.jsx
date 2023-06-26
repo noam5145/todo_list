@@ -40,10 +40,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   const [userSelect, setUserSelected] = useState([]);
   const [filess, setfiles] = useState([]);
   const [checksIfFile, setChecksIfFile] = useState(false);
-  const [personNames, setPersonNames] = useState([editSingleMission && editSingleMission.responsibility]);
-
-
-
+  const [personNames, setPersonNames] = useState(editSingleMission ? [...editSingleMission.responsibility]:[]);
 
   let newTask = () => {
     sendigTask();
@@ -57,6 +54,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
 
     // fileMission.current.files[0] = ""
   }
+
   const setUserSelect = (usernames) => {
     setPersonNames(usernames)
     for (let i = 0; i < usernames.length; i++) {
@@ -67,7 +65,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       }
     }
   }
-  console.log(filess);
 
   let errorNote = (
     <h5 className="text-danger mb-2 font-weight-bold">
@@ -81,11 +78,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    let arr = [];
-    if(personNames[0] === ""){
-      arr = personNames.slice(1);
-      setPersonNames(arr);
-    }
     let max = 0;
     missions.map((mission, i) => {
       if (Number(mission.missionId) > max) {
@@ -100,7 +92,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       title: meetingTitle?.current?.value,
       startedAt: meetingDate?.current?.value,
       details: taskDetails?.current?.value,
-      responsibility: arr,
+      responsibility: personNames,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
       chat:{ messages: {
@@ -223,7 +215,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     const file = fileMission.current.files[0];
     setfiles([...filess,file]);
   };
-  console.log(filess);
+
   return (
     <div dir="rtl" className="container d-flex">
       <div className="bg-white mx-5 my-5">
