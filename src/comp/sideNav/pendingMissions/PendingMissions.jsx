@@ -113,7 +113,7 @@ tempMission[0].status="בוצע"
                         </div>
                         <div className="col-1 flex-column the_table-pen text-center">
                         <p className="p_taskdetail-pen p-2 ">
-                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{name},</div>})}
+                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                     </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">

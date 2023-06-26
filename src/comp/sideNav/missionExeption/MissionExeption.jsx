@@ -12,52 +12,41 @@ export default function MissionExeption() {
   const { missions } = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataExMission,setData]=useState(null);
-  console.log(missions);
 
 
  useEffect(()=>{
+  console.log(missions);
    let temp=missions.map((mission)=>{
-   return daysOff(mission.endedAt,mission.status)<0?mission:""
+    //  return daysOff(mission.endedAt,mission.status)<0?mission:""
+   return mission.status=="בחריגה"?mission:""
+   
 })
+
 setData(temp.filter((item)=>item!=""));
 },[missions])
-
-
-function endAtChanged(endTime)
-{
- const partsStartTime = endTime.split('-');
-    const reversStartendTime = partsStartTime.reverse().join('/');
-   return reversStartendTime;
-}
-
-  function daysOff(endTime,status) {
-    if (status=="בוצע"||status=="ממתין לאישור") {// cheak if the mission has done
-      return 1;
-    }
-   endTime=endAtChanged(endTime);
-
-  
-
-// took the days,months,years from string(endTime)
-let day=Number(endTime[0]+endTime[1]);
-let month=Number(endTime[3]+endTime[4])-1;// Note: Months are zero-based, so June is represented by 5
-let year=Number(endTime[6]+endTime[7]+endTime[8]+endTime[9]);
-
-var targetDate = new Date(year,month,day); 
-var today = new Date();
-
-// Calculate the time difference in milliseconds
-var timeDiff = targetDate.getTime() - today.getTime();
-
-// Calculate the number of days
-var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return daysDiff;
-  }
-  
 
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
+  // function endAtChanged(endTime) {
+  //   const partsStartTime = endTime.split("-");
+  //   const reversStartendTime = partsStartTime.reverse().join("/");
+  //   return reversStartendTime;
+  // }
+  // function daysOff(endTime) {
+  //   endTime = endAtChanged(endTime);
+  //   // took the days,months,years from string(endTime)
+  //   let day = Number(endTime[0] + endTime[1]);
+  //   let month = Number(endTime[3] + endTime[4]) - 1; // Note: Months are zero-based, so June is represented by 5
+  //   let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
+  //   var targetDate = new Date(year, month, day);
+  //   var today = new Date();
+  //   // Calculate the time difference in milliseconds
+  //   var timeDiff = targetDate.getTime() - today.getTime();
+  //   // Calculate the number of days
+  //   var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  //   return daysDiff;
+  // }
 
   if (missions&&dataExMission) {
     return (
@@ -123,8 +112,8 @@ var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
                           {mission.missionId}
                         </div>
                         <div className="col-1 flex-column the_table-Ex text-center">
-                        <p className="p_taskdetail-Ex w-100 py-1 ">
-                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{name},</div>})}
+                        <p className="p_taskdetail-Ex d-flex  flex-column  w-100 py-1 ">
+                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem",marginTop:"3px"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                     </p>
                    
                         </div>

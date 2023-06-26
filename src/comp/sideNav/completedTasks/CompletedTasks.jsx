@@ -15,7 +15,6 @@ export default function CompletedTasks() {
 
   useEffect(()=>{
      let temp=missions.filter((mission)=>{
-      console.log(mission);
       if (cheakStatus(mission.status)) {
         return mission;
       }
@@ -106,8 +105,8 @@ export default function CompletedTasks() {
                     {mission.missionId}
                   </div>
                   <div className="col-1 flex-column the_table-Archive text-center">
-                  <p className="p_taskdetail-Archive p-2 ">
-                      {mission.responsibility?.map((name, i) =>{return <div  style={{fontSize:"0.9rem"}}>{name},</div>})}
+                  <p className="p_taskdetail-Archive d-flex  flex-column   ">
+                      {mission.responsibility?.map((name, i) =>{return <div  style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                     </p>
                    
                   </div>
