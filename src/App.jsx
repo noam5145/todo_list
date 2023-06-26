@@ -48,6 +48,7 @@ export default function App() {
   }
   function daysOff(endTime) {
     endTime = endAtChanged(endTime);
+    console.log(endTime);
     let day = Number(endTime[0] + endTime[1]);
     let month = Number(endTime[3] + endTime[4]) - 1;
     let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
@@ -166,13 +167,27 @@ export default function App() {
   },[])
 
   const change = (missions)=>{
-    missions.map((mission, index)=>{
-      if(daysOff(mission.startedAt) < 0 ){
-        mission.status = "בחריגה"
-      }
-    })
+    let newMissions = [];
+    const time = new Date();
+    const nowTime = new Date(time.getTime() - 24 * 60 * 60 * 1000);
 
-  }
+    if (missions[0]) {
+      newMissions = [...missions];
+      newMissions?.map((item, i) => {
+        const endTime = new Date(item.endedAt);
+        if (endTime < nowTime && item.status !== "בוצע") {
+          item.status = "בחריגה";
+        }})}
+
+        if(missions[0]){
+          console.log(missions);
+          missions.map((item, index)=>{
+            item.daysLeft = daysOff(item.endedAt);
+
+          })
+        }
+
+      }
 
 
   let val = {
