@@ -2,6 +2,20 @@ import React, { useContext, useRef, useState, useEffect } from "react";
 import './addMissions.css'
 import { MyContext } from "../../../App";
 import DriveFileMoveSharpIcon from '@mui/icons-material/DriveFileMoveSharp';
+import { Checkbox, FormControl, ListItemText, MenuItem, Select } from "@mui/material";
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 
 export default function AddMissions({ editSingleMission, closeDialog }) {
 
@@ -22,18 +36,21 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   let domain = useRef();
   let noteCommander = useRef();
   let fileMission = useRef();
-  const [usersNames, setNames] = useState([]);
-  const [userSelect, setUserSelected] = useState();
+  // const [usersNames, setNames] = useState([]);
+  const [userSelect, setUserSelected] = useState([]);
+  const [personNames, setPersonNames] = useState([editSingleMission && editSingleMission.responsibility]);
 
-  useEffect(() => {
-    if (users[0]) {
-      let arr = [];
-      users.map((e, i) => {
-        arr[i] = users[i].username;
-      })
-      setNames(arr);
-    }
-  }, [users]);
+
+  // useEffect(() => {
+  //   if (users[0]) {
+  //     let arr = [];
+  //     users.map((e, i) => {
+  //       arr[i] = users[i].username;
+  //     })
+  //     setNames(arr);
+  //   }
+  // }, [users]);
+
 
   let newTask = () => {
     setDisplaySecondTask(true)
@@ -48,9 +65,15 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     // fileMission.current.files[0] = ""
 
   }
-  const setUserSelect = (username) => {
-    let user = users.find((e) => e.username === username);
-    setUserSelected(user.token);
+  const setUserSelect = (usernames) => {
+    setPersonNames(usernames)
+    for (let i = 0; i < usernames.length; i++) {
+      for (let j = 0; j < users.length; j++) {
+        if(usernames[i] === users[j].username){
+          setUserSelected([...userSelect, users[j].token]);
+        }
+      }
+    }
   }
 
   let errorNote = (
@@ -64,7 +87,11 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
+    let arr = [];
+    if(personNames[0] === ""){
+      arr = personNames.slice(1);
+      setPersonNames(arr);
+    }
     let max = 0;
     missions.map((mission, i) => {
       if (Number(mission.missionId) > max) {
@@ -79,7 +106,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       title: meetingTitle?.current?.value,
       startedAt: meetingDate?.current?.value,
       details: taskDetails?.current?.value,
-      responsibility: responsibility?.current?.value,
+      responsibility: arr,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
       chat:{ messages: {
@@ -89,7 +116,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       // fileMission: fileMission?.current?.files[0],
       token: userSelect,
     };
-    console.log(newTask);
     if (
       newTask.title != "" &&
       newTask.startedAt != "" &&
@@ -101,12 +127,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
-      if (displaySecondTask) {
-        newMission(newTask);
-
-      } else {
-        newMission(newTask);
-      }
+      newMission(newTask);
       closeDialog()
     } else {
       if (newTask.title == "") {
@@ -148,9 +169,10 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       title: meetingTitle?.current?.value,
       startedAt: meetingDate?.current?.value,
       details: taskDetails?.current?.value,
-      responsibility: responsibility?.current?.value,
+      responsibility: personNames,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: String(diffDays),
+
       chat: editSingleMission.chat,
       // fileMission: fileMission?.current?.files[0],
       token: editSingleMission.token,
@@ -201,7 +223,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     }
   }
 
-
   return (
     <div dir="rtl" className="container d-flex">
       <div className="bg-white mx-5 my-5">
@@ -215,15 +236,15 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
                 </span>
               </label>
               <input
-                id="meetingTitle" ref={meetingTitle} type="text" placeholder="כותרת פגישה" 
-                className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}/>
+                id="meetingTitle" ref={meetingTitle} type="text" placeholder="כותרת פגישה"
+                className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "} />
             </li>
             <li className="col-lg-6 col-sm-6 list-unstyled mb-4 ">
               <label htmlFor="meetingDate">
                 מועד הפגישה{" "}
                 <span
                   className={displayErrorMeetingDate ? "text-danger" : "text-dark"}>
-                     *
+                  *
                 </span>
               </label>
               <input
@@ -263,18 +284,40 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
               ></input>
             </li>
             <li className="col-lg-6 list-unstyled col-sm-6  mb-4">
-              <label htmlFor="responsibility">
-                אחריות{" "}
-                <span
-                  className={displayErrorResponsibility ? "text-danger" : "text-dark"} > *
-                </span>
-              </label>
-              <select onChange={(e) => setUserSelect(e.target.value)} ref={responsibility} className="form-select bg-light border">
-                <option >בחר</option>
-                {usersNames.map((user, i) => (
-                  <option key={i} >{user}</option>
-                ))}
-              </select>
+              <div>
+                <label htmlFor="responsibility">
+                  אחריות{" "}
+                  <span
+                    className={displayErrorResponsibility ? "text-danger" : "text-dark"} > *
+                  </span>
+                </label>
+                <FormControl className="momo" sx={{ width: 193, height: 40, border: 'none' }} ref={responsibility}>
+                  <Select
+                    className="border bg-light"
+                    sx={{
+                      height: 38,
+                      '& .MuiOutlinedInput-notchedOutline': { border: 'none', },
+                      '& .MuiInputLabel-outlined': { transform: 'translate(14px, 12px) scale(1)', },
+                    }}
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={personNames}
+                    onChange={(e) => setUserSelect(e.target.value)}
+                    renderValue={(selected) => selected.join(', ')}
+                    MenuProps={MenuProps}
+                  >
+                    {users.map((item, i) => (
+                      <MenuItem dir="rtl" key={i} value={item.username}>
+                        <Checkbox checked={personNames.indexOf(item.username) > -1} />
+                        <div>
+                          <ListItemText primary={item.username} />
+                        </div>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
             </li>
             <li className="col-6 list-unstyled   mb-4">
               <label htmlFor="noteCommander">הערות מפקד</label>
@@ -287,7 +330,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
             </li>
             <li className="col-12 list-unstyled d-flex justify-content-center">
               <div className="hide_file_container">
-              בחר קובץ להעלאה - לחץ כאן <DriveFileMoveSharpIcon className="mx-2"/>
+                בחר קובץ להעלאה - לחץ כאן <DriveFileMoveSharpIcon className="mx-2" />
                 <input className="form-control hide_file" type="file" ref={fileMission}></input>
               </div>
             </li>
@@ -362,29 +405,53 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
               />
             </li>
             <li className="col-lg-6 list-unstyled col-sm-6  mb-4">
-              <label htmlFor="responsibility">
-                אחריות{" "}
-                <span
-                  className={displayErrorResponsibility ? "text-danger" : "text-dark"}
-                > *
-                </span>
-              </label>
-              <select onChange={(e) => setUserSelect(e.target.value)} ref={responsibility} className="form-select bg-light border">
-                <option >{editSingleMission.responsibility}</option>
-                {usersNames
-                  .filter((user) => user !== editSingleMission.responsibility)
-                  .map((user, i) => (
-                    <option key={i}>{user}</option>
-                  ))}
-              </select>
+              <div>
+                <label htmlFor="responsibility">
+                  אחריות{" "}
+                  <span
+                    className={displayErrorResponsibility ? "text-danger" : "text-dark"} > *
+                  </span>
+                </label>
+                <FormControl className="momo" sx={{ width: 193, height: 40, border: 'none' }} ref={responsibility}>
+                  <Select
+                    className="border bg-light"
+                    sx={{
+                      height: 38,
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                      },
+                      '& .MuiInputLabel-outlined': {
+                        transform: 'translate(14px, 12px) scale(1)',
+                      },
+                    }}
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={personNames}
+                    onChange={(e) => setUserSelect(e.target.value)}
+                    renderValue={(selected) => selected.join(', ')}
+                    MenuProps={MenuProps}
+                  >
+                    {users.map((item, i) => (
+                      <MenuItem dir="rtl" key={i} value={item.username}>
+                        <Checkbox checked={personNames.indexOf(item.username) > -1} />
+                        <div>
+                          <ListItemText primary={item.username} />
+                        </div>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+              </div>
             </li>
             <li className="col-12 list-unstyled d-flex justify-content-center">
               <div className="hide_file_container">
-              האם ברצונך להחליף את הקובץ - לחץ כאן <DriveFileMoveSharpIcon className="mx-2"/>
-              <input className="form-control hide_file" type="file" ref={fileMission}></input>
+                האם ברצונך להחליף את הקובץ - לחץ כאן <DriveFileMoveSharpIcon className="mx-2" />
+                <input className="form-control hide_file" type="file" ref={fileMission}></input>
               </div>
             </li>
-        </ul>
+          </ul>
         }
         <div className="row  d-flex justify-content-around mx-2">
           {displayErrorNote ? errorNote : ""}
@@ -407,3 +474,4 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     </div>
   );
 }
+
