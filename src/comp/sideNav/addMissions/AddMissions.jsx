@@ -38,6 +38,8 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   let fileMission = useRef();
   // const [usersNames, setNames] = useState([]);
   const [userSelect, setUserSelected] = useState([]);
+  const [filess, setfiles] = useState([]);
+  const [checksIfFile, setChecksIfFile] = useState(false);
   const [personNames, setPersonNames] = useState([editSingleMission && editSingleMission.responsibility]);
 
 
@@ -51,11 +53,9 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   //   }
   // }, [users]);
 
-
-  console.log(userSelect);
   let newTask = () => {
-    setDisplaySecondTask(true)
     sendigTask();
+    setDisplaySecondTask(true)
     meetingTitle.current.value = "";
     meetingDate.current.value = "";
     taskDetails.current.value = "";
@@ -64,19 +64,19 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     noteCommander.current.value = "";
 
     // fileMission.current.files[0] = ""
-
   }
   const setUserSelect = (usernames) => {
     setPersonNames(usernames)
     for (let i = 0; i < usernames.length; i++) {
       for (let j = 0; j < users.length; j++) {
-        if(usernames[i] === users[j].username){
+        if (usernames[i] === users[j].username) {
           setUserSelected([...userSelect, users[j].token]);
         }
       }
     }
     console.log(userSelect);
   }
+  console.log(filess);
 
   let errorNote = (
     <h5 className="text-danger mb-2 font-weight-bold">
@@ -85,11 +85,12 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   );
 
   let sendigTask = () => {
+    checksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if(personNames[0] === ""){
+    if (personNames[0] === "") {
       setPersonNames(personNames.slice(1));
     }
     let max = 0;
@@ -110,10 +111,12 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
 
-      chat:{ messages: {
-        noteCommander: {msg: noteCommander.current?.value? noteCommander.current.value : '', readed: false, time: t},
-        noteResponsibility : {msg:'', readed: false, time: ''}
-      }},
+      chat: {
+        messages: {
+          noteCommander: { msg: noteCommander.current?.value ? noteCommander.current.value : '', readed: false, time: t },
+          noteResponsibility: { msg: '', readed: false, time: '' }
+        }
+      },
       // fileMission: fileMission?.current?.files[0],
       token: userSelect,
     };
@@ -134,8 +137,9 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
 
       } else {
         newMission(newTask);
+        // closeDialog()
+
       }
-      closeDialog()
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -163,6 +167,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   };
 
   const editTask = () => {
+    checksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
@@ -230,6 +235,12 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     }
   }
 
+  const handleChange = (e) => {
+    setChecksIfFile(true)
+    const file = fileMission.current.files[0];
+    setfiles([...filess, { file }]);
+  };
+  console.log(filess);
   return (
     <div dir="rtl" className="container d-flex">
       <div className="bg-white mx-5 my-5">
@@ -336,9 +347,9 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
               ></textarea>
             </li>
             <li className="col-12 list-unstyled d-flex justify-content-center">
-              <div className="hide_file_container">
+              <div className="hide_file_container"  style={{ border: checksIfFile ? "solid 3px black" : "dashed 3px black",}}>
                 בחר קובץ להעלאה - לחץ כאן <DriveFileMoveSharpIcon className="mx-2" />
-                <input className="form-control hide_file" type="file" ref={fileMission}></input>
+                <input className="form-control hide_file" type="file" ref={fileMission} onChange={handleChange} />
               </div>
             </li>
           </ul>

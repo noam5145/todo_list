@@ -140,7 +140,7 @@ console.log("toExcel");
                 </Dialog></div>
             </span>
           </div>
-          <div className="container all_table mt-3 Ex">
+          <div className="container all_table mt-3">
             <span className="sticky-top">
               <TopTable setAllDataShow={setAllDataShow} />
               <FilterTable setAllDataShow={setAllDataShow} />
