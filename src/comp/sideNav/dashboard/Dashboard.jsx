@@ -9,9 +9,9 @@ export default function Dashboard() {
       <div className='col-lg-4'>
         <Exception />
       </div>
-      <div className='col-lg-4'>
+      {/* <div className='col-lg-4'>
         <Process/>
-      </div>
+      </div> */}
     </div>
   )
 }

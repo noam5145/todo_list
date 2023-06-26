@@ -15,7 +15,6 @@ export default function Process() {
   let counterPendingApproval=0;
 
   useEffect(()=>{
-    // console.log(missions);
     missions.map((item)=>{
       if (item.status=="ממתין לאישור") {
         counterPendingApproval++;

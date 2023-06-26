@@ -62,7 +62,6 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
     window.addEventListener("click", () => {
       closeSettings()
     })
-    console.log(item);
   }, [])
 
   return (
