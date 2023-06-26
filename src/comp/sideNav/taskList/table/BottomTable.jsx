@@ -77,7 +77,7 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
       <div className="col-1 the_table_file text-center" title="לחץ להורדת מסמך" onClick={ConfirmDownload}>
         <div className="mt-4"><div> הורדת מסמך</div><AiOutlineFilePdf size={25} /></div>
       </div>
-      <div className="col-1 the_table text-center"><div className="p_taskdetail p-2 d-flex justify-content-center align-items-center">{item.responsibility}</div></div>
+      <div className="col-1 the_table text-center"><div className="p_taskdetail justify-content-center align-items-center">{item.responsibility.map((e,i)=> <div key={i}>{e},</div>)}</div></div>
       <div className="col-1 the_table text-center">{item.endedAt}</div>
       <div className="col-1 the_table text-center">{item.daysLeft}</div>
       <div className="col-1 the_table text-center d-flex justify-content-start">

@@ -76,7 +76,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   );
 
   let sendigTask = () => {
-    checksIfFile(false)
+   setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
@@ -221,7 +221,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   const handleChange = (e) => {
     setChecksIfFile(true)
     const file = fileMission.current.files[0];
-    setfiles([...filess, { file }]);
+    setfiles([...filess,file]);
   };
   console.log(filess);
   return (

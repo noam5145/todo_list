@@ -99,13 +99,13 @@ export default function TaskList() {
 useEffect(() => {
   // console.log(ToExcel);
   // console.log(allDataShow);
-}, [ToExcel])
+}, [missions])
 
   const toExcel=()=>{
 
     setTimeout(() => {
-      const wb = XLSX.utils.book_new(),
-      ws = XLSX.utils.json_to_sheet(ToExcel);
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(ToExcel);
   
       XLSX.utils.book_append_sheet(wb,ws,"mySheet1")
   
