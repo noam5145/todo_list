@@ -8,6 +8,7 @@ export const MyContext = createContext();
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
   const [missions, setMissions] = useState([]);
+  const [archive, setArchive] = useState([]);
   const [users, setUsers] = useState([]);
   const [newMissions, setNewMissions] = useState([]);
   let flag = true;
@@ -24,6 +25,20 @@ export default function App() {
       return console.log(res.data.err);
     }
     setMissions(res.data);
+  }
+  const getAllArchives = async (adminToken)=>{
+    let res = await axios.get( base_url + 'mission/getArchive', {params: {adminToken: adminToken}});
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    setArchive(res.data);
+  }
+  const sendToArchives = async (_id , adminToken)=>{
+    let res = await axios.post( base_url + 'mission/sendToArchive', {adminToken: adminToken, _id: _id});
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    getAllArchives(adminToken);
   }
   let num =0;
   function endAtChanged(endTime) {
@@ -94,6 +109,7 @@ export default function App() {
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
+      getAllArchives(res.data.token);
     }
    }
   const getAllUsers = async (user)=>{
