@@ -105,8 +105,11 @@ export default function CompletedTasks() {
                   <div className="col-1 the_table-Archive text-center">
                     {mission.missionId}
                   </div>
-                  <div className="col-1 the_table-Archive text-center">
-                    {mission.responsibility}
+                  <div className="col-1 flex-column the_table-Archive text-center">
+                  <p className="p_taskdetail-Archive p-2 ">
+                      {mission.responsibility?.map((name, i) =>{return <div  style={{fontSize:"0.9rem"}}>{name},</div>})}
+                    </p>
+                   
                   </div>
                   <div className="col-1 the_table-Archive text-center">
                     {mission.title}
