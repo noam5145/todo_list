@@ -77,6 +77,15 @@
     overflow-y: auto;
     font-size: large;
 }
+
+.task_responsibility{
+    height: 90px;
+    margin: 0;
+    overflow-y: auto;
+    font-size: 15px;
+    padding: 3.5px;
+}
+
 .cursor{
     cursor: pointer;
 }

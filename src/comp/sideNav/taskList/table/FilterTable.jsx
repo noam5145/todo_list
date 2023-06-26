@@ -9,11 +9,18 @@ export default function ({ setAllDataShow }) {
         const newFilter = missions.filter(item => item[field].includes(content));
         setAllDataShow(newFilter);
     };
+    const SortByResponsibilityFound = (content, Responsibility) => {
+        console.log(content);
+        console.log(Responsibility);
+        const newFilter = missions.filter(item => item[Responsibility].find((item) => (
+            item.includes(content)
+        )));
+        setAllDataShow(newFilter);
+    };
     const SortByContentSelect = (content,) => {
         const newFilter = missions.filter(item => item.status.includes(content));
         setAllDataShow(newFilter);
     };
-
 
     return (
         <>
@@ -23,7 +30,7 @@ export default function ({ setAllDataShow }) {
                 <input className="col-1 the_table_search bg-light" placeholder=" הכנס טקסט..." id="title" type="text" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
                 <input className="col-3 the_table_search bg-light" placeholder=" הכנס טקסט..." id="details" type="text" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
                 <div className="col-1 the_table_search bg-light">----</div>
-                <input className="col-1 the_table_search bg-light" placeholder=" הכנס טקסט..." id="responsibility" type="text" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
+                <input className="col-1 the_table_search bg-light" placeholder=" הכנס טקסט..." id="responsibility" type="text" onChange={(e) => SortByResponsibilityFound(e.target.value, e.currentTarget.id)} />
                 <input className="col-1 the_table_search bg-light p-1" placeholder=" הכנס תאריך..." id="endedAt" type="date" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
                 <input className="col-1 the_table_search bg-light p-1" placeholder=" הכנס מספר..." id="daysLeft" type="number" onChange={(e) => SortByContentFound(e.target.value, e.currentTarget.id)} />
                 <div className="col-1 the_table_search bg-light" style={{ border: "none" }}>
