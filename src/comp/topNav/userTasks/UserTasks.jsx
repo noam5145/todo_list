@@ -11,7 +11,7 @@ export default function UserTasks() {
     // console.log(missions);
     if (missions[0]) {
       setListUserMissions(
-        missions.filter((m) => m.token.find((t) => t === currentUser.token))
+        missions.filter((m) => m.token.filter((t)=> t === currentUser.token))
       );
    
 
