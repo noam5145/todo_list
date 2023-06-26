@@ -115,7 +115,9 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       newMission(newTask);
-      // closeDialog()
+
+      setUserSelected([]);
+      closeDialog()
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
