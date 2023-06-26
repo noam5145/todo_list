@@ -3,6 +3,7 @@ import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./pendingMissions.css";
 import { useReactToPrint } from "react-to-print";
+import {AiOutlineLike} from "react-icons/ai"
 import { MyContext } from "../../../App";
 
 
@@ -139,7 +140,9 @@ tempMission[0].status="בוצע"
                           </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">
-                         <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>👍</button> 
+                         <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>
+                          <AiOutlineLike size={25}/>
+                          </button> 
                         </div>
                       </div>
                     )

@@ -9,7 +9,7 @@ import { MyContext } from "../../../App";
 
 export default function MissionExeption() {
 
-  const { missions } = useContext(MyContext);
+  const { missions,daysOff,endAtChanged } = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataExMission,setData]=useState(null);
 
@@ -17,12 +17,12 @@ export default function MissionExeption() {
  useEffect(()=>{
   console.log(missions);
    let temp=missions.map((mission)=>{
-    //  return daysOff(mission.endedAt,mission.status)<0?mission:""
-   return mission.status=="בחריגה"?mission:""
+     return daysOff(mission.endedAt,mission.status)<0?mission:""
+  //  return mission.status=="בחריגה"?mission:""
    
 })
 
-setData(temp.filter((item)=>item!=""));
+setData(temp?.filter((item)=>item!=""));
 },[missions])
 
   const handlePrintEx = useReactToPrint({
@@ -126,7 +126,7 @@ setData(temp.filter((item)=>item!=""));
                           </p>
                         </div>
                         <div className="col-1 the_table-Ex  text-center">
-                          { endAtChanged(mission.endedAt)  }
+                          {  endAtChanged(mission.endedAt)  } 
                         </div>
                         <div className="col-1 the_table-Ex text-center ">
                           { Math.abs( daysOff(mission.endedAt))}
