@@ -4,7 +4,7 @@ import { MyContext } from "../../../App";
 import "./userTasks.css";
 
 export default function UserTasks() {
-  const { missions, currentUser } = useContext(MyContext);
+  const { missions, currentUser,daysOff , endAtChanged} = useContext(MyContext);
   const [listUserMissions, setListUserMissions] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function UserTasks() {
       ) : (
         <>
           <div className=" row d-flex justify-content-center mt-5">
-            <div className="col-1 top_table text-center">מזהה</div>
+            <div className="col-1 top_table text-center">מסד</div>
             <div className="col-1 top_table text-center">מועד משימה </div>
             <div className="col-1 top_table text-center">כותרת משימה </div>
             <div className="col-3 top_table text-center">פירוט משימה </div>
@@ -46,7 +46,7 @@ export default function UserTasks() {
                 {mission.missionId}
               </div>
               <div className="col-1  the_table d-flex justify-content-center text-center ">
-                {mission.startedAt}
+                {endAtChanged(mission.startedAt)}
               </div>
               <div className="col-1  the_table d-flex justify-content-center text-center ">
                 {mission.title}
@@ -55,7 +55,7 @@ export default function UserTasks() {
                 {mission.details}
               </div>
               <div className="col-1  the_table d-flex justify-content-center text-center ">
-                ---
+              ---
               </div>
               
                 <div className="col-1 the_table text-center d-flex align-items-center p-0">
@@ -79,10 +79,10 @@ export default function UserTasks() {
                 </div>
               </div>
               <div className="col-1  the_table d-flex justify-content-center text-center ">
-                {mission.endedAt}
+                {endAtChanged(mission.endedAt)}
               </div>
               <div className="col-1  the_table d-flex justify-content-center text-center ">
-                ---
+              {daysOff(mission.endedAt) < 0 ? (Math.abs(daysOff(mission.endedAt))  + "-"):(daysOff(mission.endedAt))}
               </div>
               <div className="col-1  the_table d-flex justify-content-center text-center ">
                 {mission.status}{" "}
