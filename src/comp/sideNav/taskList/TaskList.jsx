@@ -99,13 +99,13 @@ export default function TaskList() {
 useEffect(() => {
   // console.log(ToExcel);
   // console.log(allDataShow);
-}, [ToExcel])
+}, [allDataShow])
 
   const toExcel=()=>{
 
     setTimeout(() => {
-      const wb = XLSX.utils.book_new(),
-      ws = XLSX.utils.json_to_sheet(ToExcel);
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(ToExcel);
   
       XLSX.utils.book_append_sheet(wb,ws,"mySheet1")
   
@@ -140,7 +140,7 @@ console.log("toExcel");
                 </Dialog></div>
             </span>
           </div>
-          <div className="container all_table mt-3 Ex">
+          <div className="container all_table mt-3">
             <span className="sticky-top">
               <TopTable setAllDataShow={setAllDataShow} />
               <FilterTable setAllDataShow={setAllDataShow} />

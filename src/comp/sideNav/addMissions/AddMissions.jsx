@@ -38,23 +38,13 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   let fileMission = useRef();
   // const [usersNames, setNames] = useState([]);
   const [userSelect, setUserSelected] = useState([]);
-  const [personNames, setPersonNames] = useState([editSingleMission && editSingleMission.responsibility]);
-
-
-  // useEffect(() => {
-  //   if (users[0]) {
-  //     let arr = [];
-  //     users.map((e, i) => {
-  //       arr[i] = users[i].username;
-  //     })
-  //     setNames(arr);
-  //   }
-  // }, [users]);
-
+  const [filess, setfiles] = useState([]);
+  const [checksIfFile, setChecksIfFile] = useState(false);
+  const [personNames, setPersonNames] = useState(editSingleMission ? [...editSingleMission.responsibility]:[]);
 
   let newTask = () => {
-    setDisplaySecondTask(true)
     sendigTask();
+    setDisplaySecondTask(true)
     meetingTitle.current.value = "";
     meetingDate.current.value = "";
     taskDetails.current.value = "";
@@ -63,13 +53,13 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     noteCommander.current.value = "";
 
     // fileMission.current.files[0] = ""
-
   }
+
   const setUserSelect = (usernames) => {
     setPersonNames(usernames)
     for (let i = 0; i < usernames.length; i++) {
       for (let j = 0; j < users.length; j++) {
-        if(usernames[i] === users[j].username){
+        if (usernames[i] === users[j].username) {
           setUserSelected([...userSelect, users[j].token]);
         }
       }
@@ -83,15 +73,11 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   );
 
   let sendigTask = () => {
+   setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    let arr = [];
-    if(personNames[0] === ""){
-      arr = personNames.slice(1);
-      setPersonNames(arr);
-    }
     let max = 0;
     missions.map((mission, i) => {
       if (Number(mission.missionId) > max) {
@@ -106,7 +92,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       title: meetingTitle?.current?.value,
       startedAt: meetingDate?.current?.value,
       details: taskDetails?.current?.value,
-      responsibility: arr,
+      responsibility: personNames,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
       chat:{ messages: {
@@ -156,6 +142,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   };
 
   const editTask = () => {
+    checksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
@@ -222,6 +209,12 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorNote(true);
     }
   }
+
+  const handleChange = (e) => {
+    setChecksIfFile(true)
+    const file = fileMission.current.files[0];
+    setfiles([...filess,file]);
+  };
 
   return (
     <div dir="rtl" className="container d-flex">
@@ -329,9 +322,9 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
               ></textarea>
             </li>
             <li className="col-12 list-unstyled d-flex justify-content-center">
-              <div className="hide_file_container">
+              <div className="hide_file_container"  style={{ border: checksIfFile ? "solid 3px black" : "dashed 3px black",}}>
                 בחר קובץ להעלאה - לחץ כאן <DriveFileMoveSharpIcon className="mx-2" />
-                <input className="form-control hide_file" type="file" ref={fileMission}></input>
+                <input className="form-control hide_file" type="file" ref={fileMission} onChange={handleChange} />
               </div>
             </li>
           </ul>
