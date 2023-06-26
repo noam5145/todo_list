@@ -23,15 +23,19 @@ export default function Message() {
       setAlert(newMissions);
     }
   }, [newMissions]);
+
+  useEffect(()=>{
+
+  },[missions])
   
 
 
   function deletAletrs(missionId) {
+    console.log("aervaer");
     currentUser.newMissions = alert.filter(
       (mission, i) => mission.missionId !== missionId
     );
-    setMissions(missions)
-    setAlert(alert.filter((mission, i) => mission.missionId !== missionId));
+    setAlert(currentUser.newMissions);
     updateUser(currentUser, currentUser.token);
     setNewMissions(
       alert.filter((mission, i) => mission.missionId !== missionId)
@@ -51,10 +55,10 @@ export default function Message() {
           </h3>
           <div className="mt-5">
             <div className=" row d-flex justify-content-center">
-              <div className="col-1 top_table text-center">מזהה</div>
+              <div className="col-1 top_table text-center">מסד</div>
               <div className="col-1 top_table text-center">מועד משימה </div>
               <div className="col-1 top_table text-center">כותרת משימה </div>
-              <div className="col-2 top_table text-center">פירוט משימה </div>
+              <div className="col-3 top_table text-center">פירוט משימה </div>
               <div className="col-1 top_table text-center">מסמכים מצורפים</div>
               <div className="col-1 top_table text-center">אחריות </div>
               <div className="col-1 top_table text-center">תג"ב </div>
@@ -75,7 +79,7 @@ export default function Message() {
                 <div className="col-1  the_table d-flex justify-content-center text-center ">
                   {mission.title}
                 </div>
-                <div className="col-2 col-1  the_table d-flex justify-content-center text-center ">
+                <div className="col-3 col-1  the_table d-flex justify-content-center text-center ">
                   {mission.details}
                 </div>
                 <div className="col-1  the_table d-flex justify-content-center text-center ">
@@ -105,10 +109,10 @@ export default function Message() {
                   {endAtChanged(mission.endedAt)}
                 </div>
                 <div className="col-1  the_table d-flex justify-content-center text-center">
-                  {daysOff(mission.endedAt)}
+                {daysOff(mission.endedAt) < 0 ? (Math.abs(daysOff(mission.endedAt))  + "-"):(daysOff(mission.endedAt))}
                 </div>
                 <div className="col-1  the_table d-flex justify-content-center text-center">
-                  {changeStatus(mission.endedAt)}
+                  {mission.status}
                 </div>
                 <div
                   className="col-1  the_table d-flex justify-content-center text-center  "
