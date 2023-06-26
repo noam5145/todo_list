@@ -73,6 +73,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   );
 
   let sendigTask = () => {
+    console.log("sendigTask");
    setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
@@ -106,7 +107,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       newTask.title != "" &&
       newTask.startedAt != "" &&
       newTask.details != "" &&
-      newTask.responsibility != "בחר" &&
+      newTask.responsibility != "" &&
       newTask.endedAt != "" &&
       newTask.daysLeft >= 0
 
@@ -114,7 +115,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       newMission(newTask);
-      closeDialog()
+      // closeDialog()
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -141,8 +142,11 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     }
   };
 
+  // console.log(editSingleMission);
+
   const editTask = () => {
-    checksIfFile(false)
+    console.log("edit");
+    setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
@@ -154,10 +158,10 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
 
       status: "בתהליך",
       title: meetingTitle?.current?.value,
-      startedAt: meetingDate?.current?.value,
+      startedAt: meetingDate.current?.value,
       details: taskDetails?.current?.value,
       responsibility: personNames,
-      endedAt: executionCompletionDate?.current?.value,
+      endedAt: executionCompletionDate.current?.value,
       daysLeft: String(diffDays),
 
       chat: editSingleMission.chat,
@@ -182,7 +186,7 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       updateMission(newEditTask, currentUser.token);
-      closeDialog();
+      // closeDialog();
 
     } else {
       if (newEditTask.title == "") {
