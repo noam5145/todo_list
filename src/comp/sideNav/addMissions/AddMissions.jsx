@@ -20,39 +20,35 @@ const MenuProps = {
 export default function AddMissions({ editSingleMission, closeDialog }) {
 
   const { currentUser, newMission, updateMission, missions, users } = useContext(MyContext);
-  let [displayErrorNote, setDisplayErrorNote] = useState(false);
-  let [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
-  let [displayErrorTaskDetails, setDisplayErrorTaskDetails] = useState(false)
-  let [displayErrorMeetingDate, setdisplayErrorMeetingDate] = useState(false);
-  let [displayErrorResponsibility, setDisplayErrorResponsibility] = useState(false);
-  let [displayErrorExecutionCompletionDate, setDisplayErrorExecutionCompletionDate] = useState(false);
-  let [displayErrorDesign, setDisplayErrorDesign] = useState(false);
-  let [displaySecondTask, setDisplaySecondTask] = useState(false);
-  let meetingTitle = useRef();
-  let meetingDate = useRef();
-  let taskDetails = useRef();
-  let responsibility = useRef();
-  let executionCompletionDate = useRef();
-  let domain = useRef();
-  let noteCommander = useRef();
-  let fileMission = useRef();
+  const [displayErrorNote, setDisplayErrorNote] = useState(false);
+  const [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
+  const [displayErrorTaskDetails, setDisplayErrorTaskDetails] = useState(false)
+  const [displayErrorMeetingDate, setdisplayErrorMeetingDate] = useState(false);
+  const [displayErrorResponsibility, setDisplayErrorResponsibility] = useState(false);
+  const [displayErrorExecutionCompletionDate, setDisplayErrorExecutionCompletionDate] = useState(false);
+  const [displayErrorDesign, setDisplayErrorDesign] = useState(false);
+  const [displaySecondTask, setDisplaySecondTask] = useState(false);
+  const meetingTitle = useRef();
+  const meetingDate = useRef();
+  const taskDetails = useRef();
+  const responsibility = useRef();
+  const executionCompletionDate = useRef();
+  const domain = useRef();
+  const noteCommander = useRef();
+  const fileMission = useRef();
   // const [usersNames, setNames] = useState([]);
   const [userSelect, setUserSelected] = useState([]);
   const [filess, setfiles] = useState([]);
   const [checksIfFile, setChecksIfFile] = useState(false);
   const [personNames, setPersonNames] = useState(editSingleMission ? [...editSingleMission.responsibility]:[]);
+  const [flag, setFlag] = useState(0);
 
-  let newTask = () => {
-    sendigTask();
-    setDisplaySecondTask(true)
-    meetingTitle.current.value = "";
-    meetingDate.current.value = "";
-    taskDetails.current.value = "";
-    responsibility.current.value = "";
-    executionCompletionDate.current.value = "";
-    noteCommander.current.value = "";
 
-    // fileMission.current.files[0] = ""
+  const newTask = () => {
+    setTimeout(() => {
+      console.log(flag);
+      sendigTask();
+    }, 2000);
   }
 
   const setUserSelect = (usernames) => {
@@ -72,13 +68,18 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
     </h5>
   );
 
+  useEffect(()=>{
+    console.log(flag);
+  }, [flag])
+
+
   let sendigTask = () => {
-    console.log("sendigTask");
    setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
     let max = 0;
     missions.map((mission, i) => {
       if (Number(mission.missionId) > max) {
@@ -116,8 +117,22 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       setDisplayErrorDesign(false);
       newMission(newTask);
 
+      setDisplaySecondTask(true)
+      meetingTitle.current.value = "";
+      meetingDate.current.value = "";
+      taskDetails.current.value = "";
+      executionCompletionDate.current.value = "";
+      noteCommander.current.value = "";
+      setPersonNames([])
       setUserSelected([]);
-      closeDialog()
+      // fileMission.current.files[0] = ""
+
+      setUserSelected([]);
+      console.log(flag);
+      if (flag == 0) {
+        console.log(flag);
+         closeDialog()
+      }
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -147,15 +162,13 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
   // console.log(editSingleMission);
 
   const editTask = () => {
-    console.log("edit");
     setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
+    
     let newEditTask = {
-
       missionId: editSingleMission.missionId,
 
       status: "בתהליך",
@@ -173,8 +186,6 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       __v: editSingleMission.__v,
 
     };
-    console.log(newEditTask);
-    console.log(editSingleMission);
 
     if (
       newEditTask.title != "" &&
@@ -183,13 +194,11 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
       newEditTask.responsibility != "" &&
       newEditTask.endedAt != "" &&
       newEditTask.daysLeft >= 0
-
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       updateMission(newEditTask, currentUser.token);
-      // closeDialog();
-
+      closeDialog();
     } else {
       if (newEditTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -366,9 +375,8 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
                 ref={meetingDate}
                 type="date"
                 placeholder="מועד הפגישה"
-                defaultValue={editSingleMission.startedAt}
+                defaultValue={editSingleMission?.startedAt}
                 className="form-control bg-light"
-
               />
             </li>
             <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-4 ">
@@ -456,14 +464,14 @@ export default function AddMissions({ editSingleMission, closeDialog }) {
           {displayErrorNote ? errorNote : ""}
           {!editSingleMission ?
             <button
-              onClick={newTask}
+              onClick={()=>{setFlag(1); newTask(); console.log(flag);}}
               className="btn btn-light  col-4  btn-outline-dark"
             >
               שמור וצור משימה חדשה
             </button> : ""
           }
           <button
-            onClick={() => { editSingleMission ? editTask() : sendigTask() }}
+            onClick={() => { setFlag(0); editSingleMission ? editTask() : sendigTask() }}
             className="btn btn-light  col-4  btn-outline-dark">
             שמירה
           </button>

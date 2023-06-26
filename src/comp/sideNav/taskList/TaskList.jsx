@@ -19,7 +19,7 @@ import { GrDocumentExcel } from "react-icons/gr";
 
 export default function TaskList() {
 
-  const { missions } = useContext(MyContext)
+  const { missions ,daysOff} = useContext(MyContext)
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
@@ -51,13 +51,13 @@ export default function TaskList() {
 
         // startedAt
         const partsStartTime = item?.startedAt.split('-');
-        const reversStartendTime = partsStartTime.reverse().join('/');
+        const reversStartendTime = partsStartTime.reverse().join('-');
         item.startedAt = reversStartendTime;
         
 
         // endedAt
         const partsEndTime = item?.endedAt.split('-');
-        const reversedEndTime = partsEndTime.reverse().join('/');
+        const reversedEndTime = partsEndTime.reverse().join('-');
         item.endedAt = reversedEndTime;
       });
       setAllDataShow(newMissions);
@@ -121,6 +121,17 @@ console.log("toExcel");
       setChatOpen(false)
     })
   }, [])
+
+  useEffect(()=>{
+    if(editSingleMission){
+      let res = editSingleMission.startedAt?.split('-');
+      res = res.reverse().join('-');
+      editSingleMission.startedAt = res;
+      res = editSingleMission.endedAt?.split('-');
+      res = res.reverse().join('-');
+      editSingleMission.endedAt = res;
+    }
+  }, [editSingleMission])
 
 
   return (

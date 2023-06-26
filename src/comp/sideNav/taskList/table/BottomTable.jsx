@@ -28,7 +28,7 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
 
 
   const editMission = (item) => {
-    // openDialog()
+    openDialog()
     setEditSingleMission(item);
   }
 
@@ -62,7 +62,7 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
     window.addEventListener("click", () => {
       closeSettings()
     })
-    console.log(item);
+    // console.log(item);
   }, [])
 
   return (
@@ -78,7 +78,7 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
       <div className="col-1 the_table_file text-center" title="לחץ להורדת מסמך" onClick={ConfirmDownload}>
         <div className="mt-4"><div> הורדת מסמך</div><AiOutlineFilePdf size={25} /></div>
       </div>
-      <div className="col-1 the_table text-center d-flex align-items-center"><div className={`task_responsibility ${item.responsibility.length < 4 ? "d-flex align-items-center" :""}`}><div>{item.responsibility.map((name,i)=> <div key={i}>{!(i == item.responsibility.length -1) ? name + ',' : name + '.'}</div>)}</div></div></div>
+      <div className="col-1 the_table text-center d-flex align-items-center"><div className={`task_responsibility ${item.responsibility.length < 4 ? "d-flex align-items-center" :""}`}><div>{item.responsibility.map((name,i)=> <div className="my-1" key={i}>{!(i == item.responsibility.length -1) ? name + ',' : name + '.'}</div>)}</div></div></div>
       <div className="col-1 the_table text-center">{item.endedAt}</div>
       <div className="col-1 the_table text-center">{item.daysLeft}</div>
       <div className="col-1 the_table text-center d-flex justify-content-start">
