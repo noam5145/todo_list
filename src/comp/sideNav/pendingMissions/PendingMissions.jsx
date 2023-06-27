@@ -1,15 +1,16 @@
-
 import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./pendingMissions.css";
 import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
+import { CircularProgress } from "@mui/material";
+
 
 
 
 export default function PendingMissions() {
 
-  const { missions ,updateMission, currentUser} = useContext(MyContext);
+  const { missions ,updateMission, currentUser, loading} = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataPenMission,setData]=useState([]);
 
@@ -39,10 +40,10 @@ tempMission[0].status="בוצע"
     }
   }
 
-  if (missions) {
+
     return (
       <>
-        <div  className="container  mb-2">
+       {!loading ? ( <div  className="container  mb-2">
           <div >
             <div className=" justify-content-end d-flex   text-light ">
               <button
@@ -153,16 +154,17 @@ tempMission[0].status="בוצע"
         </div>
         </div>
        
-        </div>
+        </div>):(
+            <div className="container">
+
+            <div className="d-flex justify-content-center align-items-center my-5">
+            <CircularProgress />
+          </div>
+          </div>
+        )}
       </>
     );
-  }
-   else {
-    return (
-      <div className="col-12 d-flex justify-content-center mt-5 ">
-       <h1 className="loader-pen-table"> </h1>
-    </div>
-    );
-  }
+  
+  
 }
 

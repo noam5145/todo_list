@@ -3,6 +3,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.218);
    /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.567); */
    background-color: #fff;
+   z-index: 9999;
 
 }
 
