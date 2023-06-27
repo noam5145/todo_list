@@ -60,7 +60,7 @@ export default function App() {
   }
   function daysOff(endTime) {
     endTime = endAtChanged(endTime);
-    console.log(endTime);
+    // console.log(endTime);
     let day = Number(endTime[0] + endTime[1]);
     let month = Number(endTime[3] + endTime[4]) - 1;
     let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
@@ -208,7 +208,7 @@ export default function App() {
         }})}
 
         if(missions[0]){
-          console.log(missions);
+          // console.log(missions);
           missions.map((item, index)=>{
             item.daysLeft = daysOff(item.endedAt);
 
