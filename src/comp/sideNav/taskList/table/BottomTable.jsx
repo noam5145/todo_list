@@ -93,9 +93,9 @@ export default function BottomTable({ item, i, openDialog, setEditSingleMission,
       <div className="col-1 the_table text-center">
         <div className="d-flex align-items-center">
           <div className="row div_chat_fan_icon mx-1">
-            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen) }}>
+            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i); }}>
               <Badge badgeContent={2} color="primary">
-                < ChatIcon color="action" onClick={() => setIForChat(i)} />
+                < ChatIcon color="action" />
               </Badge></div>
             <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
               <MoreVertIcon

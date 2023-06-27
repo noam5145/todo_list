@@ -176,7 +176,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       daysLeft: diffDays,
       chat: {
         messages: {
-          noteCommander: { msg: noteCommander.current?.value ? currentUser.username + " " + noteCommander.current.value + '\n': '', readed: false, time: t },
+          noteCommander: { msg: noteCommander.current?.value ? '{' + currentUser.username + '}' + " " + noteCommander.current.value + '\n': '', readed: false, time: t },
           noteResponsibility: { msg: '', readed: false, time: '' }
         }
       },

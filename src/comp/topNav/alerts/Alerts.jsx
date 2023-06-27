@@ -26,12 +26,6 @@ export default function Message() {
     }
   }, [newMissions]);
 
-  useEffect(()=>{
-
-  },[missions])
-  
-
-
   function deletAletrs(missionId) {
     console.log("aervaer");
     currentUser.newMissions = alert.filter(

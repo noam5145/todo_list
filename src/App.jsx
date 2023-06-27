@@ -119,10 +119,7 @@ export default function App() {
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
-    setLoading(false)
-
-    
-
+    setLoading(false);
     document.cookie = "T_L_T=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
@@ -156,6 +153,12 @@ export default function App() {
     }
     getAllMissions(currentUser.token);
     setLoading(false)
+  }
+  const updateChat = async (mission, token)=>{
+    let res = await axios.put(base_url + 'mission/updateChat', {...mission, token: token});
+    if(res.data.err){
+      return console.log(res.data.err);
+    } 
   }
 
 
@@ -229,6 +232,7 @@ export default function App() {
     deleteMission,
     newMissions,
     updateMission,
+    updateChat,
     updateUser,
     setNewMissions,
     daysOff,
