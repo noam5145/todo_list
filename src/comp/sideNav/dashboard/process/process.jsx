@@ -7,14 +7,15 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function Process() {
   const {  missions} = useContext(MyContext);
-  let [data,setData]=useState([]);
-  let [missionCounter,setMissionCounter]=useState([]);
-
-  let counterProgress=0;
-  let counterException=0;
-  let counterPendingApproval=0;
+  const [data,setData]=useState([]);
+  const [missionCounter,setMissionCounter]=useState([]);
+  const [options, setOptions] = useState({});
 
   useEffect(()=>{
+    let counterProgress=0;
+    let counterException=0;
+    let counterPendingApproval=0;
+    
     missions.map((item)=>{
       if (item.status=="ממתין לאישור") {
         counterPendingApproval++;
@@ -42,35 +43,41 @@ export default function Process() {
           } 
     })
    setData(arr);
-//    console.log(missionCounter);
+
    
   },[missions]) 
+
+  useEffect(()=>{
+    if (missionCounter[0]) {
+
+      setOptions({
+        // animationEnabled: true,
+        title: {
+          text: "בתהליך"
+        },
+        subtitles: [{
+          text: "" + (missionCounter[2].number),
+          verticalAlign: "center",
+          fontSize: 30,
+          dockInsidePlotArea: true
+        }],
+        // backgroundColor: "#080807",
+        colorSet: "loby",
+        data: [{
+          type: "doughnut",
+          showInLegend: false,
+          indexLabel: "",
+          // yValueFormatString: "#,###'%'",
+          dataPoints: [{label: 'אחר', y:missionCounter[0].number+missionCounter[1].number}, {label: 'בתהליך', y:missionCounter[2].number}]
+        }]
+      })
+    }
+
+  },[missionCounter])
 
   CanvasJS.addColorSet("loby", [
     "#faf7f7","#f01111"
   ])
-
-  const options = {
-    animationEnabled: true,
-    title: {
-      text: "בתהליך"
-    },
-    subtitles: [{
-      text: "" + ((missionCounter[2]?.number)),
-      verticalAlign: "center",
-      fontSize: 30,
-      dockInsidePlotArea: true
-    }],
-    //backgroundColor: "#F5DEB3",
-    colorSet: "loby",
-    data: [{
-      type: "doughnut",
-      showInLegend: false,
-      indexLabel: "",
-      // yValueFormatString: "#,###'%'",
-      dataPoints: [{name: 'תקין', y:missionCounter[1]?.number + missionCounter[0]?.number}, {name: 'בתהליך', y:(missionCounter[2]?.number )}]
-    }]
-  }
 
   return (
     <div><CanvasJSChart options = {options}/* onRef={ref => this.chart = ref} *//></div>

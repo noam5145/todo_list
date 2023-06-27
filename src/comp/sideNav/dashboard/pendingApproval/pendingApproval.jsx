@@ -5,15 +5,15 @@ import CanvasJSReact from '@canvasjs/react-charts';
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-export default function Exception() {
+export default function PendingApproval() {
   const { users ,missions} = useContext(MyContext);
   const [data,setData]=useState([]);
   const [missionCounter,setMissionCounter]=useState([]);
   const [options, setOptions] = useState({});
 
-  
   let flag = true;
-  useEffect(()=>{
+
+    useEffect(()=>{
     if(missions[0] && !missionCounter[0]){
       let counterProgress=0;
       let counterException=0;
@@ -34,24 +34,18 @@ export default function Exception() {
       setMissionCounter(missionToDashbord)
     } 
 
-    if(users[0] ){
-      getCountOfUser();
-      flag = false;
-    }
   },[missions]) 
 
-
-  useEffect(()=>{
+    useEffect(()=>{
     if (missionCounter[0]) {
-      console.log(missionCounter);
 
       setOptions({
         // animationEnabled: true,
         title: {
-          text: "בחריגה"
+          text: "ממתין לאישור"
         },
         subtitles: [{
-          text: "" + (missionCounter[0].number),
+          text: "" + (missionCounter[1].number),
           verticalAlign: "center",
           fontSize: 30,
           dockInsidePlotArea: true
@@ -63,36 +57,17 @@ export default function Exception() {
           showInLegend: false,
           indexLabel: "",
           // yValueFormatString: "#,###'%'",
-          dataPoints: [{label: 'אחר', y:missionCounter[2].number+missionCounter[1].number}, {label: 'בחריגה', y:missionCounter[0].number}]
+          dataPoints: [{label: 'אחר', y:missionCounter[2].number+missionCounter[0].number}, {label: 'בחריגה', y:missionCounter[1].number}]
         }]
       })
     }
 
-  },[missionCounter])
-
-
-  const getCountOfUser = ()=>{
-    let arr=[];
-    if(users[0]) {
-      arr = [...users];
-    };
-    let newArr = [];
-    for (let i = 0; i < arr.length; i++) {
-      arr[i].count = 0;
-      for (let j = 0; j < missions.length; j++) {
-        if(missions[j].responsibility.filter((resp)=>resp === arr[i].username)[0]){
-          arr[i].count++;
-          newArr[i] = {username: arr[i].username, count: arr[i].count}
-        }
-      } 
-    }
-    console.log(newArr);
-    setData(newArr);
-  } 
-
-  CanvasJS.addColorSet("loby", [
+      CanvasJS.addColorSet("loby", [
     "#faf7f7","#f01111"
   ])
+
+  },[missionCounter])
+
 
   return (
     <div><CanvasJSChart options = {options}/* onRef={ref => this.chart = ref} *//></div>
