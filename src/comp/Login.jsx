@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MyContext } from '../App';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {app} from '../firebase';
@@ -40,16 +40,25 @@ export default function(){
         });
   }
 
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.keyCode === 13) {
+        handleSignWithGoogle();
+      }
+    };
   
+    window.addEventListener("keydown", handleKeyPress);
+  
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
-    // <div>
-    //   <div className='btn btn-primary' onClick={()=> handleSignWithGoogle()} >Login</div>
-    //   <input type="password" onChange={(e)=>{ setNum(e.target.value) }} />
-    // </div>
     <div className="" style={{height:" 100vh",width:" 100%", overflowX:"hidden"}}>
     <ThemeProvider theme={theme} >
      <Container component="main" maxWidth="xs">
@@ -86,7 +95,7 @@ export default function(){
           /> */}
            <TextField
              margin="normal"
-             type='password'
+            //  type='password'
              required
              fullWidth
              autoFocus

@@ -26,3 +26,28 @@ export function notifySend(){
     });
     };
 
+export function notifyadd(){
+  toast.success('👍 המשימה נוספה בהצלחה' , {
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+    };
+export function notifyedit(){
+  toast.success('👍 המשימה נערכה בהצלחה' , {
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+    };
+

@@ -12,6 +12,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyDel } from "./notify";
 import { notifySend } from "./notify";
+import { notifyadd } from "./notify";
+import { notifyedit } from "./notify";
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { GrDocumentExcel } from "react-icons/gr";
 
@@ -19,7 +21,7 @@ import { GrDocumentExcel } from "react-icons/gr";
 
 export default function TaskList() {
 
-  const { missions } = useContext(MyContext)
+  const { missions ,daysOff} = useContext(MyContext)
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
@@ -51,13 +53,13 @@ export default function TaskList() {
 
         // startedAt
         const partsStartTime = item?.startedAt.split('-');
-        const reversStartendTime = partsStartTime.reverse().join('/');
+        const reversStartendTime = partsStartTime.reverse().join('-');
         item.startedAt = reversStartendTime;
         
 
         // endedAt
         const partsEndTime = item?.endedAt.split('-');
-        const reversedEndTime = partsEndTime.reverse().join('/');
+        const reversedEndTime = partsEndTime.reverse().join('-');
         item.endedAt = reversedEndTime;
       });
       setAllDataShow(newMissions);
@@ -122,11 +124,22 @@ console.log("toExcel");
     })
   }, [])
 
+  useEffect(()=>{
+    if(editSingleMission){
+      let res = editSingleMission.startedAt?.split('-');
+      res = res.reverse().join('-');
+      editSingleMission.startedAt = res;
+      res = editSingleMission.endedAt?.split('-');
+      res = res.reverse().join('-');
+      editSingleMission.endedAt = res;
+    }
+  }, [editSingleMission])
+
 
   return (
     <>
-      <div className="container-fluid mt-5 p-0">
-        <div className="linear">
+    <div className="container-fluid linear">
+      <div className="mt-5 p-0">
           <div className="d-flex justify-content-between mx-5">
             <h4 className="">מאגר משימות</h4>
             <span className="d-flex">
@@ -136,7 +149,7 @@ console.log("toExcel");
               <button className="btn bg-secondary mx-3 text-light" onClick={() => { openDialog(); setEditSingleMission("") }}> הוסף משימה +</button>
               <div className="row">
                 <Dialog open={open} className="row" onClose={closeDialog}>
-                  <AddMissions editSingleMission={editSingleMission} setEditSingleMission={setEditSingleMission} closeDialog={closeDialog} />
+                  <AddMissions editSingleMission={editSingleMission} closeDialog={closeDialog} notifyadd={notifyadd} notifyedit={notifyedit}/>
                 </Dialog></div>
             </span>
           </div>
@@ -165,11 +178,11 @@ console.log("toExcel");
               <ToastContainer position="bottom-right" autoClose={5000}
                 closeOnClick  pauseOnFocusLoss draggable pauseOnHover theme="light" />
           </div>
-        </div>
         {chatOpen && <div onClick={(e) => {
           e.stopPropagation()
-        }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} iForChat={iForChat} /></div>}
+        }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} iForChat={iForChat}/></div>}
 
+      </div>
       </div>
     </>
   );
