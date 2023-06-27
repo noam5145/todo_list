@@ -21,7 +21,7 @@ const MenuProps = {
 
 
 export default function AddMissions({ editSingleMission, closeDialog, notifyadd, notifyedit }) {
-  const { currentUser, newMission, updateMission, missions, users } = useContext(MyContext);
+  const { currentUser, newMission, updateMission, missions, users, loading } = useContext(MyContext);
   const [displayErrorNote, setDisplayErrorNote] = useState(false);
   const [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
   const [displayErrorTaskDetails, setDisplayErrorTaskDetails] = useState(false)
