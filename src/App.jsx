@@ -39,6 +39,7 @@ export default function App() {
       return console.log(res.data.err);
     }
     getAllArchives(adminToken);
+    getAllMissions(adminToken);
   }
   let num =0;
   function endAtChanged(endTime) {
@@ -208,7 +209,7 @@ export default function App() {
     endAtChanged,
     archive,
     setArchive,
-    
+
 
 
   }
