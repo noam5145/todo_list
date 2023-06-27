@@ -48,6 +48,9 @@ export default function App() {
     getAllArchives(adminToken);
     setLoading(false)
 
+
+    getAllMissions(adminToken);
+
   }
  
   function endAtChanged(endTime) {
@@ -234,6 +237,8 @@ export default function App() {
     sendToArchives,
     archive,
     loading,
+    setArchive,
+
 
 
 
