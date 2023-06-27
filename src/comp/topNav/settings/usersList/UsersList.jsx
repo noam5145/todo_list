@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import "./usersList.css";
 import {AiOutlineDelete} from "react-icons/ai"
 import { MyContext } from "../../../../App";
+import { CircularProgress } from "@mui/material";
+
 
 export default function UsersList({users}) {
-  const { deleteUser, currentUser} = useContext(MyContext);
+  const { deleteUser, currentUser, loading} = useContext(MyContext);
 
   const [per, setPer] = useState(false);
 
@@ -17,7 +19,8 @@ deleteUser(_id, token);
 }
 
   return (
-    <div className="d-flex justify-content-center">
+ <>
+ {!loading ? (   <div className="d-flex justify-content-center">
       <div className="row container">
         {users.map((user, i) => (
           <div className="d-flex" key={i}>
@@ -50,6 +53,12 @@ deleteUser(_id, token);
           </div>
         ))}
       </div>
-    </div>
+    </div>):(  <div className="container">
+
+<div className="d-flex justify-content-center align-items-center my-5">
+<CircularProgress />
+</div>
+</div>)}
+ </>
   );
 }
