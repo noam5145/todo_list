@@ -1,12 +1,14 @@
 .top_nav{
-    height: 70px;
+    height: 100px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.218);
    /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.567); */
    background-color: #fff;
    z-index: 9999;
 
 }
-
+.logo{
+    padding-right: 30px;
+}
 .settings{
     /* padding: 10px 20px; */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
