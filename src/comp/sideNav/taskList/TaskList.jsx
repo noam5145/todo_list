@@ -12,6 +12,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyDel } from "./notify";
 import { notifySend } from "./notify";
+import { notifyadd } from "./notify";
+import { notifyedit } from "./notify";
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { GrDocumentExcel } from "react-icons/gr";
 
@@ -136,8 +138,8 @@ console.log("toExcel");
 
   return (
     <>
-      <div className="container-fluid mt-5 p-0">
-        <div className="linear">
+    <div className="container-fluid linear">
+      <div className="mt-5 p-0">
           <div className="d-flex justify-content-between mx-5">
             <h4 className="">מאגר משימות</h4>
             <span className="d-flex">
@@ -147,7 +149,7 @@ console.log("toExcel");
               <button className="btn bg-secondary mx-3 text-light" onClick={() => { openDialog(); setEditSingleMission("") }}> הוסף משימה +</button>
               <div className="row">
                 <Dialog open={open} className="row" onClose={closeDialog}>
-                  <AddMissions editSingleMission={editSingleMission} setEditSingleMission={setEditSingleMission} closeDialog={closeDialog} />
+                  <AddMissions editSingleMission={editSingleMission} closeDialog={closeDialog} notifyadd={notifyadd} notifyedit={notifyedit}/>
                 </Dialog></div>
             </span>
           </div>
@@ -176,11 +178,11 @@ console.log("toExcel");
               <ToastContainer position="bottom-right" autoClose={5000}
                 closeOnClick  pauseOnFocusLoss draggable pauseOnHover theme="light" />
           </div>
-        </div>
         {chatOpen && <div onClick={(e) => {
           e.stopPropagation()
-        }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} iForChat={iForChat} /></div>}
+        }} className="the_chat"><TheChat setChatOpen={setChatOpen} chatOpen={chatOpen} iForChat={iForChat}/></div>}
 
+      </div>
       </div>
     </>
   );
