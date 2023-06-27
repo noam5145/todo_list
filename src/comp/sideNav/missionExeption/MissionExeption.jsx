@@ -4,15 +4,16 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./missionExeption.css";
 import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
+import { CircularProgress } from "@mui/material";
+
 
 
 
 export default function MissionExeption() {
 
-  const { missions } = useContext(MyContext);
+  const { missions, loading } = useContext(MyContext);
   const componentToPrint = useRef();
-  let [dataExMission,setData]=useState(null);
-  console.log(missions);
+  let [dataExMission,setData]=useState([]);
 
 
  useEffect(()=>{
@@ -59,10 +60,10 @@ var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
     content: () => componentToPrint.current,
   });
 
-  if (missions&&dataExMission) {
+  
     return (
       <>
-        <div  className="container  mb-2">
+     {!loading ? (   <div  className="container  mb-2">
           <div>
             <div className=" justify-content-end d-flex   text-light ">
               <button
@@ -112,7 +113,7 @@ var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
               </div>
             </span>
             {
-           dataExMission.length != 0 ?
+           dataExMission[0] ?
            dataExMission.map((mission, i)  =>
                     (// use state-> to cheak if the table is empty
                       <div
@@ -164,16 +165,19 @@ var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
         </div>
         </div>
        
-        </div>
+        </div>):(
+            <div className="container">
+
+            <div className="d-flex justify-content-center align-items-center my-5">
+            <CircularProgress />
+          </div>
+          </div>
+        )}
       </>
     );
-  }
-   else {
-    return (
-      <div className="col-12 d-flex justify-content-center mt-5 ">
-       <h1 className="loader-Ex-table"> </h1>
-    </div>
-    );
-  }
+  
+  
+  
+  
 }
 

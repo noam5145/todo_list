@@ -4,6 +4,8 @@ import { MyContext } from "../../../App";
 import DriveFileMoveSharpIcon from '@mui/icons-material/DriveFileMoveSharp';
 import { Checkbox, FormControl, ListItemText, MenuItem, Select } from "@mui/material";
 import { BsTrashFill } from "react-icons/bs";
+import { CircularProgress } from "@mui/material";
+
 
 
 const ITEM_HEIGHT = 48;
@@ -19,7 +21,6 @@ const MenuProps = {
 
 
 export default function AddMissions({ editSingleMission, closeDialog, notifyadd, notifyedit }) {
-
   const { currentUser, newMission, updateMission, missions, users } = useContext(MyContext);
   const [displayErrorNote, setDisplayErrorNote] = useState(false);
   const [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
@@ -310,8 +311,8 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     setfiles([])
   }
 
-  return (
-    <div dir="rtl" className="container d-flex">
+  return ( <>
+    {!loading ? (<div dir="rtl" className="container d-flex">
       <div className="bg-white mx-5 my-5">
         <h2 >הוספת משימות</h2>
         {!editSingleMission ?
@@ -559,7 +560,16 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
         </div>
       </div>
 
-    </div>
+    </div>):(
+        <div className="container">
+
+        <div className="d-flex justify-content-center align-items-center my-5">
+        <CircularProgress />
+      </div>
+      </div>
+    )}
+  </>
+    
   );
 }
 
