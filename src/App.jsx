@@ -206,7 +206,9 @@ export default function App() {
     daysOff,
     changeStatus,
     endAtChanged,
-
+    archive,
+    setArchive,
+    
 
 
   }
