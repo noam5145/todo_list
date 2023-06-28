@@ -11,11 +11,15 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
     const { missions, currentUser, updateChat } = useContext(MyContext)
     const [called, setCalled] = useState(false);
     const [chat, setChat] = useState([]);
+    const [msgTime, setMsgTime] = useState([]);
+    const [msgReaded, setMsgReaded] = useState([]);
     const messageRef = useRef();
 
     useEffect(()=>{
         if(missions[0]){
-            setChat(missions[iForChat]?.chat.messages.noteResponsibility.msg.split('\n'));
+            setChat(missions[iForChat]?.chat.messages.msg.split('\n'));
+            setMsgTime(missions[iForChat]?.chat.messages.time.split('\n'));
+            setMsgReaded([...missions[iForChat]?.chat.messages.readed]);
         }
     }, [missions])
 
@@ -33,18 +37,21 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
     const textUpdate = () =>{
        const newMessage = messageRef.current?.value;
        let time = new Date();
-       time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear();
-       if(missions[iForChat].token.find((t)=> t === currentUser.token)){
-        missions[iForChat].chat.messages.noteResponsibility.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
-        missions[iForChat].chat.messages.noteResponsibility.time = time;
-       } else {
-        missions[iForChat].chat.messages.noteCommander.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
-        missions[iForChat].chat.messages.noteCommander.time = time;
-       }
-       setChat(missions[iForChat]?.chat.messages.noteResponsibility.msg.split('\n'));
+       time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " "  + time.getHours() + ':' + time.getMinutes();
+       missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
+       missions[iForChat].chat.messages.time += time + '\n';
+       missions[iForChat].chat.messages.readed[iForChat + 1] = false;
+       console.log(missions[iForChat].chat.messages.readed);
+       setMsgReaded([...missions[iForChat].chat.messages.readed]);
+       setChat(missions[iForChat].chat.messages.msg.split('\n'));
+       setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
        messageRef.current.value = "";
        updateChat(missions[iForChat], currentUser.token);
-    }   
+    } 
+    
+    const setReaded = (readed)=>{
+        console.log(readed);
+    }
 
     return (
         <>
@@ -68,14 +75,15 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                 </div>
                 <div className="middle_chat mx-1">
                     <div className="d-flex flex-column align-items-end">
-                        {chat?.slice(0, chat.length - 1).map((msg, i)=>(
+                        {chat.slice(0, chat.length - 1).map((msg, i)=>(
                         <div key={i} className="the_message mx-1 p-1 mt-2 text-light">
                             <samp>
                             <div>{msg}</div>
-                                {!called ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
-                                    <input className="form-check-input cursor ml-1" type="checkbox" role="switch" id="switchCheck" />
+                            <div>{msgTime[i]}</div>
+                                {!called && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
+                                    <input className="form-check-input cursor ml-1" onClick={(e)=> setReaded(e.target)} type="checkbox" role="switch" id="switchCheck" />
                                     <label className="form-check-label" htmlFor="switchCheck">אשר קריאה</label>
-                                </div> : <div className='d-flex justify-content-end mx-2'><BsCheck2All color='skyblue' /></div>}
+                                </div> : <div className='d-flex justify-content-end mx-2'>{missions[iForChat].chat.messages.readed[i] ? <BsCheck2All color='skyblue' /> : <BsCheck2All color='white' />}</div>}
                             </samp>
                         </div>
                         ))}
