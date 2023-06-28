@@ -61,7 +61,6 @@ export default function TaskList() {
       setAllDataShow([]);
     }
   }, [missions]);
-  console.log(missions);
 
   useEffect(() => {
     const excelMissions = JSON.parse(JSON.stringify(missions));
@@ -116,7 +115,6 @@ export default function TaskList() {
       editSingleMission.endedAt = res;
     }
   }, [editSingleMission]);
-  console.log(missions);
 
   return (
     <>
