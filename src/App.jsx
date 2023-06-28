@@ -58,9 +58,9 @@ export default function App() {
     const reversStartendTime = partsStartTime.reverse().join("/");
     return reversStartendTime;
   }
+
   function daysOff(endTime) {
     endTime = endAtChanged(endTime);
-    // console.log(endTime);
     let day = Number(endTime[0] + endTime[1]);
     let month = Number(endTime[3] + endTime[4]) - 1;
     let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
@@ -194,26 +194,45 @@ export default function App() {
     }
   },[])
 
+
+
+  function getDaysDifference(startDate, endDate) {
+    const startParts = startDate.split('/');
+    const endParts = endDate.split('/');
+  
+    // Creating Date objects from the input dates
+    const start = new Date(startParts[2], startParts[1] - 1, startParts[0]);
+    const end = new Date(endParts[2], endParts[1] - 1, endParts[0]);
+  
+    // Calculating the difference in milliseconds
+    const differenceInMs = end.getTime() - start.getTime();
+  
+    // Converting the difference to days
+    const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+  
+    return differenceInDays;
+  }
+
+
   const change = (missions)=>{
     let newMissions = [];
-    const time = new Date();
-    const nowTime = new Date(time.getTime() - 24 * 60 * 60 * 1000);
+const date = new Date();
+const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the locale as needed
+
+
 
     if (missions[0]) {
       newMissions = [...missions];
       newMissions?.map((item, i) => {
-        const endTime = new Date(item.endedAt);
-        if (endTime < nowTime && item.status !== "בוצע") {
+        console.log();
+        item.endedAt = endAtChanged(item.endedAt);
+        item.startedAt = endAtChanged(item.startedAt);
+        const resultDate = getDaysDifference( formattedDate,item.endedAt )
+        if (resultDate < 0 && item.status !== "בוצע") {
           item.status = "בחריגה";
         }})}
 
-        if(missions[0]){
-          // console.log(missions);
-          missions.map((item, index)=>{
-            item.daysLeft = daysOff(item.endedAt);
-
-          })
-        }
 
       }
 
@@ -238,6 +257,7 @@ export default function App() {
     archive,
     loading,
     setArchive,
+    getDaysDifference,
 
 
 
