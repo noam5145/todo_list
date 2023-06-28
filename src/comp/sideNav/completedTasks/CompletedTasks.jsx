@@ -132,4 +132,4 @@ export default function CompletedTasks() {
        <h1 className="loader-complete-table"> </h1>
     </div>
     )
-  }
+  }}
