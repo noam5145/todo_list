@@ -133,24 +133,11 @@ export default function BottomTable({
       <div className="col-1 the_table text-center">
         <div className="d-flex align-items-center">
           <div className="row div_chat_fan_icon mx-1">
-            <div
-              className="cursor col-6 p-0"
-              title="פתח צא'ט משימה"
-              onClick={(e) => {
-                e.stopPropagation();
-                setChatOpen(!chatOpen);
-              }}
-            >
+            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen) }}>
               <Badge badgeContent={2} color="primary">
-                <ChatIcon color="action" onClick={() => setIForChat(i)} />
-              </Badge>
-            </div>
-            <div
-              className="cursor col-6 p-0"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
+                < ChatIcon color="action" onClick={() => setIForChat(i)} />
+              </Badge></div>
+            <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
               <MoreVertIcon
                 id="demo-positioned-button"
                 onClick={OpenSettings}
