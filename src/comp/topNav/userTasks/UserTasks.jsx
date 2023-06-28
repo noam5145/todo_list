@@ -16,7 +16,6 @@ export default function UserTasks() {
       );
     }
   }, [missions]);
-  console.log(listUserMissions);
 
   return (
    <>
