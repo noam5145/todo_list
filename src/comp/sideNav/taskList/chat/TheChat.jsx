@@ -41,7 +41,6 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
        missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
        missions[iForChat].chat.messages.time += time + '\n';
        missions[iForChat].chat.messages.readed[iForChat + 1] = false;
-       console.log(missions[iForChat].chat.messages.readed);
        setMsgReaded([...missions[iForChat].chat.messages.readed]);
        setChat(missions[iForChat].chat.messages.msg.split('\n'));
        setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
@@ -49,8 +48,10 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
        updateChat(missions[iForChat], currentUser.token);
     } 
     
-    const setReaded = (readed)=>{
-        console.log(readed);
+    const setReaded = (readed, i)=>{
+        missions[iForChat].chat.messages.readed[i] = readed;
+        setMsgReaded([...missions[iForChat].chat.messages.readed]);
+        updateChat(missions[iForChat], currentUser.token);
     }
 
     return (
@@ -81,7 +82,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                             <div>{msg}</div>
                             <div>{msgTime[i]}</div>
                                 {!called && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
-                                    <input className="form-check-input cursor ml-1" onClick={(e)=> setReaded(e.target)} type="checkbox" role="switch" id="switchCheck" />
+                                    <input className="form-check-input cursor ml-1" onClick={(e)=> setReaded(e.currentTarget.checked, i)} type="checkbox" role="switch" id="switchCheck" />
                                     <label className="form-check-label" htmlFor="switchCheck">אשר קריאה</label>
                                 </div> : <div className='d-flex justify-content-end mx-2'>{missions[iForChat].chat.messages.readed[i] ? <BsCheck2All color='skyblue' /> : <BsCheck2All color='white' />}</div>}
                             </samp>
