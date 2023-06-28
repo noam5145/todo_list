@@ -19,14 +19,12 @@ export default function Exception() {
       let counterException=0;
       let counterPendingApproval=0;
       missions.map((item)=>{
-        if (item.status === "ממתין לאישור") {
-          counterPendingApproval++;
-        }
-        if (item.status === "בחריגה") {
+        if (item.daysLeft < 0) {
           counterException++;
         }
-        if (item.status === "בתהליך") {
+        else{
           counterProgress++;
+          counterPendingApproval++;
         }
       })
 
@@ -43,7 +41,6 @@ export default function Exception() {
 
   useEffect(()=>{
     if (missionCounter[0]) {
-      console.log(missionCounter);
 
       setOptions({
         // animationEnabled: true,
@@ -86,7 +83,6 @@ export default function Exception() {
         }
       } 
     }
-    console.log(newArr);
     setData(newArr);
   } 
 

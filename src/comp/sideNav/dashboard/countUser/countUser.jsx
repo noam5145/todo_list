@@ -16,62 +16,78 @@ export default function CountUser() {
           arr = [...users];
         };
         let newArr = [];
-        for (let i = 0; i < arr.length; i++) {
+        for (let i = 0; i < arr.length; i++) { 
           arr[i].count = 0;
           for (let j = 0; j < missions.length; j++) {
+
             if(missions[j].responsibility.filter((resp)=>resp === arr[i].username)[0]){
               arr[i].count++;
               newArr[i] = {username: arr[i].username, count: arr[i].count}
             }
+            else{
+              newArr[i]={username: arr[i].username, count: arr[i].count};
+            }
           } 
         }
         setData(newArr);
-        console.log(data);
 
       }
     	
 	  let flag = true;
-
     useEffect(()=>{
-        if(users[0] ){
-            getCountOfUser();
+      if(users[0] ){
             flag = false;
+            getCountOfUser();
           }
-        setOptions(   
-            {
-            animationEnabled: false,
-            theme: "light2",
-            title:{
-                text: "סטטוס הנחיות לפי אחריות"
-            },
-            axisX: {
-                title: "",
-                reversed: true,
-            },
-            axisY: {
-                title: "",
-                includeZero: true,
-                //labelFormatter: this.addSymbols
-            },
-            data: [{
-                type: "bar",
-                dataPoints: [
-                    
-                    { y:  2000000000, label: "FaceBook" },
-                    { y:  1800000000, label: "YouTube" },
-                    { y:  800000000, label: "Instagram" },
-                    { y:  563000000, label: "Qzone" },
-                    { y:  376000000, label: "Weibo" },
-                    { y:  336000000, label: "Twitter" },
-                    { y:  330000000, label: "Reddit" }
-                ]
+    },[missions])
+console.log(missions);
+    useEffect(()=>{
+        
+  if (data[0]) {
+            
+ let a=  data.sort((countA, countB)=>{
+  if (countA.count>countB.count) {
+    return -1
+  }else if (countA.count < countB.count) {
+    return 1
+  }else{
+    return 0
+  }
+ })
 
-            }]
-        })
+ let b=  a.filter((item)=>{
+  return (item.count>0)
+ })
+ let t=  b.map((item,i)=>({y: item.count, label: item.username}))
+ 
+            setOptions(   
+              {
+              animationEnabled: true,
+              theme: "light2",
+              title:{
+                  text: "סטטוס הנחיות לפי אחריות"
+              },
+              axisX: {
+                  title: "",
+                  reversed: true,
+              },
+              axisY: {
+                  title: "",
+                  includeZero: true,
+                  //labelFormatter: this.addSymbols
+              },
+             
+              data: [{
+                  type: "bar",
+                  dataPoints: t,
+  
+              }]
+          })
+          }
 
-    },[users])
 
-  console.log(data);
+    },[data])
+
 
 
   return (
