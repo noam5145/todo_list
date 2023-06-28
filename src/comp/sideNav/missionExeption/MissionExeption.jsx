@@ -78,7 +78,7 @@ setData(temp?.filter((item)=>item!=""));
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">
-                  מסד <span title="מיין לפי גדול/קטן"></span>
+                  מס"ד <span title="מיין לפי גדול/קטן"></span>
                 </div>
                 <div className="col-1 top_table-Ex text-center">
                   אחריות<span title="מיין לפי גדול/קטן"></span>

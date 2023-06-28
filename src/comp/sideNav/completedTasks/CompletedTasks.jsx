@@ -52,7 +52,7 @@ export default function CompletedTasks() {
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Archive text-center">
-              מסד <span title="מיין לפי גדול/קטן"></span>
+              מס"ד <span title="מיין לפי גדול/קטן"></span>
                 </div>
                 <div className="col-2 top_table-Archive text-center">
                   אחריות<span title="מיין לפי גדול/קטן"></span>
