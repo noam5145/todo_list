@@ -1,15 +1,17 @@
-
 import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./pendingMissions.css";
 import { useReactToPrint } from "react-to-print";
+import {AiOutlineLike} from "react-icons/ai"
 import { MyContext } from "../../../App";
+import { CircularProgress } from "@mui/material";
+
 
 
 
 export default function PendingMissions() {
 
-  const { missions ,updateMission, currentUser} = useContext(MyContext);
+  const { missions ,updateMission, currentUser, loading} = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataPenMission,setData]=useState([]);
 
@@ -39,10 +41,10 @@ tempMission[0].status="בוצע"
     }
   }
 
-  if (missions) {
+
     return (
       <>
-        <div  className="container  mb-2">
+       {!loading ? ( <div  className="container  mb-2">
           <div >
             <div className=" justify-content-end d-flex   text-light ">
               <button
@@ -66,7 +68,7 @@ tempMission[0].status="בוצע"
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-pen text-center">
-                  מסד <span title="מיין לפי גדול/קטן"></span>
+                  מס"ד <span title="מיין לפי גדול/קטן"></span>
                 </div>
                    <div className="col-1 top_table-pen text-center">
             מועד משימה<span title="מיין לפי גדול/קטן"></span>
@@ -113,7 +115,7 @@ tempMission[0].status="בוצע"
                         </div>
                         <div className="col-1 flex-column the_table-pen text-center">
                         <p className="p_taskdetail-pen p-2 ">
-                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{name},</div>})}
+                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                     </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">
@@ -139,7 +141,9 @@ tempMission[0].status="בוצע"
                           </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">
-                         <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>👍</button> 
+                         <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>
+                          <AiOutlineLike size={25}/>
+                          </button> 
                         </div>
                       </div>
                     )
@@ -153,16 +157,17 @@ tempMission[0].status="בוצע"
         </div>
         </div>
        
-        </div>
+        </div>):(
+            <div className="container">
+
+            <div className="d-flex justify-content-center align-items-center my-5">
+            <CircularProgress />
+          </div>
+          </div>
+        )}
       </>
     );
-  }
-   else {
-    return (
-      <div className="col-12 d-flex justify-content-center mt-5 ">
-       <h1 className="loader-pen-table"> </h1>
-    </div>
-    );
-  }
+  
+  
 }
 

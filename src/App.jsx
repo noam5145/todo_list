@@ -8,8 +8,10 @@ export const MyContext = createContext();
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
   const [missions, setMissions] = useState([]);
+  const [archive, setArchive] = useState([]);
   const [users, setUsers] = useState([]);
   const [newMissions, setNewMissions] = useState([]);
+  const [loading, setLoading] = useState(false)
   let flag = true;
   const newMission = async(mission)=>{
     let res = await axios.post(base_url + 'mission/setMission', mission);
@@ -19,18 +21,44 @@ export default function App() {
     setMissions([...missions, res.data]);
   }
   const getAllMissions = async (token)=>{
+    setLoading(true)
     let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
       return console.log(res.data.err);
     }
+    setLoading(false)
     setMissions(res.data);
   }
-  let num =0;
+  const getAllArchives = async (adminToken)=>{
+    setLoading(true)
+    let res = await axios.get( base_url + 'mission/getArchive', {params: {adminToken: adminToken}});
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    setArchive(res.data);
+    setLoading(false)
+
+  }
+  const sendToArchives = async (_id , adminToken)=>{
+    setLoading(true)
+    let res = await axios.post( base_url + 'mission/sendToArchive', {adminToken: adminToken, _id: _id});
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    getAllArchives(adminToken);
+    setLoading(false)
+
+
+    getAllMissions(adminToken);
+
+  }
+ 
   function endAtChanged(endTime) {
     const partsStartTime = endTime.split("-");
     const reversStartendTime = partsStartTime.reverse().join("/");
     return reversStartendTime;
   }
+
   function daysOff(endTime) {
     endTime = endAtChanged(endTime);
     let day = Number(endTime[0] + endTime[1]);
@@ -76,49 +104,66 @@ export default function App() {
 
   
   const setNewUser = async (user)=>{
+    setLoading(true)
     let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
     if(user1.data.err){
       return console.log(user1.data.err);
     }
     setUsers([...users, user1.data]);
+    setLoading(false)
   }
   const getUser = async(user)=>{
+    setLoading(true)
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
-
+    setLoading(false);
     document.cookie = "T_L_T=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
+      getAllArchives(res.data.token);
     }
    }
   const getAllUsers = async (user)=>{
+    setLoading(true)
     let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setUsers(res.data);
+    setLoading(false)
   }
   const updateUser = async (user, adminToken)=>{
+    setLoading(true)
     let res = await axios.put(base_url + 'user/updateUser', {...user, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
     getAllUsers(currentUser);
+    setLoading(false)
   }
   const updateMission = async (mission, adminToken)=>{
+    setLoading(true)
     let res = await axios.put(base_url + 'mission/updateMission', {...mission, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
     getAllMissions(currentUser.token);
+    setLoading(false)
+  }
+  const updateChat = async (mission, token)=>{
+    let res = await axios.put(base_url + 'mission/updateChat', {...mission, token: token});
+    if(res.data.err){
+      return console.log(res.data.err);
+    } 
   }
 
 
   const deleteUser = async (_id, adminToken) =>{   
+    setLoading(true)
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -127,8 +172,10 @@ export default function App() {
       return console.log(res.data.err);
     }
     setUsers(users.filter((user)=> user._id !== _id));
+    setLoading(false)
   }
   const deleteMission = async (_id, adminToken) =>{
+    setLoading(true)
     let res = await axios.delete(base_url + 'mission/deleteMission', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -137,6 +184,7 @@ export default function App() {
       return console.log(res.data.err);
     }
     getAllMissions(adminToken);
+    setLoading(false)
   }
   useEffect(()=>{
     if(flag){
@@ -149,14 +197,47 @@ export default function App() {
     }
   },[])
 
-  const change = (missions)=>{
-    missions.map((mission, index)=>{
-      if(daysOff(mission.startedAt) < 0 ){
-        mission.status = "בחריגה"
-      }
-    })
 
+
+  function getDaysDifference(startDate, endDate) {
+    const startParts = startDate.split('/');
+    const endParts = endDate.split('/');
+  
+    // Creating Date objects from the input dates
+    const start = new Date(startParts[2], startParts[1] - 1, startParts[0]);
+    const end = new Date(endParts[2], endParts[1] - 1, endParts[0]);
+  
+    // Calculating the difference in milliseconds
+    const differenceInMs = end.getTime() - start.getTime();
+  
+    // Converting the difference to days
+    const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+  
+    return differenceInDays;
   }
+
+
+  const change = (missions)=>{
+    let newMissions = [];
+const date = new Date();
+const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the locale as needed
+
+
+
+    if (missions[0]) {
+      newMissions = [...missions];
+      newMissions?.map((item, i) => {
+        console.log();
+        item.endedAt = endAtChanged(item.endedAt);
+        item.startedAt = endAtChanged(item.startedAt);
+        const resultDate = getDaysDifference( formattedDate,item.endedAt )
+        if (resultDate < 0 && item.status !== "בוצע") {
+          item.status = "בחריגה";
+        }})}
+
+
+      }
 
 
   let val = {
@@ -170,11 +251,18 @@ export default function App() {
     deleteMission,
     newMissions,
     updateMission,
+    updateChat,
     updateUser,
     setNewMissions,
     daysOff,
     changeStatus,
     endAtChanged,
+    sendToArchives,
+    archive,
+    loading,
+    setArchive,
+    getDaysDifference,
+
 
 
 

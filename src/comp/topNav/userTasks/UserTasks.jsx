@@ -2,25 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { MyContext } from "../../../App";
 import "./userTasks.css";
+import { CircularProgress } from "@mui/material";
+
 
 export default function UserTasks() {
-  const { missions, currentUser,daysOff , endAtChanged} = useContext(MyContext);
+  const { missions, currentUser,daysOff , endAtChanged, loading} = useContext(MyContext);
   const [listUserMissions, setListUserMissions] = useState([]);
 
   useEffect(() => {
-    console.log(missions);
     if (missions[0]) {
       setListUserMissions(
         missions.filter((m) => m.token.find((t)=> t === currentUser.token))
       );
-   
-
     }
   }, [missions]);
-  console.log(listUserMissions);
 
   return (
-    <div className="container mt-5">
+   <>
+   {!loading ? ( <div className="container mt-5">
       <h2>המשימות שלי </h2>
 
       {!listUserMissions[0] ? (
@@ -30,7 +29,7 @@ export default function UserTasks() {
       ) : (
         <>
           <div className=" row d-flex justify-content-center mt-5">
-            <div className="col-1 top_table text-center">מסד</div>
+            <div className="col-1 top_table text-center">מס"ד</div>
             <div className="col-1 top_table text-center">מועד משימה </div>
             <div className="col-1 top_table text-center">כותרת משימה </div>
             <div className="col-3 top_table text-center">פירוט משימה </div>
@@ -91,6 +90,14 @@ export default function UserTasks() {
           ))}
         </>
       )}
-    </div>
+    </div>) : (
+        <div className="container">
+
+        <div className="d-flex justify-content-center align-items-center my-5">
+        <CircularProgress />
+      </div>
+      </div>
+    )}
+   </>
   );
 }
