@@ -152,7 +152,7 @@ setData(temp?.filter((item)=>item!=""));
               <h2 > אין משימות בחריגה כעת</h2></div>}
           </div>
  <div>
-          <h2 className="numOfExMission">סה"כ משימות בחריגה: {dataExMission.length} </h2>
+          <h2 className="numOfExMission">סה"כ משימות בחריגה: {dataExMission?.length} </h2>
         </div>
         </div>
        
