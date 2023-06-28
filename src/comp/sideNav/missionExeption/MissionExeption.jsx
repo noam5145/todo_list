@@ -104,7 +104,7 @@ setData(temp?.filter((item)=>item!=""));
               </div>
             </span>
             {
-           dataExMission[0] ?
+           dataExMission ?
            dataExMission.map((mission, i)  =>
                     (// use state-> to cheak if the table is empty
                       <div
