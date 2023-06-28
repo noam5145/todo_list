@@ -10,10 +10,13 @@ export default function UserTasks() {
   const [listUserMissions, setListUserMissions] = useState([]);
 
   useEffect(() => {
+    console.log(missions);
     if (missions[0]) {
       setListUserMissions(
         missions.filter((m) => m.token.find((t)=> t === currentUser.token))
-      );   
+      );
+   
+
     }
   }, [missions]);
   console.log(listUserMissions);

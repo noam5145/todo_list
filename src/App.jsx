@@ -8,7 +8,6 @@ export const MyContext = createContext();
 export default function App() {
   const [currentUser, setCurrentUser] = useState();
   const [missions, setMissions] = useState([]);
-  const [archive, setArchive] = useState([]);
   const [users, setUsers] = useState([]);
   const [newMissions, setNewMissions] = useState([]);
   const [loading, setLoading] = useState(false)
@@ -29,6 +28,7 @@ export default function App() {
     setLoading(false)
     setMissions(res.data);
   }
+
   const getAllArchives = async (adminToken)=>{
     setLoading(true)
     let res = await axios.get( base_url + 'mission/getArchive', {params: {adminToken: adminToken}});
@@ -124,7 +124,6 @@ export default function App() {
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
       getAllUsers(res.data);
-      getAllArchives(res.data.token);
     }
    }
   const getAllUsers = async (user)=>{

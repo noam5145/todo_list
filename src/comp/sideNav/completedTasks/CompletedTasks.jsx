@@ -17,7 +17,6 @@ export default function CompletedTasks() {
 
   useEffect(()=>{
      let temp=missions.filter((mission)=>{
-      console.log(mission);
       if (cheakStatus(mission.status)) {
         return mission;
       }
@@ -110,6 +109,45 @@ export default function CompletedTasks() {
                   {mission.responsibility?.map((name, i) =>{return <div  style={{fontSize:"0.9rem"}}>{name},</div>})}
                 </p>
                
+                  className="container-fluid d-flex justify-content-center p-0"
+                >
+                  <div className="col-1 the_table-Archive text-center">
+                    {mission.missionId}
+                  </div>
+                  <div className="col-1 flex-column the_table-Archive text-center">
+                  <p className="p_taskdetail-Archive d-flex  flex-column   ">
+                      {mission.responsibility?.map((name, i) =>{return <div  style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
+                    </p>
+                   
+                  </div>
+                  <div className="col-1 the_table-Archive text-center">
+                    {mission.title}
+                  </div>
+                  <div className="col-3 the_table-Archive text-center align-missions-center">
+                    <p className="p_taskdetail-Archive p-2 ">{mission.details}</p>
+                  </div>
+                  <div className="col-1 the_table-Archive  text-center">
+                    {mission.endedAt}
+                  </div>
+                  {/* <div className="col-1 the_table-Archive text-center ">
+                    {mission.endedAt}
+                  </div> */}
+                  <div className="col-2 the_table-Archive  text-center align-missions-center ">
+                    <p className="p_taskdetail-Archive p-2 ">
+                      {mission.noteResponsibility}
+                    </p>
+                  </div>
+                  <div className="col-2 the_table-Archive  text-center  align-missions-center">
+                    <p className="p_taskdetail-Archive p-2 ">
+                      {mission.noteCommand}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-11 d-flex the_table-Archive container justify-content-center  ">
+                <h2 style={{ fontSize: "40px" }}>אין משימות בארכיון כרגע</h2>
+
               </div>
               <div className="col-1 the_table-Archive text-center">
                 {mission.title}

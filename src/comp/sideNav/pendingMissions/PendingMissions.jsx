@@ -2,6 +2,7 @@ import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./pendingMissions.css";
 import { useReactToPrint } from "react-to-print";
+import {AiOutlineLike} from "react-icons/ai"
 import { MyContext } from "../../../App";
 import { CircularProgress } from "@mui/material";
 
@@ -114,7 +115,7 @@ tempMission[0].status="בוצע"
                         </div>
                         <div className="col-1 flex-column the_table-pen text-center">
                         <p className="p_taskdetail-pen p-2 ">
-                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{name},</div>})}
+                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                     </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">
@@ -140,7 +141,9 @@ tempMission[0].status="בוצע"
                           </p>
                         </div>
                         <div className="col-1 the_table-pen text-center">
-                         <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>👍</button> 
+                         <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>
+                          <AiOutlineLike size={25}/>
+                          </button> 
                         </div>
                       </div>
                     )
