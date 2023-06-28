@@ -5,7 +5,7 @@ import { FaTasks } from "react-icons/fa";
 import { BsPersonWorkspace } from "react-icons/bs";
 import "./topNav.css";
 import { MyContext } from "../../App";
-import Logo from "../../../images/todo_list_logo.png";
+import Logo from "../../../images/logo_mission_360.png";
 import { Badge } from "@mui/material";
 
 export default function TopNav() {
@@ -54,8 +54,8 @@ export default function TopNav() {
   }, []);
   return (
     <div className="row m-0 align-items-center top_nav sticky-top">
-      <div className="col-4 d-flex mx-sm-3 mx-0">
-        <img src={Logo} alt="" height={30} width={190} />
+      <div className="col-4 d-flex mx-sm-3 mx-0 logo">
+        <img src={Logo} alt="" height={100} width={155} />
       </div>
       <div className="col-7 d-flex mx-0 justify-content-around">
         <span>{currentTime}</span>

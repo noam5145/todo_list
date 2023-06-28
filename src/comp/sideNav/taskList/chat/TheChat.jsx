@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react'
+import React, { useContext, useEffect, useRef, useState} from 'react'
 import "./TheChat.css"
 import { AiOutlineSend } from 'react-icons/ai';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
@@ -8,32 +8,65 @@ import { BiSearchAlt } from 'react-icons/bi';
 import { MyContext } from '../../../../App';
 
 export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
-    const { missions, currentUser } = useContext(MyContext)
+    const { missions, currentUser, updateChat } = useContext(MyContext)
     const [called, setCalled] = useState(false);
+    const [chat, setChat] = useState([]);
+    const [msgTime, setMsgTime] = useState([]);
+    const [msgReaded, setMsgReaded] = useState([]);
+    const messageRef = useRef();
 
-    const textUpdate = (e) =>{
-       const newMessage = e.target.value
-        console.log(newMessage);
-    }   
+    useEffect(()=>{
+        if(missions[0]){
+            setChat(missions[iForChat]?.chat.messages.msg.split('\n'));
+            setMsgTime(missions[iForChat]?.chat.messages.time.split('\n'));
+            setMsgReaded([...missions[iForChat]?.chat.messages.readed]);
+        }
+    }, [missions])
+
+    useEffect(()=>{
+        if(chat[0]){
+            scrollToDown();
+        }
+    }, [chat])
+
+    const scrollToDown = ()=>{
+        const element = document.getElementById("Down");
+        element.scrollIntoView();
+    }
+
+    const textUpdate = () =>{
+       const newMessage = messageRef.current?.value;
+       let time = new Date();
+       time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " "  + time.getHours() + ':' + time.getMinutes();
+       missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
+       missions[iForChat].chat.messages.time += time + '\n';
+       missions[iForChat].chat.messages.readed[iForChat + 1] = false;
+       console.log(missions[iForChat].chat.messages.readed);
+       setMsgReaded([...missions[iForChat].chat.messages.readed]);
+       setChat(missions[iForChat].chat.messages.msg.split('\n'));
+       setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
+       messageRef.current.value = "";
+       updateChat(missions[iForChat], currentUser.token);
+    } 
+    
+    const setReaded = (readed)=>{
+        console.log(readed);
+    }
 
     return (
         <>
             <div className="chat">
                 <div className="top_chat text-light d-flex justify-content-between">
-                <div className="">
+                    <div className="">
                         <h5 className="mb-0 mx-1">{missions? missions[iForChat]?.title : "משימה"}</h5>
                         <div className="d-flex">
                             <div className="mx-1">
-                                {missions[iForChat]?.responsibility.length < 8 
-                                ? missions[iForChat]?.responsibility
-                                :missions[iForChat]?.responsibility.slice(0,8)+ "... ,"}
+                                {missions[iForChat]?.responsibility.slice(0, 3).map((e)=> e.split(' ')[0] + ', ')}
                             </div>
                             <div className="">
-                               {currentUser?.username.length < 8 
-                                ?currentUser?.username
-                                :currentUser?.username.slice(0,8) + "..."}
+                               {currentUser?.username.split(' ')[0]}
                             </div>
-                    </div>
+                        </div>
                     </div>
                     <div className="mx-1 my-2 mx-2 d-flex">
                         <div className="icon_searc mx-1" title='חפש'> <BiSearchAlt size={25} /></div>
@@ -41,26 +74,28 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                     </div>
                 </div>
                 <div className="middle_chat mx-1">
-                <div className="d-flex justify-content-end">
-                    <div className="the_message mx-1 p-1 mt-2 text-light">
-                        <div className="mb-1 taxt-dark text-info">{missions[iForChat]?.responsibility}</div>
-                        <samp>
-                            sadfhgjk Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, magni? Repellendus impedit minus nulla culpa vel. Molestiae nemo fugit assumenda repudiandae eius est nostrum, et mollitia porro. Doloribus, at impedit. Id provident, maxime dolorum, ut earum sapiente mollitia ipsam cumque temporibus laborum placeat facilis unde et accusamus corrupti inventore facere animi eos.
-                            {!called ? <div id='Down' className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
-                                <input className="form-check-input cursor ml-1" type="checkbox" role="switch" id="switchCheck" />
-                                <label className="form-check-label" htmlFor="switchCheck">אשר קריאה</label>
-                            </div> : <div className='d-flex justify-content-end mx-2'><BsCheck2All color='skyblue' /></div>}
-                        </samp>
+                    <div className="d-flex flex-column align-items-end">
+                        {chat.slice(0, chat.length - 1).map((msg, i)=>(
+                        <div key={i} className="the_message mx-1 p-1 mt-2 text-light">
+                            <samp>
+                            <div>{msg}</div>
+                            <div>{msgTime[i]}</div>
+                                {!called && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
+                                    <input className="form-check-input cursor ml-1" onClick={(e)=> setReaded(e.target)} type="checkbox" role="switch" id="switchCheck" />
+                                    <label className="form-check-label" htmlFor="switchCheck">אשר קריאה</label>
+                                </div> : <div className='d-flex justify-content-end mx-2'>{missions[iForChat].chat.messages.readed[i] ? <BsCheck2All color='skyblue' /> : <BsCheck2All color='white' />}</div>}
+                            </samp>
+                        </div>
+                        ))}
                     </div>
-                    </div>
-                    <a href="#Down">
-                        <div className="d-flex justify-content-end sticky-bottom mx-3" 
+                    <div className='sticky-bottom' onClick={scrollToDown}>
+                        <div id='Down' className="d-flex justify-content-end mx-3" 
                         ><KeyboardDoubleArrowDownIcon color='warning' title='למטה' className='icon_down mb-1 bg-light' /></div>
-                    </a>
+                    </div>
                 </div>
                 <div className="bottom_chat d-flex">
-                    <input onChange={(e)=> textUpdate(e)} className='bottom_chat_input mx-1' type="text" placeholder='הודעה' />
-                    <div className="div_icon_send" title='שלח'> <AiOutlineSend className='icon_send' size={40} /></div>
+                    <input ref={messageRef} className='bottom_chat_input mx-1' type="text" placeholder='הודעה' />
+                    <div onClick={textUpdate} className="div_icon_send" title='שלח'> <AiOutlineSend className='icon_send' size={40} /></div>
                 </div>
             </div>
         </>

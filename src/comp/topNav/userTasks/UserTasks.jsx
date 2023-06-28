@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { MyContext } from "../../../App";
 import "./userTasks.css";
+import { CircularProgress } from "@mui/material";
+
 
 export default function UserTasks() {
-  const { missions, currentUser,daysOff , endAtChanged} = useContext(MyContext);
+  const { missions, currentUser,daysOff , endAtChanged, loading} = useContext(MyContext);
   const [listUserMissions, setListUserMissions] = useState([]);
 
   useEffect(() => {
@@ -20,7 +22,8 @@ export default function UserTasks() {
   console.log(listUserMissions);
 
   return (
-    <div className="container mt-5">
+   <>
+   {!loading ? ( <div className="container mt-5">
       <h2>המשימות שלי </h2>
 
       {!listUserMissions[0] ? (
@@ -91,6 +94,14 @@ export default function UserTasks() {
           ))}
         </>
       )}
-    </div>
+    </div>) : (
+        <div className="container">
+
+        <div className="d-flex justify-content-center align-items-center my-5">
+        <CircularProgress />
+      </div>
+      </div>
+    )}
+   </>
   );
 }
