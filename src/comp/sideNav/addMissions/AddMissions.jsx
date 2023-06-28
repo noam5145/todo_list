@@ -74,7 +74,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       }
     })
     let t = new Date();
-    t = t.getDate() + '/' + (t.getMonth() + 1) + '/' + t.getFullYear();
+    t = t.getDate() + '/' + (t.getMonth() + 1) + '/' + t.getFullYear() + " "  + t.getHours() + ':' + t.getMinutes() + '\n';
     let newTask = {
       missionId: String(max + 1),
       status: "בתהליך",
@@ -86,8 +86,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       daysLeft: diffDays,
       chat: {
         messages: {
-          noteCommander: { msg: noteCommander.current?.value ? currentUser.username + " " + noteCommander.current.value + '\n' : '', readed: false, time: t },
-          noteResponsibility: { msg: '', readed: false, time: '' }
+          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: [false], time: t
         }
       },
       // fileMission: fileMission?.current?.files[0],
