@@ -33,7 +33,7 @@ export default function UserTasks() {
       ) : (
         <>
           <div className=" row d-flex justify-content-center mt-5">
-            <div className="col-1 top_table text-center">מסד</div>
+            <div className="col-1 top_table text-center">מס"ד</div>
             <div className="col-1 top_table text-center">מועד משימה </div>
             <div className="col-1 top_table text-center">כותרת משימה </div>
             <div className="col-3 top_table text-center">פירוט משימה </div>

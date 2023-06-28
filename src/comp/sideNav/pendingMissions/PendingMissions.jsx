@@ -68,7 +68,7 @@ tempMission[0].status="בוצע"
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-pen text-center">
-                  מסד <span title="מיין לפי גדול/קטן"></span>
+                  מס"ד <span title="מיין לפי גדול/קטן"></span>
                 </div>
                    <div className="col-1 top_table-pen text-center">
             מועד משימה<span title="מיין לפי גדול/קטן"></span>
