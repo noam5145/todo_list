@@ -78,10 +78,10 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                             <samp>
                             <div>{msg}</div>
                             <div>{msgTime[i]}</div>
-                                {!missions[iForChat].chat.messages.readed[i] && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
+                                {!msgReaded[i] && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
                                     <input className="form-check-input cursor ml-1" onClick={(e)=> setReaded(e.currentTarget.checked, i)} type="checkbox" role="switch" id="switchCheck" />
                                     <label className="form-check-label" htmlFor="switchCheck">אשר קריאה</label>
-                                </div> : <div className='d-flex justify-content-end mx-2'>{missions[iForChat].chat.messages.readed[i] ? <BsCheck2All color='skyblue' /> : <BsCheck2All color='white' />}</div>}
+                                </div> : <div className='d-flex justify-content-end mx-2'>{msgReaded[i] ? <BsCheck2All color='skyblue' /> : <BsCheck2All color='white' />}</div>}
                             </samp>
                         </div>
                         ))}
