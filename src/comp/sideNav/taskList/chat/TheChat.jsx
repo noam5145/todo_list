@@ -41,7 +41,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " " + time.getHours() + ':' + time.getMinutes();
         missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
         missions[iForChat].chat.messages.time += time + '\n';
-        missions[iForChat].chat.messages.readed[iForChat + 1] = false;
+        missions[iForChat].chat.messages.readed[iForChat] = false;
         setMsgReaded([...missions[iForChat].chat.messages.readed]);
         setChat(missions[iForChat].chat.messages.msg.split('\n'));
         setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
