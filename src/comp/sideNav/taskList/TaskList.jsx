@@ -61,7 +61,6 @@ export default function TaskList() {
       setAllDataShow([]);
     }
   }, [missions]);
-  console.log(missions);
 
   useEffect(() => {
     const excelMissions = JSON.parse(JSON.stringify(missions));
@@ -92,12 +91,16 @@ export default function TaskList() {
   }, [missions]);
 
   const toExcel = () => {
-    setTimeout(() => {
-      const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.json_to_sheet(ToExcel);
-      XLSX.utils.book_append_sheet(wb, ws, "mySheet1");
-      XLSX.writeFile(wb, "TableMissions .xlsx");
-    }, 2000);
+    let dow = window.confirm(" האם אתה בטוח רוצה להוריד לאקסל ?");
+    if (dow) {
+      setTimeout(() => {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(ToExcel);
+        XLSX.utils.book_append_sheet(wb, ws, "mySheet1");
+        XLSX.writeFile(wb, "TableMissions .xlsx");
+      }, 1000);
+  
+    }
   };
 
   useEffect(() => {
@@ -116,7 +119,6 @@ export default function TaskList() {
       editSingleMission.endedAt = res;
     }
   }, [editSingleMission]);
-  console.log(missions);
 
   return (
     <>

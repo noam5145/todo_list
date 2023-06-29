@@ -6,6 +6,9 @@ import { BsCheck2All } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiSearchAlt } from 'react-icons/bi';
 import { MyContext } from '../../../../App';
+import { Chat } from '@mui/icons-material';
+
+const REGEX = /\{(.+?)\}/g ; 
 
 export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
     const { missions, currentUser, updateChat } = useContext(MyContext)
@@ -19,7 +22,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         if(missions[0]){
             setChat(missions[iForChat]?.chat.messages.msg.split('\n'));
             setMsgTime(missions[iForChat]?.chat.messages.time.split('\n'));
-            setMsgReaded([...missions[iForChat]?.chat.messages.readed]);
+            setMsgReaded(missions[iForChat]?.chat.messages.readed?.slice(0));
         }
     }, [missions])
 
@@ -54,6 +57,8 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         updateChat(missions[iForChat], currentUser.token);
     }
 
+console.log(chat);
+
     return (
         <>
             <div className="chat">
@@ -64,9 +69,6 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                             <div className="mx-1">
                                 {missions[iForChat]?.responsibility.slice(0, 3).map((e)=> e.split(' ')[0] + ', ')}
                             </div>
-                            <div className="">
-                               {currentUser?.username.split(' ')[0]}
-                            </div>
                         </div>
                     </div>
                     <div className="mx-1 my-2 mx-2 d-flex">
@@ -75,24 +77,26 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                     </div>
                 </div>
                 <div className="middle_chat mx-1">
-                    <div className="d-flex flex-column align-items-end">
+                    <div className="d-flex flex-column align-items-end" style={{minHeight: "305px"}}>
                         {chat.slice(0, chat.length - 1).map((msg, i)=>(
                         <div key={i} className="the_message mx-1 p-1 mt-2 text-light">
                             <samp>
-                            <div>{msg}</div>
-                            <div>{msgTime[i]}</div>
-                                {!called && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
+                            <div >{msg}</div>
+                            <div >{msg.replace(REGEX, "")}</div>
+                            <div className='my-1'>{msgTime[i]}</div>
+                                {!msgReaded[i] && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
                                     <input className="form-check-input cursor ml-1" onClick={(e)=> setReaded(e.currentTarget.checked, i)} type="checkbox" role="switch" id="switchCheck" />
                                     <label className="form-check-label" htmlFor="switchCheck">אשר קריאה</label>
-                                </div> : <div className='d-flex justify-content-end mx-2'>{missions[iForChat].chat.messages.readed[i] ? <BsCheck2All color='skyblue' /> : <BsCheck2All color='white' />}</div>}
+                                </div> : <div className='d-flex justify-content-end mx-2'>{msgReaded[i] ? <BsCheck2All color='skyblue' /> : <BsCheck2All color='white' />}</div>}
                             </samp>
                         </div>
                         ))}
                     </div>
                     <div className='sticky-bottom' onClick={scrollToDown}>
-                        <div id='Down' className="d-flex justify-content-end mx-3" 
+                        <div className="d-flex justify-content-end mx-3" 
                         ><KeyboardDoubleArrowDownIcon color='warning' title='למטה' className='icon_down mb-1 bg-light' /></div>
                     </div>
+                    <div id='Down'></div>
                 </div>
                 <div className="bottom_chat d-flex">
                     <input ref={messageRef} className='bottom_chat_input mx-1' type="text" placeholder='הודעה' />

@@ -6,7 +6,7 @@ import { MyContext } from "../../../App";
 export default function CompletedTasks() {
   const { missions,archive } = useContext(MyContext);
   const componentToPrint = useRef();
-  console.log(archive);
+
   useEffect(()=>{
      let temp=missions.filter((mission)=>{
       if (cheakStatus(mission.status)) {
@@ -14,9 +14,11 @@ export default function CompletedTasks() {
       }
      })
   },[missions])
+
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
+  
   function cheakStatus(status) {
     if (status!="בוצע") {
       return false
