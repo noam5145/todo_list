@@ -6,6 +6,9 @@ import { BsCheck2All } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiSearchAlt } from 'react-icons/bi';
 import { MyContext } from '../../../../App';
+import { Chat } from '@mui/icons-material';
+
+const REGEX = /\{(.+?)\}/g ; 
 
 export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
     const { missions, currentUser, updateChat } = useContext(MyContext)
@@ -54,6 +57,8 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         updateChat(missions[iForChat], currentUser.token);
     }
 
+console.log(chat);
+
     return (
         <>
             <div className="chat">
@@ -76,8 +81,9 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                         {chat.slice(0, chat.length - 1).map((msg, i)=>(
                         <div key={i} className="the_message mx-1 p-1 mt-2 text-light">
                             <samp>
-                            <div>{msg}</div>
-                            <div>{msgTime[i]}</div>
+                            <div >{msg}</div>
+                            <div >{msg.replace(REGEX, "")}</div>
+                            <div className='my-1'>{msgTime[i]}</div>
                                 {!msgReaded[i] && !(msg.split('}')[0].slice(1) === currentUser.username) ? <div className="form-check form-switch mb-1" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
                                     <input className="form-check-input cursor ml-1" onClick={(e)=> setReaded(e.currentTarget.checked, i)} type="checkbox" role="switch" id="switchCheck" />
                                     <label className="form-check-label" htmlFor="switchCheck">אשר קריאה</label>

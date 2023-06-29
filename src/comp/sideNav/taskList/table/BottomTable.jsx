@@ -165,7 +165,22 @@ export default function BottomTable({
                   ערוך משימה
                 </div>
               </MenuItem>
-              <MenuItem
+              {item.status == 'ממתין לאישור' ? (
+                 <MenuItem
+                 onClick={() => {
+                   closeSettings();
+                   SubmitMission(item);
+                 }}
+                 title="שלח לאישור סיום"
+                 disabled={true}
+               >
+                 <div className="d-flex justify-content-center icon_send">
+                   <SendIcon className="mx-2" />
+                 </div>
+                 שלח לאישור משימה
+               </MenuItem>
+              ) : (
+                <MenuItem
                 onClick={() => {
                   closeSettings();
                   SubmitMission(item);
@@ -177,6 +192,7 @@ export default function BottomTable({
                 </div>
                 שלח לאישור משימה
               </MenuItem>
+              )}
               <MenuItem
                 onClick={() => {
                   closeSettings();
