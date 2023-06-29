@@ -11,7 +11,7 @@ import { CircularProgress } from "@mui/material";
 
 export default function PendingMissions() {
 
-  const { missions ,updateMission, currentUser, loading} = useContext(MyContext);
+  const { missions ,updateMission,sendToArchives, currentUser, loading} = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataPenMission,setData]=useState([]);
 
@@ -37,7 +37,21 @@ let tempMission=missions.filter((mission)=>{
 })
 tempMission[0].status="בוצע"
     if (confirm("אתה רוצה לאשר?")) {
-        updateMission(tempMission[0],currentUser.token)
+      // toast('👍 המשימה אושרה בהצלחה ', {
+      //   position: "bottom-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
+       
+      tempMission[0].status="בוצע"
+      updateMission(tempMission[0],currentUser.token)
+       sendToArchives(tempMission[0]._id,currentUser.token)
+        
     }
   }
 
