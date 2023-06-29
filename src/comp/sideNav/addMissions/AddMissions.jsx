@@ -87,7 +87,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       daysLeft: diffDays,
       chat: {
         messages: {
-          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: [false], time: t
+          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: noteCommander.current?.value ? [false] : [], time: t
         }
       },
       // fileMission: fileMission?.current?.files[0],
