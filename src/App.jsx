@@ -217,6 +217,7 @@ export default function App() {
   }
 
 
+
   const change = (missions)=>{
     let newMissions = [];
 const date = new Date();
@@ -232,6 +233,7 @@ const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the l
         item.endedAt = endAtChanged(item.endedAt);
         item.startedAt = endAtChanged(item.startedAt);
         const resultDate = getDaysDifference( formattedDate,item.endedAt )
+        // item.endedAt = getDaysDifference( formattedDate,item.endedAt );
         if (resultDate < 0 && item.status !== "בוצע") {
           item.status = "בחריגה";
         }})}
