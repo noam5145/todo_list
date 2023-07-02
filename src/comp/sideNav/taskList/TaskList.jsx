@@ -4,7 +4,6 @@ import { MyContext } from "../../../App";
 import TheChat from "./chat/TheChat";
 import { CircularProgress, Dialog } from "@mui/material";
 import AddMissions from "../addMissions/AddMissions";
-import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import BottomTable from "./table/BottomTable";
 import TopTable from "./table/TopTable";
 import FilterTable from "./table/FilterTable";
@@ -16,6 +15,7 @@ import { notifyadd } from "./notify";
 import { notifyedit } from "./notify";
 import * as XLSX from "xlsx/xlsx.mjs";
 import { GrDocumentExcel } from "react-icons/gr";
+import { TbNotesOff } from "react-icons/tb";
 
 export default function TaskList() {
   const { missions, daysOff, loading } = useContext(MyContext);
@@ -165,8 +165,8 @@ export default function TaskList() {
               />
             )) : (
               <div className="container d-flex justify-content-center mt-5">
-                  <div className="fs-5"><ReportGmailerrorredIcon /></div>
-                  <h3 className="mx-1">התוכן לא נמצא</h3>
+                  <h3 className="mx-1">אין משימות להצגה !</h3>
+                  <div className="fs-5 mx-1"><TbNotesOff size={25}/></div>
                 </div>
             )}
           </div>
