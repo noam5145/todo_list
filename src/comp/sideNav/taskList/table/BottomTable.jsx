@@ -78,20 +78,15 @@ export default function BottomTable({
       item.chat.messages.readed?.map((read, i)=>{
         if(!read && !(item.chat.messages.msg.split('\n')[i]?.split('}')[0].slice(1) === currentUser.username)){
           arr[i]++;
-          // console.log(i);
         }
       })
       let num =0;
-      // console.log(item.chat.messages.readed);
       arr.map((item)=>{
-        // console.log(arr);
         if(item != 0){
           num++;
         }
       })
-      // console.log(num);
       setNumMsg([...numMsg, num]);
-      // console.log(item);
       flag = false;
     }
   }, []);

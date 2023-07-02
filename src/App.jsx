@@ -21,11 +21,9 @@ export default function App() {
 
   useEffect(()=>{
     if(currentUser?.username){
-      
-          setSocketIo(io(base_url, {
-            transports: ["websocket", 'polling'],
-          }));
-          
+      setSocketIo(io(base_url, {
+        transports: ["websocket", 'polling'],
+      }));
     }
 }, [currentUser])
 
@@ -40,6 +38,10 @@ useEffect(() => {
     socketIo.on('connected', (user)=>{
         // console.log(user);
     })
+
+    socketIo.on('getNewMissions', (missions)=>{
+        setMissions(missions);
+    })
     socketIo.on('disconnected', (id)=>{
         console.log(id);
     })
@@ -50,7 +52,6 @@ useEffect(() => {
 
 const setMission = (data)=>{
   data.missions.map((m, i)=>{
-
     if(Number(data.missions[i].missionId) == Number(data.newMission.missionId)){
       data.missions[i].chat = {...data.newMission.chat};
       setMissions(data.missions);
@@ -58,12 +59,12 @@ const setMission = (data)=>{
   })
 }
 
-  const newMission = async(mission)=>{
-    let res = await axios.post(base_url + 'mission/setMission', mission);
+  const newMission = async(mission, token)=>{
+    let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){
       return console.log(res.data.err);
     }
-    setMissions([...missions, res.data]);
+    socketIo.emit('setNewMission', res.data);
   }
   const getAllMissions = async (token)=>{
     setLoading(true)

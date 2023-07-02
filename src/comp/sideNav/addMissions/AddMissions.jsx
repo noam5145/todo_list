@@ -118,7 +118,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
-      newMission(newTask);
+      newMission(newTask, currentUser.token);
       closeDialog();
       notifyadd();
       setDisplaySecondTask(true)
@@ -201,7 +201,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
-      newMission(newTask);
+      newMission(newTask, currentUser.token);
       notifyadd();
       setDisplaySecondTask(true)
       meetingTitle.current.value = "";
