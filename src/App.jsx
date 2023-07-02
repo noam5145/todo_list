@@ -21,7 +21,7 @@ export default function App() {
 
   useEffect(()=>{
     if(currentUser?.username){
-      setSocketIo(io(base_url, {
+      setSocketIo(io('http://localhost:5174', {
         transports: ["websocket", 'polling'],
       }));
     }
@@ -39,8 +39,8 @@ useEffect(() => {
         // console.log(user);
     })
 
-    socketIo.on('getNewMissions', (data)=>{
-        setMissions(data.missions);
+    socketIo.on('getNewMissions', (missions)=>{
+      setMissions(missions);
     })
     socketIo.on('disconnected', (id)=>{
         console.log(id);
@@ -64,7 +64,7 @@ const setMission = (data)=>{
     if(res.data.err){
       return console.log(res.data.err);
     }
-    socketIo.emit('setNewMission', res.data);
+    socketIo.emit('setNewMission', token);
   }
   const getAllMissions = async (token)=>{
     setLoading(true)
@@ -74,7 +74,6 @@ const setMission = (data)=>{
     }
     setLoading(false)
     setMissions(res.data);
-    MISSIONS = {...res.data}
   }
   const getAllArchives = async (adminToken)=>{
     setLoading(true)
