@@ -5,14 +5,58 @@ import AppRoutes from "./routes/AppRoutes";
 const base_url = 'https://server-todolist-xr2q.onrender.com/';
 // import Login from "./comp/Login";
 export const MyContext = createContext();
+import io from 'socket.io-client';
+
+
 export default function App() {
+
   const [currentUser, setCurrentUser] = useState();
   const [missions, setMissions] = useState([]);
   const [archive, setArchive] = useState([]);
   const [users, setUsers] = useState([]);
   const [newMissions, setNewMissions] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [socketIo, setSocketIo] = useState();
   let flag = true;
+
+  useEffect(()=>{
+    if(currentUser?.username){
+      
+          setSocketIo(io('http://localhost:5174', {
+            transports: ["websocket", 'polling'],
+          }));
+          
+    }
+}, [currentUser])
+
+useEffect(() => {
+ if(socketIo){
+    socketIo.on('login', ()=>{
+      socketIo.emit("username", currentUser.username);
+    })
+
+    socketIo.on('message', mission => setMission(mission));
+
+    socketIo.on('connected', (user)=>{
+        console.log(user);
+    })
+    socketIo.on('disconnected', (id)=>{
+        console.log(id);
+    })
+  }
+}, [socketIo])
+
+
+const setMission = async (newMission)=>{
+  console.log(newMission);
+  missions.map((m, i)=>{
+    if(missions[i].missionId === newMission.missionId){
+      missions[i] = {...newMission};
+      setMissions(missions);
+    }
+  })
+}
+
   const newMission = async(mission)=>{
     let res = await axios.post(base_url + 'mission/setMission', mission);
     if(res.data.err){
@@ -128,13 +172,13 @@ export default function App() {
     }
    }
   const getAllUsers = async (user)=>{
-    setLoading(true)
-    let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
+    setLoading(true);
+    let res = await axios.get('http://localhost:5174/' + 'user/getAllUsers', {params : user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setUsers(res.data);
-    setLoading(false)
+    setLoading(false);
   }
   const updateUser = async (user, adminToken)=>{
     setLoading(true)
@@ -246,6 +290,7 @@ const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the l
     getUser,
     setNewUser,
     missions,
+    setMissions,
     users,
     deleteUser,
     deleteMission,
@@ -262,7 +307,7 @@ const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the l
     loading,
     setArchive,
     getDaysDifference,
-
+    socketIo
 
 
 

@@ -9,12 +9,17 @@ import { MyContext } from '../../../../App';
 import { Chat } from '@mui/icons-material';
 
 export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
-    const { missions, currentUser, updateChat } = useContext(MyContext)
+
+   
+
+    
+    const { missions, currentUser, updateChat, setMissions, socketIo } = useContext(MyContext)
     const [called, setCalled] = useState(false);
     const [chat, setChat] = useState([]);
     const [msgTime, setMsgTime] = useState([]);
     const [msgReaded, setMsgReaded] = useState([]);
     const messageRef = useRef();
+
 
     useEffect(() => {
         if (missions[0]) {
@@ -35,25 +40,29 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         element.scrollIntoView();
     }
 
-    const textUpdate = () => {
-        const newMessage = messageRef.current?.value;
-        let time = new Date();
-        time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " " + time.getHours() + ':' + time.getMinutes();
-        missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
-        missions[iForChat].chat.messages.time += time + '\n';
-        missions[iForChat].chat.messages.readed.length > 0 ? missions[iForChat].chat.messages.readed[iForChat + 1] : missions[iForChat].chat.messages.readed[iForChat] = false;
+    const textUpdate = (msg) =>{
+       const newMessage = messageRef.current?.value;
+       let time = new Date();
+       time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " "  + time.getHours() + ':' + time.getMinutes();
+       missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
+
+       socketIo.emit('send', {mission:missions[iForChat], token: currentUser.token});
+       
+       missions[iForChat].chat.messages.time += time + '\n';
+       missions[iForChat].chat.messages.readed[iForChat + 1] = false;
+       setMsgReaded([...missions[iForChat].chat.messages.readed]);
+       setChat(missions[iForChat].chat.messages.msg.split('\n'));
+       setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
+       messageRef.current.value = "";
+    } 
+    
+    const setReaded = (readed, i)=>{
+        missions[iForChat].chat.messages.readed[i] = readed;
         setMsgReaded([...missions[iForChat].chat.messages.readed]);
-        setChat(missions[iForChat].chat.messages.msg.split('\n'));
-        setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
-        messageRef.current.value = "";
         updateChat(missions[iForChat], currentUser.token);
     }
 
-    const setReaded = (readed, i) => {
-        missions[iForChat].chat.messages.readed[i] = true;
-        setMsgReaded([...missions[iForChat].chat.messages.readed]);
-        updateChat(missions[iForChat], currentUser.token);
-    }
+    
 
     return (
         <>

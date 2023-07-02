@@ -163,6 +163,7 @@ export default function BottomTable({
               <Badge badgeContent={numMsg} color="primary">
                 < ChatIcon color="action" onClick={() => setIForChat(i)} />
               </Badge></div>
+
             <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
               <MoreVertIcon
                 id="demo-positioned-button"

@@ -21,7 +21,7 @@ const MenuProps = {
 
 
 export default function AddMissions({ editSingleMission, closeDialog, notifyadd, notifyedit }) {
-  const { currentUser, newMission, updateMission, missions, users, loading } = useContext(MyContext);
+  const { currentUser, newMission, updateMission, missions, users, loading, archive } = useContext(MyContext);
   const [displayErrorNote, setDisplayErrorNote] = useState(false);
   const [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
   const [displayErrorTaskDetails, setDisplayErrorTaskDetails] = useState(false)
@@ -69,6 +69,11 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
 
     let max = 0;
     missions.map((mission, i) => {
+      if (Number(mission.missionId) > max) {
+        max = Number(mission.missionId);
+      }
+    })
+    archive.map((mission, i) => {
       if (Number(mission.missionId) > max) {
         max = Number(mission.missionId);
       }
