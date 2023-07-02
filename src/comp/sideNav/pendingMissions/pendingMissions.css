@@ -32,7 +32,7 @@
       justify-content: center;
       align-items: center;
       border: 0.5px solid rgba(0, 0, 0, 0.1);
-      background-color: rgba(48, 32, 32, 0.734);
+      background-color:#9828e9;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
       font-weight: bold;
     }
@@ -41,7 +41,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 0.5px solid rgba(0, 0, 0, 0.1);
+      border: 0.5px solid rgba(0, 0, 0, 0.012);
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
       font-weight: bolder;
       font-size: small;
@@ -53,10 +53,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 0.5px solid  rgba(245, 7, 7,0.3);
-      background-color: #1135d34f;
+      border: 0.5px solid  rgba(162, 7, 245, 0.226);
+       color: rgba(255, 255, 255, 0.772);
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
     } 
+    .pen-mission-row{
+      background-image: linear-gradient(to bottom right,#4f04fc , #ac32e4);
+    }
     
     
     .p_taskdetail-pen{
@@ -101,7 +104,7 @@
       height: 9vh;
       width: 90vw;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
     }
     
