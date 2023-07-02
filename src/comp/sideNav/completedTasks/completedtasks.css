@@ -35,7 +35,7 @@
       justify-content: center;
       align-items: center;
       border: 0.5px solid rgba(0, 0, 0, 0.1);
-      background-color: rgb(31, 214, 77);
+      background-color: rgba(31, 214, 77, 0.903);
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
       font-weight: bold;
     }
@@ -57,7 +57,7 @@
       justify-content: center;
       align-items: center;
       border: 0.5px solid  rgba(73, 32, 207, 0.3);
-      background-color: rgba(132, 232, 107, 0.908);
+      background-color: rgba(132, 232, 107, 0.947);
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
     } 
     
@@ -132,8 +132,9 @@
     }
     
    
-    
-    
+    .completed-mission-row{
+      background: linear-gradient( rgb(199, 236, 16), rgb(215, 95, 14));    }
+   
   
 .loader-complete-table {
    border: 16px solid #f3f3f3; 
