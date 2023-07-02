@@ -24,9 +24,12 @@ export default function BottomTable({
   notifyDel,
   notifySend,
 }) {
-  const { deleteMission, currentUser, updateMission, daysOff } = useContext(MyContext);
+  const { deleteMission, currentUser, updateMission, daysOff, missions } = useContext(MyContext);
+  const [numMsg, setNumMsg] = useState([]);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openSettings = Boolean(anchorEl);
+  let flag = true;
 
   const OpenSettings = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,15 +72,36 @@ export default function BottomTable({
     window.addEventListener("click", () => {
       closeSettings();
     });
+
+    if(flag){
+      let arr = Array(item.chat.messages.readed?.length).fill(0);
+      item.chat.messages.readed?.map((read, i)=>{
+        if(!read && !(item.chat.messages.msg.split('\n')[i]?.split('}')[0].slice(1) === currentUser.username)){
+          arr[i]++;
+        }
+      })
+      let num =0;
+      arr.map((item)=>{
+        if(item != 0){
+          num++;
+        }
+      })
+      setNumMsg([...numMsg, num]);
+      flag = false;
+    }
   }, []);
+
+  useEffect(()=>{
+    // console.log(numMsg);
+  }, [numMsg]);
 
   return (
     <div key={i} className="container d-flex justify-content-center p-0">
       <div className="col-1 the_table text-center">{item.missionId}</div>
       <div className="col-1 the_table text-center">{item.startedAt}</div>
       <div className="col-1 the_table text-center">{item.title}</div>
-      <div className="col-3 the_table text-center align-items-center">
-        <p className="p_taskdetail p-2 ">{item.details}</p>
+      <div className="col-3 the_table ">
+        <p className="p_taskdetail p-2  d-flex align-items-center">{item.details}</p>
       </div>
       <div
         className="col-1 the_table_file text-center"
@@ -134,9 +158,10 @@ export default function BottomTable({
         <div className="d-flex align-items-center">
           <div className="row div_chat_fan_icon mx-1">
             <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen) }}>
-              <Badge badgeContent={2} color="primary">
+              <Badge badgeContent={numMsg != 0 ? numMsg : null } color="primary">
                 < ChatIcon color="action" onClick={() => setIForChat(i)} />
               </Badge></div>
+
             <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
               <MoreVertIcon
                 id="demo-positioned-button"
@@ -165,13 +190,12 @@ export default function BottomTable({
                   ערוך משימה
                 </div>
               </MenuItem>
-              {item.status == 'ממתין לאישור' ? (
+              {item.status == 'ממתין לאישור' || item.status == 'בחריגה' ? (
                  <MenuItem
                  onClick={() => {
                    closeSettings();
                    SubmitMission(item);
                  }}
-                 title="שלח לאישור סיום"
                  disabled={true}
                >
                  <div className="d-flex justify-content-center icon_send">

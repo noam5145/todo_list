@@ -1,62 +1,101 @@
-.chat{
+.chat {
     height: 420px;
     width: 300px;
     background-color: rgba(128, 128, 128, 0.95);
     border: 3px double black;
     border-radius: 5px;
 }
-.top_chat{
+
+.top_chat {
     background-color: rgba(60, 87, 23, 0.5);
     height: 50px;
 }
-.middle_chat{
+
+.middle_chat {
     height: 305px;
     overflow-y: auto;
-    background-image: linear-gradient(white,rgba(128, 128, 128, 0.4));
+    background-image: linear-gradient(white, rgba(128, 128, 128, 0.4));
 
-}   
+}
 
-.the_message{
+.the_message {
     border: 1px solid beige;
     border-radius: 10px;
     width: 210px;
     background-color: rgba(60, 87, 23, 0.605);
 }
-.bottom_chat{
+
+.bottom_chat {
     height: 65px;
     display: flex;
     align-items: center;
 
 }
-.bottom_chat_input{
+
+.bottom_chat_input {
     width: 240px;
     height: 40px;
     border: 1px solid black;
     border-radius: 3px;
 }
-.div_icon_send{
+
+.div_icon_send {
     cursor: pointer;
     transition: transform 0.3s;
 }
-.div_icon_send:active{
+
+.div_icon_send:active {
     transform: scale(1.1);
 }
-.icon_send{
+
+.icon_send {
     transform: rotate(180deg);
     cursor: pointer;
 }
-.icon_searc{
+
+.icon_searc {
     cursor: pointer;
 }
-.icon_searc:active{
+
+.icon_searc:active {
     transform: scale(1.1);
 }
-.icon_down{
+
+.icon_down {
     cursor: pointer;
     border: 2px solid black;
     border-radius: 50%;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-.icon_down:active{
+
+.icon_down:active {
     transform: scale(1.1);
+}
+
+.div_chat_search{
+    background-color: white;
+    position: absolute;
+    top: 45px;
+    left: 20px;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.chat_search{
+    width: 180px;
+    height: 30px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.chat_name{
+    color: black;
+    text-decoration-line: underline;
+    text-decoration-color: black;
+    text-underline-offset: 3px;
 }
