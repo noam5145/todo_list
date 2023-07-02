@@ -38,6 +38,10 @@ useEffect(() => {
     socketIo.on('connected', (user)=>{
         // console.log(user);
     })
+
+    socketIo.on('getNewMissions', (missions)=>{
+        setMissions(missions);
+    })
     socketIo.on('disconnected', (id)=>{
         console.log(id);
     })
@@ -55,12 +59,12 @@ const setMission = (data)=>{
   })
 }
 
-  const newMission = async(mission)=>{
-    let res = await axios.post(base_url + 'mission/setMission', mission);
+  const newMission = async(mission, token)=>{
+    let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){
       return console.log(res.data.err);
     }
-    setMissions([...missions, res.data]);
+    socketIo.emit('setNewMission', res.data);
   }
   const getAllMissions = async (token)=>{
     setLoading(true)
