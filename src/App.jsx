@@ -41,6 +41,7 @@ useEffect(() => {
 
     socketIo.on('getNewMissions', (missions)=>{
       setMissions(missions);
+      getNewMissions(missions)
     })
     socketIo.on('disconnected', (id)=>{
         console.log(id);
@@ -137,6 +138,7 @@ const setMission = (data)=>{
           }
         }
       }
+      console.log(arr.length);
       setNewMissions(arr);
     }
   }
