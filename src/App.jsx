@@ -33,7 +33,7 @@ useEffect(() => {
       socketIo.emit("username", currentUser.username);
     })
 
-    socketIo.on('message', mission => setMission(mission));
+    socketIo.on('message', data => setMission(data));
 
     socketIo.on('connected', (user)=>{
         // console.log(user);
@@ -41,10 +41,11 @@ useEffect(() => {
 
     socketIo.on('getNewMissions', (missions)=>{
       setMissions(missions);
+      getNewMissions(missions);
     })
-    socketIo.on('disconnected', (id)=>{
-        console.log(id);
-    })
+    // socketIo.on('disconnected', (id)=>{
+    //     console.log(id);
+    // })
   }
 }, [socketIo])
 
@@ -137,6 +138,7 @@ const setMission = (data)=>{
           }
         }
       }
+      console.log(arr.length);
       setNewMissions(arr);
     }
   }
