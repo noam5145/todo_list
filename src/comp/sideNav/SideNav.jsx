@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CiWarning } from "react-icons/ci";
+import { PiGraphDuotone } from "react-icons/pi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose, AiOutlineDashboard, AiOutlineWarning } from "react-icons/ai";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
@@ -61,8 +61,8 @@ export default function SideNav() {
                   : "d-flex justify-content-center pl-0 pr-0 col-12 nav-link s_n_hover iconsSide "
               }
             >
-              <AiOutlineDashboard
-                className="iconNavSaid"
+              <PiGraphDuotone
+                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
                 size={showSideNav ? "25" : "40"}
               />
 
@@ -87,7 +87,7 @@ export default function SideNav() {
               }
             >
               <BsListTask
-                className="iconNavSaid"
+                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
                 size={showSideNav ? "25" : "40"}
               />
               {showSideNav && (
@@ -111,7 +111,7 @@ export default function SideNav() {
               }
             >
               <AiOutlineWarning  
-                className="iconNavSaid"
+                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
                 size={showSideNav ? "25" : "40"}
               />
               {showSideNav && (
@@ -134,7 +134,7 @@ export default function SideNav() {
               }
             >
               <MdHourglassEmpty  
-                className="iconNavSaid"
+                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
                 size={showSideNav ? "25" : "40"}
               />
 
@@ -146,30 +146,6 @@ export default function SideNav() {
             </Link>
           </div>
 
-          <div
-            onClick={() => changeClick(4)}
-            className={click[4] ? "b_c_icon" : ""}
-          >
-            <Link
-              to={"/addMissions"}
-              className={
-                showSideNav
-                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
-              }
-            >
-              <MdOutlineCreateNewFolder
-                className="iconNavSaid"
-                size={showSideNav ? "25" : "40"}
-              />
-
-              {showSideNav && (
-                <div className="d-flex align-items-center mb-0 s_n_margin">
-                  הוספת משימות
-                </div>
-              )}
-            </Link>
-          </div>
         </div>
         <div
             onClick={() => changeClick(5)}
@@ -184,7 +160,7 @@ export default function SideNav() {
               }
             >
               <LuArchiveRestore
-                className="iconNavSaid"
+                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
                 size={showSideNav ? "25" : "40"}
               />
 
