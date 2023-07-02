@@ -47,11 +47,16 @@ useEffect(() => {
 }, [socketIo])
 
 
-const setMission = async (newMission)=>{
+
+const setMission = (newMission)=>{
+  console.log(missions);
+
   console.log(newMission);
+
   missions.map((m, i)=>{
-    if(missions[i].missionId === newMission.missionId){
-      missions[i] = {...newMission};
+
+    if(Number(missions[i].missionId) == Number(newMission.missionId)){
+      missions[i].chat = {...newMission.chat};
       setMissions(missions);
     }
   })
