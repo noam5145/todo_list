@@ -13,12 +13,11 @@ export default function MissionExeption() {
 
   const { missions,daysOff,endAtChanged ,loading } = useContext(MyContext);
   const componentToPrint = useRef();
-  let [dataExMission,setData]=useState(null);
+  let [dataExMission,setData]=useState([]);
 
 
 
  useEffect(()=>{
-  console.log(missions);
    let temp=missions.map((mission)=>{
      return daysOff(mission.endedAt,mission.status)<0?mission:""
   //  return mission.status=="בחריגה"?mission:""
@@ -31,30 +30,11 @@ setData(temp?.filter((item)=>item!=""));
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
-  // function endAtChanged(endTime) {
-  //   const partsStartTime = endTime.split("-");
-  //   const reversStartendTime = partsStartTime.reverse().join("/");
-  //   return reversStartendTime;
-  // }
-  // function daysOff(endTime) {
-  //   endTime = endAtChanged(endTime);
-  //   // took the days,months,years from string(endTime)
-  //   let day = Number(endTime[0] + endTime[1]);
-  //   let month = Number(endTime[3] + endTime[4]) - 1; // Note: Months are zero-based, so June is represented by 5
-  //   let year = Number(endTime[6] + endTime[7] + endTime[8] + endTime[9]);
-  //   var targetDate = new Date(year, month, day);
-  //   var today = new Date();
-  //   // Calculate the time difference in milliseconds
-  //   var timeDiff = targetDate.getTime() - today.getTime();
-  //   // Calculate the number of days
-  //   var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  //   return daysDiff;
-  // }
-
+ 
   
     return (
       <>
-     {!loading ? (   <div  className="container  mb-2">
+     {!loading ? (   <div  className="container font-family-Ex  mb-2">
           <div>
             <div className=" justify-content-end d-flex   text-light ">
               <button
@@ -104,7 +84,7 @@ setData(temp?.filter((item)=>item!=""));
               </div>
             </span>
             {
-           dataExMission ?
+           dataExMission[0] ?
            dataExMission.map((mission, i)  =>
                     (// use state-> to cheak if the table is empty
                       <div
@@ -115,16 +95,19 @@ setData(temp?.filter((item)=>item!=""));
                           {mission.missionId}
                         </div>
                         <div className="col-1 flex-column the_table-Ex text-center">
-                        <p className="p_taskdetail-Ex d-flex  flex-column  w-100 py-1 ">
+                        <div className={` p_taskdetail-Ex w-100 py-1 ${ mission.responsibility.length < 3
+                        ? "d-flex align-items-center flex-column   justify-content-center"
+                        : ""}`}   >
                       {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem",marginTop:"3px"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
-                    </p>
+                    </div>
                    
                         </div>
                         <div className="col-1 the_table-Ex text-center">
                           {mission.title}
                         </div>
                         <div className="col-3 the_table-Ex text-center align-missions-center">
-                          <p className="p_taskdetail-Ex p-2 ">
+                          <p className={`p_taskdetail-Ex p-2 ${mission.details.length<40?"d-flex align-items-center":""}` }>
+                            {console.log(mission.details.length)}
                             {mission.details}
                           </p>
                         </div>

@@ -9,6 +9,7 @@ export default function CompletedTasks() {
 
   useEffect(()=>{
      let temp=missions.filter((mission)=>{
+      
       if (cheakStatus(mission.status)) {
         return mission;
       }
@@ -30,7 +31,7 @@ export default function CompletedTasks() {
   if (missions) {
       return (
       <>
-        <div className="container  mb-2">
+        <div className="container font-family-completed  mb-2">
           <div >
             <div className="btn  justify-content-end d-flex   text-light ">
               <button
@@ -79,15 +80,16 @@ export default function CompletedTasks() {
             {archive.length != 0 ? (
               archive.map((mission, i) =>
                (
+                
                 <div
                   key={i}
-                  className="container-fluid d-flex justify-content-center p-0"
+                  className="container-fluid completed-mission-row d-flex justify-content-center p-0"
                 >
                   <div className="col-1 the_table-Archive text-center">
                     {mission.missionId}
                   </div>
                   <div className="col-2 flex-column the_table-Archive text-center">
-                  <div className={` p_taskdetail-pen w-100 py-1 ${ mission.responsibility.length < 4
+                  <div className={` p_taskdetail-Archive w-100 py-1 ${ mission.responsibility.length < 3
                         ? "d-flex align-items-center flex-column   justify-content-center"
                         : ""}`}   >
                       {mission.responsibility?.map((name, i) =>{return <div className="fs-6" >   {!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
@@ -97,7 +99,8 @@ export default function CompletedTasks() {
                     {mission.title}
                   </div>
                   <div className="col-3 the_table-Archive text-center align-missions-center">
-                    <p className="p_taskdetail-Archive mt-3 p-2 ">{mission.details}</p>
+                    <div className={`p_taskdetail-Archive p-2 ${mission.details.length<40?"d-flex align-items-center":""}` }>
+                      {mission.details}</div>
                   </div>
                   <div className="col-1 the_table-Archive  text-center">
                     {mission.endedAt}

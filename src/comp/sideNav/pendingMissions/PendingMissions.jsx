@@ -12,8 +12,12 @@ import { CircularProgress } from "@mui/material";
 export default function PendingMissions() {
 
   const { missions ,updateMission,sendToArchives, currentUser, loading} = useContext(MyContext);
+
   const componentToPrint = useRef();
+
   let [dataPenMission,setData]=useState([]);
+
+  let[render,setRender]=useState(false);
 
 
 
@@ -32,10 +36,10 @@ setData(temp.filter((item)=>item!=""));
 
   const aprrove=(id)=>{
      
-let tempMission=missions.filter((mission)=>{
+let tempMission=missions.find((mission)=>{
  return mission._id==id
 })
-tempMission[0].status="בוצע"
+tempMission.status="בוצע"
     if (confirm("אתה רוצה לאשר?")) {
       // toast('👍 המשימה אושרה בהצלחה ', {
       //   position: "bottom-right",
@@ -48,9 +52,10 @@ tempMission[0].status="בוצע"
       //   theme: "light",
       //   });
        
-      tempMission[0].status="בוצע"
-      updateMission(tempMission[0],currentUser.token)
-       sendToArchives(tempMission[0]._id,currentUser.token)
+      tempMission.status="בוצע"
+      updateMission(tempMission,currentUser.token)
+       sendToArchives(tempMission._id,currentUser.token)
+     setRender(!render);
         
     }
   }
@@ -114,12 +119,12 @@ tempMission[0].status="בוצע"
               </div>
             </span>
             {
-           dataPenMission.length != 0 ?
+           dataPenMission[0] ?
            dataPenMission.map((mission, i)  =>
                     (
                       <div
                         key={i}
-                        className="container-fluid d-flex justify-content-center p-0"
+                        className="container-fluid pen-mission-row d-flex justify-content-center p-0"
                       >
                         <div className="col-1 the_table-pen text-center">
                           {mission.missionId}
@@ -128,15 +133,17 @@ tempMission[0].status="בוצע"
                           {mission.startedAt}
                         </div>
                         <div className="col-1 flex-column the_table-pen text-center">
-                        <p className="p_taskdetail-pen p-2 ">
+                        <div className={` p_taskdetail-pen w-100 py-1 ${ mission.responsibility.length < 3
+                        ? "d-flex align-items-center flex-column   justify-content-center"
+                        : ""}`}   >
                       {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
-                    </p>
+                    </div>
                         </div>
                         <div className="col-1 the_table-pen text-center">
                           {mission.title}
                         </div>
                         <div className="col-2 the_table-pen text-center align-missions-center">
-                          <p className="p_taskdetail-pen p-2 ">
+                          <p className={`p_taskdetail-pen p-2 ${mission.details.length<40?"d-flex align-items-center":""}` }>
                             {mission.details}
                           </p>
                         </div>
@@ -154,16 +161,16 @@ tempMission[0].status="בוצע"
                             {mission.noteCommand}
                           </p>
                         </div>
-                        <div className="col-1 the_table-pen text-center">
+                        <div className="col-1  the_table-pen text-center">
                          <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>
-                          <AiOutlineLike size={25}/>
+                          <AiOutlineLike color="rgba(255, 255, 255, 0.772)" size={25}/>
                           </button> 
                         </div>
                       </div>
                     )
               )
               
-            : <div className="col-12 the_table-pen d-flex  text-center  align-missions-center">
+            : <div className="col-12 pen-mission-row the_table-pen d-flex  text-center  align-missions-center">
               <h2 >אין משימות בהמתנה לאישור כרגע</h2></div>}
           </div>
  <div>
