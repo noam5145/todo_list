@@ -101,7 +101,7 @@ export default function BottomTable({
       <div className="col-1 the_table text-center">{item.startedAt}</div>
       <div className="col-1 the_table text-center">{item.title}</div>
       <div className="col-3 the_table ">
-        <p className="p_taskdetail p-2  d-flex align-items-center">{item.details}</p>
+        <p className="p_taskdetail p-2  d-flex  align-items-center">{item.details}</p>
       </div>
       <div
         className="col-1 the_table_file text-center"
