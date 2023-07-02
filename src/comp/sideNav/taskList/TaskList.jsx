@@ -35,28 +35,8 @@ export default function TaskList() {
   };
 
   useEffect(() => {
-    let newMissions = [];
-
-
     if (missions[0]) {
-      newMissions = [...missions];
-      // newMissions?.map((item, i) => {
-      //   const endTime = new Date(item.endedAt);
-      //   if (endTime < nowTime && item.status !== "בוצע") {
-      //     item.status = "בחריגה";
-      //   }
-
-      //   // startedAt
-      //   const partsStartTime = item?.startedAt.split('-');
-      //   const reversStartendTime = partsStartTime.reverse().join('-');
-      //   item.startedAt = reversStartendTime;
-
-      //   // endedAt
-      //   const partsEndTime = item?.endedAt.split('-');
-      //   const reversedEndTime = partsEndTime.reverse().join('-');
-      //   item.endedAt = reversedEndTime;
-      // });
-      setAllDataShow(newMissions);
+      setAllDataShow(missions);
     } else {
       setAllDataShow([]);
     }

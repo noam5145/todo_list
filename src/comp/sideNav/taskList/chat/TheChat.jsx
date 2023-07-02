@@ -8,16 +8,19 @@ import { BiSearchAlt } from 'react-icons/bi';
 import { MyContext } from '../../../../App';
 
 export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
-    const { missions, currentUser, updateChat } = useContext(MyContext)
+
+   
+
+    
+    const { missions, currentUser, updateChat, setMissions, socketIo } = useContext(MyContext)
     const [called, setCalled] = useState(false);
     const [chat, setChat] = useState([]);
     const [msgTime, setMsgTime] = useState([]);
     const [msgReaded, setMsgReaded] = useState([]);
     const messageRef = useRef();
-
     useEffect(()=>{
         if(missions[0]){
-            setChat(missions[iForChat]?.chat.messages.msg.split('\n'));
+            setChat(missions[iForChat]?.chat.messages.msg ? missions[iForChat].chat.messages.msg.split('\n') :[]);
             setMsgTime(missions[iForChat]?.chat.messages.time.split('\n'));
             setMsgReaded(missions[iForChat]?.chat.messages.readed?.slice(0));
         }
@@ -34,18 +37,20 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         element.scrollIntoView();
     }
 
-    const textUpdate = () =>{
+    const textUpdate = (msg) =>{
        const newMessage = messageRef.current?.value;
        let time = new Date();
        time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " "  + time.getHours() + ':' + time.getMinutes();
        missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
+
+       socketIo.emit('send', {mission:missions[iForChat], token: currentUser.token});
+       
        missions[iForChat].chat.messages.time += time + '\n';
        missions[iForChat].chat.messages.readed[iForChat + 1] = false;
        setMsgReaded([...missions[iForChat].chat.messages.readed]);
        setChat(missions[iForChat].chat.messages.msg.split('\n'));
        setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
        messageRef.current.value = "";
-       updateChat(missions[iForChat], currentUser.token);
     } 
     
     const setReaded = (readed, i)=>{
@@ -53,6 +58,8 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         setMsgReaded([...missions[iForChat].chat.messages.readed]);
         updateChat(missions[iForChat], currentUser.token);
     }
+
+    
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiWarning } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -17,6 +17,10 @@ export default function SideNav() {
     newArray[num] = true;
     setClick(newArray);
   }
+
+  useEffect(()=>{
+  
+  },[])
 
   return (
     <>
