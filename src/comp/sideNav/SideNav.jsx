@@ -24,7 +24,7 @@ export default function SideNav() {
 
   return (
     <>
-      <div className={showSideNav ? "col-2 side_Nav sticky" : "sticky side_Nav"}>
+      <div className={showSideNav ? "col-2 side_Nav sticky" : "sticky side_Nav"} style={{zIndex:'9999'}}>
         <div
           className={
             showSideNav
