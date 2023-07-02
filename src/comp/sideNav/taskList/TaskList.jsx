@@ -64,32 +64,37 @@ export default function TaskList() {
 
   useEffect(() => {
     const excelMissions = JSON.parse(JSON.stringify(missions));
+    console.log("🚀 ~ file: TaskList.jsx:67 ~ useEffect ~ excelMissions:", excelMissions)
     for (let i = 0; i < excelMissions.length; i++) {
       delete excelMissions[i]._id;
+      delete excelMissions[i].chat;
       delete excelMissions[i].token;
       delete excelMissions[i].__v;
-      excelMissions[i]["כותרת המשימה"] = excelMissions[i].title;
-      delete excelMissions[i].title;
-      excelMissions[i]["ימים שנותרו"] = excelMissions[i].daysLeft;
-      delete excelMissions[i].daysLeft;
-      excelMissions[i]["פרטי משימה"] = excelMissions[i].details;
-      delete excelMissions[i].details;
+      delete excelMissions[i].noteCommander;
+      excelMissions[i]["מס'ד"] = excelMissions[i].missionId;
+      delete excelMissions[i].missionId;
       excelMissions[i]["מועד משימה"] = excelMissions[i].endedAt;
       delete excelMissions[i].endedAt;
-      excelMissions[i]["מסד"] = excelMissions[i].missionId;
-      delete excelMissions[i].missionId;
+      excelMissions[i]["כותרת המשימה"] = excelMissions[i].title;
+      delete excelMissions[i].title;
+      excelMissions[i]["פרטי משימה"] = excelMissions[i].details;
+      delete excelMissions[i].details;
       excelMissions[i]["אחריות"] = excelMissions[i].responsibility;
       delete excelMissions[i].responsibility;
+      excelMissions[i]["אחריות"] = excelMissions[i]["אחריות"].toString();
       excelMissions[i]['תג"מ'] = excelMissions[i].startedAt;
       delete excelMissions[i].startedAt;
-      excelMissions[i]["הערות מפקד"] = excelMissions[i].noteCommander;
-      delete excelMissions[i].noteCommander;
+      excelMissions[i]["ימים שנותרו"] = excelMissions[i].daysLeft;
+      delete excelMissions[i].daysLeft;
       excelMissions[i]["סטאטוס"] = excelMissions[i].status;
       delete excelMissions[i].status;
+      // excelMissions[i]["הערות מפקד"] = excelMissions[i].noteCommander;
+      // delete excelMissions[i].noteCommander;
     }
     setToExcel(excelMissions);
   }, [missions]);
 
+  console.log(ToExcel);
   const toExcel = () => {
     let dow = window.confirm(" האם אתה בטוח רוצה להוריד לאקסל ?");
     if (dow) {
