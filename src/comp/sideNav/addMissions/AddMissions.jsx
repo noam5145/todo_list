@@ -6,8 +6,6 @@ import { Checkbox, Chip, FormControl, ListItemText, MenuItem, Select, Stack } fr
 import { BsTrashFill } from "react-icons/bs";
 import { CircularProgress } from "@mui/material";
 
-
-
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -18,7 +16,6 @@ const MenuProps = {
     },
   },
 };
-
 
 export default function AddMissions({ editSingleMission, closeDialog, notifyadd, notifyedit }) {
   const { currentUser, newMission, updateMission, missions, users, loading, archive } = useContext(MyContext);
@@ -41,7 +38,22 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
   const [userSelect, setUserSelected] = useState([]);
   const [files, setfiles] = useState([]);
   const [checksIfFile, setChecksIfFile] = useState(false);
+  const [reversedDate, setReversedDate] = useState({});
   const [personNames, setPersonNames] = useState(editSingleMission ? [...editSingleMission.responsibility] : []);
+
+  useEffect(() => {
+    const newStartedAt = editSingleMission?.startedAt?.split('/').reverse().join('-');
+    const newEndedAt = editSingleMission?.endedAt?.split('/').reverse().join('-');
+    
+    const newData = {
+      startedAt: newStartedAt,
+      endedAt: newEndedAt,
+    };
+  
+    setReversedDate(newData);
+    }, [])
+
+    console.log(reversedDate);
 
   const setUserSelect = (usernames) => {
     setPersonNames(usernames)
@@ -232,7 +244,9 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
 
   }
 
+  
   const editTask = () => {
+    {console.log(meetingDate.current?.value)}
     setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
@@ -268,9 +282,9 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
+      notifyedit();
       updateMission(newEditTask, currentUser.token);
       closeDialog();
-      notifyedit();
     } else {
       if (newEditTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -309,6 +323,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     setfiles(isFilesEmpty);
     setChecksIfFile(isFilesEmpty.length > 0);
   }
+
   return (<>
     {!loading ? (<div dir="rtl" className="container d-flex">
       <div className="bg-white mx-5 my-5">
@@ -460,7 +475,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                 ref={meetingDate}
                 type="date"
                 placeholder="מועד הפגישה"
-                defaultValue={editSingleMission?.startedAt}
+                defaultValue={reversedDate?.startedAt}
                 className="form-control bg-light"
               />
             </li>
@@ -492,7 +507,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                 id="meetingDate"
                 ref={executionCompletionDate}
                 type="date"
-                defaultValue={editSingleMission.endedAt}
+                defaultValue={reversedDate?.endedAt}
                 className="form-control bg-light"
               />
             </li>
@@ -582,4 +597,3 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
 
   );
 }
-

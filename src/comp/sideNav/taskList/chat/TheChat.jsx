@@ -6,7 +6,6 @@ import { BsCheck2All } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiSearchAlt } from 'react-icons/bi';
 import { MyContext } from '../../../../App';
-import { Chat } from '@mui/icons-material';
 
 export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
 
@@ -18,6 +17,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
     const [chat, setChat] = useState([]);
     const [msgTime, setMsgTime] = useState([]);
     const [msgReaded, setMsgReaded] = useState([]);
+    const [search, setSearch] = useState(false);
     const messageRef = useRef();
 
 
@@ -64,6 +64,12 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
 
     
 
+    const chatFilter=(filter) => {
+        const searchResults = chat.filter(item => item.includes(filter));
+        console.log("🚀 ~ file: TheChat.jsx:60 ~ chatFilter ~ searchResults:", searchResults)
+        // const searchResultsTime = msgTime.filter(item => item.includes(filter));
+    }        
+
     return (
         <>
             <div className="chat">
@@ -77,7 +83,8 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                         </div>
                     </div>
                     <div className="mx-1 my-2 mx-2 d-flex">
-                        <div className="icon_searc mx-1" title='חפש'> <BiSearchAlt size={25} /></div>
+                        <div className="icon_searc mx-1" onClick={() => {setSearch(!search);}} title='חפש'> <BiSearchAlt size={25} /></div>
+                        {search && <div className="div_chat_search"><input type="text" className='chat_search' onChange={(e)=>{chatFilter(e.target.value)}} placeholder='הכנס מילות חיפוש' /></div>}
                         <div className="icon_searc mx-1" title='סגור'> <AiOutlineClose size={25} onClick={() => setChatOpen(!chatOpen)} /></div>
                     </div>
                 </div>
@@ -87,25 +94,25 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                             <div key={i} className={`d-flex${msg.split("}")[0].slice(1) === currentUser.username ? " justify-content-start" : " justify-content-end"}`}>
                                 <div className="the_message mx-1 p-1 mt-2 text-light">
                                     <samp>
-                                        <div>{msg.split("}")[0].slice(1)}</div>
-                                        <div className='my-1 mb-2 '>{msg.split("}")[1]}</div>
+                                        <div className='chat_name'>{msg.split("}")[0].slice(1)}</div>
+                                        <div className='my-1 mb-2 fs-5'>{msg.split("}")[1]}</div>
                                         {!msgReaded[i] && !(msg.split('}')[0].slice(1) === currentUser.username)
-                                            ? <div className="form-check form-switch d-flex justify-content-between my-2 mx-2" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
+                                            ? <div className="form-check form-switch d-flex justify-content-between mx-2" dir='ltr' onChange={(e) => setCalled(e.target.checked)}>
                                                 <input className="form-check-input cursor" title='אשר קריאה' onClick={(e) => setReaded(e.currentTarget.checked, i)} type="checkbox" role="switch" id="switchCheck" />
-                                                <div className=''>{msgTime[i]}</div>
+                                                <div className='fs-6'>{msgTime[i]}</div>
                                             </div>
-                                            : <div className='d-flex justify-content-between my-1 mx-1'>{msgReaded[i]
+                                            : <div>{msgReaded[i]
                                                 ?
-                                                <div className="d-flex mx-2">
-                                                <div>{msgTime[i]}</div>
-                                                <div className="mx-2"><BsCheck2All color="skyblue" /></div>
-                                              </div>
+                                                <div className="d-flex justify-content-between mx-2">
+                                                    <div className='fs-6'>{msgTime[i]}</div>
+                                                    <div className=""><BsCheck2All color="skyblue" /></div>
+                                                </div>
                                                 :
-                                                <div className="d-flex mx-2">
-                                                <div className='mx-2'><div className="">{msgTime[i]}</div></div>
-                                                <div className=""><div className=""><BsCheck2All color="white" /></div></div>
-                                              </div>
-                                                }
+                                                <div className="d-flex justify-content-between mx-2">
+                                                    <div className="fs-6">{msgTime[i]}</div>
+                                                    <div className=""><BsCheck2All color="white" /></div>
+                                                </div>
+                                            }
                                             </div>}
                                     </samp>
                                 </div>
@@ -126,3 +133,4 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         </>
     )
 }
+
