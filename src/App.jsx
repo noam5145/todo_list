@@ -138,7 +138,6 @@ const setMission = (data)=>{
           }
         }
       }
-      console.log(arr.length);
       setNewMissions(arr);
     }
   }

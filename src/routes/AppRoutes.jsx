@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import App, { MyContext } from "../App";
+import { MyContext } from "../App";
 import UserTasks from '../comp/topNav/userTasks/UserTasks'
 import NotFound from "../NotFound";
 import AddMissions from "../comp/sideNav/addMissions/AddMissions";
