@@ -40,7 +40,7 @@ useEffect(() => {
     })
 
     socketIo.on('getNewMissions', (missions)=>{
-        setMissions(missions);
+      setMissions(missions);
     })
     socketIo.on('disconnected', (id)=>{
         console.log(id);
@@ -64,7 +64,7 @@ const setMission = (data)=>{
     if(res.data.err){
       return console.log(res.data.err);
     }
-    socketIo.emit('setNewMission', res.data);
+    socketIo.emit('setNewMission', token);
   }
   const getAllMissions = async (token)=>{
     setLoading(true)
@@ -74,7 +74,6 @@ const setMission = (data)=>{
     }
     setLoading(false)
     setMissions(res.data);
-    MISSIONS = {...res.data}
   }
   const getAllArchives = async (adminToken)=>{
     setLoading(true)
