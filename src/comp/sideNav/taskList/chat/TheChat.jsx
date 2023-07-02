@@ -7,31 +7,31 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { BiSearchAlt } from 'react-icons/bi';
 import { MyContext } from '../../../../App';
 
-export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
+export default function TheChat({ setChatOpen, chatOpen, iForChat, chat, setChat, msgTime, setMsgTime, msgReaded, setMsgReaded }) {
 
    
 
     
     const { missions, currentUser, updateChat, setMissions, socketIo } = useContext(MyContext)
     const [called, setCalled] = useState(false);
-    const [chat, setChat] = useState([]);
-    const [msgTime, setMsgTime] = useState([]);
-    const [msgReaded, setMsgReaded] = useState([]);
+    
     const [search, setSearch] = useState(false);
     const messageRef = useRef();
 
 
     useEffect(() => {
         if (missions[0]) {
-            setChat(missions[iForChat]?.chat.messages.msg ? missions[iForChat]?.chat.messages.msg?.split('\n').slice(0, missions[iForChat].chat.messages.msg.split('\n').length - 1) : []);
-            setMsgTime(missions[iForChat]?.chat.messages.time?.split('\n').slice(0, missions[iForChat].chat.messages.time.split('\n').length - 1));
-            setMsgReaded(missions[iForChat]?.chat.messages.readed?.slice(0, missions[iForChat].chat.messages.readed.length - 1));
+            console.log(missions[iForChat]?.chat.messages.msg?.split('\n'));
+            setChat(missions[iForChat].chat.messages.msg ? missions[iForChat].chat.messages.msg.split('\n').slice(0, missions[iForChat].chat.messages.msg.split('\n').length - 1) : []);
+            setMsgTime(missions[iForChat].chat.messages.time?.split('\n').slice(0, missions[iForChat].chat.messages.time.split('\n').length - 1));
+            setMsgReaded(missions[iForChat].chat.messages.readed?.slice(0, missions[iForChat].chat.messages.readed.length - 1));
         }
     }, [missions])
 
     useEffect(() => {
         if (chat[0]) {
             scrollToDown();
+            // console.log(chat);
         }
     }, [chat])
 
@@ -40,7 +40,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
         element.scrollIntoView();
     }
 
-    const textUpdate = (msg) =>{
+    const textUpdate = () =>{
        const newMessage = messageRef.current?.value;
        let time = new Date();
        time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " "  + time.getHours() + ':' + time.getMinutes();
