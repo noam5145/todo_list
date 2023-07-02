@@ -6,7 +6,7 @@ const base_url = 'https://server-todolist-xr2q.onrender.com/';
 // import Login from "./comp/Login";
 export const MyContext = createContext();
 import io from 'socket.io-client';
-
+var MISSIONS;
 
 export default function App() {
 
@@ -48,16 +48,12 @@ useEffect(() => {
 
 
 
-const setMission = (newMission)=>{
-  console.log(missions);
+const setMission = (data)=>{
+  data.missions.map((m, i)=>{
 
-  console.log(newMission);
-
-  missions.map((m, i)=>{
-
-    if(Number(missions[i].missionId) == Number(newMission.missionId)){
-      missions[i].chat = {...newMission.chat};
-      setMissions(missions);
+    if(Number(data.missions[i].missionId) == Number(data.newMission.missionId)){
+      data.missions[i].chat = {...data.newMission.chat};
+      setMissions(data.missions);
     }
   })
 }
@@ -77,6 +73,7 @@ const setMission = (newMission)=>{
     }
     setLoading(false)
     setMissions(res.data);
+    MISSIONS = {...res.data}
   }
   const getAllArchives = async (adminToken)=>{
     setLoading(true)
