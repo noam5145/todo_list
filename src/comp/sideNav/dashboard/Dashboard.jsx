@@ -6,6 +6,7 @@ import Process from './Process/Process';
 import Exception from './Exception/Exception';
 import CountUser from './countUser/CountUser';
 import PendingApproval from './PendingApproval/PendingApproval';
+import ExceptionDay from './ExceptionDay/ExceptionDay';
 
 
 export default function Dashboard() {
@@ -27,7 +28,9 @@ export default function Dashboard() {
       <div className='col-lg-3 h-100'>
         <CountUser/>
       </div>
-
+      <div className='col-lg-9 h-100'>
+        <ExceptionDay/>
+      </div>
 </div>
 ) :(<div className="container">
 <div className="d-flex justify-content-center align-items-center my-5">
