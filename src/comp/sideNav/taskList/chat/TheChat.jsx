@@ -58,7 +58,6 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
     
     const setReaded = (readed, i)=>{
         missions[iForChat].chat.messages.readed[i] = readed;
-
         setMsgReaded([...missions[iForChat].chat.messages.readed]);
         updateChat(missions[iForChat], currentUser.token);
     }
