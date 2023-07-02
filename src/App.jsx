@@ -21,11 +21,9 @@ export default function App() {
 
   useEffect(()=>{
     if(currentUser?.username){
-      
-          setSocketIo(io(base_url, {
-            transports: ["websocket", 'polling'],
-          }));
-          
+      setSocketIo(io(base_url, {
+        transports: ["websocket", 'polling'],
+      }));
     }
 }, [currentUser])
 
@@ -50,7 +48,6 @@ useEffect(() => {
 
 const setMission = (data)=>{
   data.missions.map((m, i)=>{
-
     if(Number(data.missions[i].missionId) == Number(data.newMission.missionId)){
       data.missions[i].chat = {...data.newMission.chat};
       setMissions(data.missions);
