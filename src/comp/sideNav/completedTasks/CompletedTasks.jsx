@@ -31,24 +31,19 @@ export default function CompletedTasks() {
   if (missions) {
       return (
       <>
-        <div className="container font-family-completed  mb-2">
-          <div >
-            <div className="btn  justify-content-end d-flex   text-light ">
-              <button
-                className="btn   bg-secondary text-light mx-3"
-                onClick={handlePrintEx}
-              >
-                <LocalPrintshopRoundedIcon sx={{ fontSize: 50 }} />
-              </button>
-            </div>
-          </div>
+        <div className="container mb-2">
+         
           <div  ref={componentToPrint}>
-          <div  className="d-flex justify-content-between mx-5">
-            <div className="p-title-Archive-div">
-              <h2 className="p-title-Archive">ארכיון משימות</h2>
-              <h2 className="p-title-Archive">
-              </h2>
+          <div className="d-flex justify-content-between mt-4">
+            <div className="p-title-pen-div">
+              <h4 >משימות בארכיון</h4>
+             <div className="d-flex h-100 align-items-center" >
+          <p className="numOfExMission m-2">סה"כ משימות בארכיון:  {archive.length} </p>
+         <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/> הדפסה</button>
+        </div>
+         
             </div>
+
             <span></span>
           </div>
           <div className="container  table-container-Archive all_table-Archive">
@@ -82,7 +77,7 @@ export default function CompletedTasks() {
                (
                 
                 <div
-                  key={i}
+                key={mission.id}
                   className="container-fluid completed-mission-row d-flex justify-content-center p-0"
                 >
                   <div className="col-1 the_table-Archive text-center">
@@ -123,9 +118,9 @@ export default function CompletedTasks() {
               </div>
             )}
           </div>
-          <div>
+          {/* <div>
           <h2 className="numOfCompleteMission">סה"כ משימות בארכיון: {archive.length} </h2>
-        </div>
+        </div> */}
         </div>
         </div>
       </>

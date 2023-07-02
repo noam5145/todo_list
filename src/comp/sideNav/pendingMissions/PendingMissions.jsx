@@ -22,10 +22,13 @@ export default function PendingMissions() {
 
 
  useEffect(()=>{
-   let temp=missions.map((mission)=>{
-   return mission.status=="ממתין לאישור" ?mission:""
-})
-setData(temp.filter((item)=>item!=""));
+  if(missions[0]){
+    let temp=missions.filter((mission)=>mission.status==="ממתין לאישור")
+    setData(temp);
+    
+    console.log(missions.filter((mission)=>mission.status==="ממתין לאישור"));
+    console.log(missions);
+  }
 },[missions])
 
 
@@ -39,18 +42,17 @@ setData(temp.filter((item)=>item!=""));
 let tempMission=missions.find((mission)=>{
  return mission._id==id
 })
-tempMission.status="בוצע"
     if (confirm("אתה רוצה לאשר?")) {
-      toast('👍 המשימה אושרה בהצלחה ', {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      // toast('👍 המשימה אושרה בהצלחה ', {
+      //   position: "bottom-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
        
       tempMission.status="בוצע"
       updateMission(tempMission,currentUser.token)
@@ -64,25 +66,21 @@ tempMission.status="בוצע"
     return (
       <>
        {!loading ? ( <div  className="container  mb-2">
-          <div >
-            <div className=" justify-content-end d-flex   text-light ">
-              <button
-                className="btn   bg-secondary text-light mx-3"
-                onClick={handlePrintEx}
-              >
-                <LocalPrintshopRoundedIcon sx={{ fontSize: 50 }} />
-              </button>
-            </div>
-          </div>
+
           <div ref={componentToPrint}>
-          <div className="d-flex justify-content-between mx-5">
+          <div className="d-flex justify-content-between mt-4">
             <div className="p-title-pen-div">
-              <h2 className="p-title-pen">משימות בהמתנה לאישור</h2>
-              <h2 className="p-title-pen"></h2>
+              <h4 >משימות בהמתנה לאישור</h4>
+             <div className="d-flex h-100 align-items-center" >
+          <p className="numOfExMission m-2">סה"כ משימות בהמתנה לאישור:  {dataPenMission.length} </p>
+         <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/>  הדפסה</button>
+        </div>
+         
             </div>
 
             <span></span>
           </div>
+          
           <div className="container  table-container-pen all_table-Ex  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
@@ -121,9 +119,9 @@ tempMission.status="בוצע"
             {
            dataPenMission[0] ?
            dataPenMission.map((mission, i)  =>
-                    (
+                    ( 
                       <div
-                        key={i}
+                       key={mission.id}
                         className="container-fluid pen-mission-row d-flex justify-content-center p-0"
                       >
                         <div className="col-1 the_table-pen text-center">
@@ -173,14 +171,11 @@ tempMission.status="בוצע"
             : <div className="col-12 pen-mission-row the_table-pen d-flex  text-center  align-missions-center">
               <h2 >אין משימות בהמתנה לאישור כרגע</h2></div>}
           </div>
- <div>
-          <h2 className="numOfExMission">סה"כ משימות בהמתנה לאישור:  {dataPenMission.length} </h2>
-        </div>
+ 
         </div>
        
         </div>):(
             <div className="container">
-
             <div className="d-flex justify-content-center align-items-center my-5">
             <CircularProgress />
           </div>

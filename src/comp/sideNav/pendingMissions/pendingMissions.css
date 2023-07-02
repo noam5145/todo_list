@@ -104,7 +104,7 @@
       height: 9vh;
       width: 90vw;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
     }
     

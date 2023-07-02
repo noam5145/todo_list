@@ -35,21 +35,18 @@ setData(temp?.filter((item)=>item!=""));
     return (
       <>
      {!loading ? (   <div  className="container font-family-Ex  mb-2">
-          <div>
-            <div className=" justify-content-end d-flex   text-light ">
-              <button
-                className="btn   bg-secondary text-light mx-3"
-                onClick={handlePrintEx}
-              >
-                <LocalPrintshopRoundedIcon sx={{ fontSize: 50 }} />
-              </button>
-            </div>
-          </div>
+          
           <div ref={componentToPrint}>
-          <div className="d-flex justify-content-between mx-5">
-            <div className="exp-title-ex-div">
-              <h2 className="exp-title-ex">דו"ח משימות בחריגה</h2>
-              <h2 className="exp-title-ex"></h2>
+          <div className="d-flex justify-content-between mt-2">
+            <div className="p-title-pen-div">
+              
+                 <h4 >משימות בחריגה</h4>
+              
+             <div className="d-flex h-100 align-items-center" >
+          <p className="numOfExMission m-2">סה"כ משימות בחריגה: {dataExMission.length} </p>
+         <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/> הדפסה</button>
+        </div>
+         
             </div>
 
             <span></span>
@@ -88,7 +85,7 @@ setData(temp?.filter((item)=>item!=""));
            dataExMission.map((mission, i)  =>
                     (// use state-> to cheak if the table is empty
                       <div
-                        key={i}
+                      key={mission.id}
                         className="container-fluid d-flex justify-content-center p-0"
                       >
                         <div className="col-1 the_table-Ex text-center">
@@ -134,9 +131,6 @@ setData(temp?.filter((item)=>item!=""));
             : <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
               <h2 > אין משימות בחריגה כעת</h2></div>}
           </div>
- <div>
-          <h2 className="numOfExMission">סה"כ משימות בחריגה: {dataExMission?.length} </h2>
-        </div>
         </div>
        
         </div>):(
