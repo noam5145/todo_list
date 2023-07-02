@@ -22,7 +22,7 @@ export default function App() {
   useEffect(()=>{
     if(currentUser?.username){
       
-          setSocketIo(io('http://localhost:5174', {
+          setSocketIo(io(base_url, {
             transports: ["websocket", 'polling'],
           }));
           
