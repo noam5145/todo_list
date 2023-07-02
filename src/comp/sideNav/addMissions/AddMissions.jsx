@@ -2,9 +2,9 @@ import React, { useContext, useRef, useState, useEffect } from "react";
 import './addMissions.css'
 import { MyContext } from "../../../App";
 import DriveFileMoveSharpIcon from '@mui/icons-material/DriveFileMoveSharp';
-import { Checkbox, FormControl, ListItemText, MenuItem, Select } from "@mui/material";
-
-
+import { Checkbox, Chip, FormControl, ListItemText, MenuItem, Select, Stack } from "@mui/material";
+import { BsTrashFill } from "react-icons/bs";
+import { CircularProgress } from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -17,9 +17,8 @@ const MenuProps = {
   },
 };
 
-
 export default function AddMissions({ editSingleMission, closeDialog, notifyadd, notifyedit }) {
-  const { currentUser, newMission, updateMission, missions, users, loading } = useContext(MyContext);
+  const { currentUser, newMission, updateMission, missions, users, loading, archive } = useContext(MyContext);
   const [displayErrorNote, setDisplayErrorNote] = useState(false);
   const [displayErrorMeetingTitle, setDisplayErrorMeetingTitle] = useState(false);
   const [displayErrorTaskDetails, setDisplayErrorTaskDetails] = useState(false)
@@ -37,9 +36,22 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
   const noteCommander = useRef();
   const fileMission = useRef();
   const [userSelect, setUserSelected] = useState([]);
-  const [filess, setfiles] = useState([]);
+  const [files, setfiles] = useState([]);
   const [checksIfFile, setChecksIfFile] = useState(false);
+  const [reversedDate, setReversedDate] = useState({});
   const [personNames, setPersonNames] = useState(editSingleMission ? [...editSingleMission.responsibility] : []);
+
+  useEffect(() => {
+    const newStartedAt = editSingleMission?.startedAt?.split('/').reverse().join('-');
+    const newEndedAt = editSingleMission?.endedAt?.split('/').reverse().join('-');
+    
+    const newData = {
+      startedAt: newStartedAt,
+      endedAt: newEndedAt,
+    };
+  
+    setReversedDate(newData);
+    }, [])
 
   const setUserSelect = (usernames) => {
     setPersonNames(usernames)
@@ -52,7 +64,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     }
   }
 
-  let errorNote = (
+  const errorNote = (
     <h5 className="text-danger mb-2 font-weight-bold">
       ודא שהפרטים שהזנת נכונים
     </h5>
@@ -71,6 +83,11 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
         max = Number(mission.missionId);
       }
     })
+    archive.map((mission, i) => {
+      if (Number(mission.missionId) > max) {
+        max = Number(mission.missionId);
+      }
+    })
     let t = new Date();
     t = t.getDate() + '/' + (t.getMonth() + 1) + '/' + t.getFullYear() + " "  + t.getHours() + ':' + t.getMinutes() + '\n';
     let newTask = {
@@ -84,7 +101,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       daysLeft: diffDays,
       chat: {
         messages: {
-          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: noteCommander.current?.value ? [false] : [], time: t
+          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: noteCommander.current?.value ? [false] : [], time: noteCommander.current?.value ? t : ''
         }
       },
       // fileMission: fileMission?.current?.files[0],
@@ -147,6 +164,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     const date2 = new Date(executionCompletionDate.current.value);
     const diffTime = (date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
     let max = 0;
     missions.map((mission, i) => {
       if (Number(mission.missionId) > max) {
@@ -166,13 +184,13 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       daysLeft: diffDays,
       chat: {
         messages: {
-          noteCommander: { msg: noteCommander.current?.value ? '{' + currentUser.username + '}' + " " + noteCommander.current.value + '\n' : '', readed: false, time: t },
-          noteResponsibility: { msg: '', readed: false, time: '' }
+          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: noteCommander.current?.value ? [false] : [], time: noteCommander.current?.value ? t : ''
         }
       },
       // fileMission: fileMission?.current?.files[0],
       token: userSelect,
     };
+
     if (
       newTask.title != "" &&
       newTask.startedAt != "" &&
@@ -180,14 +198,22 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       newTask.responsibility != "" &&
       newTask.endedAt != "" &&
       newTask.daysLeft >= 0
-
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       newMission(newTask);
-
+      notifyadd();
+      setDisplaySecondTask(true)
+      meetingTitle.current.value = "";
+      meetingDate.current.value = "";
+      taskDetails.current.value = "";
+      executionCompletionDate.current.value = "";
+      noteCommander.current.value = "";
+      setPersonNames([])
       setUserSelected([]);
-      closeDialog()
+      // fileMission.current.files[0] = ""
+      setUserSelected([]);
+
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -212,11 +238,12 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
         setdisplayErrorMeetingDate(false))
       setDisplayErrorNote(true);
     }
-  };
 
   }
 
+  
   const editTask = () => {
+    {console.log(meetingDate.current?.value)}
     setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
@@ -224,7 +251,6 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     let newEditTask = {
-
       missionId: editSingleMission.missionId,
 
       status: "בתהליך",
@@ -242,8 +268,6 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       __v: editSingleMission.__v,
 
     };
-    console.log(newEditTask);
-    console.log(editSingleMission);
 
     if (
       newEditTask.title != "" &&
@@ -252,14 +276,12 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       newEditTask.responsibility != "" &&
       newEditTask.endedAt != "" &&
       newEditTask.daysLeft >= 0
-
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
       notifyedit();
       updateMission(newEditTask, currentUser.token);
       closeDialog();
-      notifyedit();
     } else {
       if (newEditTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -286,10 +308,11 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     }
   }
 
-  const handleChange = (e) => {
+  const handleFiles = (e) => {
     setChecksIfFile(true)
     const file = fileMission.current.files[0];
-    setfiles([...filess,file]);
+    setfiles([...files, file]);
+    fileMission.current.value = null;
   };
 
   const handleDelete = (i) => {
@@ -297,6 +320,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     setfiles(isFilesEmpty);
     setChecksIfFile(isFilesEmpty.length > 0);
   }
+
   return (<>
     {!loading ? (<div dir="rtl" className="container d-flex">
       <div className="bg-white mx-5 my-5">
@@ -402,10 +426,17 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                 rows="1"
               ></textarea>
             </li>
+            <li className="d-flex justify-content-end my-1" dir="ltr">
+              <div className="">
+                  {files.map((file, i) => (
+                    <div className="my-1" key={i}><Chip label={file.name} onDelete={() => handleDelete(i)} /></div>
+                  ))}
+              </div>
+            </li>
             <li className="col-12 list-unstyled d-flex justify-content-center">
-              <div className="hide_file_container"  style={{ border: checksIfFile ? "solid 3px black" : "dashed 3px black",}}>
-                בחר קובץ להעלאה - לחץ כאן <DriveFileMoveSharpIcon className="mx-2" />
-                <input className="form-control hide_file" type="file" ref={fileMission} onChange={handleChange} />
+              <div className="hide_file_container" style={{ border: checksIfFile ? "solid 3px black" : "dashed 3px black", }}>
+                <div> לחץ כאן להעלאת קובץ <DriveFileMoveSharpIcon className="mx-2" /></div>
+                <input className="form-control hide_file" type="file" ref={fileMission} onChange={handleFiles} />
               </div>
             </li>
           </ul>
@@ -441,9 +472,8 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                 ref={meetingDate}
                 type="date"
                 placeholder="מועד הפגישה"
-                defaultValue={editSingleMission?.startedAt}
+                defaultValue={reversedDate?.startedAt}
                 className="form-control bg-light"
-
               />
             </li>
             <li className="col-lg-6 list-unstyled col-sm-12  mb-lg-4 ">
@@ -519,10 +549,17 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
 
               </div>
             </li>
+            <li className="d-flex justify-content-end my-1" dir="ltr">
+              <div className="">
+                  {files.map((file, i) => (
+                    <div className="my-1" key={i}><Chip label={file.name} onDelete={() => handleDelete(i)} /></div>
+                  ))}
+              </div>
+            </li>
             <li className="col-12 list-unstyled d-flex justify-content-center">
-              <div className="hide_file_container">
-                האם ברצונך להחליף את הקובץ - לחץ כאן <DriveFileMoveSharpIcon className="mx-2" />
-                <input className="form-control hide_file" type="file" ref={fileMission}></input>
+              <div className="hide_file_container" style={{ border: checksIfFile ? "solid 3px black" : "dashed 3px black", }}>
+                <div> לחץ כאן להעלאת קובץ <DriveFileMoveSharpIcon className="mx-2" /></div>
+                <input className="form-control hide_file" type="file" ref={fileMission} onChange={handleFiles} />
               </div>
             </li>
           </ul>
@@ -531,7 +568,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
           {displayErrorNote ? errorNote : ""}
           {!editSingleMission ?
             <button
-              onClick={newTask}
+              onClick={() => { newTask(); }}
               className="btn btn-light  col-4  btn-outline-dark"
             >
               שמור וצור משימה חדשה
@@ -545,6 +582,15 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
         </div>
       </div>
 
-    </div>
+    </div>) : (
+      <div className="container">
+
+        <div className="d-flex justify-content-center align-items-center my-5">
+          <CircularProgress />
+        </div>
+      </div>
+    )}
+  </>
+
   );
 }
