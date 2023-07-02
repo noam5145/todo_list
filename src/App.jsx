@@ -173,7 +173,7 @@ const setMission = async (newMission)=>{
    }
   const getAllUsers = async (user)=>{
     setLoading(true);
-    let res = await axios.get('http://localhost:5174/' + 'user/getAllUsers', {params : user});
+    let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
     if(res.data.err){
       return console.log(res.data.err);
     }
