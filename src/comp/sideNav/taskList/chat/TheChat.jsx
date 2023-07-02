@@ -21,7 +21,6 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat, chat, setChat
 
     useEffect(() => {
         if (missions[0]) {
-            console.log(missions[iForChat]?.chat.messages.msg?.split('\n'));
             setChat(missions[iForChat].chat.messages.msg ? missions[iForChat].chat.messages.msg.split('\n').slice(0, missions[iForChat].chat.messages.msg.split('\n').length - 1) : []);
             setMsgTime(missions[iForChat].chat.messages.time?.split('\n').slice(0, missions[iForChat].chat.messages.time.split('\n').length - 1));
             setMsgReaded(missions[iForChat].chat.messages.readed?.slice(0, missions[iForChat].chat.messages.readed.length - 1));
