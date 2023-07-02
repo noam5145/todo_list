@@ -1,71 +1,43 @@
-import React, { useContext, useEffect } from "react";
-import { MyContext } from "../../../App";
+import React, {useContext} from 'react'
+
+import { MyContext } from '../../../App';
 import { CircularProgress } from "@mui/material";
+import Process from './Process/Process';
+import Exception from './Exception/Exception';
+import CountUser from './countUser/CountUser';
+import PendingApproval from './PendingApproval/PendingApproval';
+import ExceptionDay from './ExceptionDay/ExceptionDay';
 
-import ExceptionTasks from "../missionExeption/MissionExeption";
+
 export default function Dashboard() {
-  const { missions, loading } = useContext(MyContext);
-
-  let counterTasksInProgress = 0;
-  let counterExceptionTasks = 0;
-  let counterPendingApproval = 0;
-  missions.map((item) => {
-    if (item.status == "בתהליך") {
-      counterTasksInProgress++;
-    }
-    if (item.status == "בחריגה") {
-      counterExceptionTasks++;
-    }
-    if (item.status == "ממתין לאישור") {
-      counterPendingApproval++;
-    }
-  });
-  let counterToDashbord = {
-    counterTasksInProgress,
-    counterExceptionTasks,
-    counterPendingApproval,
-  };
-
+  const {loading} = useContext(MyContext)
+  
   return (
-    <>
-      {!loading ? (
-        <div className="container-fluid">
-          <div className="container">
-            <div className="container row">
-              <h2>Dashboard</h2>
-              <div className="col-6">
-                <ul className="row">
-                  <li className="col-4">
-                    {counterToDashbord.counterExceptionTasks}
-                  </li>
-                  <li className="col-4">
-                    {counterToDashbord.counterPendingApproval}
-                  </li>
-                  <li className="col-4">
-                    {counterToDashbord.counterTasksInProgress}
-                  </li>
-                </ul>
-              </div>
-              <div className="col-3">
-                <ul className="row">
-                  <li className="col-12"></li>
-                </ul>
-              </div>
-              <div className="col-3">
-                <ul className="row">
-                  <li className="col-12"></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="container">
-          <div className="d-flex justify-content-center align-items-center my-5">
-            <CircularProgress />
-          </div>
-        </div>
-      )}
-    </>
-  );
+    
+    <div className='container-fluid '>
+{!loading ? (  
+<div className='row d-flex'><div className='col-lg-3'>
+        <PendingApproval/>
+      </div>
+      <div className='col-lg-3'>
+        <Process/>
+      </div>
+      <div className='col-lg-3'>
+        <Exception/>
+      </div>
+      <div className='col-lg-3 h-100'>
+        <CountUser/>
+      </div>
+      <div className='col-lg-9 h-100'>
+        <ExceptionDay/>
+      </div>
+</div>
+) :(<div className="container">
+<div className="d-flex justify-content-center align-items-center my-5">
+  <CircularProgress />
+</div>
+</div>)}
+     
+    </div>
+  )
 }

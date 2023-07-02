@@ -12,7 +12,6 @@ export default function TopNav() {
   const [currentTime, setCurrentTime] = useState(time());
   const [settings, setSettings] = useState(false);
   const { currentUser, newMissions, missions } = useContext(MyContext);
-  const [renderMissions, setRenderMissions] = useState(newMissions);
   // const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
@@ -24,10 +23,6 @@ export default function TopNav() {
       clearInterval(timer);
     };
   }, []);
-
-  useEffect(() => {
-    setRenderMissions(newMissions);
-  }, [missions]);
 
   function getForeignDateTime(foreignDate) {
     var options = {
