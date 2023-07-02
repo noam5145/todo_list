@@ -26,6 +26,14 @@ export default function Message() {
     }
   }, [newMissions]);
 
+
+  const readAll = ()=>{
+    currentUser.newMissions = [];
+    setAlert([]);
+    updateUser(currentUser, currentUser.token);
+    setNewMissions([]);
+  }
+
   function deletAletrs(missionId) {
     console.log("aervaer");
     currentUser.newMissions = alert.filter(
@@ -51,6 +59,7 @@ export default function Message() {
           <h3 className="text-success d-flex justify-content-center">
             התקבלו משימות חדשות עבורך
           </h3>
+          <div className="btn btn-primary" onClick={readAll}>סמן הכל כנקרא</div>
           <div className="mt-5">
             <div className=" row d-flex justify-content-center">
               <div className="col-1 top_table text-center">מס"ד</div>
