@@ -24,8 +24,9 @@ export default function BottomTable({
   notifyDel,
   notifySend,
 }) {
-  const { deleteMission, currentUser, updateMission, daysOff } = useContext(MyContext);
+  const { deleteMission, currentUser, updateMission, daysOff, missions } = useContext(MyContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [numMsg, setNumMsg] = useState([]);
   const openSettings = Boolean(anchorEl);
 
   const OpenSettings = (event) => {
@@ -64,12 +65,37 @@ export default function BottomTable({
     if (dal) {
     }
   };
-
+  let flag = true;
   useEffect(() => {
     window.addEventListener("click", () => {
       closeSettings();
     });
+    if(flag){
+      let arr = Array(item.chat.messages.readed?.length).fill(0);
+      item.chat.messages.readed?.map((read, i)=>{
+        if(!read && !(item.chat.messages.msg.split('\n')[i]?.split('}')[0].slice(1) === currentUser.username)){
+          arr[i]++;
+          // console.log(i);
+        }
+      })
+      let num =0;
+      console.log(item.chat.messages.readed);
+      arr.map((item)=>{
+        console.log(arr);
+        if(item != 0){
+          num++;
+        }
+      })
+      // console.log(num);
+      setNumMsg([...numMsg, num]);
+      // console.log(item);
+      flag = false;
+    }
   }, []);
+
+  useEffect(()=>{
+    // console.log(numMsg);
+  }, [numMsg]);
 
   return (
     <div key={i} className="container d-flex justify-content-center p-0">
@@ -134,7 +160,7 @@ export default function BottomTable({
         <div className="d-flex align-items-center">
           <div className="row div_chat_fan_icon mx-1">
             <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen) }}>
-              <Badge badgeContent={2} color="primary">
+              <Badge badgeContent={numMsg} color="primary">
                 < ChatIcon color="action" onClick={() => setIForChat(i)} />
               </Badge></div>
 
@@ -166,7 +192,22 @@ export default function BottomTable({
                   ערוך משימה
                 </div>
               </MenuItem>
-              <MenuItem
+              {item.status == 'ממתין לאישור' ? (
+                 <MenuItem
+                 onClick={() => {
+                   closeSettings();
+                   SubmitMission(item);
+                 }}
+                 title="שלח לאישור סיום"
+                 disabled={true}
+               >
+                 <div className="d-flex justify-content-center icon_send">
+                   <SendIcon className="mx-2" />
+                 </div>
+                 שלח לאישור משימה
+               </MenuItem>
+              ) : (
+                <MenuItem
                 onClick={() => {
                   closeSettings();
                   SubmitMission(item);
@@ -178,6 +219,7 @@ export default function BottomTable({
                 </div>
                 שלח לאישור משימה
               </MenuItem>
+              )}
               <MenuItem
                 onClick={() => {
                   closeSettings();
