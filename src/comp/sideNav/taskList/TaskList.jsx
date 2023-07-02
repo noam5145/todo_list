@@ -4,7 +4,6 @@ import { MyContext } from "../../../App";
 import TheChat from "./chat/TheChat";
 import { CircularProgress, Dialog } from "@mui/material";
 import AddMissions from "../addMissions/AddMissions";
-import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import BottomTable from "./table/BottomTable";
 import TopTable from "./table/TopTable";
 import FilterTable from "./table/FilterTable";
@@ -16,6 +15,7 @@ import { notifyadd } from "./notify";
 import { notifyedit } from "./notify";
 import * as XLSX from "xlsx/xlsx.mjs";
 import { GrDocumentExcel } from "react-icons/gr";
+import { TbNotesOff } from "react-icons/tb";
 
 export default function TaskList() {
   const { missions, daysOff, loading } = useContext(MyContext);
@@ -26,6 +26,9 @@ export default function TaskList() {
   const [editSingleMission, setEditSingleMission] = useState();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [ToExcel, setToExcel] = useState([]);
+  const [chat, setChat] = useState([]);
+    const [msgTime, setMsgTime] = useState([]);
+    const [msgReaded, setMsgReaded] = useState([]);
 
   const openDialog = () => {
     setOpenDialog(true);
@@ -35,28 +38,8 @@ export default function TaskList() {
   };
 
   useEffect(() => {
-    let newMissions = [];
-
-
     if (missions[0]) {
-      newMissions = [...missions];
-      // newMissions?.map((item, i) => {
-      //   const endTime = new Date(item.endedAt);
-      //   if (endTime < nowTime && item.status !== "בוצע") {
-      //     item.status = "בחריגה";
-      //   }
-
-      //   // startedAt
-      //   const partsStartTime = item?.startedAt.split('-');
-      //   const reversStartendTime = partsStartTime.reverse().join('-');
-      //   item.startedAt = reversStartendTime;
-
-      //   // endedAt
-      //   const partsEndTime = item?.endedAt.split('-');
-      //   const reversedEndTime = partsEndTime.reverse().join('-');
-      //   item.endedAt = reversedEndTime;
-      // });
-      setAllDataShow(newMissions);
+      setAllDataShow(missions);
     } else {
       setAllDataShow([]);
     }
@@ -66,26 +49,29 @@ export default function TaskList() {
     const excelMissions = JSON.parse(JSON.stringify(missions));
     for (let i = 0; i < excelMissions.length; i++) {
       delete excelMissions[i]._id;
+      delete excelMissions[i].chat;
       delete excelMissions[i].token;
       delete excelMissions[i].__v;
-      excelMissions[i]["כותרת המשימה"] = excelMissions[i].title;
-      delete excelMissions[i].title;
-      excelMissions[i]["ימים שנותרו"] = excelMissions[i].daysLeft;
-      delete excelMissions[i].daysLeft;
-      excelMissions[i]["פרטי משימה"] = excelMissions[i].details;
-      delete excelMissions[i].details;
+      delete excelMissions[i].noteCommander;
+      excelMissions[i]["מס'ד"] = excelMissions[i].missionId;
+      delete excelMissions[i].missionId;
       excelMissions[i]["מועד משימה"] = excelMissions[i].endedAt;
       delete excelMissions[i].endedAt;
-      excelMissions[i]["מסד"] = excelMissions[i].missionId;
-      delete excelMissions[i].missionId;
+      excelMissions[i]["כותרת המשימה"] = excelMissions[i].title;
+      delete excelMissions[i].title;
+      excelMissions[i]["פרטי משימה"] = excelMissions[i].details;
+      delete excelMissions[i].details;
       excelMissions[i]["אחריות"] = excelMissions[i].responsibility;
       delete excelMissions[i].responsibility;
+      excelMissions[i]["אחריות"] = excelMissions[i]["אחריות"].toString();
       excelMissions[i]['תג"מ'] = excelMissions[i].startedAt;
       delete excelMissions[i].startedAt;
-      excelMissions[i]["הערות מפקד"] = excelMissions[i].noteCommander;
-      delete excelMissions[i].noteCommander;
+      excelMissions[i]["ימים שנותרו"] = excelMissions[i].daysLeft;
+      delete excelMissions[i].daysLeft;
       excelMissions[i]["סטאטוס"] = excelMissions[i].status;
       delete excelMissions[i].status;
+      // excelMissions[i]["הערות מפקד"] = excelMissions[i].noteCommander;
+      // delete excelMissions[i].noteCommander;
     }
     setToExcel(excelMissions);
   }, [missions]);
@@ -108,6 +94,15 @@ export default function TaskList() {
       setChatOpen(false);
     });
   }, []);
+
+  useEffect(() => {
+    if (missions[0]) {
+      console.log("render Task");
+        setChat(missions[iForChat]?.chat.messages.msg ? missions[iForChat].chat.messages.msg.split('\n').slice(0, missions[iForChat].chat.messages.msg.split('\n').length - 1) : []);
+        setMsgTime(missions[iForChat]?.chat.messages.time.split('\n').slice(0, missions[iForChat].chat.messages.time.split('\n').length - 1));
+        setMsgReaded(missions[iForChat]?.chat.messages.readed.slice(0, missions[iForChat].chat.messages.readed.length - 1));
+    }
+}, [missions])
 
   useEffect(() => {
     if (editSingleMission) {
@@ -182,8 +177,8 @@ export default function TaskList() {
               />
             )) : (
               <div className="container d-flex justify-content-center mt-5">
-                  <div className="fs-5"><ReportGmailerrorredIcon /></div>
-                  <h3 className="mx-1">התוכן לא נמצא</h3>
+                  <h3 className="mx-1">אין משימות להצגה !</h3>
+                  <div className="fs-5 mx-1"><TbNotesOff size={25}/></div>
                 </div>
             )}
           </div>
@@ -209,6 +204,12 @@ export default function TaskList() {
                 setChatOpen={setChatOpen}
                 chatOpen={chatOpen}
                 iForChat={iForChat}
+                chat={chat}
+                setChat={setChat}
+                msgTime={msgTime}
+                setMsgTime={setMsgTime}
+                msgReaded={msgReaded}
+                setMsgReaded={setMsgReaded}
               />
             </div>
           )}
