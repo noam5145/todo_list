@@ -23,7 +23,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
 
     useEffect(() => {
         if (missions[0]) {
-            setChat(missions[iForChat]?.chat.messages.msg ? missions[iForChat]?.chat.messages.msg?.split('\n') : []);
+            setChat(missions[iForChat]?.chat.messages.msg ? missions[iForChat]?.chat.messages.msg?.split('\n').slice(0, missions[iForChat]?.chat.messages.msg?.split('\n').length - 1) : []);
             setMsgTime(missions[iForChat]?.chat.messages.time?.split('\n'));
             setMsgReaded(missions[iForChat]?.chat.messages.readed?.slice(0));
         }
@@ -44,12 +44,10 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
        const newMessage = messageRef.current?.value;
        let time = new Date();
        time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " "  + time.getHours() + ':' + time.getMinutes();
-       missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';
-
-       socketIo.emit('send', {mission:missions[iForChat], token: currentUser.token});
-       
+       missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';       
        missions[iForChat].chat.messages.time += time + '\n';
        missions[iForChat].chat.messages.readed[iForChat + 1] = false;
+       socketIo.emit('send', {mission:missions[iForChat], token: currentUser.token});
        setMsgReaded([...missions[iForChat].chat.messages.readed]);
        setChat(missions[iForChat].chat.messages.msg.split('\n'));
        setMsgTime(missions[iForChat].chat.messages.time.split('\n'));
@@ -90,7 +88,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
                 </div>
                 <div className="middle_chat mx-1">
                     <div style={{ minHeight: "305px" }}>
-                        {chat?.slice(0, chat.length - 1).map((msg, i) => (
+                        {chat?.map((msg, i) => (
                             <div key={i} className={`d-flex${msg.split("}")[0].slice(1) === currentUser.username ? " justify-content-start" : " justify-content-end"}`}>
                                 <div className="the_message mx-1 p-1 mt-2 text-light">
                                     <samp>
