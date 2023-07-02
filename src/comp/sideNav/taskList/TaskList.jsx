@@ -44,7 +44,6 @@ export default function TaskList() {
 
   useEffect(() => {
     const excelMissions = JSON.parse(JSON.stringify(missions));
-    console.log("🚀 ~ file: TaskList.jsx:67 ~ useEffect ~ excelMissions:", excelMissions)
     for (let i = 0; i < excelMissions.length; i++) {
       delete excelMissions[i]._id;
       delete excelMissions[i].chat;
@@ -74,7 +73,6 @@ export default function TaskList() {
     setToExcel(excelMissions);
   }, [missions]);
 
-  console.log(ToExcel);
   const toExcel = () => {
     let dow = window.confirm(" האם אתה בטוח רוצה להוריד לאקסל ?");
     if (dow) {

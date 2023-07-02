@@ -38,7 +38,7 @@ useEffect(() => {
     socketIo.on('message', mission => setMission(mission));
 
     socketIo.on('connected', (user)=>{
-        console.log(user);
+        // console.log(user);
     })
     socketIo.on('disconnected', (id)=>{
         console.log(id);
