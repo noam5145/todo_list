@@ -53,8 +53,6 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     setReversedDate(newData);
     }, [])
 
-    console.log(reversedDate);
-
   const setUserSelect = (usernames) => {
     setPersonNames(usernames)
     for (let i = 0; i < usernames.length; i++) {
@@ -103,7 +101,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       daysLeft: diffDays,
       chat: {
         messages: {
-          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: noteCommander.current?.value ? [false] : [], time: t
+          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: noteCommander.current?.value ? [false] : [], time: noteCommander.current?.value ? t : ''
         }
       },
       // fileMission: fileMission?.current?.files[0],
@@ -186,8 +184,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       daysLeft: diffDays,
       chat: {
         messages: {
-          noteCommander: { msg: noteCommander.current?.value ? '{' + currentUser.username + '}' + " " + noteCommander.current.value + '\n' : '', readed: false, time: t },
-          noteResponsibility: { msg: '', readed: false, time: '' }
+          msg: noteCommander.current?.value ? "{" + currentUser.username + "} " + noteCommander.current.value + '\n' : '', readed: noteCommander.current?.value ? [false] : [], time: noteCommander.current?.value ? t : ''
         }
       },
       // fileMission: fileMission?.current?.files[0],
