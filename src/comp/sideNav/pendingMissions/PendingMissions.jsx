@@ -41,16 +41,16 @@ let tempMission=missions.find((mission)=>{
 })
 tempMission.status="בוצע"
     if (confirm("אתה רוצה לאשר?")) {
-      // toast('👍 המשימה אושרה בהצלחה ', {
-      //   position: "bottom-right",
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "light",
-      //   });
+      toast('👍 המשימה אושרה בהצלחה ', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
        
       tempMission.status="בוצע"
       updateMission(tempMission,currentUser.token)
