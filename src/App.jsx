@@ -40,7 +40,7 @@ useEffect(() => {
     })
 
     socketIo.on('getNewMissions', (data)=>{
-        setdata(data.missions);
+        setMissions(data.missions);
     })
     socketIo.on('disconnected', (id)=>{
         console.log(id);
