@@ -64,7 +64,7 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat }) {
 
     const chatFilter=(filter) => {
         const searchResults = chat.filter(item => item.includes(filter));
-        console.log("🚀 ~ file: TheChat.jsx:60 ~ chatFilter ~ searchResults:", searchResults)
+        // console.log("🚀 ~ file: TheChat.jsx:60 ~ chatFilter ~ searchResults:", searchResults)
         // const searchResultsTime = msgTime.filter(item => item.includes(filter));
     }        
 
