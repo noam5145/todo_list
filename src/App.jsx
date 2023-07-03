@@ -33,71 +33,64 @@ useEffect(() => {
       socketIo.emit("username", currentUser.username);
     })
 
-    socketIo.on('message', data => setMission(data));
+    socketIo.on('getMessage', token =>  {
+       getAllMissions(token);
+    });
 
     socketIo.on('connected', (user)=>{
         // console.log(user);
     })
 
-    socketIo.on('getNewMissions', (missions)=>{
-      setMissions(missions);
-      getNewMissions(missions);
+    socketIo.on('updatedNewMission', ()=>{
+      getUser({token: currentUser.token});
     })
+
+    socketIo.on('getArchive', (token)=>{
+      getAllArchives(token);
+    })
+
+    socketIo.on('getNewUser', ()=>{
+      getAllUsers(currentUser);
+    })
+
+    socketIo.on('updatedUser', ()=>{
+      getAllUsers(currentUser);
+    })
+
     // socketIo.on('disconnected', (id)=>{
     //     console.log(id);
     // })
   }
 }, [socketIo])
 
-
-
-const setMission = (data)=>{
-  data.missions.map((m, i)=>{
-    if(Number(data.missions[i].missionId) == Number(data.newMission.missionId)){
-      data.missions[i].chat = {...data.newMission.chat};
-      setMissions(data.missions);
-    }
-  })
-}
-
   const newMission = async(mission, token)=>{
     let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){
       return console.log(res.data.err);
     }
-    socketIo.emit('setNewMission', token);
+    socketIo.emit('updateNewMission',{});
   }
   const getAllMissions = async (token)=>{
-    setLoading(true)
     let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
       return console.log(res.data.err);
     }
-    setLoading(false)
     setMissions(res.data);
   }
   const getAllArchives = async (adminToken)=>{
-    setLoading(true)
     let res = await axios.get( base_url + 'mission/getArchive', {params: {adminToken: adminToken}});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setArchive(res.data);
-    setLoading(false)
-
   }
   const sendToArchives = async (_id , adminToken)=>{
-    setLoading(true)
     let res = await axios.post( base_url + 'mission/sendToArchive', {adminToken: adminToken, _id: _id});
     if(res.data.err){
       return console.log(res.data.err);
     }
-    getAllArchives(adminToken);
-    setLoading(false)
-
-
-    getAllMissions(adminToken);
-
+    socketIo.emit('sendToArchive', adminToken);
+    setMissions(missions.filter((m)=> m._id !== _id));
   }
  
   function endAtChanged(endTime) {
@@ -146,27 +139,22 @@ const setMission = (data)=>{
       getNewMissions(missions);
       change(missions);
     }
-    
   }, [missions])
 
   
   const setNewUser = async (user)=>{
-    setLoading(true)
     let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
     if(user1.data.err){
       return console.log(user1.data.err);
     }
-    setUsers([...users, user1.data]);
-    setLoading(false)
+    socketIo.emit('setNewUser', {});
   }
   const getUser = async(user)=>{
-    setLoading(true)
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
-    setLoading(false);
     document.cookie = "T_L_T=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
@@ -175,22 +163,18 @@ const setMission = (data)=>{
     }
    }
   const getAllUsers = async (user)=>{
-    setLoading(true);
     let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setUsers(res.data);
-    setLoading(false);
   }
   const updateUser = async (user, adminToken)=>{
-    setLoading(true)
     let res = await axios.put(base_url + 'user/updateUser', {...user, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
-    getAllUsers(currentUser);
-    setLoading(false)
+    socketIo.emit('updateUser', {});
   }
   const updateMission = async (mission, adminToken)=>{
     setLoading(true)

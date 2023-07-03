@@ -54,11 +54,12 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     }, [])
 
   const setUserSelect = (usernames) => {
-    setPersonNames(usernames)
     for (let i = 0; i < usernames.length; i++) {
       for (let j = 0; j < users.length; j++) {
-        if (usernames[i] === users[j].username) {
+        if (usernames[i] === users[j].username && !(userSelect.find((u)=> u === users[j].token))) {
           setUserSelected([...userSelect, users[j].token]);
+          setPersonNames(usernames);
+          // break;
         }
       }
     }
@@ -130,8 +131,6 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       setPersonNames([])
       setUserSelected([]);
       // fileMission.current.files[0] = ""
-      setUserSelected([]);
-
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
@@ -201,7 +200,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
-      newMission(newTask, currentUser.token);
+      // newMission(newTask, currentUser.token);
       notifyadd();
       setDisplaySecondTask(true)
       meetingTitle.current.value = "";
@@ -212,8 +211,6 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
       setPersonNames([])
       setUserSelected([]);
       // fileMission.current.files[0] = ""
-      setUserSelected([]);
-
     } else {
       if (newTask.title == "") {
         setDisplayErrorMeetingTitle(true)
