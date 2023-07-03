@@ -1,26 +1,4 @@
-
-
-::-webkit-scrollbar-Ex {
-    width: 10px;
-    height: 10px;
-    }
-    
-    ::-webkit-scrollbar-track-Ex {
-      background: #0638ed ; 
-      box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.5); 
-      border-radius: 10px;
-    }
-     
-    ::-webkit-scrollbar-thumb-Ex {
-      background: #051ce8; 
-      border-radius: 10px;
-    
-    }
-    
-    ::-webkit-scrollbar-thumb-Ex:hover {
-      background: #08ec32; 
-    }
-    .all_table-Ex{
+   .all_table-Ex{
       height: 68vh;
       overflow: auto;
       padding-left: 3px;
@@ -32,14 +10,14 @@
 
 
     .top_table-Ex{
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 0.5px solid rgba(0, 0, 0, 0.1);
-      background-color: rgba(240, 67, 67, 0.967);
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
-      font-weight: bold;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid rgba(255, 0, 0, 0.3);
+    background-color: rgb(255,228, 196);
+    box-shadow: rgba(245, 1, 1, 0.4) 0px 1px 4px 0px;  
+    font-weight: bold;
     }
     .the_table_search-Ex{
       height: 45px;
@@ -47,20 +25,23 @@
       justify-content: center;
       align-items: center;
       border: 0.5px solid rgba(0, 0, 0, 0.1);
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
+      box-shadow: rgba(245, 1, 1, 0.4) 0px 1px 4px 0px;  
       font-weight: bolder;
       font-size: small;
     
     
     }
     .the_table-Ex{
-      height: 90px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 0.5px solid  rgba(245, 7, 7,0.3);
-      background-color: #ebb7a7bd;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid rgba(255, 0, 0, 0.3);
+    background-color: rgb(255, 228,196 ,0.608);
+    box-shadow: rgba(245, 1, 1, 0.4) 0px 1px 4px 0px;  
+  } 
+    .the_table-Ex:hover{
+    background-color: rgb(255, 228,196 ,0.4);
     } 
     
     

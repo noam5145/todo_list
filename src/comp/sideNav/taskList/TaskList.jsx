@@ -119,9 +119,13 @@ export default function TaskList() {
    {!loading ? (   <div className="container-fluid linear">
         <div className="mt-5 p-0">
           <div className="d-flex justify-content-between mx-5">
-            <h4 className="">מאגר משימות</h4>
+            <h4>מאגר משימות</h4>
             <span className="d-flex">
-              <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
+              {missions.length != allDataShow.length ? (
+              <div className="mx-5 pt-2">סה"כ משימות בחיפוש: {allDataShow.length}</div>
+              ) : (
+                <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
+                )}
               <button
                 className="btn bg-secondary text-light"
                 style={{ width: "100px" }}
