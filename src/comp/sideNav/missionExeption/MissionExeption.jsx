@@ -93,7 +93,6 @@ export default function MissionExeption() {
                     </div>
                     <div className="col-3 the_table-Ex text-center align-missions-center">
                       <p className={`p_taskdetail-Ex p-2 ${mission.details.length < 40 ? "d-flex align-items-center" : ""}`}>
-                        {console.log(mission.details.length)}
                         {mission.details}
                       </p>
                     </div>
