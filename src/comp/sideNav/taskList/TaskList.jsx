@@ -122,6 +122,7 @@ export default function TaskList() {
             <h4 className="">מאגר משימות</h4>
             <span className="d-flex">
               <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
+              {currentUser.access === 'admin' && <>
               <button
                 className="btn bg-secondary text-light"
                 style={{ width: "100px" }}
@@ -141,6 +142,7 @@ export default function TaskList() {
                 {" "}
                 הוסף משימה +
               </button>
+              </>}
               <div className="row">
                 <Dialog open={open} className="row" onClose={closeDialog}>
                   <AddMissions
