@@ -10,7 +10,7 @@ export default function MainSite() {
   useEffect(()=>{
     setTimeout(() => {
       navigate('/dashboard');
-    }, 2000);
+    }, 3000);
   }, [])
   return(
     <div className="container">
@@ -18,6 +18,8 @@ export default function MainSite() {
       <img src={Logo} alt="" className="logo_main" />
 
       </div>
+      <h3 className="titleLouder">כמה רגעים ומתחילים ...</h3>
+
     </div>
   ) 
 }
