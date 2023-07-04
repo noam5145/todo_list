@@ -30,7 +30,7 @@ export default function SideNav() {
               : "d-flex justify-content-center mt-2"
           }
         >
-          <div className="mt-3 cu" onClick={() => setShowSideNav(!showSideNav)}>
+          <div className="mt-3 cursor" onClick={() => setShowSideNav(!showSideNav)}>
             {!showSideNav ? (
               <MdLegendToggle color="black" size={40} />
             ) : (

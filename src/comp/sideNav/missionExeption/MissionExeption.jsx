@@ -35,15 +35,12 @@ export default function MissionExeption() {
   return (
     <>
       {!loading ? (<div className="container-fluid linear font-family-Ex">
-
-        <div ref={componentToPrint} className="mt-4 p-0">
+        <div ref={componentToPrint} className="mt-5 p-0 container">
           <div className="d-flex justify-content-between  mx-5">
             <div className="p-title-pen-div">
               <h4 >משימות בחריגה</h4>
-                <div className="d-flex mx-5 align-items-center">
-                {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
+                <div className="d-flex">
                 <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
-
                 <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
               </div>
             </div>
