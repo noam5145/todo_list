@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PiGraphDuotone } from "react-icons/pi";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -7,9 +7,11 @@ import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { LuArchiveRestore } from "react-icons/lu";
 import { MdHourglassEmpty, MdWarning    } from 'react-icons/md';import { BsListTask } from "react-icons/bs";
 import "./sideNav.css";
+import { MyContext } from "../../App";
 
 export default function SideNav() {
   const [showSideNav, setShowSideNav] = useState(false);
+  const {currentUser} = useContext(MyContext);
   const [click, setClick] = useState([false, false, false, false, false, false]);
 
   function changeClick(num) {
@@ -17,10 +19,6 @@ export default function SideNav() {
     newArray[num] = true;
     setClick(newArray);
   }
-
-  useEffect(()=>{
-  
-  },[])
 
   return (
     <>
@@ -97,6 +95,7 @@ export default function SideNav() {
               )}
             </Link>
           </div>
+          {currentUser.access === 'admin' && <>
           <div
             onClick={() => changeClick(2)}
             className={click[2] ? "b_c_icon" : ""}
@@ -145,9 +144,7 @@ export default function SideNav() {
               )}
             </Link>
           </div>
-
-        </div>
-        <div
+          <div
             onClick={() => changeClick(5)}
             className={click[5] ? "b_c_icon" : ""}
           >
@@ -171,6 +168,8 @@ export default function SideNav() {
               )}
             </Link>
           </div>
+          </>}
+        </div>
       </div>
     </>
   );
