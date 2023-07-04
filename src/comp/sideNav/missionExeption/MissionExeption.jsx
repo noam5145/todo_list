@@ -11,141 +11,138 @@ import { CircularProgress } from "@mui/material";
 
 export default function MissionExeption() {
 
-  const { missions,daysOff,endAtChanged ,loading } = useContext(MyContext);
+  const { missions, daysOff, endAtChanged, loading } = useContext(MyContext);
   const componentToPrint = useRef();
-  let [dataExMission,setData]=useState([]);
+  let [dataExMission, setData] = useState([]);
 
 
 
- useEffect(()=>{
-   let temp=missions.map((mission)=>{
-     return daysOff(mission.endedAt,mission.status)<0?mission:""
-  //  return mission.status=="בחריגה"?mission:""
-   
-})
+  useEffect(() => {
+    let temp = missions.map((mission) => {
+      return daysOff(mission.endedAt, mission.status) < 0 ? mission : ""
+      //  return mission.status=="בחריגה"?mission:""
 
-setData(temp?.filter((item)=>item!=""));
-},[missions])
+    })
+
+    setData(temp?.filter((item) => item != ""));
+  }, [missions])
 
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
- 
-  
-    return (
-      <>
-     {!loading ? (   <div  className="container font-family-Ex  mb-2">
-          
-          <div ref={componentToPrint}>
-          <div className="d-flex justify-content-between mt-2">
-            <div className="p-title-pen-div">
-              
-                 <h4 >משימות בחריגה</h4>
-              
-             <div className="d-flex h-100 align-items-center" >
-          <p className="numOfExMission m-2">סה"כ משימות בחריגה: {dataExMission.length} </p>
-         <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/> הדפסה</button>
-        </div>
-         
-            </div>
 
-            <span></span>
+
+  return (
+    <>
+      {!loading ? (<div className="container-fluid linear font-family-Ex">
+
+        <div ref={componentToPrint} className="mt-4 p-0">
+          <div className="d-flex justify-content-between  mx-5">
+            <div className="p-title-pen-div">
+              <h4 >משימות בחריגה</h4>
+                <div className="d-flex mx-5 align-items-center">
+                {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
+                <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
+
+                <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
+              </div>
+            </div>
           </div>
           <div className="container  table-container-Ex all_table-Ex  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">
-                  מס"ד <span title="מיין לפי גדול/קטן"></span>
+                  מס"ד 
                 </div>
                 <div className="col-1 top_table-Ex text-center">
-                  אחריות<span title="מיין לפי גדול/קטן"></span>
-                </div>
-                <div className="col-1 top_table-Ex text-center">
-                  כותרת הפגישה <span title="מיין לפי גדול/קטן"></span>
+                  כותרת הפגישה 
                 </div>
                 <div className="col-3 top_table-Ex text-center">
-                  פירוט הפגישה <span title="מיין לפי גדול/קטן"></span>
+                  פירוט הפגישה 
                 </div>
                 <div className="col-1 top_table-Ex text-center">
-                  תג"ב<span title="מיין לפי גדול/קטן"></span>
+                  תג"ב
                 </div>
                 <div className="col-1 top_table-Ex text-center">
-                  ימי חריגה<span title="מיין לפי גדול/קטן"></span>
+                  אחריות
+                </div>
+                <div className="col-1 top_table-Ex text-center">
+                  ימי חריגה
                 </div>
                 <div className="col-2 top_table-Ex text-center">
-                  הערות אחראי<span title="מיין לפי גדול/קטן"></span>
+                  הערות אחראי
                 </div>
                 <div className="col-2 top_table-Ex text-center">
-                  הערות מפקד<span title="מיין לפי גדול/קטן"></span>
+                  הערות מפקד
                 </div>
               </div>
             </span>
             {
-           dataExMission[0] ?
-           dataExMission.map((mission, i)  =>
-                    (// use state-> to cheak if the table is empty
-                      <div
-                      key={mission.id}
-                        className="container-fluid d-flex justify-content-center p-0"
-                      >
-                        <div className="col-1 the_table-Ex text-center">
-                          {mission.missionId}
-                        </div>
-                        <div className="col-1 flex-column the_table-Ex text-center">
-                        <div className={` p_taskdetail-Ex w-100 py-1 ${ mission.responsibility.length < 3
+              dataExMission[0] ?
+                dataExMission.map((mission, i) =>
+                (// use state-> to cheak if the table is empty
+                  <div
+                    key={mission.id}
+                    className="container-fluid d-flex justify-content-center p-0"
+                  >
+                    <div className="col-1 the_table-Ex text-center">
+                      {mission.missionId}
+                    </div>
+                    <div className="col-1 the_table-Ex text-center">
+                      {mission.title}
+                    </div>
+                    <div className="col-3 the_table-Ex text-center align-missions-center">
+                      <p className={`p_taskdetail-Ex p-2 ${mission.details.length < 40 ? "d-flex align-items-center" : ""}`}>
+                        {console.log(mission.details.length)}
+                        {mission.details}
+                      </p>
+                    </div>
+                    <div className="col-1 the_table-Ex  text-center">
+                      {endAtChanged(mission.endedAt)}
+                    </div>
+                    <div className="col-1 flex-column the_table-Ex text-center">
+                      <div className={` p_taskdetail-Ex w-100 py-1 ${mission.responsibility.length < 3
                         ? "d-flex align-items-center flex-column   justify-content-center"
                         : ""}`}   >
-                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem",marginTop:"3px"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
-                    </div>
-                   
-                        </div>
-                        <div className="col-1 the_table-Ex text-center">
-                          {mission.title}
-                        </div>
-                        <div className="col-3 the_table-Ex text-center align-missions-center">
-                          <p className={`p_taskdetail-Ex p-2 ${mission.details.length<40?"d-flex align-items-center":""}` }>
-                            {console.log(mission.details.length)}
-                            {mission.details}
-                          </p>
-                        </div>
-                        <div className="col-1 the_table-Ex  text-center">
-                          {  endAtChanged(mission.endedAt)  } 
-                        </div>
-                        <div className="col-1 the_table-Ex text-center ">
-                          { Math.abs( daysOff(mission.endedAt))}
-                        </div>
-                        <div className="col-2 the_table-Ex  text-center align-missions-center ">
-                          <p className="p_taskdetail-Ex p-2 ">
-                            {mission.noteResponsibility}
-                          </p>
-                        </div>
-                        <div className="col-2 the_table-Ex  text-center  align-missions-center">
-                          <p className="p_taskdetail-Ex p-2 ">
-                            {mission.noteCommand}
-                          </p>
-                        </div>
+                        {mission.responsibility?.map((name, i) => { return <div style={{ fontSize: "0.9rem", marginTop: "3px" }}>{!(i == mission.responsibility.length - 1) ? name + ',' : name + '.'}</div> })}
                       </div>
-                    )
-              )
-              
-            : <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
-              <h2 > אין משימות בחריגה כעת</h2></div>}
+
+                    </div>
+                    <div className="col-1 the_table-Ex text-center ">
+                      {Math.abs(daysOff(mission.endedAt))}
+                    </div>
+                    <div className="col-2 the_table-Ex  text-center align-missions-center ">
+                      <p className="p_taskdetail-Ex p-2 ">
+                        {mission.noteResponsibility}
+                      </p>
+                    </div>
+                    <div className="col-2 the_table-Ex  text-center  align-missions-center">
+                      <p className="p_taskdetail-Ex p-2 ">
+                        {mission.noteCommand}
+                      </p>
+                    </div>
+                  </div>
+                )
+                )
+
+                : <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
+                  <h2 > אין משימות בחריגה כעת</h2></div>}
           </div>
         </div>
-       
-        </div>):(
-            <div className="container">
 
-            <div className="d-flex justify-content-center align-items-center my-5">
+      </div>) : (
+        <div className="container">
+
+          <div className="d-flex justify-content-center align-items-center my-5">
             <CircularProgress />
           </div>
-          </div>
-        )}
-      </>
-    );
-  
-  
-  
-  
+        </div>
+      )}
+    </>
+  );
+
+
+
+
 }
 
