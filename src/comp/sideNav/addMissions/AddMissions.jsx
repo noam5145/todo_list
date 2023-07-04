@@ -59,9 +59,15 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
         if (usernames[i] === users[j].username && !(userSelect.find((u)=> u === users[j].token))) {
           setUserSelected([...userSelect, users[j].token]);
           setPersonNames(usernames);
-          // break;
+          break;
+        } else if(userSelect.find((u)=> u === users[j].token)){
+          setPersonNames(usernames);
+          break; 
         }
       }
+    }
+    if(usernames.length == 0){
+      setPersonNames([]);
     }
   }
 

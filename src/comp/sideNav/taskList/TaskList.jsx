@@ -45,6 +45,14 @@ export default function TaskList() {
     }
   }, [missions]);
 
+  useEffect(()=>{
+    if(allDataShow[0]){
+      setChat(allDataShow[iForChat]?.chat.messages.msg ? allDataShow[iForChat].chat.messages.msg.split('\n').slice(0, allDataShow[iForChat].chat.messages.msg.split('\n').length - 1) : []);
+      setMsgTime(allDataShow[iForChat]?.chat.messages.time.split('\n').slice(0, allDataShow[iForChat].chat.messages.time.split('\n').length - 1));
+      setMsgReaded(allDataShow[iForChat]?.chat.messages.readed.slice(0, allDataShow[iForChat].chat.messages.readed.length - 1));
+    }
+  },[allDataShow])
+
   useEffect(() => {
     const excelMissions = JSON.parse(JSON.stringify(missions));
     for (let i = 0; i < excelMissions.length; i++) {
@@ -96,14 +104,6 @@ export default function TaskList() {
   }, []);
 
   useEffect(() => {
-    if (missions[0]) {
-        setChat(missions[iForChat]?.chat.messages.msg ? missions[iForChat].chat.messages.msg.split('\n').slice(0, missions[iForChat].chat.messages.msg.split('\n').length - 1) : []);
-        setMsgTime(missions[iForChat]?.chat.messages.time.split('\n').slice(0, missions[iForChat].chat.messages.time.split('\n').length - 1));
-        setMsgReaded(missions[iForChat]?.chat.messages.readed.slice(0, missions[iForChat].chat.messages.readed.length - 1));
-    }
-}, [missions])
-
-  useEffect(() => {
     if (editSingleMission) {
       let res = editSingleMission.startedAt?.split("-");
       res = res.reverse().join("-");
@@ -131,7 +131,6 @@ export default function TaskList() {
                   <GrDocumentExcel color="white" /> Excel
                 </samp>
               </button>
-
               <button
                 className="btn bg-secondary mx-3 text-light"
                 onClick={() => {
@@ -159,9 +158,8 @@ export default function TaskList() {
               <TopTable setAllDataShow={setAllDataShow} />
               <FilterTable setAllDataShow={setAllDataShow} />
             </span>
-            
             { allDataShow[0] ? 
-            allDataShow?.map((item, i) => (
+            allDataShow.map((item, i) => (
               <BottomTable
                 key={i}
                 item={item}
@@ -173,6 +171,7 @@ export default function TaskList() {
                 chatOpen={chatOpen}
                 notifyDel={notifyDel}
                 notifySend={notifySend}
+                allDataShow={allDataShow}
               />
             )) : (
               <div className="container d-flex justify-content-center mt-5">
@@ -192,7 +191,7 @@ export default function TaskList() {
               theme="light"
             />
           </div>
-          {chatOpen && (
+          { chatOpen &&(
             <div
               onClick={(e) => {
                 e.stopPropagation();
@@ -209,6 +208,7 @@ export default function TaskList() {
                 setMsgTime={setMsgTime}
                 msgReaded={msgReaded}
                 setMsgReaded={setMsgReaded}
+                allDataShow={allDataShow}
               />
             </div>
           )}

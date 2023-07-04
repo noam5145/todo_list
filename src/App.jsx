@@ -33,8 +33,8 @@ useEffect(() => {
       socketIo.emit("username", currentUser.username);
     })
 
-    socketIo.on('getMessage', token =>  {
-       getAllMissions(token);
+    socketIo.on('getMessage', () =>  {
+       getAllMissions(currentUser.token);
     });
 
     socketIo.on('connected', (user)=>{
@@ -45,8 +45,8 @@ useEffect(() => {
       getUser({token: currentUser.token});
     })
 
-    socketIo.on('getArchive', (token)=>{
-      getAllArchives(token);
+    socketIo.on('getArchive', ()=>{
+      getAllArchives(currentUser.token);
     })
 
     socketIo.on('getNewUser', ()=>{
