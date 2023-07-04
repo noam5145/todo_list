@@ -325,12 +325,12 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
   }
 
   return (<>
-    {!loading ? (<div dir="rtl" className="container d-flex">
+    {!loading ? (<div dir="rtl">
       <div className="bg-white mx-5 my-5">
-        <h2 >הוספת משימות</h2>
+        <h3 className="d-flex justify-content-center mb-4 add_m_title" >הוספת משימה </h3>
         {!editSingleMission ?
           <ul className="d-flex row">
-            <li className="col-lg-6 col-sm-6 list-unstyled ">
+            <li className="col-6 list-unstyled ">
               <label htmlFor="meetingTitle">
                 כותרת הפגישה{" "}
                 <span className={displayErrorMeetingTitle ? "text-danger" : "text-dark"} > *
@@ -340,7 +340,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                 id="meetingTitle" ref={meetingTitle} type="text" placeholder="כותרת פגישה"
                 className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "} />
             </li>
-            <li className="col-lg-6 col-sm-6 list-unstyled mb-4 ">
+            <li className="col-6 list-unstyled mb-4 ">
               <label htmlFor="meetingDate">
                 מועד הפגישה{" "}
                 <span
@@ -445,7 +445,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
           </ul>
           :
           <ul className="d-flex row">
-            <li className="col-lg-6 col-sm-6 list-unstyled ">
+            <li className="col-6 list-unstyled ">
               <label htmlFor="meetingTitle">
                 כותרת הפגישה{" "}
                 <span
@@ -462,7 +462,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                 className={displayErrorMeetingTitle ? "form-control bg-light" : "form-control bg-light "}
               />
             </li>
-            <li className="col-lg-6 col-sm-6 list-unstyled mb-4 ">
+            <li className="col-6 list-unstyled mb-4 ">
               <label htmlFor="meetingDate">
                 מועד הפגישה{" "}
                 <span
