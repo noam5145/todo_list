@@ -7,25 +7,25 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { BiSearchAlt } from 'react-icons/bi';
 import { MyContext } from '../../../../App';
 
-export default function TheChat({ setChatOpen, chatOpen, iForChat, chat, setChat, msgTime, setMsgTime, msgReaded, setMsgReaded }) {
+export default function TheChat({ setChatOpen, chatOpen, iForChat, chat, setChat, msgTime, setMsgTime, msgReaded, setMsgReaded, allDataShow }) {
 
    
 
     
-    const { missions, currentUser, updateChat, setMissions, socketIo } = useContext(MyContext)
+    const { currentUser, updateChat, socketIo } = useContext(MyContext)
     const [called, setCalled] = useState(false);
     
     const [search, setSearch] = useState(false);
     const messageRef = useRef();
 
 
-    useEffect(() => {
-        if (missions[0]) {
-            setChat(missions[iForChat]?.chat.messages.msg ? missions[iForChat].chat.messages.msg.split('\n').slice(0, missions[iForChat].chat.messages.msg.split('\n').length - 1) : []);
-            setMsgTime(missions[iForChat]?.chat.messages.time?.split('\n').slice(0, missions[iForChat].chat.messages.time.split('\n').length - 1));
-            setMsgReaded(missions[iForChat]?.chat.messages.readed?.slice(0, missions[iForChat].chat.messages.readed.length - 1));
+    useEffect(()=>{
+        if(allDataShow[0]){
+          setChat(allDataShow[iForChat]?.chat.messages.msg ? allDataShow[iForChat].chat.messages.msg.split('\n').slice(0, allDataShow[iForChat].chat.messages.msg.split('\n').length - 1) : []);
+          setMsgTime(allDataShow[iForChat]?.chat.messages.time.split('\n').slice(0, allDataShow[iForChat].chat.messages.time.split('\n').length - 1));
+          setMsgReaded(allDataShow[iForChat]?.chat.messages.readed.slice(0, allDataShow[iForChat].chat.messages.readed.length - 1));
         }
-    }, [missions])
+      },[allDataShow])
 
     useEffect(() => {
         if (chat[0]) {
@@ -43,20 +43,20 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat, chat, setChat
        const newMessage = messageRef.current?.value;
        let time = new Date();
        time = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear() + " "  + time.getHours() + ':' + time.getMinutes();
-       missions[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';       
-       missions[iForChat].chat.messages.time += time + '\n';
-       missions[iForChat].chat.messages.readed[missions[iForChat].chat.messages.readed.length == 0 ? 0 : missions[iForChat].chat.messages.readed.length] = false;
-       socketIo.emit('sendMessage', { mission: missions[iForChat], token:currentUser.token});
-       setMsgReaded(missions[iForChat].chat.messages.readed);
-       setChat(missions[iForChat].chat.messages.msg.split('\n').slice(0, missions[iForChat].chat.messages.msg.split('\n').length - 1));
-       setMsgTime(missions[iForChat].chat.messages.time.split('\n').slice(0, missions[iForChat].chat.messages.time.split('\n').length - 1));
+       allDataShow[iForChat].chat.messages.msg += '{' + currentUser.username + '}' + " " + newMessage + '\n';       
+       allDataShow[iForChat].chat.messages.time += time + '\n';
+       allDataShow[iForChat].chat.messages.readed[allDataShow[iForChat].chat.messages.readed.length == 0 ? 0 : allDataShow[iForChat].chat.messages.readed.length] = false;
+       socketIo.emit('sendMessage', { mission: allDataShow[iForChat], token:currentUser.token});
+       setMsgReaded(allDataShow[iForChat].chat.messages.readed);
+       setChat(allDataShow[iForChat].chat.messages.msg.split('\n').slice(0, allDataShow[iForChat].chat.messages.msg.split('\n').length - 1));
+       setMsgTime(allDataShow[iForChat].chat.messages.time.split('\n').slice(0, allDataShow[iForChat].chat.messages.time.split('\n').length - 1));
        messageRef.current.value = "";
     } 
     
     const setReaded = (readed, i)=>{
-        missions[iForChat].chat.messages.readed[i] = readed;
-        setMsgReaded([...missions[iForChat].chat.messages.readed]);
-        updateChat(missions[iForChat], currentUser.token);
+        allDataShow[iForChat].chat.messages.readed[i] = readed;
+        setMsgReaded([...allDataShow[iForChat].chat.messages.readed]);
+        updateChat(allDataShow[iForChat], currentUser.token);
     }
 
     
@@ -72,10 +72,10 @@ export default function TheChat({ setChatOpen, chatOpen, iForChat, chat, setChat
             <div className="chat">
                 <div className="top_chat text-light d-flex justify-content-between">
                     <div className="">
-                        <h5 className="mb-0 mx-1">{missions ? missions[iForChat]?.title : "משימה"}</h5>
+                        <h5 className="mb-0 mx-1">{allDataShow ? allDataShow[iForChat]?.title : "משימה"}</h5>
                         <div className="d-flex">
                             <div className="mx-1">
-                                {missions[iForChat]?.responsibility.slice(0, 3).map((e) => e.split(' ')[0] + ', ')}
+                                {allDataShow[iForChat]?.responsibility.slice(0, 3).map((e) => e.split(' ')[0] + ', ')}
                             </div>
                         </div>
                     </div>
