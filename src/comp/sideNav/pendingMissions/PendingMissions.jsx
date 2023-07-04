@@ -26,8 +26,6 @@ export default function PendingMissions() {
     let temp=missions.filter((mission)=>mission.status==="ממתין לאישור")
     setData(temp);
     
-    console.log(missions.filter((mission)=>mission.status==="ממתין לאישור"));
-    console.log(missions);
   }
 },[missions])
 
