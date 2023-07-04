@@ -31,9 +31,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 0.5px solid rgba(0, 0, 0, 0.1);
-      background-color:#9828e9;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
+      border: 0.5px solid rgba(0, 0, 0, 0.3);
+      background-color:white;
+      box-shadow: rgba(99, 99, 99, 0.8) 0px 1px 4px 0px;        
       font-weight: bold;
     }
     .the_table_search-pen{
@@ -54,12 +54,10 @@
       justify-content: center;
       align-items: center;
       border: 0.5px solid  rgba(162, 7, 245, 0.226);
-       color: rgba(255, 255, 255, 0.772);
+       color:black;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
     } 
-    .pen-mission-row{
-      background-image: linear-gradient(to bottom right,#4f04fc , #ac32e4);
-    }
+  
     
     
     .p_taskdetail-pen{

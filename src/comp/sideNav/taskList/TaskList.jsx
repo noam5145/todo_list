@@ -18,7 +18,7 @@ import { GrDocumentExcel } from "react-icons/gr";
 import { TbNotesOff } from "react-icons/tb";
 
 export default function TaskList() {
-  const { missions, daysOff, loading } = useContext(MyContext);
+  const { missions, daysOff, loading, currentUser } = useContext(MyContext);
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
@@ -116,12 +116,16 @@ export default function TaskList() {
 
   return (
     <>
-   {!loading ? (   <div className="container-fluid linear">
+   {!loading && currentUser.username  ? (   <div className="container-fluid linear">
         <div className="mt-5 p-0">
           <div className="d-flex justify-content-between mx-5">
-            <h4 className="">מאגר משימות</h4>
+            <h4>מאגר משימות</h4>
             <span className="d-flex">
-              <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
+            {missions.length != allDataShow.length ? (
+              <div className="mx-5 pt-2">סה"כ משימות בחיפוש: {allDataShow.length}</div>
+              ) : (
+                <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
+                )}
               {currentUser.access === 'admin' && <>
               <button
                 className="btn bg-secondary text-light"

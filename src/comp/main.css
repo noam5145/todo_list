@@ -1,15 +1,20 @@
 .logo_main{
     margin-top: 200px;
-    animation: myAnim 2s ease 0s 1 normal forwards;     
     width: 50%;
     height: 50%;
 }
 
-@keyframes myAnim {
+
+
+.titleLouder{
+	animation: myAnime 2s ease 0s 1 normal forwards;
+}
+
+@keyframes myAnime {
 	0% {
 		animation-timing-function: ease-in;
 		opacity: 1;
-		transform: translateY(-45px);
+		transform: translateX(48px);
 	}
 
 	24% {
@@ -18,35 +23,36 @@
 
 	40% {
 		animation-timing-function: ease-in;
-		transform: translateY(-24px);
+		transform: translateX(26px);
 	}
 
 	65% {
 		animation-timing-function: ease-in;
-		transform: translateY(-12px);
+		transform: translateX(13px);
 	}
 
 	82% {
 		animation-timing-function: ease-in;
-		transform: translateY(-6px);
+		transform: translateX(6.5px);
 	}
 
 	93% {
 		animation-timing-function: ease-in;
-		transform: translateY(-4px);
+		transform: translateX(4px);
 	}
 
 	25%,
 	55%,
 	75%,
-	87% {
+	87%,
+	98% {
 		animation-timing-function: ease-out;
-		transform: translateY(0px);
+		transform: translateX(0px);
 	}
 
 	100% {
 		animation-timing-function: ease-out;
 		opacity: 1;
-		transform: translateY(0px);
+		transform: translateX(0px);
 	}
 }

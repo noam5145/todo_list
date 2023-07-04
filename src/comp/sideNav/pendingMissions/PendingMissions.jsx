@@ -26,8 +26,6 @@ export default function PendingMissions() {
     let temp=missions.filter((mission)=>mission.status==="ממתין לאישור")
     setData(temp);
     
-    console.log(missions.filter((mission)=>mission.status==="ממתין לאישור"));
-    console.log(missions);
   }
 },[missions])
 
@@ -161,14 +159,14 @@ let tempMission=missions.find((mission)=>{
                         </div>
                         <div className="col-1  the_table-pen text-center">
                          <button onClick={()=>aprrove(mission._id)} style={{background:"none",border:"none"}}>
-                          <AiOutlineLike color="rgba(255, 255, 255, 0.772)" size={25}/>
+                          <AiOutlineLike size={25}/>
                           </button> 
                         </div>
                       </div>
                     )
               )
               
-            : <div className="col-12 pen-mission-row the_table-pen d-flex  text-center  align-missions-center">
+            : <div className="col-12  the_table-pen d-flex  text-center  align-missions-center">
               <h2 >אין משימות בהמתנה לאישור כרגע</h2></div>}
           </div>
  

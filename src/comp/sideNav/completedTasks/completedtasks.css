@@ -34,30 +34,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 0.5px solid rgba(0, 0, 0, 0.1);
-      background-color: rgba(31, 214, 77, 0.903);
+      border: 0.5px solid rgba(19, 218, 58, 0.3);
+      background-color:rgb(255, 228,196 ,0.608);
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
       font-weight: bold;
     }
-    .the_table_search-Archive{
-      height: 45px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 0.5px solid rgba(0, 0, 0, 0.1);
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
-      font-weight: bolder;
-      font-size: small;
-    
-    
-    }
+   
     .the_table-Archive{
       height: 90px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 0.5px solid  rgba(73, 32, 207, 0.3);
-      background-color: rgba(132, 232, 107, 0.947);
+      border: 0.5px solid  rgba(19, 218, 58, 0.3);
+      background-color:rgb(255, 228,196 ,0.608);
       box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
     } 
     
@@ -74,27 +63,7 @@
     .cursor-Archive:active {
       transform: scale(1.10);
     }
-    .t_l_search_screen-Archive{
-      height: 70px;
-      width: 500px;
-      background-color: rgb(250, 69, 9);
-      position: absolute;
-      top:70px;
-      right: 60px;
-      z-index: 1000;
-      border: 1px solid rgba(128, 128, 128, 0.5);
-      border-radius: 5px;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-    }
-    .t_l_search_input-Archive{
-      height: 35px;
-      border-radius: 5px;
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-      font-weight: bolder;
-      background-color: rgba(248, 69, 5, 0.608);
-      font-size: large;
-      border: none;
-    }
+   
     .p-title-Archive{
       color: rgb(24, 207, 33);
       font-weight: bolder;
@@ -131,10 +100,6 @@
   
     }
     
-   
-    .completed-mission-row{
-      background: linear-gradient( rgb(199, 236, 16), rgb(215, 95, 14));    }
-   
   
 .loader-complete-table {
    border: 16px solid #f3f3f3; 
