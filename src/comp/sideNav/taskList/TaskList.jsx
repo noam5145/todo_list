@@ -147,7 +147,7 @@ export default function TaskList() {
                 הוסף משימה +
               </button>
               </>}
-              <div className="row">
+              <div className="row mt-5">
                 <Dialog open={open} className="row" onClose={closeDialog}>
                   <AddMissions
                     editSingleMission={editSingleMission}
@@ -181,7 +181,7 @@ export default function TaskList() {
               />
             )) : (
               <div className="container d-flex justify-content-center mt-5">
-                  <h3 className="mx-1">אין משימות להצגה !</h3>
+                  <h3 className="mx-1">אין משימות להצגה</h3>
                   <div className="fs-5 mx-1"><TbNotesOff size={25}/></div>
                 </div>
             )}
