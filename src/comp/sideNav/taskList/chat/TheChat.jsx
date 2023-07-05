@@ -30,11 +30,11 @@ export default function TheChat({
       setChat(
         allDataShow[iForChat]?.chat.messages.msg
           ? allDataShow[iForChat].chat.messages.msg
-              .split("\n")
-              .slice(
-                0,
-                allDataShow[iForChat].chat.messages.msg.split("\n").length - 1
-              )
+            .split("\n")
+            .slice(
+              0,
+              allDataShow[iForChat].chat.messages.msg.split("\n").length - 1
+            )
           : []
       );
       setMsgTime(
@@ -52,14 +52,14 @@ export default function TheChat({
         )
       );
 
-    //   let fixTime = msgTime?.map((item, index) => {
-    //     let fixedDate = item.split('/').map(item => item.padStart(2, '0')).join('/');
-    //     let fixedTime = fixedDate?.split(':').map(item => item.padStart(2, '0')).join(':');
-    //     return fixedTime;
-    //   });
-      
-    //   setMsgTime(fixTime && fixTime);
-  
+      //   let fixTime = msgTime?.map((item, index) => {
+      //     let fixedDate = item.split('/').map(item => item.padStart(2, '0')).join('/');
+      //     let fixedTime = fixedDate?.split(':').map(item => item.padStart(2, '0')).join(':');
+      //     return fixedTime;
+      //   });
+
+      //   setMsgTime(fixTime && fixTime);
+
     }
   }, [allDataShow]);
 
@@ -67,10 +67,9 @@ export default function TheChat({
   useEffect(() => {
     if (chat[0]) {
       scrollToDown();
-      // console.log(chat);
     }
   }, [chat]);
-  
+
   const scrollToDown = () => {
     const element = document.getElementById("Down");
     element.scrollIntoView();
@@ -157,7 +156,6 @@ export default function TheChat({
               }}
               title="חפש"
             >
-              {" "}
               <BiSearchAlt size={25} />
             </div>
             {search && (
@@ -173,7 +171,6 @@ export default function TheChat({
               </div>
             )}
             <div className="icon_searc mx-1" title="סגור">
-              {" "}
               <AiOutlineClose
                 size={25}
                 onClick={() => setChatOpen(!chatOpen)}
@@ -186,20 +183,20 @@ export default function TheChat({
             {chat.map((msg, i) => (
               <div
                 key={i}
-                className={`d-flex${
-                  msg.split("}")[0].slice(1) === currentUser.username
+                className={`d-flex${msg.split("}")[0].slice(1) === currentUser.username
                     ? " justify-content-start"
                     : " justify-content-end"
-                }`}
+                  }`}
               >
                 <div className="the_message mx-1 p-1 mt-2 text-light">
                   <samp>
-                    <div className="chat_name">
-                      {msg.split("}")[0].slice(1)}
+                    <div className="d-flex justify-content-between">
+                      <div className="chat_name">{msg.split("}")[0].slice(1)}</div>
+                     <div className=""> {currentUser.access === 'admin' && 'מנהל'}</div>
                     </div>
                     <div className="my-1 mb-2 fs-5">{msg.split("}")[1]}</div>
                     {!msgReaded[i] &&
-                    !(msg.split("}")[0].slice(1) === currentUser.username) ? (
+                      !(msg.split("}")[0].slice(1) === currentUser.username) ? (
                       <div
                         className="form-check form-switch d-flex justify-content-between mx-2"
                         dir="ltr"
@@ -248,8 +245,8 @@ export default function TheChat({
           <div className="sticky-bottom" onClick={scrollToDown}>
             <div className="d-flex justify-content-end mx-3">
               <KeyboardDoubleArrowDownIcon
-                color="warning"
-                title="למטה"
+                color="dark"
+                title="להודעה אחרונה"
                 className="icon_down mb-1 bg-light"
               />
             </div>
@@ -263,8 +260,7 @@ export default function TheChat({
             type="text"
             placeholder="הודעה"
           />
-          <div onClick={textUpdate} className="div_icon_send" title="שלח">
-            {" "}
+          <div onClick={() => messageRef.current?.value && textUpdate()} className="div_icon_send" title={"שלח"}>
             <AiOutlineSend className="icon_send" size={40} />
           </div>
         </div>

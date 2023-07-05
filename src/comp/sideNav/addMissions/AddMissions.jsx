@@ -246,7 +246,6 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
 
   
   const editTask = () => {
-    {console.log(meetingDate.current?.value)}
     setChecksIfFile(false)
     const date1 = new Date(meetingDate.current.value);
     const date2 = new Date(executionCompletionDate.current.value);
