@@ -181,13 +181,11 @@ useEffect(() => {
     socketIo.emit('updateUser', {});
   }
   const updateMission = async (mission, adminToken)=>{
-    setLoading(true)
     let res = await axios.put(base_url + 'mission/updateMission', {...mission, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
     getAllMissions(currentUser.token);
-    setLoading(false)
   }
 
   const sendToConfirm = async (mission, uToken)=>{
@@ -207,7 +205,6 @@ useEffect(() => {
 
 
   const deleteUser = async (_id, adminToken) =>{   
-    setLoading(true)
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -216,10 +213,8 @@ useEffect(() => {
       return console.log(res.data.err);
     }
     setUsers(users.filter((user)=> user._id !== _id));
-    setLoading(false)
   }
   const deleteMission = async (_id, adminToken) =>{
-    setLoading(true)
     let res = await axios.delete(base_url + 'mission/deleteMission', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -228,7 +223,6 @@ useEffect(() => {
       return console.log(res.data.err);
     }
     getAllMissions(adminToken);
-    setLoading(false)
   }
   useEffect(()=>{
     if(flag){
