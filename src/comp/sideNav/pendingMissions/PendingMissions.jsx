@@ -63,20 +63,19 @@ let tempMission=missions.find((mission)=>{
 
     return (
       <>
-       {!loading ? ( <div  className="container  mb-2">
+       {!loading ? ( <div  className="container-fluid  mb-2">
 
           <div ref={componentToPrint}>
           <div className="d-flex justify-content-between mt-4">
-            <div className="p-title-pen-div">
+            <div className="d-flex  ">
               <h4 >משימות בהמתנה לאישור</h4>
+               </div>
              <div className="d-flex h-100 align-items-center" >
           <p className="numOfExMission m-2">סה"כ משימות בהמתנה לאישור:  {dataPenMission.length} </p>
          <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/>  הדפסה</button>
         </div>
          
-            </div>
-
-            <span></span>
+        
           </div>
           
           <div className="container  table-container-pen all_table-Ex  ml-3">
