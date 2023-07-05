@@ -191,7 +191,7 @@ useEffect(() => {
   }
 
   const sendToConfirm = async (mission, uToken)=>{
-    let res = await axios.put('http://localhost:5174/' + 'mission/sendToConfirm', {...mission, uToken: uToken});
+    let res = await axios.put(base_url + 'mission/sendToConfirm', {...mission, uToken: uToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
