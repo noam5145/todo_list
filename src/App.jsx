@@ -53,6 +53,10 @@ useEffect(() => {
       getAllUsers(currentUser);
     })
 
+    socketIo.on('getConfirmMission', ()=>{
+      getAllMissions(currentUser.token);
+    })
+
     socketIo.on('updatedUser', ()=>{
       getAllUsers(currentUser);
     })
@@ -177,14 +181,22 @@ useEffect(() => {
     socketIo.emit('updateUser', {});
   }
   const updateMission = async (mission, adminToken)=>{
-    setLoading(true)
     let res = await axios.put(base_url + 'mission/updateMission', {...mission, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
     getAllMissions(currentUser.token);
-    setLoading(false)
   }
+
+  const sendToConfirm = async (mission, uToken)=>{
+    let res = await axios.put(base_url + 'mission/sendToConfirm', {...mission, uToken: uToken});
+
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    socketIo.emit('sendToConfirm', {});
+  }
+
   const updateChat = async (mission, token)=>{
     let res = await axios.put(base_url + 'mission/updateChat', {...mission, token: token});
     if(res.data.err){
@@ -194,7 +206,6 @@ useEffect(() => {
 
 
   const deleteUser = async (_id, adminToken) =>{   
-    setLoading(true)
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -203,10 +214,8 @@ useEffect(() => {
       return console.log(res.data.err);
     }
     setUsers(users.filter((user)=> user._id !== _id));
-    setLoading(false)
   }
   const deleteMission = async (_id, adminToken) =>{
-    setLoading(true)
     let res = await axios.delete(base_url + 'mission/deleteMission', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -215,7 +224,6 @@ useEffect(() => {
       return console.log(res.data.err);
     }
     getAllMissions(adminToken);
-    setLoading(false)
   }
   useEffect(()=>{
     if(flag){
@@ -285,6 +293,7 @@ const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the l
     deleteMission,
     newMissions,
     updateMission,
+    sendToConfirm,
     updateChat,
     updateUser,
     setNewMissions,
