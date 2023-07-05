@@ -53,6 +53,10 @@ useEffect(() => {
       getAllUsers(currentUser);
     })
 
+    socketIo.on('getConfirmMission', ()=>{
+      getAllMissions(currentUser.token);
+    })
+
     socketIo.on('updatedUser', ()=>{
       getAllUsers(currentUser);
     })
@@ -185,6 +189,15 @@ useEffect(() => {
     getAllMissions(currentUser.token);
     setLoading(false)
   }
+
+  const sendToConfirm = async (mission, uToken)=>{
+    let res = await axios.put('http://localhost:5174/' + 'mission/sendToConfirm', {...mission, uToken: uToken});
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    socketIo.emit('sendToConfirm', {});
+  }
+
   const updateChat = async (mission, token)=>{
     let res = await axios.put(base_url + 'mission/updateChat', {...mission, token: token});
     if(res.data.err){
@@ -285,6 +298,7 @@ const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the l
     deleteMission,
     newMissions,
     updateMission,
+    sendToConfirm,
     updateChat,
     updateUser,
     setNewMissions,
