@@ -153,7 +153,7 @@ export default function BottomTable({
       <div className="col-1 the_table text-center">
         <div className="d-flex align-items-center">
           <div className="row div_chat_fan_icon mx-1">
-          {item.token.find((t)=> t === currentUser.token && currentUser.access !== 'admin') ?  <>
+          {currentUser.access !== 'admin' && item.token.find((t)=> t === currentUser.token) ?  <>
             <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i) }}>
               <Badge badgeContent={numMsg != 0 ? numMsg : null } color="primary">
                 < ChatIcon color="action" />
@@ -203,7 +203,7 @@ export default function BottomTable({
             </Menu>
               </>
               
-              : '---'}
+              : currentUser.access !== 'admin' ? '---' : '' }
             { currentUser.access === 'admin' ? <>
             <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i) }}>
               <Badge badgeContent={numMsg != 0 ? numMsg : null } color="primary">

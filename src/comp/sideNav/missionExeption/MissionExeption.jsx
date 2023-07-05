@@ -11,7 +11,7 @@ import { CircularProgress } from "@mui/material";
 
 export default function MissionExeption() {
 
-  const { missions, daysOff, endAtChanged, loading } = useContext(MyContext);
+  const { missions, daysOff, endAtChanged, loading, currentUser } = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataExMission, setData] = useState([]);
 
@@ -30,6 +30,30 @@ export default function MissionExeption() {
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
+
+  const sortMsgByCommand = (mission)=>{
+    let messages = mission.chat.messages.msg.split('\n');
+    messages = messages.reverse();
+    let noteCommand = '---';
+    messages.map((msg, i)=>{
+      if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
+        noteCommand = msg.split('}')[1];
+      }
+    })
+    return noteCommand;
+  }
+
+  const sortMsgByUser = (mission)=>{
+    let messages = mission.chat.messages.msg.split('\n');
+    messages = messages.reverse();
+    let noteResponsibility = '---';
+    messages.map((msg, i)=>{
+      if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
+        noteResponsibility = msg.split('}')[1];
+      }
+    })
+    return noteResponsibility;
+  }
 
 
   return (
@@ -109,12 +133,12 @@ export default function MissionExeption() {
                     </div>
                     <div className="col-2 the_table-Ex  text-center align-missions-center ">
                       <p className="p_taskdetail-Ex p-2 ">
-                        {mission.noteResponsibility}
+                        {sortMsgByCommand(mission)}
                       </p>
                     </div>
                     <div className="col-2 the_table-Ex  text-center  align-missions-center">
                       <p className="p_taskdetail-Ex p-2 ">
-                        {mission.noteCommand}
+                        {sortMsgByUser(mission)}
                       </p>
                     </div>
                   </div>
