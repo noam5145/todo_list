@@ -30,11 +30,11 @@ export default function TheChat({
       setChat(
         allDataShow[iForChat]?.chat.messages.msg
           ? allDataShow[iForChat].chat.messages.msg
-            .split("\n")
-            .slice(
-              0,
-              allDataShow[iForChat].chat.messages.msg.split("\n").length - 1
-            )
+              .split("\n")
+              .slice(
+                0,
+                allDataShow[iForChat].chat.messages.msg.split("\n").length - 1
+              )
           : []
       );
       setMsgTime(
@@ -59,10 +59,8 @@ export default function TheChat({
       //   });
 
       //   setMsgTime(fixTime && fixTime);
-
     }
   }, [allDataShow]);
-
 
   useEffect(() => {
     if (chat[0]) {
@@ -179,69 +177,77 @@ export default function TheChat({
           </div>
         </div>
         <div className="middle_chat mx-1">
-          <div style={{ minHeight: "305px" }}>
-            {chat.map((msg, i) => (
-              <div
-                key={i}
-                className={`d-flex${msg.split("}")[0].slice(1) === currentUser.username
-                    ? " justify-content-start"
-                    : " justify-content-end"
+          {chat[0] ? (
+            <div style={{ minHeight: "305px" }}>
+              {chat.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`d-flex${
+                    msg.split("}")[0].slice(1) === currentUser.username
+                      ? " justify-content-start"
+                      : " justify-content-end"
                   }`}
-              >
-                <div className="the_message mx-1 p-1 mt-2 text-light">
-                  <samp>
-                    <div className="d-flex justify-content-between">
-                      <div className="chat_name">{msg.split("}")[0].slice(1)}</div>
-                     <div className=""> {currentUser.access === 'admin' && 'מנהל'}</div>
-                    </div>
-                    <div className="my-1 mb-2 fs-5">{msg.split("}")[1]}</div>
-                    {!msgReaded[i] &&
-                      !(msg.split("}")[0].slice(1) === currentUser.username) ? (
-                      <div
-                        className="form-check form-switch d-flex justify-content-between mx-2"
-                        dir="ltr"
-                        onChange={(e) => setCalled(e.target.checked)}
-                      >
-                        <input
-                          className="form-check-input cursor"
-                          title="אשר קריאה"
-                          onClick={(e) => setReaded(e.currentTarget.checked, i)}
-                          type="checkbox"
-                          role="switch"
-                          id="switchCheck"
-                        />
-                        <div className="fs-6">
-                          {msgTime[i]}
+                >
+                  <div className="the_message mx-1 p-1 mt-2 text-light">
+                    <samp>
+                      <div className="d-flex justify-content-between">
+                        <div className="chat_name">
+                          {msg.split("}")[0].slice(1)}
+                        </div>
+                        <div className="">
+                          {" "}
+                          {currentUser.access === "admin" && "מנהל"}
                         </div>
                       </div>
-                    ) : (
-                      <div>
-                        {msgReaded[i] ? (
-                          <div className="d-flex justify-content-between mx-2">
-                            <div className="fs-6">
-                              {msgTime[i]}
+                      <div className="my-1 mb-2 fs-5">{msg.split("}")[1]}</div>
+                      {!msgReaded[i] &&
+                      !(msg.split("}")[0].slice(1) === currentUser.username) ? (
+                        <div
+                          className="form-check form-switch d-flex justify-content-between mx-2"
+                          dir="ltr"
+                          onChange={(e) => setCalled(e.target.checked)}
+                        >
+                          <input
+                            className="form-check-input cursor"
+                            title="אשר קריאה"
+                            onClick={(e) =>
+                              setReaded(e.currentTarget.checked, i)
+                            }
+                            type="checkbox"
+                            role="switch"
+                            id="switchCheck"
+                          />
+                          <div className="fs-6">{msgTime[i]}</div>
+                        </div>
+                      ) : (
+                        <div>
+                          {msgReaded[i] ? (
+                            <div className="d-flex justify-content-between mx-2">
+                              <div className="fs-6">{msgTime[i]}</div>
+                              <div className="">
+                                <BsCheck2All color="skyblue" />
+                              </div>
                             </div>
-                            <div className="">
-                              <BsCheck2All color="skyblue" />
+                          ) : (
+                            <div className="d-flex justify-content-between mx-2">
+                              <div className="fs-6">{msgTime[i]}</div>
+                              <div className="">
+                                <BsCheck2All color="white" />
+                              </div>
                             </div>
-                          </div>
-                        ) : (
-                          <div className="d-flex justify-content-between mx-2">
-                            <div className="fs-6">
-                              {msgTime[i]}
-                            </div>
-                            <div className="">
-                              <BsCheck2All color="white" />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </samp>
+                          )}
+                        </div>
+                      )}
+                    </samp>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ minHeight: "305px" }}>
+              <div className="d-flex justify-content-center my-3">ברוכים הבאים {currentUser?.username}!</div>
+            </div>
+          )}
           <div className="sticky-bottom" onClick={scrollToDown}>
             <div className="d-flex justify-content-end mx-3">
               <KeyboardDoubleArrowDownIcon
@@ -260,7 +266,11 @@ export default function TheChat({
             type="text"
             placeholder="הודעה"
           />
-          <div onClick={() => messageRef.current?.value && textUpdate()} className="div_icon_send" title={"שלח"}>
+          <div
+            onClick={() => messageRef.current?.value && textUpdate()}
+            className="div_icon_send"
+            title={"שלח"}
+          >
             <AiOutlineSend className="icon_send" size={40} />
           </div>
         </div>
