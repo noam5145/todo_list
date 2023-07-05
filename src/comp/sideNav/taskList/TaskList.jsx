@@ -15,7 +15,7 @@ import { notifyadd } from "./notify";
 import { notifyedit } from "./notify";
 import * as XLSX from "xlsx/xlsx.mjs";
 import { GrDocumentExcel } from "react-icons/gr";
-import { TbNotesOff } from "react-icons/tb";
+import { TbSearchOff } from "react-icons/tb";
 
 export default function TaskList() {
   const { missions, daysOff, loading, currentUser } = useContext(MyContext);
@@ -181,8 +181,8 @@ export default function TaskList() {
               />
             )) : (
               <div className="container d-flex justify-content-center mt-5">
-                  <h3 className="mx-1">אין משימות להצגה</h3>
-                  <div className="fs-5 mx-1"><TbNotesOff size={25}/></div>
+                  <TbSearchOff className="my-1 mx-2" size={25}/>
+                  <h3 className="mx-1">אופס, לא מצאנו מה שחיפשת,נסה לשנות את מונחי החיפוש.</h3>
                 </div>
             )}
           </div>
