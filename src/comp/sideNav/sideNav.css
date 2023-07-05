@@ -4,6 +4,7 @@
   background-color: #fff;
   position: sticky;
   top: 70px;
+  z-index: 1021;
 }
 
 .s_n_margin {
