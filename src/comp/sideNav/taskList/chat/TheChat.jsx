@@ -244,8 +244,8 @@ export default function TheChat({
               ))}
             </div>
           ) : (
-            <div style={{ minHeight: "305px" }}>
-              <div className="d-flex justify-content-center my-3">ברוכים הבאים {currentUser?.username}!</div>
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "305px" }}>
+              <div>ברוכים הבאים {currentUser?.username}!</div>
             </div>
           )}
           <div className="sticky-bottom" onClick={scrollToDown}>
