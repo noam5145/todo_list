@@ -28,6 +28,34 @@ export default function CompletedTasks() {
       return true;
     }
   }
+
+
+  const sortMsgByCommand = (mission)=>{
+    let messages = mission.chat.messages.msg.split('\n');
+    messages = messages.reverse();
+    let noteCommand = '---';
+    messages.map((msg, i)=>{
+      if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
+        noteCommand = msg.split('}')[1];
+      }
+    })
+    return noteCommand;
+  }
+
+  const sortMsgByUser = (mission)=>{
+    let messages = mission.chat.messages.msg.split('\n');
+    messages = messages.reverse();
+    let noteResponsibility = '---';
+    messages.map((msg, i)=>{
+      if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
+        noteResponsibility = msg.split('}')[1];
+      }
+    })
+    return noteResponsibility;
+  }
+
+
+
   if (missions&& currentUser.username) {
       return (
       <>
@@ -99,13 +127,13 @@ export default function CompletedTasks() {
                     {mission.endedAt}
                   </div>
                   <div className="col-2 the_table-Archive  text-center align-missions-center ">
-                    <p className="p_taskdetail-Archive p-2 ">
-                      {mission.noteResponsibility}
+                  <p className={`p_taskdetail-Archive p-2 ${sortMsgByUser(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
+                      {sortMsgByUser(mission)}
                     </p>
                   </div>
                   <div className="col-2 the_table-Archive  text-center  align-missions-center">
-                    <p className="p_taskdetail-Archive p-2 ">
-                      {mission.noteCommand}
+                  <p className={`p_taskdetail-Archive p-2 ${sortMsgByCommand(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
+                      {sortMsgByCommand(mission)}
                     </p>
                   </div>
                 </div>

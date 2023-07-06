@@ -32,6 +32,32 @@ export default function MissionExeption() {
   });
 
 
+  const sortMsgByCommand = (mission)=>{
+    let messages = mission.chat.messages.msg.split('\n');
+    messages = messages.reverse();
+    let noteCommand = '---';
+    messages.map((msg, i)=>{
+      if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
+        noteCommand = msg.split('}')[1];
+      }
+    })
+    return noteCommand;
+  }
+
+  const sortMsgByUser = (mission)=>{
+    let messages = mission.chat.messages.msg.split('\n');
+    messages = messages.reverse();
+    let noteResponsibility = '---';
+    messages.map((msg, i)=>{
+      if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
+        noteResponsibility = msg.split('}')[1];
+      }
+    })
+    return noteResponsibility;
+  }
+
+
+
   return (
     <>
       {!loading&& currentUser.username ? (<div className="container-fluid linear font-family-Ex">
@@ -113,13 +139,14 @@ export default function MissionExeption() {
                       {Math.abs(daysOff(mission.endedAt))}
                     </div>
                     <div className="col-2 the_table-Ex  text-center align-missions-center ">
-                      <p className="p_taskdetail-Ex p-2 ">
-                        {mission.noteResponsibility}
+                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByUser(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
+
+                        {sortMsgByUser(mission)}
                       </p>
                     </div>
                     <div className="col-2 the_table-Ex  text-center  align-missions-center">
-                      <p className="p_taskdetail-Ex p-2 ">
-                        {mission.noteCommand}
+                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByCommand(mission)?.length<40 ? "d-flex align-items-center" : ""}`}>
+                        {sortMsgByCommand(mission)}
                       </p>
                     </div>
                   </div>
