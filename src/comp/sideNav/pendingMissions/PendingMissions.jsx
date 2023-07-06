@@ -155,7 +155,7 @@ let tempMission=missions.find((mission)=>{
                         <div className={` p_taskdetail-pen w-100 py-1 ${ mission.responsibility.length < 3
                         ? "d-flex align-items-center flex-column   justify-content-center"
                         : ""}`}   >
-                      {mission.responsibility?.map((name, i) =>{return <div style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
+                      {mission.responsibility?.map((name, i) =>{return <div key={i} style={{fontSize:"0.9rem"}}>{!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                     </div>
                         </div>
                         <div className="col-1 the_table-pen text-center">

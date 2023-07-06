@@ -113,7 +113,7 @@ export default function CompletedTasks() {
                   <div className={` p_taskdetail-Archive w-100 py-1 ${ mission.responsibility.length < 3
                         ? "d-flex align-items-center flex-column   justify-content-center"
                         : ""}`}   >
-                      {mission.responsibility?.map((name, i) =>{return <div className="fs-6" >   {!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
+                      {mission.responsibility?.map((name, i) =>{return <div key={i} className="fs-6" >   {!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                     </div>
                   </div>
                   <div className="col-1 the_table-Archive text-center">
