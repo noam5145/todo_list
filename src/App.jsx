@@ -68,25 +68,31 @@ useEffect(() => {
 }, [socketIo])
 
   const newMission = async(mission, token)=>{
+    setLoading(true)
     let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){
       return console.log(res.data.err);
     }
     socketIo.emit('updateNewMission',{});
+    setLoading(false);
   }
   const getAllMissions = async (token)=>{
+    setLoading(true)
     let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setMissions(res.data);
+    setLoading(false);
   }
   const getAllArchives = async (adminToken)=>{
+    setLoading(true)
     let res = await axios.get( base_url + 'mission/getArchive', {params: {adminToken: adminToken}});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setArchive(res.data);
+    setLoading(false);
   }
   const sendToArchives = async (_id , adminToken)=>{
     let res = await axios.post( base_url + 'mission/sendToArchive', {adminToken: adminToken, _id: _id});
@@ -126,6 +132,7 @@ useEffect(() => {
 
 
   const getNewMissions = async (missions)=>{
+    setLoading(true)
     if(currentUser?.newMissions){
       let arr =[];
       for(let i =0 ; i < currentUser.newMissions.length; i++){
@@ -136,6 +143,7 @@ useEffect(() => {
         }
       }
       setNewMissions(arr);
+      setLoading(false);
     }
   }
   useEffect(()=>{
@@ -147,18 +155,22 @@ useEffect(() => {
 
   
   const setNewUser = async (user)=>{
+    setLoading(true)
     let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
     if(user1.data.err){
       return console.log(user1.data.err);
     }
     socketIo.emit('setNewUser', {});
+    setLoading(false);
   }
   const getUser = async(user)=>{
+    setLoading(true)
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
+    setLoading(false);
     document.cookie = "T_L_T=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
@@ -167,11 +179,13 @@ useEffect(() => {
     }
    }
   const getAllUsers = async (user)=>{
+    setLoading(true)
     let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setUsers(res.data);
+    setLoading(false);
   }
   const updateUser = async (user, adminToken)=>{
     let res = await axios.put(base_url + 'user/updateUser', {...user, adminToken: adminToken});
@@ -206,6 +220,7 @@ useEffect(() => {
 
 
   const deleteUser = async (_id, adminToken) =>{   
+    setLoading(true)
     let res = await axios.delete(base_url + 'user/deleteUser', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -214,6 +229,7 @@ useEffect(() => {
       return console.log(res.data.err);
     }
     setUsers(users.filter((user)=> user._id !== _id));
+    setLoading(false);
   }
   const deleteMission = async (_id, adminToken) =>{
     let res = await axios.delete(base_url + 'mission/deleteMission', {params: {

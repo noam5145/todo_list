@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { MyContext } from "../../../App";
 import SettingsIcon from "@mui/icons-material/Settings";
 import "./userTasks.css";
-import { CircularProgress } from "@mui/material";
+import { Oval } from "react-loader-spinner";
 
 export default function UserTasks() {
   const { missions, currentUser, daysOff, endAtChanged, loading } =
@@ -104,7 +104,18 @@ export default function UserTasks() {
       ) : (
         <div className="container">
           <div className="d-flex justify-content-center align-items-center my-5">
-            <CircularProgress />
+            <Oval
+              height={80}
+              width={80}
+              color="#62aeea"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#62aeea"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
           </div>
         </div>
       )}
