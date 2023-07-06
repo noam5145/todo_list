@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PiGraphDuotone } from "react-icons/pi";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { BsArrowBarLeft } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineDashboard, AiOutlineWarning } from "react-icons/ai";
 import { MdLegendToggle } from "react-icons/md";
 import { LuArchiveRestore } from "react-icons/lu";
@@ -22,7 +22,7 @@ export default function SideNav() {
 
   return (
     <>
-      <div className={showSideNav ? "col-2 side_Nav sticky" : "sticky side_Nav"}>
+      <div className={showSideNav ? "col-2 side_Nav sticky animaOpen" : "sticky side_Nav animaClose"}>
         <div
           className={
             showSideNav
@@ -32,7 +32,7 @@ export default function SideNav() {
         >
           <div className="mt-3 cursor" onClick={() => setShowSideNav(!showSideNav)}>
             {!showSideNav ? (
-              <MdLegendToggle color="black" size={40} />
+              <BsArrowBarLeft color="black" size={40} />
             ) : (
               <AiOutlineClose color="black" size={40} />
             )}

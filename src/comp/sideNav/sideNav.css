@@ -5,6 +5,28 @@
   position: sticky;
   top: 70px;
   z-index: 1021;
+ 
+}
+
+.animaOpen{
+  animation-name: open;
+  animation-duration: 1s;
+}
+.animaClose{
+  animation-name: close;
+  animation-duration: 0.5s;
+}
+
+
+@keyframes open {
+  from {width: 5%;}
+  to {width: 16.6666667%;}
+}
+
+
+@keyframes close {
+  from {width: 16.6666667%;}
+  to {width: 5% ;}
 }
 
 .s_n_margin {
