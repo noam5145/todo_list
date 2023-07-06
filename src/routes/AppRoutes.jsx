@@ -31,18 +31,28 @@ export default function AppRoutes() {
       <div className="d-flex bg-light">
       <SideNav/>
       <Routes>
+        {currentUser.access !== 'admin'  ? <>
         <Route path="/" element={<MainSite />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/addMissions" element={<AddMissions />} />
+        <Route path="/chat" element={<TheChat />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/missionExeption" element={<MissionExeption />} />
-        <Route path="/PendingMissions" element={<PendingMissions />} />
+        <Route path="/taskList" element={<TaskList />} />
+        <Route path="/alerts" element={<Alerts />} />
+        <Route path="/UserTasks" element={<UserTasks />} />
+        </> : <>
+        <Route path="/" element={<MainSite />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/chat" element={<TheChat />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/taskList" element={<TaskList />} />
         <Route path="/alerts" element={<Alerts />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/chat" element={<TheChat />} />
         <Route path="/UserTasks" element={<UserTasks />} />
         <Route path="/archives" element={<CompletedTasks />} />
+        <Route path="/addMissions" element={<AddMissions />} />
+        <Route path="/PendingMissions" element={<PendingMissions />} />
+        <Route path="/missionExeption" element={<MissionExeption />} />
+        </>}
       </Routes>
       </div></>
       :  <Login />}
