@@ -57,30 +57,7 @@ export default function MissionExeption() {
   }
 
 
-  const sortMsgByCommand = (mission)=>{
-    let messages = mission.chat.messages.msg.split('\n');
-    messages = messages.reverse();
-    let noteCommand = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
-        noteCommand = msg.split('}')[1];
-      }
-    })
-    return noteCommand;
-  }
-
-  const sortMsgByUser = (mission)=>{
-    let messages = mission.chat.messages.msg.split('\n');
-    messages = messages.reverse();
-    let noteResponsibility = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
-        noteResponsibility = msg.split('}')[1];
-      }
-    })
-    return noteResponsibility;
-  }
-
+  
 
 
   return (
