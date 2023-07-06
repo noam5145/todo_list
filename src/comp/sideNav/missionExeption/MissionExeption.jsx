@@ -11,6 +11,7 @@ import { CircularProgress } from "@mui/material";
 
 export default function MissionExeption() {
 
+
   const { missions, daysOff, endAtChanged, loading, currentUser } = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataExMission, setData] = useState([]);
@@ -56,18 +57,25 @@ export default function MissionExeption() {
   }
 
 
+  
+
+
   return (
     <>
-      {!loading ? (<div className="container-fluid linear font-family-Ex">
-        <div ref={componentToPrint} className="mt-5 p-0 container">
-          <div className="d-flex justify-content-between  mx-5">
-            <div className="p-title-pen-div">
-              <h4 >משימות בחריגה</h4>
-                <div className="d-flex">
+      {!loading&& currentUser.username ? (<div className="container-fluid linear font-family-Ex">
+
+        <div ref={componentToPrint} className="mt-4 p-0">
+          <div className="d-flex justify-content-between  mx-4">
+            <div className="d-flex">
+              <h4 >משימות בחריגה</h4> 
+              </div>
+                <div className="d-flex mx-5 align-items-center">
+                {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
+
                 <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
                 <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
               </div>
-            </div>
+           
           </div>
           <div className="container  table-container-Ex all_table-Ex  ml-3">
             <span>
@@ -114,6 +122,7 @@ export default function MissionExeption() {
                     </div>
                     <div className="col-3 the_table-Ex text-center align-missions-center">
                       <p className={`p_taskdetail-Ex p-2 ${mission.details.length < 40 ? "d-flex align-items-center" : ""}`}>
+
                         {mission.details}
                       </p>
                     </div>
@@ -132,13 +141,15 @@ export default function MissionExeption() {
                       {Math.abs(daysOff(mission.endedAt))}
                     </div>
                     <div className="col-2 the_table-Ex  text-center align-missions-center ">
-                      <p className="p_taskdetail-Ex p-2 ">
-                        {sortMsgByCommand(mission)}
+                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByUser(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
+
+                        {sortMsgByUser(mission)}
                       </p>
                     </div>
                     <div className="col-2 the_table-Ex  text-center  align-missions-center">
-                      <p className="p_taskdetail-Ex p-2 ">
-                        {sortMsgByUser(mission)}
+                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByCommand(mission)?.length<40 ? "d-flex align-items-center" : ""}`}>
+                        {sortMsgByCommand(mission)}
+
                       </p>
                     </div>
                   </div>
