@@ -48,9 +48,9 @@ export default function CountUser() {
   if (data[0]) {
             
  let a=  data.sort((countA, countB)=>{
-  if (countA.count>countB.count) {
+  if (countA.count<countB.count) {
     return -1
-  }else if (countA.count < countB.count) {
+  }else if (countA.count > countB.count) {
     return 1
   }else{
     return 0
@@ -61,40 +61,57 @@ export default function CountUser() {
   return (item.count>0)
  })
  let t=  b.map((item,i)=>({y: item.count, label: item.username}))
- 
             setOptions(   
               {
               animationEnabled: true,
               theme: "light2",
+              height: 800,
+              // subtitles:[
+              //   {
+              //     text: "This is a Subtitle",
+              //     //Uncomment properties below to see how they behave
+              //     //fontColor: "red",
+              //     //fontSize: 30
+              //   }
+              //   ],
+              // axisX:{
+              //   title: "axisX Title"
+              //  },
+         
               title:{
-                  text: "סטטוס הנחיות לפי אחריות"
+                  text: "סטטוס חריגה לפי אחריות",
+                  //fontFamily: 'Ariel',
+                  fontSize: 36
               },
-              axisX: {
-                  title: "",
-                  reversed: true,
-              },
+              // axisX: {
+              //     title: "",
+              //     reversed: true,
+              // },
               axisY: {
                   title: "",
                   includeZero: true,
                   //labelFormatter: this.addSymbols
               },
-             
+            
               data: [{
                   type: "bar",
-                  dataPoints: t,
-  
+                  dataPoints: t ,
               }]
           })
           }
-
-
     },[data])
-
-
+    const containerProps = {
+      width: "100%",
+      height: "500px",
+      margin: "auto"
+      }
 
   return (
-    <div>
-    <CanvasJSChart options = {options} /* onRef={ref => this.chart = ref} *//>
-    </div>
-  )
+    <div className='h-100'>
+      <CanvasJSChart  
+             options = {options}
+            //  containerProps = {containerProps}
+              /* onRef={ref => this.chart = ref} *//>
+    </div>
+  )
 }
