@@ -32,24 +32,24 @@ export default function MissionExeption() {
     content: () => componentToPrint.current,
   });
 
-  const sortMsgByCommand = (mission)=>{
+  const sortMsgByCommand = (mission) => {
     let messages = mission.chat.messages.msg.split('\n');
     messages = messages.reverse();
     let noteCommand = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
+    messages.map((msg) => {
+      if ((mission.responsibility.find((resp) => resp !== msg.split('}')[0].slice(1)))) {
         noteCommand = msg.split('}')[1];
       }
     })
     return noteCommand;
   }
 
-  const sortMsgByUser = (mission)=>{
+  const sortMsgByUser = (mission) => {
     let messages = mission.chat.messages.msg.split('\n');
     messages = messages.reverse();
     let noteResponsibility = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
+    messages.map((msg, i) => {
+      if ((mission.responsibility.find((resp) => resp === msg.split('}')[0].slice(1)))) {
         noteResponsibility = msg.split('}')[1];
       }
     })
@@ -57,37 +57,37 @@ export default function MissionExeption() {
   }
 
 
-  
+
 
 
   return (
     <>
-      {!loading&& currentUser.username ? (<div className="container-fluid linear font-family-Ex">
+      {!loading && currentUser.username ? (<div className="container-fluid linear font-family-Ex">
 
         <div ref={componentToPrint} className="mt-4 p-0">
           <div className="d-flex justify-content-between  mx-4">
             <div className="d-flex">
-              <h4 >משימות בחריגה</h4> 
-              </div>
-                <div className="d-flex mx-5 align-items-center">
-                {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
+              <h4 >משימות בחריגה</h4>
+            </div>
+            <div className="d-flex mx-5 align-items-center">
+              {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
 
-                <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
-                <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
-              </div>
-           
+              <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
+              <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
+            </div>
+
           </div>
           <div className="container  table-container-Ex all_table-Ex  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">
-                  מס"ד 
+                  מס"ד
                 </div>
                 <div className="col-1 top_table-Ex text-center">
-                  כותרת הפגישה 
+                  כותרת הפגישה
                 </div>
                 <div className="col-3 top_table-Ex text-center">
-                  פירוט הפגישה 
+                  פירוט הפגישה
                 </div>
                 <div className="col-1 top_table-Ex text-center">
                   תג"ב
@@ -111,7 +111,7 @@ export default function MissionExeption() {
                 dataExMission.map((mission, i) =>
                 (// use state-> to cheak if the table is empty
                   <div
-                    key={mission.id}
+                    key={i}
                     className="container-fluid d-flex justify-content-center p-0"
                   >
                     <div className="col-1 the_table-Ex text-center">
@@ -133,7 +133,7 @@ export default function MissionExeption() {
                       <div className={` p_taskdetail-Ex w-100 py-1 ${mission.responsibility.length < 3
                         ? "d-flex align-items-center flex-column   justify-content-center"
                         : ""}`}   >
-                        {mission.responsibility?.map((name, i) => { return <div style={{ fontSize: "0.9rem", marginTop: "3px" }}>{!(i == mission.responsibility.length - 1) ? name + ',' : name + '.'}</div> })}
+                        {mission.responsibility?.map((name, i) => { return <div key={i} style={{ fontSize: "0.9rem", marginTop: "3px" }}>{!(i == mission.responsibility.length - 1) ? name + ',' : name + '.'}</div> })}
                       </div>
 
                     </div>
@@ -141,13 +141,13 @@ export default function MissionExeption() {
                       {Math.abs(daysOff(mission.endedAt))}
                     </div>
                     <div className="col-2 the_table-Ex  text-center align-missions-center ">
-                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByUser(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
+                      <p className={`p_taskdetail-Ex p-2 ${sortMsgByUser(mission)?.length < 40 ? "d-flex align-items-center" : ""}`}>
 
                         {sortMsgByUser(mission)}
                       </p>
                     </div>
                     <div className="col-2 the_table-Ex  text-center  align-missions-center">
-                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByCommand(mission)?.length<40 ? "d-flex align-items-center" : ""}`}>
+                      <p className={`p_taskdetail-Ex p-2 ${sortMsgByCommand(mission)?.length < 40 ? "d-flex align-items-center" : ""}`}>
                         {sortMsgByCommand(mission)}
 
                       </p>
