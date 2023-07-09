@@ -45,10 +45,12 @@ export default function Exception() {
         // animationEnabled: true,
         title: {
           text: "בחריגה"
+
         },
         subtitles: [{
           text: "" + (missionCounter[0].number),
           verticalAlign: "center",
+          // fontFamily: 'ariel',
           fontSize: 30,
           dockInsidePlotArea: true
         }],
