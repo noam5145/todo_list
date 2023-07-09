@@ -22,7 +22,7 @@ export default function UserTasks() {
     <>
       {!loading ? (
         <div className="container mt-5">
-          <h2>המשימות שלי </h2>
+          <h3 className="chat_name">המשימות שלי </h3>
 
           {!listUserMissions[0] ? (
             <div className="d-flex justify-content-center mt-5">

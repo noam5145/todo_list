@@ -68,7 +68,7 @@ export default function CompletedTasks() {
          
          <div  ref={componentToPrint}>
          <div className="d-flex justify-content-between mt-4">
-           <div className="d-flex   ">
+           <div className="d-flex chat_name">
              <h4 >משימות בארכיון</h4>
               </div>
             <div className="d-flex h-100 align-items-center" >
