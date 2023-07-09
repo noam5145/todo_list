@@ -41,6 +41,10 @@ export default function MissionExeption() {
         noteCommand = msg.split('}')[1];
       }
     })
+    if (!noteCommand) {
+      noteCommand="---"; 
+     
+    }
     return noteCommand;
   }
 
@@ -53,6 +57,10 @@ export default function MissionExeption() {
         noteResponsibility = msg.split('}')[1];
       }
     })
+    if (!noteResponsibility) {
+      noteResponsibility="---"; 
+     
+    }
     return noteResponsibility;
   }
 
@@ -62,7 +70,7 @@ export default function MissionExeption() {
     <>
       {!loading&& currentUser.username ? (<div className="container-fluid linear font-family-Ex">
 
-        <div ref={componentToPrint} className="mt-4 p-0">
+        <div ref={componentToPrint} className="mt-5 p-0">
           <div className="d-flex justify-content-between  mx-4">
             <div className="d-flex">
               <h4 >משימות בחריגה</h4> 
@@ -75,7 +83,7 @@ export default function MissionExeption() {
               </div>
            
           </div>
-          <div className="container  table-container-Ex all_table-Ex  ml-3">
+          <div className="container  table-container-Ex all_table-Ex mt-3  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">

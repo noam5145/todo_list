@@ -69,6 +69,9 @@ let tempMission=missions.find((mission)=>{
         noteCommand = msg.split('}')[1];
       }
     })
+    if (!noteCommand||noteCommand==="") {
+      noteCommand="---"; 
+    }
     return noteCommand;
   }
 
@@ -80,17 +83,23 @@ let tempMission=missions.find((mission)=>{
       if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
         noteResponsibility = msg.split('}')[1];
       }
+     
     })
+     if (!noteResponsibility) {
+        noteResponsibility="---"; 
+       
+      }
     return noteResponsibility;
   }
 
 
     return (
       <>
-       {!loading ? ( <div  className="container-fluid  mb-2">
+       {!loading ? (
+         <div  className="container-fluid  mb-2">
 
-          <div ref={componentToPrint}>
-          <div className="d-flex justify-content-between mt-4">
+          <div ref={componentToPrint} className="mt-5">
+          <div className="d-flex justify-content-between mt-5">
             <div className="d-flex  ">
               <h4 >משימות בהמתנה לאישור</h4>
                </div>
@@ -102,7 +111,7 @@ let tempMission=missions.find((mission)=>{
         
           </div>
           
-          <div className="container  table-container-pen all_table-Ex  ml-3">
+          <div className="container  table-container-pen all_table-Ex mt-3 ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-pen text-center">

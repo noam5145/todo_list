@@ -38,7 +38,12 @@ export default function CompletedTasks() {
       if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
         noteCommand = msg.split('}')[1];
       }
+    
     })
+    if (!noteCommand) {
+      noteCommand="---"; 
+     
+    }
     return noteCommand;
   }
 
@@ -51,6 +56,10 @@ export default function CompletedTasks() {
         noteResponsibility = msg.split('}')[1];
       }
     })
+    if (!noteResponsibility) {
+     noteResponsibility="---"; 
+     
+    }
     return noteResponsibility;
   }
 
@@ -60,9 +69,8 @@ export default function CompletedTasks() {
       return (
       <>
         <div className="container-fluid mb-2">
-         
-          <div  ref={componentToPrint}>
-          <div className="d-flex justify-content-between mt-4">
+
+          <div ref={componentToPrint} className="d-flex justify-content-between mt-5 mx-5">
             <div className="d-flex   ">
               <h4 >משימות בארכיון</h4>
                </div>
@@ -144,10 +152,8 @@ export default function CompletedTasks() {
               </div>
             )}
           </div>
-          {/* <div>
-          <h2 className="numOfCompleteMission">סה"כ משימות בארכיון: {archive.length} </h2>
-        </div> */}
-        </div>
+     
+       
         </div>
       </>
     );
