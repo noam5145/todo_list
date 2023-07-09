@@ -77,18 +77,23 @@
     position: absolute;
     top: 45px;
     left: 20px;
-    width: 200px;
+    width: 205px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    box-shadow: rgba(50, 50, 93, 0.2) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.2) 0px 18px 36px -18px inset;
 }
 
 .chat_search{
-    width: 180px;
+    width: 170px;
+    height: 30px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.chat_search_date{
     height: 30px;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;

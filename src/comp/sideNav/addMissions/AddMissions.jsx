@@ -391,7 +391,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                     className={displayErrorResponsibility ? "text-danger" : "text-dark"} > *
                   </span>
                 </label>
-                <FormControl className="momo" sx={{ width: 193, height: 40, border: 'none' }} ref={responsibility}>
+                <FormControl sx={{ width: 193, height: 40, border: 'none' }} ref={responsibility}>
                   <Select
                     className="border bg-light"
                     sx={{
