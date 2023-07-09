@@ -11,11 +11,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { IconButton, Input, InputAdornment } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-
-const theme = createTheme();
 
 
 export default function(){ 
@@ -54,13 +49,9 @@ export default function(){
     };
   }, []);
 
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
     <div className="" style={{height:" 100vh",width:" 100%", overflowX:"hidden"}}>
-    <ThemeProvider theme={theme} >
      <Container component="main" maxWidth="xs">
        <CssBaseline />
        <Box
@@ -78,21 +69,6 @@ export default function(){
         הכנס מספר אישי
          </Typography>
          <Box noValidate sx={{ mt: 1 }}>
-
-         {/* <Input
-            id="standard-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  // onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>   }
-          /> */}
            <TextField
              margin="normal"
             //  type='password'
@@ -106,14 +82,12 @@ export default function(){
              fullWidth
              variant="contained"
             //  disabled = {loading}
-             sx={{ mt: 2, mb: 4 }}
-           >
+             sx={{ mt: 2, mb: 4 }}>
              שלח סיסמה
            </Button>
          </Box>
        </Box>
      </Container>
-   </ThemeProvider>
    </div>
   )
 }

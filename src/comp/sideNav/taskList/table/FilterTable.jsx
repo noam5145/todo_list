@@ -6,17 +6,13 @@ export default function ({ setAllDataShow }) {
   const { missions, getDaysDifference, endAtChanged } = useContext(MyContext);
 
   const SortByContentFound = (content, field) => {
-    console.log(content);
     if(field == "startedAt" || field == "endedAt"){
         content = endAtChanged(content);
-        console.log(content);
     }
     const newFilter = missions.filter((item) => item[field].includes(content));
     setAllDataShow(newFilter);
   };
   const SortByResponsibilityFound = (content, Responsibility) => {
-    console.log(content);
-    console.log(Responsibility);
     const newFilter = missions.filter((item) =>
       item[Responsibility].find((item) => item.includes(content))
     );

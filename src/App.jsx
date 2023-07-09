@@ -33,8 +33,8 @@ useEffect(() => {
       socketIo.emit("username", currentUser.username);
     })
 
-    socketIo.on('getMessage', token =>  {
-       getAllMissions(token);
+    socketIo.on('getMessage', () =>  {
+       getAllMissions(currentUser.token);
     });
 
     socketIo.on('connected', (user)=>{
@@ -45,12 +45,16 @@ useEffect(() => {
       getUser({token: currentUser.token});
     })
 
-    socketIo.on('getArchive', (token)=>{
-      getAllArchives(token);
+    socketIo.on('getArchive', ()=>{
+      getAllArchives(currentUser.token);
     })
 
     socketIo.on('getNewUser', ()=>{
       getAllUsers(currentUser);
+    })
+
+    socketIo.on('getConfirmMission', ()=>{
+      getAllMissions(currentUser.token);
     })
 
     socketIo.on('updatedUser', ()=>{
@@ -64,25 +68,31 @@ useEffect(() => {
 }, [socketIo])
 
   const newMission = async(mission, token)=>{
+    setLoading(true)
     let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){
       return console.log(res.data.err);
     }
     socketIo.emit('updateNewMission',{});
+    setLoading(false);
   }
   const getAllMissions = async (token)=>{
+    setLoading(true)
     let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setMissions(res.data);
+    setLoading(false);
   }
   const getAllArchives = async (adminToken)=>{
+    setLoading(true)
     let res = await axios.get( base_url + 'mission/getArchive', {params: {adminToken: adminToken}});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setArchive(res.data);
+    setLoading(false);
   }
   const sendToArchives = async (_id , adminToken)=>{
     let res = await axios.post( base_url + 'mission/sendToArchive', {adminToken: adminToken, _id: _id});
@@ -122,6 +132,7 @@ useEffect(() => {
 
 
   const getNewMissions = async (missions)=>{
+    setLoading(true)
     if(currentUser?.newMissions){
       let arr =[];
       for(let i =0 ; i < currentUser.newMissions.length; i++){
@@ -132,6 +143,7 @@ useEffect(() => {
         }
       }
       setNewMissions(arr);
+      setLoading(false);
     }
   }
   useEffect(()=>{
@@ -143,18 +155,22 @@ useEffect(() => {
 
   
   const setNewUser = async (user)=>{
+    setLoading(true)
     let user1 = await axios.post(base_url + 'user/setNewUser', {...user, adminToken: currentUser?.token});
     if(user1.data.err){
       return console.log(user1.data.err);
     }
     socketIo.emit('setNewUser', {});
+    setLoading(false);
   }
   const getUser = async(user)=>{
+    setLoading(true)
     let res = await axios.get(base_url + 'user/getUser', {params: user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setCurrentUser(res.data);
+    setLoading(false);
     document.cookie = "T_L_T=" + res.data.token;
     getAllMissions(res.data.token);
     if(res.data.access === 'admin'){
@@ -163,11 +179,13 @@ useEffect(() => {
     }
    }
   const getAllUsers = async (user)=>{
+    setLoading(true)
     let res = await axios.get(base_url + 'user/getAllUsers', {params : user});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setUsers(res.data);
+    setLoading(false);
   }
   const updateUser = async (user, adminToken)=>{
     let res = await axios.put(base_url + 'user/updateUser', {...user, adminToken: adminToken});
@@ -177,14 +195,22 @@ useEffect(() => {
     socketIo.emit('updateUser', {});
   }
   const updateMission = async (mission, adminToken)=>{
-    setLoading(true)
     let res = await axios.put(base_url + 'mission/updateMission', {...mission, adminToken: adminToken});
     if(res.data.err){
       return console.log(res.data.err);
     }
     getAllMissions(currentUser.token);
-    setLoading(false)
   }
+
+  const sendToConfirm = async (mission, uToken)=>{
+    let res = await axios.put(base_url + 'mission/sendToConfirm', {...mission, uToken: uToken});
+
+    if(res.data.err){
+      return console.log(res.data.err);
+    }
+    socketIo.emit('sendToConfirm', {});
+  }
+
   const updateChat = async (mission, token)=>{
     let res = await axios.put(base_url + 'mission/updateChat', {...mission, token: token});
     if(res.data.err){
@@ -203,10 +229,9 @@ useEffect(() => {
       return console.log(res.data.err);
     }
     setUsers(users.filter((user)=> user._id !== _id));
-    setLoading(false)
+    setLoading(false);
   }
   const deleteMission = async (_id, adminToken) =>{
-    setLoading(true)
     let res = await axios.delete(base_url + 'mission/deleteMission', {params: {
       _id: _id,
       adminToken: adminToken,
@@ -215,7 +240,6 @@ useEffect(() => {
       return console.log(res.data.err);
     }
     getAllMissions(adminToken);
-    setLoading(false)
   }
   useEffect(()=>{
     if(flag){
@@ -285,6 +309,7 @@ const formattedDate = date.toLocaleDateString('en-GB', options); // Adjust the l
     deleteMission,
     newMissions,
     updateMission,
+    sendToConfirm,
     updateChat,
     updateUser,
     setNewMissions,

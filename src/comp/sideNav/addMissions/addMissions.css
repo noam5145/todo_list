@@ -23,3 +23,9 @@
     cursor: pointer;
 
 }
+.add_m_title{
+    color: black;
+    text-decoration-line: underline;
+    text-decoration-color: black;
+    text-underline-offset: 3px;
+}

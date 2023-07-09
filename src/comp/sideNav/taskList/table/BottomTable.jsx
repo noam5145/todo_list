@@ -23,17 +23,18 @@ export default function BottomTable({
   chatOpen,
   notifyDel,
   notifySend,
+  allDataShow
 }) {
-  const { deleteMission, currentUser, updateMission, daysOff, missions } = useContext(MyContext);
+  const { deleteMission, currentUser, daysOff, missions, sendToConfirm } = useContext(MyContext);
   const [numMsg, setNumMsg] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openSettings = Boolean(anchorEl);
-  let flag = true;
 
   const OpenSettings = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const closeSettings = () => {
     setAnchorEl(null);
   };
@@ -44,11 +45,8 @@ export default function BottomTable({
   };
 
   const SubmitMission = (item) => {
-    const newItem = item;
-    newItem.status = "ממתין לאישור";
-    console.log(item);
-    console.log(newItem);
-    updateMission(newItem, currentUser.token);
+    item.status = "ממתין לאישור";
+    sendToConfirm(item, currentUser.token);
     notifySend();
   };
 
@@ -72,8 +70,10 @@ export default function BottomTable({
     window.addEventListener("click", () => {
       closeSettings();
     });
+  }, []);
 
-    if(flag){
+  useEffect(()=>{
+    if(allDataShow[0]){
       let arr = Array(item.chat.messages.readed?.length).fill(0);
       item.chat.messages.readed?.map((read, i)=>{
         if(!read && !(item.chat.messages.msg.split('\n')[i]?.split('}')[0].slice(1) === currentUser.username)){
@@ -86,16 +86,12 @@ export default function BottomTable({
           num++;
         }
       })
-      setNumMsg([...numMsg, num]);
-      flag = false;
+      setNumMsg(num);
     }
-  }, []);
+  }, [allDataShow]);
 
-  useEffect(()=>{
-    // console.log(numMsg);
-  }, [numMsg]);
-
-  return (
+  return (<>
+    {item ? (
     <div key={i} className="container d-flex justify-content-center p-0">
       <div className="col-1 the_table text-center">{item.missionId}</div>
       <div className="col-1 the_table text-center">{item.startedAt}</div>
@@ -157,11 +153,62 @@ export default function BottomTable({
       <div className="col-1 the_table text-center">
         <div className="d-flex align-items-center">
           <div className="row div_chat_fan_icon mx-1">
-            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen) }}>
+          {currentUser.access !== 'admin' && item.token.find((t)=> t === currentUser.token) ?  <>
+            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i) }}>
               <Badge badgeContent={numMsg != 0 ? numMsg : null } color="primary">
-                < ChatIcon color="action" onClick={() => setIForChat(i)} />
+                < ChatIcon color="action" />
               </Badge></div>
-
+              <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
+              <MoreVertIcon
+                id="demo-positioned-button"
+                onClick={OpenSettings}
+              />
+            </div>
+              <Menu
+              id="demo-positioned-menu"
+              anchorEl={anchorEl}
+              open={openSettings}
+              PaperProps={{
+                style: {
+                  boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
+              {item.status == 'ממתין לאישור' || item.status == 'בחריגה' ? (
+                 <MenuItem
+                 onClick={() => {
+                   closeSettings();
+                 }}
+                 disabled={true}
+               >
+                 <div className="d-flex justify-content-center icon_send">
+                   <SendIcon className="mx-2" />
+                 </div>
+                 שלח לאישור משימה
+               </MenuItem>
+              ) : (
+                <MenuItem
+                onClick={() => {
+                  closeSettings();
+                  SubmitMission(item);
+                }}
+                title="שלח לאישור סיום"
+              >
+                <div className="d-flex justify-content-center icon_send">
+                  <SendIcon className="mx-2" />
+                </div>
+                שלח לאישור משימה
+              </MenuItem>
+              )}
+            </Menu>
+              </>
+              
+              : currentUser.access !== 'admin' ? '---' : '' }
+            { currentUser.access === 'admin' ? <>
+            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i) }}>
+              <Badge badgeContent={numMsg != 0 ? numMsg : null } color="primary">
+                < ChatIcon color="action" />
+              </Badge></div>
             <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
               <MoreVertIcon
                 id="demo-positioned-button"
@@ -178,6 +225,8 @@ export default function BottomTable({
                 },
               }}
             >
+
+              
               <MenuItem
                 onClick={() => {
                   closeSettings();
@@ -194,7 +243,6 @@ export default function BottomTable({
                  <MenuItem
                  onClick={() => {
                    closeSettings();
-                   SubmitMission(item);
                  }}
                  disabled={true}
                >
@@ -230,9 +278,10 @@ export default function BottomTable({
                 מחק משימה
               </MenuItem>
             </Menu>
+            </> : ''}
           </div>
         </div>
       </div>
-    </div>
+    </div> ) : ''}</>
   );
 }
