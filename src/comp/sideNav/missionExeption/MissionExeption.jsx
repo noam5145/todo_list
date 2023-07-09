@@ -2,31 +2,25 @@
 import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./missionExeption.css";
+import "../.././main.css";
 import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
-import { CircularProgress } from "@mui/material";
-
-
-
+import { Oval } from "react-loader-spinner";
 
 export default function MissionExeption() {
-
-
-  const { missions, daysOff, endAtChanged, loading, currentUser } = useContext(MyContext);
+  const { missions, daysOff, endAtChanged, loading, currentUser } =
+    useContext(MyContext);
   const componentToPrint = useRef();
   let [dataExMission, setData] = useState([]);
 
-
-
   useEffect(() => {
     let temp = missions.map((mission) => {
-      return daysOff(mission.endedAt, mission.status) < 0 ? mission : ""
+      return daysOff(mission.endedAt, mission.status) < 0 ? mission : "";
       //  return mission.status=="בחריגה"?mission:""
-
-    })
+    });
 
     setData(temp?.filter((item) => item != ""));
-  }, [missions])
+  }, [missions]);
 
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
@@ -40,11 +34,12 @@ export default function MissionExeption() {
       if ((mission.responsibility.find((resp) => resp !== msg.split('}')[0].slice(1)))) {
         noteCommand = msg.split('}')[1];
       }
-    })
+    });
     return noteCommand;
-  }
+  };
 
   const sortMsgByUser = (mission) => {
+
     let messages = mission.chat.messages.msg.split('\n');
     messages = messages.reverse();
     let noteResponsibility = '---';
@@ -52,11 +47,9 @@ export default function MissionExeption() {
       if ((mission.responsibility.find((resp) => resp === msg.split('}')[0].slice(1)))) {
         noteResponsibility = msg.split('}')[1];
       }
-    })
+    });
     return noteResponsibility;
   }
-
-
 
 
 
@@ -104,6 +97,12 @@ export default function MissionExeption() {
                 <div className="col-2 top_table-Ex text-center">
                   הערות מפקד
                 </div>
+                <button
+                  onClick={handlePrintEx}
+                  className="btn  bg-secondary text-light"
+                >
+                  <LocalPrintshopRoundedIcon /> הדפסה
+                </button>
               </div>
             </span>
             {
@@ -149,31 +148,36 @@ export default function MissionExeption() {
                     <div className="col-2 the_table-Ex  text-center  align-missions-center">
                       <p className={`p_taskdetail-Ex p-2 ${sortMsgByCommand(mission)?.length < 40 ? "d-flex align-items-center" : ""}`}>
                         {sortMsgByCommand(mission)}
-
                       </p>
                     </div>
-                  </div>
+                  )
                 )
-                )
-
-                : <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
-                  <h2 > אין משימות בחריגה כעת</h2></div>}
+              ) : (
+                <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
+                  <h2> אין משימות בחריגה כעת</h2>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-
-      </div>) : (
+      ) : (
         <div className="container">
-
           <div className="d-flex justify-content-center align-items-center my-5">
-            <CircularProgress />
+            <Oval
+              height={80}
+              width={80}
+              color="#62aeea"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#62aeea"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />{" "}
           </div>
         </div>
       )}
     </>
   );
-
-
-
-
 }
-
