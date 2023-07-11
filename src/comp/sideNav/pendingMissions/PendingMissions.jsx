@@ -70,6 +70,10 @@ let tempMission=missions.find((mission)=>{
         noteCommand = msg.split('}')[1];
       }
     })
+    if (!noteCommand) {
+      noteCommand="---"; 
+     
+    }
     return noteCommand;
   }
 
@@ -82,6 +86,10 @@ let tempMission=missions.find((mission)=>{
         noteResponsibility = msg.split('}')[1];
       }
     })
+    if (!noteResponsibility) {
+      noteResponsibility="---"; 
+     
+    }
     return noteResponsibility;
   }
 

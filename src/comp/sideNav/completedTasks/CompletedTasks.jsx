@@ -44,6 +44,9 @@ export default function CompletedTasks() {
         noteCommand = msg.split('}')[1];
       }
     })
+    if(!noteCommand ){
+       noteCommand = '---';     
+    }
     return noteCommand;
   }
 
@@ -56,6 +59,10 @@ export default function CompletedTasks() {
         noteResponsibility = msg.split('}')[1];
       }
     })
+    if (!noteResponsibility) {
+      noteResponsibility="---"; 
+     
+    }
     return noteResponsibility;
   }
 
