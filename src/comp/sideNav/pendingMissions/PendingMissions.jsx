@@ -70,6 +70,9 @@ let tempMission=missions.find((mission)=>{
         noteCommand = msg.split('}')[1];
       }
     })
+    if (!noteCommand||noteCommand==="") {
+      noteCommand="---"; 
+    }
     return noteCommand;
   }
 
@@ -81,19 +84,52 @@ let tempMission=missions.find((mission)=>{
       if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
         noteResponsibility = msg.split('}')[1];
       }
+     
     })
+     if (!noteResponsibility) {
+        noteResponsibility="---"; 
+       
+      }
     return noteResponsibility;
   }
 
 
     return (
       <>
-        {!loading ? (
-          <div className="container-fluid  mb-2">
-            <div ref={componentToPrint}>
-              <div className="d-flex justify-content-between mt-4">
-                <div className="d-flex chat_name">
-                  <h4>משימות בהמתנה לאישור</h4>
+       {!loading ? (
+         <div  className="container-fluid  mb-2">
+
+          <div ref={componentToPrint} className="mt-5">
+          <div className="d-flex justify-content-between mt-5">
+            <div className="d-flex  ">
+              <h4 >משימות בהמתנה לאישור</h4>
+               </div>
+             <div className="d-flex h-100 align-items-center" >
+          <p className="numOfExMission m-2">סה"כ משימות בהמתנה לאישור:  {dataPenMission.length} </p>
+         <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/>  הדפסה</button>
+        </div>
+         
+        
+          </div>
+          
+          <div className="container  table-container-pen all_table-Ex mt-3 ml-3">
+            <span>
+              <div className=" d-flex justify-content-center sticky-top">
+                <div className="col-1 top_table-pen text-center">
+                  מס"ד <span title="מיין לפי גדול/קטן"></span>
+                </div>
+                   <div className="col-1 top_table-pen text-center">
+            מועד משימה<span title="מיין לפי גדול/קטן"></span>
+                </div> 
+                <div className="col-1 top_table-pen text-center">
+                  אחריות<span title="מיין לפי גדול/קטן"></span>
+                </div>
+                <div className="col-1 top_table-pen text-center">
+                  כותרת הפגישה <span title="מיין לפי גדול/קטן"></span>
+                </div>
+                <div className="col-2 top_table-pen text-center">
+                  פירוט הפגישה <span title="מיין לפי גדול/קטן"></span>
+
                 </div>
                 <div className="d-flex h-100 align-items-center">
                   <p className="numOfExMission m-2">
