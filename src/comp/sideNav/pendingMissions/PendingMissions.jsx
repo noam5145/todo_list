@@ -12,7 +12,7 @@ import { Oval } from "react-loader-spinner";
 
 export default function PendingMissions() {
 
-  const { missions ,updateMission,sendToArchives, currentUser, loading} = useContext(MyContext);
+  const { missions ,updateMission,sendToArchives, currentUser, loading , archive} = useContext(MyContext);
 
   const componentToPrint = useRef();
 
