@@ -35,7 +35,7 @@ export default function Message() {
   }
 
   function deletAletrs(missionId) {
-    console.log("aervaer");
+    // console.log("aervaer");
     currentUser.newMissions = alert.filter(
       (mission, i) => mission.missionId !== missionId
     );

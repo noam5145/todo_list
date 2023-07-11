@@ -15,10 +15,10 @@ import { notifyadd } from "./notify";
 import { notifyedit } from "./notify";
 import * as XLSX from "xlsx/xlsx.mjs";
 import { GrDocumentExcel } from "react-icons/gr";
-import { TbNotesOff } from "react-icons/tb";
+import { TbSearchOff } from "react-icons/tb";
 
 export default function TaskList() {
-  const { missions, daysOff, loading } = useContext(MyContext);
+  const { missions, daysOff, loading, currentUser } = useContext(MyContext);
   const [open, setOpenDialog] = React.useState(false);
   const [allDataShow, setAllDataShow] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
@@ -116,16 +116,17 @@ export default function TaskList() {
 
   return (
     <>
-   {!loading ? (   <div className="container-fluid linear">
+   {!loading && currentUser.username  ? (   <div className="container-fluid linear">
         <div className="mt-5 p-0">
           <div className="d-flex justify-content-between mx-5">
             <h4>מאגר משימות</h4>
             <span className="d-flex">
-              {missions.length != allDataShow.length ? (
+            {missions.length != allDataShow.length ? (
               <div className="mx-5 pt-2">סה"כ משימות בחיפוש: {allDataShow.length}</div>
               ) : (
                 <div className="mx-5 pt-2">סה"כ משימות: {allDataShow.length}</div>
                 )}
+              {currentUser.access === 'admin' && <>
               <button
                 className="btn bg-secondary text-light"
                 style={{ width: "100px" }}
@@ -145,7 +146,8 @@ export default function TaskList() {
                 {" "}
                 הוסף משימה +
               </button>
-              <div className="row">
+              </>}
+              <div className="row mt-5">
                 <Dialog open={open} className="row" onClose={closeDialog}>
                   <AddMissions
                     editSingleMission={editSingleMission}
@@ -179,8 +181,8 @@ export default function TaskList() {
               />
             )) : (
               <div className="container d-flex justify-content-center mt-5">
-                  <h3 className="mx-1">אין משימות להצגה !</h3>
-                  <div className="fs-5 mx-1"><TbNotesOff size={25}/></div>
+                  <TbSearchOff className="my-1 mx-2" size={25}/>
+                  <h3 className="mx-1">אופס, לא מצאנו מה שחיפשת,נסה לשנות את מונחי החיפוש.</h3>
                 </div>
             )}
           </div>
