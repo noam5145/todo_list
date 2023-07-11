@@ -11,8 +11,7 @@ import { CircularProgress } from "@mui/material";
 
 export default function MissionExeption() {
 
-
-  const { missions, daysOff, endAtChanged, loading, currentUser } = useContext(MyContext);
+  const { missions, daysOff, endAtChanged, loading,currentUser } = useContext(MyContext);
   const componentToPrint = useRef();
   let [dataExMission, setData] = useState([]);
 
@@ -46,6 +45,7 @@ export default function MissionExeption() {
      
     }
     return noteCommand1;
+
   }
 
   const sortMsgByUser = (mission)=>{
@@ -72,13 +72,14 @@ export default function MissionExeption() {
 
         <div ref={componentToPrint} className="mt-5 p-0">
           <div className="d-flex justify-content-between  mx-4">
-            <div className="d-flex">
+
+            <div className="d-flex chat_name">
               <h4 >משימות בחריגה</h4> 
               </div>
                 <div className="d-flex mx-5 align-items-center">
                 {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
-
                 <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
+
                 <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
               </div>
            
@@ -128,7 +129,7 @@ export default function MissionExeption() {
                     </div>
                     <div className="col-3 the_table-Ex text-center align-missions-center">
                       <p className={`p_taskdetail-Ex p-2 ${mission.details.length < 40 ? "d-flex align-items-center" : ""}`}>
-
+                      
                         {mission.details}
                       </p>
                     </div>
@@ -155,7 +156,6 @@ export default function MissionExeption() {
                     <div className="col-2 the_table-Ex  text-center  align-missions-center">
                     <p className={`p_taskdetail-Ex p-2 ${sortMsgByCommand(mission)?.length<40 ? "d-flex align-items-center" : ""}`}>
                         {sortMsgByCommand(mission)}
-
                       </p>
                     </div>
                   </div>
@@ -175,11 +175,11 @@ export default function MissionExeption() {
           </div>
         </div>
       )}
-    </>
-  );
+    </>
+  );
+
 
 
 
 
 }
-

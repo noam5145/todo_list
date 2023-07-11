@@ -326,7 +326,10 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
   return (<>
     {!loading ? (<div dir="rtl">
       <div className="bg-white mx-5 my-5">
-        <h3 className="d-flex justify-content-center mb-4 add_m_title" >הוספת משימה </h3>
+    {!editSingleMission 
+    ? <h3 className="d-flex justify-content-center mb-4 add_m_title" >הוספת משימה </h3>
+    : <h3 className="d-flex justify-content-center mb-4 add_m_title" >עדכון משימה </h3>
+    }
         {!editSingleMission ?
           <ul className="d-flex row">
             <li className="col-6 list-unstyled ">
@@ -391,7 +394,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
                     className={displayErrorResponsibility ? "text-danger" : "text-dark"} > *
                   </span>
                 </label>
-                <FormControl className="momo" sx={{ width: 193, height: 40, border: 'none' }} ref={responsibility}>
+                <FormControl sx={{ width: 193, height: 40, border: 'none' }} ref={responsibility}>
                   <Select
                     className="border bg-light"
                     sx={{

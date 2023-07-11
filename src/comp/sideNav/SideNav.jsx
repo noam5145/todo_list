@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PiGraphDuotone } from "react-icons/pi";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { BsArrowBarLeft } from "react-icons/bs";
 import { AiOutlineClose, AiOutlineDashboard, AiOutlineWarning } from "react-icons/ai";
 import { MdLegendToggle } from "react-icons/md";
 import { LuArchiveRestore } from "react-icons/lu";
-import { MdHourglassEmpty, MdWarning    } from 'react-icons/md';import { BsListTask } from "react-icons/bs";
+import { MdHourglassEmpty, MdWarning } from 'react-icons/md'; import { BsListTask } from "react-icons/bs";
 import "./sideNav.css";
 import { MyContext } from "../../App";
 
 export default function SideNav() {
   const [showSideNav, setShowSideNav] = useState(false);
-  const {currentUser} = useContext(MyContext);
+  const { currentUser } = useContext(MyContext);
   const [click, setClick] = useState([false, false, false, false, false, false]);
 
   function changeClick(num) {
@@ -22,7 +22,7 @@ export default function SideNav() {
 
   return (
     <>
-      <div className={showSideNav ? "col-2 side_Nav sticky" : "sticky side_Nav"}>
+      <div className={showSideNav ? "col-2 side_Nav sticky animaOpen" : "sticky side_Nav animaClose"}>
         <div
           className={
             showSideNav
@@ -32,7 +32,7 @@ export default function SideNav() {
         >
           <div className="mt-3 cursor" onClick={() => setShowSideNav(!showSideNav)}>
             {!showSideNav ? (
-              <MdLegendToggle color="black" size={40} />
+              <BsArrowBarLeft color="black" size={40} />
             ) : (
               <AiOutlineClose color="black" size={40} />
             )}
@@ -65,6 +65,7 @@ export default function SideNav() {
               />
 
               {showSideNav && (
+
                 <div className="d-flex align-items-center mb-0 s_n_margin">
                   {" "}
                   דשבורד משימות
@@ -96,78 +97,78 @@ export default function SideNav() {
             </Link>
           </div>
           {currentUser.access === 'admin' && <>
-          <div
-            onClick={() => changeClick(2)}
-            className={click[2] ? "b_c_icon" : ""}
-          >
-            {" "}
-            <Link
-              to={"/missionExeption"}
-              className={
-                showSideNav
-                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
-              }
+            <div
+              onClick={() => changeClick(2)}
+              className={click[2] ? "b_c_icon" : ""}
             >
-              <AiOutlineWarning  
-                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
-                size={showSideNav ? "25" : "40"}
-              />
-              {showSideNav && (
-                <div className="d-flex align-items-center mb-0 s_n_margin">
-                  דוח משימות בחריגה{" "}
-                </div>
-              )}
-            </Link>
-          </div>
-          <div
-            onClick={() => changeClick(3)}
-            className={click[3] ? "b_c_icon" : ""}
-          >
-            <Link
-              to={"/pendingMissions"}
-              className={
-                showSideNav
-                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
-              }
+              {" "}
+              <Link
+                to={"/missionExeption"}
+                className={
+                  showSideNav
+                    ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                    : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
+                }
+              >
+                <AiOutlineWarning
+                  className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
+                  size={showSideNav ? "25" : "40"}
+                />
+                {showSideNav && (
+                  <div className="d-flex align-items-center mb-0 s_n_margin">
+                    דוח משימות בחריגה{" "}
+                  </div>
+                )}
+              </Link>
+            </div>
+            <div
+              onClick={() => changeClick(3)}
+              className={click[3] ? "b_c_icon" : ""}
             >
-              <MdHourglassEmpty  
-                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
-                size={showSideNav ? "25" : "40"}
-              />
+              <Link
+                to={"/pendingMissions"}
+                className={
+                  showSideNav
+                    ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                    : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
+                }
+              >
+                <MdHourglassEmpty
+                  className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
+                  size={showSideNav ? "25" : "40"}
+                />
 
-              {showSideNav && (
-                <div className="d-flex align-items-center mb-0 s_n_margin">
-                  דוח ממתינות לאישור
-                </div>
-              )}
-            </Link>
-          </div>
-          <div
-            onClick={() => changeClick(5)}
-            className={click[5] ? "b_c_icon" : ""}
-          >
-            <Link
-              to={"/archives"}
-              className={
-                showSideNav
-                  ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
-                  : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
-              }
+                {showSideNav && (
+                  <div className="d-flex align-items-center mb-0 s_n_margin">
+                    דוח ממתינות לאישור
+                  </div>
+                )}
+              </Link>
+            </div>
+            <div
+              onClick={() => changeClick(5)}
+              className={click[5] ? "b_c_icon" : ""}
             >
-              <LuArchiveRestore
-                className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
-                size={showSideNav ? "25" : "40"}
-              />
+              <Link
+                to={"/archives"}
+                className={
+                  showSideNav
+                    ? "d-flex justify-content-start s_n_margin pl-0 pr-0 col-12 nav-link s_n_hover "
+                    : "d-flex justify-content-center pl-0 pr-0 col-12 iconsSide nav-link s_n_hover "
+                }
+              >
+                <LuArchiveRestore
+                  className={showSideNav ? "iconNavSaid showIcon" : "iconNavSaid"}
+                  size={showSideNav ? "25" : "40"}
+                />
 
-              {showSideNav && (
-                <div className="d-flex align-items-center mb-0 s_n_margin">
-                  ארכיון
-                </div>
-              )}
-            </Link>
-          </div>
+                {showSideNav && (
+                  <div className="d-flex align-items-center mb-0 s_n_margin">
+                    ארכיון
+                  </div>
+                )}
+              </Link>
+            </div>
           </>}
         </div>
       </div>

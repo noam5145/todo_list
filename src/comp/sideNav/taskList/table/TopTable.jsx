@@ -106,7 +106,7 @@ export default function TopTable({setAllDataShow}) {
                     סטאטוס <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="status" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
-                    <span title="עריכה"><SettingsIcon className="cursor" size={35} color="primary" /></span>
+                    <span title="עריכה"><SettingsIcon size={35} color="primary" /></span>
                 </div>
             </div>
         </>

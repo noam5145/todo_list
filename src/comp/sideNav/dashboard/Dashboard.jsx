@@ -12,11 +12,13 @@ import ExceptionDay from './ExceptionDay/ExceptionDay';
 export default function Dashboard() {
   const {loading} = useContext(MyContext)
   
+  
   return (
     
     <div className='container-fluid '>
 {!loading ? (  
-<div className='row d-flex'><div className='col-lg-3'>
+<div className='row d-flex'>
+      <div className='col-lg-3' >
         <PendingApproval/>
       </div>
       <div className='col-lg-3'>
@@ -25,10 +27,10 @@ export default function Dashboard() {
       <div className='col-lg-3'>
         <Exception/>
       </div>
-      <div className='col-lg-3 h-100'>
+      <div  className='col-lg-3 '>
         <CountUser/>
       </div>
-      <div className='col-lg-9 h-100'>
+      <div className='col-lg-9 pt-lg-3'>
         <ExceptionDay/>
       </div>
 </div>

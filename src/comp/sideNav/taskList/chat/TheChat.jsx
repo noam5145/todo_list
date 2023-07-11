@@ -5,7 +5,9 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import { BsCheck2All } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import { MyContext } from "../../../../App";
+import { GrPowerReset } from "react-icons/gr";
 
 export default function TheChat({
   setChatOpen,
@@ -21,46 +23,87 @@ export default function TheChat({
 }) {
   const { currentUser, updateChat, socketIo } = useContext(MyContext);
   const [called, setCalled] = useState(false);
-
+  const [originalMsgTime, setOriginalMsgTime] = useState([]);
   const [search, setSearch] = useState(false);
   const messageRef = useRef();
 
+  // useEffect(() => {
+  //   if (allDataShow[0]) {
+  //     setChat(
+  //       allDataShow[iForChat]?.chat.messages.msg
+  //         ? allDataShow[iForChat].chat.messages.msg
+  //             .split("\n")
+  //             .slice(
+  //               0,
+  //               allDataShow[iForChat].chat.messages.msg.split("\n").length - 1
+  //             )
+  //         : []
+  //     );
+  //     setMsgTime(
+  //       allDataShow[iForChat]?.chat.messages.time
+  //         .split("\n")
+  //         .slice(
+  //           0,
+  //           allDataShow[iForChat].chat.messages.time.split("\n").length - 1
+  //         )
+  //     );
+  //     setMsgReaded(
+  //       allDataShow[iForChat]?.chat.messages.readed.slice(
+  //         0,
+  //         allDataShow[iForChat].chat.messages.readed.length - 1
+  //       )
+  //     );
+
+  //       let fixTime = msgTime?.map((item, index) => {
+  //         let fixedDate = item.split('/').map(item => item.padStart(2, '0')).join('/');
+  //         let fixedTime = fixedDate?.split(':').map(item => item.padStart(2, '0')).join(':');
+  //         return fixedTime;
+  //       });
+
+  //       setMsgTime(fixTime && fixTime);
+  //   }
+  // }, [allDataShow]);
+
+
   useEffect(() => {
     if (allDataShow[0]) {
-      setChat(
-        allDataShow[iForChat]?.chat.messages.msg
-          ? allDataShow[iForChat].chat.messages.msg
-              .split("\n")
-              .slice(
-                0,
-                allDataShow[iForChat].chat.messages.msg.split("\n").length - 1
-              )
-          : []
-      );
-      setMsgTime(
-        allDataShow[iForChat]?.chat.messages.time
+      const chatMessages = allDataShow[iForChat]?.chat.messages.msg;
+      const msgTimeArr = allDataShow[iForChat]?.chat.messages.time;
+      const msgReadedArr = allDataShow[iForChat]?.chat.messages.readed;
+
+      if (chatMessages) {
+        const chat = chatMessages
           .split("\n")
-          .slice(
-            0,
-            allDataShow[iForChat].chat.messages.time.split("\n").length - 1
-          )
-      );
-      setMsgReaded(
-        allDataShow[iForChat]?.chat.messages.readed.slice(
-          0,
-          allDataShow[iForChat].chat.messages.readed.length - 1
-        )
-      );
+          .slice(0, chatMessages.split("\n").length - 1);
+        setChat(chat);
+      } else {
+        setChat([]);
+      }
 
-      //   let fixTime = msgTime?.map((item, index) => {
-      //     let fixedDate = item.split('/').map(item => item.padStart(2, '0')).join('/');
-      //     let fixedTime = fixedDate?.split(':').map(item => item.padStart(2, '0')).join(':');
-      //     return fixedTime;
-      //   });
+      if (msgTimeArr) {
+        const msgTime = msgTimeArr.split("\n").slice(0, msgTimeArr.split("\n").length - 1);
+        const fixTime = msgTime.map((item) => {
+          const fixedDate = item.split('/').map((item) => item.padStart(2, '0')).join('/');
+          const fixedTime = fixedDate.split(':').map((item) => item.padStart(2, '0')).join(':');
+          return fixedTime;
+        });
+        setMsgTime(fixTime);
+        setOriginalMsgTime(fixTime);
+      } else {
+        setMsgTime([]);
+      }
 
-      //   setMsgTime(fixTime && fixTime);
+      if (msgReadedArr) {
+        const msgReaded = msgReadedArr.slice(0, msgReadedArr.length - 1);
+        setMsgReaded(msgReaded);
+      } else {
+        setMsgReaded([]);
+      }
     }
-  }, [allDataShow]);
+  }, [allDataShow, iForChat]);
+
+
+
 
   useEffect(() => {
     if (chat[0]) {
@@ -125,9 +168,21 @@ export default function TheChat({
   };
 
   const chatFilter = (filter) => {
-    const searchResults = chat.filter((item) => item.includes(filter));
-    // console.log("🚀 ~ file: TheChat.jsx:60 ~ chatFilter ~ searchResults:", searchResults)
-    // const searchResultsTime = msgTime.filter(item => item.includes(filter));
+    const theChat = allDataShow[iForChat].chat.messages.msg.split("\n").slice(0, allDataShow[iForChat].chat.messages.msg.split("\n").length - 1)
+    setMsgTime(msgTime);
+    // console.log(theChat)
+
+    const searchResults = theChat.filter((item) => item.includes(filter));
+    setChat(searchResults);
+    // console.log(searchResults)
+
+    const newChatPosition = [];
+    theChat.forEach((position, i) => { if (searchResults.includes(position)) { newChatPosition.push(i); } });
+    // console.log(newChatPosition)
+
+    const newTime = [];
+    newChatPosition.forEach((position) => { if (position >= 0 && position < originalMsgTime.length) { newTime.push(originalMsgTime[position]); } });
+    setMsgTime(newTime);
   };
 
   return (
@@ -152,19 +207,21 @@ export default function TheChat({
               onClick={() => {
                 setSearch(!search);
               }}
-              title="חפש"
             >
-              <BiSearchAlt size={25} />
+              {search
+                ? <AiOutlineCloseCircle title="סגור חיפוש" size={25} />
+                : <BiSearchAlt title="חיפוש" size={25} />
+              }
             </div>
             {search && (
-              <div className="div_chat_search">
+              <div className="div_chat_search p-2">
                 <input
                   type="text"
                   className="chat_search"
                   onChange={(e) => {
                     chatFilter(e.target.value);
                   }}
-                  placeholder="הכנס מילות חיפוש"
+                  placeholder="הקלד כדי לחפש..."
                 />
               </div>
             )}
@@ -182,11 +239,10 @@ export default function TheChat({
               {chat.map((msg, i) => (
                 <div
                   key={i}
-                  className={`d-flex${
-                    msg.split("}")[0].slice(1) === currentUser.username
-                      ? " justify-content-start"
-                      : " justify-content-end"
-                  }`}
+                  className={`d-flex${msg.split("}")[0].slice(1) === currentUser.username
+                    ? " justify-content-start"
+                    : " justify-content-end"
+                    }`}
                 >
                   <div className="the_message mx-1 p-1 mt-2 text-light">
                     <samp>
@@ -201,7 +257,7 @@ export default function TheChat({
                       </div>
                       <div className="my-1 mb-2 fs-5">{msg.split("}")[1]}</div>
                       {!msgReaded[i] &&
-                      !(msg.split("}")[0].slice(1) === currentUser.username) ? (
+                        !(msg.split("}")[0].slice(1) === currentUser.username) ? (
                         <div
                           className="form-check form-switch d-flex justify-content-between mx-2"
                           dir="ltr"
@@ -217,20 +273,20 @@ export default function TheChat({
                             role="switch"
                             id="switchCheck"
                           />
-                          <div className="fs-6">{msgTime[i]}</div>
+                          <div dir="rtl" className="fs-6">{msgTime[i]}</div>
                         </div>
                       ) : (
                         <div>
                           {msgReaded[i] ? (
                             <div className="d-flex justify-content-between mx-2">
-                              <div className="fs-6">{msgTime[i]}</div>
+                              <div dir="rtl" className="fs-6">{msgTime[i]}</div>
                               <div className="">
                                 <BsCheck2All color="skyblue" />
                               </div>
                             </div>
                           ) : (
                             <div className="d-flex justify-content-between mx-2">
-                              <div className="fs-6">{msgTime[i]}</div>
+                              <div dir="rtl" className="fs-6">{msgTime[i]}</div>
                               <div className="">
                                 <BsCheck2All color="white" />
                               </div>
@@ -243,9 +299,13 @@ export default function TheChat({
                 </div>
               ))}
             </div>
+          ) : originalMsgTime[0] ? (
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "305px" }}>
+              <div>לא נמצאו תוצאות</div>
+            </div>
           ) : (
-            <div style={{ minHeight: "305px" }}>
-              <div className="d-flex justify-content-center my-3">ברוכים הבאים {currentUser?.username}!</div>
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "305px" }}>
+              <div>ברוכים הבאים {currentUser?.username}!</div>
             </div>
           )}
           <div className="sticky-bottom" onClick={scrollToDown}>
