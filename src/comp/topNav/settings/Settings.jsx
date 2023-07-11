@@ -59,7 +59,7 @@ const usersTable = () => {
   return (<>
    {!loading ? (<div className="container mt-5">
     <div className="d-flex justify-content-between">
-      <h2 className="mt-5">סביבת עבודה</h2>
+      <h3 className="mt-5 chat_name">סביבת עבודה</h3>
       {addNewUser && (
         <div
           onClick={() => setAddNewUser(!addNewUser)}
