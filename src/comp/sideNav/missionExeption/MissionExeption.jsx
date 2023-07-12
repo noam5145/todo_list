@@ -72,7 +72,8 @@ export default function MissionExeption() {
 
         <div ref={componentToPrint} className="mt-5 p-0">
           <div className="d-flex justify-content-between  mx-4">
-            <div className="d-flex">
+
+            <div className="d-flex chat_name">
               <h4 >משימות בחריגה</h4> 
               </div>
                 <div className="d-flex mx-5 align-items-center">
@@ -176,6 +177,7 @@ export default function MissionExeption() {
       )}
     </>
   );
+
 
 
 
