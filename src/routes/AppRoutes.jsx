@@ -26,7 +26,7 @@ export default function AppRoutes() {
   return (
     <>
     <div className="" style={{height:"100vh", width:"100%"}}>
-      {currentUser?.username ? <>
+      {/* {currentUser?.username ? <> */}
       <TopNav/>
       <div className="d-flex bg-light">
       <SideNav/>
@@ -54,8 +54,9 @@ export default function AppRoutes() {
         <Route path="/missionExeption" element={<MissionExeption />} />
         </>}
       </Routes>
-      </div></>
-      :  <Login />}
+      </div>
+      {/* </>
+      :  <Login />} */}
       </div>
     </>
   );
