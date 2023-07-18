@@ -31,7 +31,7 @@ export default function AppRoutes() {
       <div className="d-flex bg-light">
       <SideNav/>
       <Routes>
-        {currentUser.access !== 'admin'  ? <>
+        {currentUser?.access !== 'admin'  ? <>
         <Route path="/" element={<MainSite />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/chat" element={<TheChat />} />
@@ -55,8 +55,8 @@ export default function AppRoutes() {
         </>}
       </Routes>
       </div>
-      {/* </>
-      :  <Login />} */}
+      {/* </> */}
+      {/* :  <Login />} */}
       </div>
     </>
   );
