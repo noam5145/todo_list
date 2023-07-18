@@ -48,6 +48,7 @@ export default function TopNav() {
     window.addEventListener("click", () => setSettings(false));
   }, []);
   return (
+    <>
     <div className="row m-0 align-items-center top_nav sticky-top">
       <div className="col-4 d-flex mx-sm-3 mx-0 logo">
         <img src={Logo} alt="" height={100} width={155} />
@@ -69,7 +70,7 @@ export default function TopNav() {
             <FaTasks className="cursor" size={25} color="gray" />
           </Link>
         </div>
-        {currentUser.access === 'admin' &&
+        {currentUser?.access === 'admin' &&
         <div className="icons">
           <Link className=" nav-link" to={"/settings"}>
             <BsPersonWorkspace className="cursor" size={25} color="gray" />
@@ -78,5 +79,6 @@ export default function TopNav() {
         {currentUser?.username}
       </div>
     </div>
+    </>
   );
 }
