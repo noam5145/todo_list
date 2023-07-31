@@ -6,7 +6,7 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import "./topNav.css";
 import { MyContext } from "../../App";
 import Logo from "../../../images/logo_mission_360.png";
-import { Badge } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 
 export default function TopNav() {
   const [currentTime, setCurrentTime] = useState(time());
@@ -70,12 +70,24 @@ export default function TopNav() {
           </Link>
         </div>
         {currentUser.access === 'admin' &&
-        <div className="icons">
-          <Link className=" nav-link" to={"/settings"}>
-            <BsPersonWorkspace className="cursor" size={25} color="gray" />
-          </Link>
-        </div>}
-        {currentUser?.username}
+          <div className="icons">
+            <Link className=" nav-link" to={"/settings"}>
+              <BsPersonWorkspace className="cursor" size={25} color="gray" />
+            </Link>
+          </div>}
+        <div className="d-flex">
+          <div className="mx-1">          
+          <Avatar src="https://d3m9l0v76dty0.cloudfront.net/system/photos/9254485/large/c902cf9c692b359deb444e378e702622.jpg" />
+          </div>
+          <div className="my-1 mx-1">          
+          {currentUser?.username}
+          </div>
+        </div>
+        <div className="">
+          <button className="btn bg-success">
+             יצירת סביבה חדשה  +
+          </button>
+        </div>
       </div>
     </div>
   );
