@@ -70,7 +70,7 @@ export default function TopNav() {
             <FaTasks className="cursor" size={25} color="gray" />
           </Link>
         </div>
-        {currentUser.access === 'admin' &&
+        {currentUser?.access === 'admin' &&
           <div className="icons">
             <Link className=" nav-link" to={"/settings"}>
               <BsPersonWorkspace className="cursor" size={25} color="gray" />
