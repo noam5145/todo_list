@@ -52,7 +52,7 @@ export default function Exception() {
           verticalAlign: "center",
           // fontFamily: 'ariel',
           fontSize: 30,
-          dockInsidePlotArea: true
+          dockInsidePlotArea: true,
         }],
         // backgroundColor: "#080807",
         colorSet: "loby",

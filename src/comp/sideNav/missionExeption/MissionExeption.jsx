@@ -31,21 +31,21 @@ export default function MissionExeption() {
     content: () => componentToPrint.current,
   });
 
-
   const sortMsgByCommand = (mission)=>{
     let messages = mission.chat.messages.msg.split('\n');
     messages = messages.reverse();
-    let noteCommand = '---';
+    let noteCommand1 = '---';
     messages.map((msg, i)=>{
       if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
-        noteCommand = msg.split('}')[1];
+        noteCommand1= msg.split('}')[1];
       }
     })
-    if (!noteCommand) {
-      noteCommand="---"; 
+    if (!noteCommand1) {
+      noteCommand1="---"; 
      
     }
-    return noteCommand;
+    return noteCommand1;
+
   }
 
   const sortMsgByUser = (mission)=>{
@@ -72,6 +72,7 @@ export default function MissionExeption() {
 
         <div ref={componentToPrint} className="mt-5 p-0">
           <div className="d-flex justify-content-between  mx-4">
+
             <div className="d-flex chat_name">
               <h4 >משימות בחריגה</h4> 
               </div>
@@ -174,8 +175,9 @@ export default function MissionExeption() {
           </div>
         </div>
       )}
-    </>
-  );
+    </>
+  );
+
 
 
 

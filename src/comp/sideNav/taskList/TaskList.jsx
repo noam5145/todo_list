@@ -137,7 +137,7 @@ export default function TaskList() {
 
   return (
     <>
-      {!loading && currentUser.username ? (
+      {!loading && currentUser?.username ? (
         <div className="container-fluid linear">
           <div className="mt-5 p-0">
             <div className="d-flex justify-content-between mx-5">
@@ -152,7 +152,7 @@ export default function TaskList() {
                     סה"כ משימות: {allDataShow.length}
                   </div>
                 )}
-                {currentUser.access === "admin" && (
+                {currentUser?.access === "admin" && (
                   <>
                     <button
                       className="btn bg-secondary text-light"

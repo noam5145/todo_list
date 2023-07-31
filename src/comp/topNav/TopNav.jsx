@@ -48,6 +48,7 @@ export default function TopNav() {
     window.addEventListener("click", () => setSettings(false));
   }, []);
   return (
+    <>
     <div className="row m-0 align-items-center top_nav sticky-top">
       <div className="col-4 d-flex mx-sm-3 mx-0 logo">
         <img src={Logo} alt="" height={100} width={155} />
@@ -70,24 +71,12 @@ export default function TopNav() {
           </Link>
         </div>
         {currentUser.access === 'admin' &&
-          <div className="icons">
-            <Link className=" nav-link" to={"/settings"}>
-              <BsPersonWorkspace className="cursor" size={25} color="gray" />
-            </Link>
-          </div>}
-        <div className="d-flex">
-          <div className="mx-1">          
-          <Avatar src="https://d3m9l0v76dty0.cloudfront.net/system/photos/9254485/large/c902cf9c692b359deb444e378e702622.jpg" />
-          </div>
-          <div className="my-1 mx-1">          
-          {currentUser?.username}
-          </div>
-        </div>
-        <div className="">
-          <button className="btn bg-success">
-             יצירת סביבה חדשה  +
-          </button>
-        </div>
+        <div className="icons">
+          <Link className=" nav-link" to={"/settings"}>
+            <BsPersonWorkspace className="cursor" size={25} color="gray" />
+          </Link>
+        </div>}
+        {currentUser?.username}
       </div>
     </div>
   );
