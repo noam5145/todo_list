@@ -80,6 +80,7 @@ export default function CountUser() {
          
               title:{
                   text: "סטטוס חריגה לפי אחריות",
+                  fontWeight: "normal",
                   //fontFamily: 'Ariel',
                   fontSize: 36
               },
@@ -87,6 +88,7 @@ export default function CountUser() {
               //     title: "",
               //     reversed: true,
               // },
+
               axisY: {
                   title: "",
                   includeZero: true,
