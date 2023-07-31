@@ -140,8 +140,8 @@ export default function TaskList() {
       {!loading && currentUser?.username ? (
         <div className="container-fluid linear">
           <div className="mt-5 p-0">
-            <div className="d-flex justify-content-between chat_name mx-5">
-              <h4>מאגר משימות</h4>
+            <div className="d-flex justify-content-between mx-5">
+              <h4 className="chat_name">מאגר משימות</h4>
               <span className="d-flex">
                 {missions.length != allDataShow.length ? (
                   <div className="mx-5 pt-2">
