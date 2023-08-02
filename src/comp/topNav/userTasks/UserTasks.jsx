@@ -21,8 +21,8 @@ export default function UserTasks() {
 
   return (
     <>
-    <TaskList/>
-      {/* {!loading ? (
+    {/* <TaskList/> */}
+      {!loading ? (
         <div className="container mt-5">
           <h3 className="chat_name">המשימות שלי </h3>
 
@@ -120,7 +120,7 @@ export default function UserTasks() {
             />
           </div>
         </div>
-      )} */}
+      )}
     </>
   );
 }

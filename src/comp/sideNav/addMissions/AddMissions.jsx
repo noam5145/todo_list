@@ -324,7 +324,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
   }
 
   return (<>
-    {!loading ? (<div dir="rtl">
+    <div dir="rtl">
       <div className="bg-white mx-5 my-5">
     {!editSingleMission 
     ? <h3 className="d-flex justify-content-center mb-4 add_m_title" >הוספת משימה </h3>
@@ -587,14 +587,7 @@ export default function AddMissions({ editSingleMission, closeDialog, notifyadd,
         </div>
       </div>
 
-    </div>) : (
-      <div className="container">
-
-        <div className="d-flex justify-content-center align-items-center my-5">
-          <CircularProgress />
-        </div>
-      </div>
-    )}
+    </div>
   </>
 
   );
