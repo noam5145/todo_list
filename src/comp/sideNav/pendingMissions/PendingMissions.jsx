@@ -200,7 +200,7 @@ let tempMission=missions.find((mission)=>{
 
                       <div className="col-2 the_table-pen  text-center align-missions-center ">
                        
-                        <p></p>
+                        <p>{mission.changeStatus}</p>
                       </div>
                     
                       <div className="col-1  the_table-pen text-center">
