@@ -141,11 +141,9 @@ let tempMission=missions.find((mission)=>{
                   ימי חריגה<span title="מיין לפי גדול/קטן"></span>
                 </div> */}
                     <div className="col-2 top_table-pen text-center">
-                      הערות אחראי<span title="מיין לפי גדול/קטן"></span>
+                    נשלח על ידי<span title="מיין לפי גדול/קטן"></span>
                     </div>
-                    <div className="col-2 top_table-pen text-center">
-                      הערות מפקד<span title="מיין לפי גדול/קטן"></span>
-                    </div>
+                   
                     <div className="col-1 top_table-pen text-center">
                       אישור<span title="מיין לפי גדול/קטן"></span>
                     </div>
@@ -201,27 +199,10 @@ let tempMission=missions.find((mission)=>{
                       </div>
 
                       <div className="col-2 the_table-pen  text-center align-missions-center ">
-                        <p
-                          className={`p_taskdetail-pen p-2 ${
-                            sortMsgByUser(mission)?.length < 40
-                              ? "d-flex align-items-center"
-                              : ""
-                          }`}
-                        >
-                          {sortMsgByUser(mission)}
-                        </p>
+                       
+                        <p></p>
                       </div>
-                      <div className="col-2 the_table-pen  text-center  align-missions-center">
-                        <p
-                          className={`p_taskdetail-pen p-2 ${
-                            sortMsgByCommand(mission)?.length < 40
-                              ? "d-flex align-items-center"
-                              : ""
-                          }`}
-                        >
-                          {sortMsgByCommand(mission)}
-                        </p>
-                      </div>
+                    
                       <div className="col-1  the_table-pen text-center">
                         <button
                           onClick={() => aprrove(mission._id)}

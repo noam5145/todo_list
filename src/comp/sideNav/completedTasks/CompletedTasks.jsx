@@ -103,11 +103,9 @@ export default function CompletedTasks() {
                  תג"ב<span title="מיין לפי גדול/קטן"></span>
                </div>
                <div className="col-2 top_table-Archive text-center">
-                 הערות אחראי<span title="מיין לפי גדול/קטן"></span>
+            נשלח על ידי<span title="מיין לפי גדול/קטן"></span>
                </div>
-               <div className="col-2 top_table-Archive text-center">
-                 הערות מפקד<span title="מיין לפי גדול/קטן"></span>
-               </div>
+               
              </div>
            </span>
            {archive.length != 0 ? (
@@ -139,15 +137,11 @@ export default function CompletedTasks() {
                    {mission.endedAt}
                  </div>
                  <div className="col-2 the_table-Archive  text-center align-missions-center ">
-                 <p className={`p_taskdetail-Archive p-2 ${sortMsgByUser(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
-                     {sortMsgByUser(mission)}
-                   </p>
+                 <p>
+                
+                 </p>
                  </div>
-                 <div className="col-2 the_table-Archive  text-center  align-missions-center">
-                 <p className={`p_taskdetail-Archive p-2 ${sortMsgByCommand(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
-                     {sortMsgByCommand(mission)}
-                   </p>
-                 </div>
+                 
                </div>
              ))
            ) : (
