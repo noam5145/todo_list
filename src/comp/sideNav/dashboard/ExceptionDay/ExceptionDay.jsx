@@ -31,6 +31,7 @@ const getDataExceptionDay = ()=>{
 			// 	a.push({x: item?.startedAt,y:1})
 			// }
 		})
+		
 	}
 	useEffect(()=>{
 		

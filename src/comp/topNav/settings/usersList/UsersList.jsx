@@ -43,7 +43,7 @@ deleteUser(_id, token);
               {user.access}
             </div>
             <div className="col-1 the_table d-flex justify-content-center text-center "
-              onClick={()=> delete_user(user._id,currentUser.token)}
+              onClick={()=> delete_user(user._id,currentUser?.token)}
             >
               <AiOutlineDelete className="cursor" size={20} 
             

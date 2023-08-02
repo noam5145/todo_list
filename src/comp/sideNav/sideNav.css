@@ -10,7 +10,7 @@
 
 .animaOpen{
   animation-name: open;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 .animaClose{
   animation-name: close;

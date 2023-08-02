@@ -137,11 +137,11 @@ export default function TaskList() {
 
   return (
     <>
-      {!loading && currentUser.username ? (
+      {currentUser?.username ? (
         <div className="container-fluid linear">
           <div className="mt-5 p-0">
-            <div className="d-flex justify-content-between chat_name mx-5">
-              <h4>מאגר משימות</h4>
+            <div className="d-flex justify-content-between mx-5">
+              <h4 className="chat_name">מאגר משימות</h4>
               <span className="d-flex">
                 {missions.length != allDataShow.length ? (
                   <div className="mx-5 pt-2">
@@ -152,7 +152,7 @@ export default function TaskList() {
                     סה"כ משימות: {allDataShow.length}
                   </div>
                 )}
-                {currentUser.access === "admin" && (
+                {currentUser?.access === "admin" && (
                   <>
                     <button
                       className="btn bg-secondary text-light"
@@ -212,7 +212,7 @@ export default function TaskList() {
                 <div className="container d-flex justify-content-center mt-5">
                   <TbSearchOff className="my-1 mx-2" size={25} />
                   <h3 className="mx-1">
-                    אופס, לא מצאנו מה שחיפשת,נסה לשנות את מונחי החיפוש.
+                    אופס, לא מצאנו מה שחיפשת נסה לשנות את מונחי החיפוש.
                   </h3>
                 </div>
               )}

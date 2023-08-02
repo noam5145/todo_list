@@ -48,7 +48,7 @@ export default function PendingApproval() {
           dockInsidePlotArea: true
         }],
         // backgroundColor: "#080807",
-        colorSet: "loby",
+        colorSet: "loby3",
         data: [{
           type: "doughnut",
           showInLegend: false,
@@ -59,8 +59,8 @@ export default function PendingApproval() {
       })
     }
 
-      CanvasJS.addColorSet("loby", [
-    "#faf7f7","#f01111"
+      CanvasJS.addColorSet("loby3", [
+    "#faf7f7","#0288d1"
   ])
 
   },[missionCounter])

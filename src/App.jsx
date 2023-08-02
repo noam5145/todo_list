@@ -68,22 +68,22 @@ useEffect(() => {
 }, [socketIo])
 
   const newMission = async(mission, token)=>{
-    setLoading(true)
+    // setLoading(true)
     let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){
       return console.log(res.data.err);
     }
     socketIo.emit('updateNewMission',{});
-    setLoading(false);
+    // setLoading(false);
   }
   const getAllMissions = async (token)=>{
-    setLoading(true)
+    // setLoading(true)
     let res = await axios.get( base_url + 'mission', {params: {token: token}});
     if(res.data.err){
       return console.log(res.data.err);
     }
     setMissions(res.data);
-    setLoading(false);
+    // setLoading(false);
   }
   const getAllArchives = async (adminToken)=>{
     setLoading(true)

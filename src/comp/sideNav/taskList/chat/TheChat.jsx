@@ -10,16 +10,16 @@ import { MyContext } from "../../../../App";
 import { GrPowerReset } from "react-icons/gr";
 
 export default function TheChat({
-  setChatOpen,
-  chatOpen,
-  iForChat,
-  chat,
-  setChat,
-  msgTime,
+  setChatOpen,// open chat
+  chatOpen,// 
+  iForChat,// i location
+  chat,// item
+  setChat,// 
+  msgTime,// chat time 
   setMsgTime,
-  msgReaded,
+  msgReaded,// if reding
   setMsgReaded,
-  allDataShow,
+  allDataShow,// missions
 }) {
   const { currentUser, updateChat, socketIo } = useContext(MyContext);
   const [called, setCalled] = useState(false);
@@ -27,42 +27,6 @@ export default function TheChat({
   const [search, setSearch] = useState(false);
   const messageRef = useRef();
 
-  // useEffect(() => {
-  //   if (allDataShow[0]) {
-  //     setChat(
-  //       allDataShow[iForChat]?.chat.messages.msg
-  //         ? allDataShow[iForChat].chat.messages.msg
-  //             .split("\n")
-  //             .slice(
-  //               0,
-  //               allDataShow[iForChat].chat.messages.msg.split("\n").length - 1
-  //             )
-  //         : []
-  //     );
-  //     setMsgTime(
-  //       allDataShow[iForChat]?.chat.messages.time
-  //         .split("\n")
-  //         .slice(
-  //           0,
-  //           allDataShow[iForChat].chat.messages.time.split("\n").length - 1
-  //         )
-  //     );
-  //     setMsgReaded(
-  //       allDataShow[iForChat]?.chat.messages.readed.slice(
-  //         0,
-  //         allDataShow[iForChat].chat.messages.readed.length - 1
-  //       )
-  //     );
-
-  //       let fixTime = msgTime?.map((item, index) => {
-  //         let fixedDate = item.split('/').map(item => item.padStart(2, '0')).join('/');
-  //         let fixedTime = fixedDate?.split(':').map(item => item.padStart(2, '0')).join(':');
-  //         return fixedTime;
-  //       });
-
-  //       setMsgTime(fixTime && fixTime);
-  //   }
-  // }, [allDataShow]);
 
 
   useEffect(() => {

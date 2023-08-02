@@ -96,7 +96,7 @@ export default function SideNav() {
               )}
             </Link>
           </div>
-          {currentUser.access === 'admin' && <>
+          {currentUser?.access === 'admin' && <>
             <div
               onClick={() => changeClick(2)}
               className={click[2] ? "b_c_icon" : ""}
