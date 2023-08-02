@@ -100,17 +100,18 @@ export default function MissionExeption() {
                   תג"ב
                 </div>
                 <div className="col-1 top_table-Ex text-center">
+                  מסגרת
+                </div>
+                <div className="col-2 top_table-Ex text-center">
+                 שיתופים
+                </div>
+                <div className="col-2 top_table-Ex text-center">
                   אחריות
                 </div>
                 <div className="col-1 top_table-Ex text-center">
                   ימי חריגה
                 </div>
-                <div className="col-2 top_table-Ex text-center">
-                  הערות אחראי
-                </div>
-                <div className="col-2 top_table-Ex text-center">
-                  הערות מפקד
-                </div>
+              
               </div>
             </span>
             {
@@ -144,20 +145,16 @@ export default function MissionExeption() {
                       </div>
 
                     </div>
+                    <div className="col-2 the_table-Ex text-center">
+                  אחריות
+                </div>
+                <div className="col-2 the_table-Ex text-center">
+                  אחריות
+                </div>
                     <div className="col-1 the_table-Ex text-center ">
                       {Math.abs(daysOff(mission.endedAt))}
                     </div>
-                    <div className="col-2 the_table-Ex  text-center align-missions-center ">
-                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByUser(mission)?.length< 40 ? "d-flex align-items-center" : ""}`}>
-
-                        {sortMsgByUser(mission)}
-                      </p>
-                    </div>
-                    <div className="col-2 the_table-Ex  text-center  align-missions-center">
-                    <p className={`p_taskdetail-Ex p-2 ${sortMsgByCommand(mission)?.length<40 ? "d-flex align-items-center" : ""}`}>
-                        {sortMsgByCommand(mission)}
-                      </p>
-                    </div>
+                   
                   </div>
                 )
                 )
