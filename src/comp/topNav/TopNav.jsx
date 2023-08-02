@@ -52,46 +52,54 @@ export default function TopNav() {
   }, []);
   return (
     <>
-    <div className="row m-0 align-items-center top_nav sticky-top">
-      <div className="col-4 d-flex mx-sm-3 mx-0 logo">
-        <img src={Logo} alt="" height={100} width={155} />
-      </div>
-      <div className="col-7 d-flex mx-0 justify-content-around">
-        <span>{currentTime}</span>
-        <div className="">
-          <Link className=" " to={"/alerts"}>
-            <div>
-              {" "}
-              <Badge badgeContent={newMissions.length} color="secondary">
-                <LuMail className="cursor" size={25} color="gray" />
-              </Badge>
-            </div>
-          </Link>
+      <div className="row m-0 align-items-center top_nav sticky-top">
+        <div className="col-4 d-flex mx-sm-3 mx-0 logo">
+          <img src={Logo} alt="" height={100} width={155} />
         </div>
-        <div className="">
-          <Link className=" " to={"/UserTasks"}>
-            <FaTasks className="cursor" size={25} color="gray" />
-          </Link>
-        </div>
-        {currentUser?.access === 'admin' &&
-          <div className="icons">
-            <Link className=" nav-link" to={"/settings"}>
-              <BsPersonWorkspace className="cursor" size={25} color="gray" />
+        <div className="col-7 d-flex mx-0 justify-content-around">
+          <span>{currentTime}</span>
+          <div className="">
+            <Link className=" " to={"/alerts"}>
+              <div>
+                {" "}
+                <Badge badgeContent={newMissions.length} color="secondary">
+                  <LuMail className="cursor" size={25} color="gray" />
+                </Badge>
+              </div>
             </Link>
-          </div>}
-        <div className="d-flex">
-          <div className="mx-1">          
-          <Avatar src="https://d3m9l0v76dty0.cloudfront.net/system/photos/9254485/large/c902cf9c692b359deb444e378e702622.jpg" />
           </div>
-          <div className="my-1 mx-1">          
-          {currentUser?.username}
+          <div className="">
+            <Link className=" " to={"/UserTasks"}>
+              <FaTasks className="cursor" size={25} color="gray" />
+            </Link>
           </div>
-        </div>
-        <div className="">
-          <button className="btn bg-success">
-             יצירת סביבה חדשה  +
-          </button>
-        </div>
+          {currentUser?.access === 'admin' &&
+            <div className="icons">
+              <Link className=" nav-link" to={"/settings"}>
+                <BsPersonWorkspace className="cursor" size={25} color="gray" />
+              </Link>
+            </div>}
+          <div className="d-flex">
+            <div className="mx-1">
+              {/* <Avatar src="https://d3m9l0v76dty0.cloudfront.net/system/photos/9254485/large/c902cf9c692b359deb444e378e702622.jpg" /> */}
+            </div>
+            <div className="my-1 mx-1">
+              {currentUser?.username}
+            </div>
+          </div>
+          <div className="">
+            <button className="btn bg-success" onClick={() => setOpen(true)}>
+              יצירת סביבה חדשה  +
+            </button>
+            <Dialog
+              open={open}
+              onClose={() => setOpen(false)}
+            >
+              <div>
+                <NewEnvironment setOpen={setOpen}/>
+                </div>
+            </Dialog>
+          </div>
 
         </div>
       </div>

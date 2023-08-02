@@ -137,7 +137,7 @@ export default function TaskList() {
 
   return (
     <>
-      {!loading && currentUser?.username ? (
+      {currentUser?.username ? (
         <div className="container-fluid linear">
           <div className="mt-5 p-0">
             <div className="d-flex justify-content-between mx-5">
