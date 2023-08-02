@@ -212,7 +212,7 @@ export default function TaskList() {
                 <div className="container d-flex justify-content-center mt-5">
                   <TbSearchOff className="my-1 mx-2" size={25} />
                   <h3 className="mx-1">
-                    אופס, לא מצאנו מה שחיפשת,נסה לשנות את מונחי החיפוש.
+                    אופס, לא מצאנו מה שחיפשת נסה לשנות את מונחי החיפוש.
                   </h3>
                 </div>
               )}
