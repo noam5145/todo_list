@@ -3,6 +3,7 @@ import MainSite from "./comp/MainSite";
 import axios from 'axios';
 import AppRoutes from "./routes/AppRoutes";
 const base_url = 'https://server-todolist-xr2q.onrender.com/';
+// const base_url = 'http://localhost:5174/';
 // import Login from "./comp/Login";
 export const MyContext = createContext();
 import io from 'socket.io-client';
@@ -203,6 +204,7 @@ useEffect(() => {
   }
 
   const sendToConfirm = async (mission, uToken)=>{
+    mission.changeStatus = currentUser.username;
     let res = await axios.put(base_url + 'mission/sendToConfirm', {...mission, uToken: uToken});
 
     if(res.data.err){
