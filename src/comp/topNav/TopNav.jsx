@@ -6,11 +6,14 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import "./topNav.css";
 import { MyContext } from "../../App";
 import Logo from "../../../images/logo_mission_360.png";
-import { Avatar, Badge } from "@mui/material";
+import { Avatar, Badge, Button, Dialog } from "@mui/material";
+import NewEnvironment from "../../NewEnvironment";
 
 export default function TopNav() {
   const [currentTime, setCurrentTime] = useState(time());
   const [settings, setSettings] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
   const { currentUser, newMissions, missions } = useContext(MyContext);
   // const [currentUser, setCurrentUser] = useState();
 
@@ -77,9 +80,9 @@ export default function TopNav() {
             </Link>
           </div>}
         <div className="d-flex">
-          {/* <div className="mx-1">          
+          <div className="mx-1">          
           <Avatar src="https://d3m9l0v76dty0.cloudfront.net/system/photos/9254485/large/c902cf9c692b359deb444e378e702622.jpg" />
-          </div> */}
+          </div>
           <div className="my-1 mx-1">          
           {currentUser?.username}
           </div>
@@ -90,8 +93,8 @@ export default function TopNav() {
           </button>
         </div>
 
+        </div>
       </div>
-    </div>
     </>
   );
 }

@@ -88,7 +88,7 @@ export default function Exception() {
   } 
 
   CanvasJS.addColorSet("loby", [
-    "#faf7f7","#f01111"
+    "#faf7f7","#d32f2f"
   ])
 
   return (

@@ -59,7 +59,7 @@ export default function Process() {
           dockInsidePlotArea: true
         }],
         // backgroundColor: "#080807",
-        colorSet: "loby",
+        colorSet: "loby2",
         data: [{
           type: "doughnut",
           showInLegend: false,
@@ -72,8 +72,8 @@ export default function Process() {
 
   },[missionCounter])
 
-  CanvasJS.addColorSet("loby", [
-    "#faf7f7","#f01111"
+  CanvasJS.addColorSet("loby2", [
+    "#faf7f7","#ed6c02"
   ])
 
   return (
