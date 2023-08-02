@@ -77,9 +77,9 @@ export default function TopNav() {
             </Link>
           </div>}
         <div className="d-flex">
-          <div className="mx-1">          
+          {/* <div className="mx-1">          
           <Avatar src="https://d3m9l0v76dty0.cloudfront.net/system/photos/9254485/large/c902cf9c692b359deb444e378e702622.jpg" />
-          </div>
+          </div> */}
           <div className="my-1 mx-1">          
           {currentUser?.username}
           </div>

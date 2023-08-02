@@ -7,7 +7,7 @@
 }
 
 .top_chat {
-    background-color: rgba(60, 87, 23, 0.5);
+    background-color: rgba(15, 108, 130, 0.5);
     height: 50px;
 }
 
@@ -22,7 +22,7 @@
     border: 1px solid beige;
     border-radius: 10px;
     width: 210px;
-    background-color: rgba(60, 87, 23, 0.605);
+    background-color: rgba(15, 108, 130, 0.5);
 }
 
 .bottom_chat {
