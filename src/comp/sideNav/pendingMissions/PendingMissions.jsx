@@ -5,7 +5,7 @@ import { useReactToPrint } from "react-to-print";
 import {AiOutlineLike} from "react-icons/ai"
 import { MyContext } from "../../../App";
 import { Oval } from "react-loader-spinner";
-
+import * as XLSX from "xlsx/xlsx.mjs";
 
 
 
@@ -13,7 +13,7 @@ import { Oval } from "react-loader-spinner";
 export default function PendingMissions() {
 
   const { missions ,updateMission,sendToArchives, currentUser, loading} = useContext(MyContext);
-
+  const [ToExcelPen, setToExcelPen] = useState([]);
   const componentToPrint = useRef();
 
   let [dataPenMission,setData]=useState([]);
@@ -30,6 +30,22 @@ export default function PendingMissions() {
   }
 },[missions])
 
+
+useEffect(()=>{
+
+  setToExcelPen( dataPenMission.map((item) => {
+     return  { 
+        מסד:item['missionId'],
+    כותרת_הפגישה:item["title"],
+       פירוט_הפגישה:item["details"],
+       מועד_קבלת_משימה:item['startedAt'],
+        תגב:item['endedAt'],
+        מסגרת:item['responsibility'].toString(),
+    }
+   
+
+    }))
+  },[dataPenMission])
 
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
@@ -61,45 +77,57 @@ let tempMission=missions.find((mission)=>{
     }
   }
 
-  const sortMsgByCommand = (mission)=>{
-    let messages = mission.chat.messages.msg.split('\n');
-    messages = messages.reverse();
-    let noteCommand = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
-        noteCommand = msg.split('}')[1];
-      }
-    })
-    if (!noteCommand) {
-      noteCommand="---"; 
+  // const sortMsgByCommand = (mission)=>{
+  //   let messages = mission.chat.messages.msg.split('\n');
+  //   messages = messages.reverse();
+  //   let noteCommand = '---';
+  //   messages.map((msg, i)=>{
+  //     if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
+  //       noteCommand = msg.split('}')[1];
+  //     }
+  //   })
+  //   if (!noteCommand) {
+  //     noteCommand="---"; 
      
-    }
-    return noteCommand;
-  }
+  //   }
+  //   return noteCommand;
+  // }
 
-  const sortMsgByUser = (mission)=>{
-    let messages = mission.chat.messages.msg.split('\n');
-    messages = messages.reverse();
-    let noteResponsibility = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
-        noteResponsibility = msg.split('}')[1];
-      }
-    })
-    if (!noteResponsibility) {
-      noteResponsibility="---"; 
+  // const sortMsgByUser = (mission)=>{
+  //   let messages = mission.chat.messages.msg.split('\n');
+  //   messages = messages.reverse();
+  //   let noteResponsibility = '---';
+  //   messages.map((msg, i)=>{
+  //     if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
+  //       noteResponsibility = msg.split('}')[1];
+  //     }
+  //   })
+  //   if (!noteResponsibility) {
+  //     noteResponsibility="---"; 
      
-    }
-    return noteResponsibility;
-  }
+  //   }
+  //   return noteResponsibility;
+  // }
 
+  
+  const toExcel = () => {
+    let dow = window.confirm(" האם אתה בטוח רוצה להוריד לאקסל ?");
+    if (dow) {
+      setTimeout(() => {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(ToExcelPen);
+        XLSX.utils.book_append_sheet(wb, ws, "mySheet1");
+        XLSX.writeFile(wb, "TableMissions .xlsx");
+      }, 1000);
+    }
+  };
 
     return (
       <>
         {!loading ? (
           <div className="container-fluid  mb-2">
-            <div ref={componentToPrint}>
-              <div className="d-flex justify-content-between mt-4">
+            <div className="mt-5 pt-0" ref={componentToPrint}>
+              <div className="d-flex justify-content-between mx-4 mt-4">
                 <div className="d-flex  ">
                   <h4>משימות בהמתנה לאישור</h4>
                 </div>
@@ -107,6 +135,7 @@ let tempMission=missions.find((mission)=>{
                   <p className="numOfExMission m-2">
                     סה"כ משימות בהמתנה לאישור: {dataPenMission.length}{" "}
                   </p>
+                  <button onClick={toExcel}   className="btn m-3  bg-secondary text-light">Ecxel</button>
                   <button
                     onClick={handlePrintEx}
                     className="btn   bg-secondary text-light  m-3"
