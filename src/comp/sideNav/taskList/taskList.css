@@ -31,6 +31,7 @@
     background-color: rgb(255,228, 196);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
     font-weight: bold;
+    font-size: small;
 }
 .the_table_search{
     height: 45px;
@@ -50,7 +51,21 @@
     border: 0.5px solid rgba(0, 0, 0, 0.1);
     background-color: rgb(255, 228,196 ,0.608);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
+    font-size: small;
+    overflow-x: hidden;
+    padding: 2px;
 } 
+.responsibility{
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 228,196 ,0.608);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;  
+    font-size: small;
+    padding: 0px;
+}
 .the_table:hover{
     background-color: rgb(255, 228,196 ,0.4);
 }
@@ -80,10 +95,11 @@
 
 .task_responsibility{
     height: 90px;
-    margin: 0;
+    margin: 0px;
     overflow-y: auto;
     font-size: 15px;
     padding: 3.5px;
+    font-size: small
 }
 
 .cursor{
@@ -167,4 +183,7 @@ height: 100px;
   @keyframes d9 {
     58%,
     100% {transform: rotate(calc(var(--s,1)*1turn))}
+  }
+  .fontSizeTable{
+    font-size: small;
   }
