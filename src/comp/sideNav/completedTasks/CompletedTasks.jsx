@@ -4,6 +4,7 @@ import "./completedtasks.css";
 import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
 import { Oval } from "react-loader-spinner";
+import BottomNav from "../../botoomNav/bottomNav";
 
 export default function CompletedTasks() {
   const { missions, archive, currentUser, loading } = useContext(MyContext);

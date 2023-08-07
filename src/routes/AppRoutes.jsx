@@ -14,6 +14,7 @@ import MainSite from "../comp/MainSite";
 import CompletedTasks from "../comp/sideNav/completedTasks/CompletedTasks";
 import TheChat from "../comp/sideNav/taskList/chat/TheChat";
 import Login from '../comp/Login';
+import BottomNav from "../comp/botoomNav/bottomNav";
 
 
 
@@ -28,6 +29,7 @@ export default function AppRoutes() {
       <TopNav/>
       <div className="d-flex bg-light">
       <SideNav/>
+      
       <Routes>
         {currentUser?.access !== 'admin'  ? <>
         <Route path="/" element={<MainSite />} />
@@ -49,8 +51,8 @@ export default function AppRoutes() {
         </>}
       </Routes>
       </div>
-      {/* </>
-      :  <Login />} */}
+      {/* </> */}
+      {/* :  <Login />} */}
       </div>
     </>
   );
