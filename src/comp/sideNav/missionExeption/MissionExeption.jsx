@@ -1,11 +1,10 @@
-// import LayoutMissionExeption from "./LayoutMissionExeption/LayoutMissionExeption";
 import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./missionExeption.css";
 import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
 import { CircularProgress } from "@mui/material";
-import BottomNav from "../../botoomNav/bottomNav";
+import * as XLSX from "xlsx/xlsx.mjs";
 
 
 
@@ -14,6 +13,7 @@ export default function MissionExeption() {
 
   const { missions, daysOff, endAtChanged, loading,currentUser } = useContext(MyContext);
   const componentToPrint = useRef();
+  const [ToExcel, setToExcel] = useState([]);
   let [dataExMission, setData] = useState([]);
 
 
@@ -22,49 +22,43 @@ export default function MissionExeption() {
     let temp = missions.map((mission) => {
       return daysOff(mission.endedAt, mission.status) < 0 ? mission : ""
       //  return mission.status=="בחריגה"?mission:""
-
     })
-
-    setData(temp?.filter((item) => item != ""));
+    setData(temp?.filter((item) => item != "")); 
   }, [missions])
+ 
+
+  useEffect(()=>{
+
+  setToExcel( dataExMission.map((item) => {
+     return {  מסד:item['missionId'],
+    כותרת_הפגישה:item["title"],
+       פירוט_הפגישה:item["details"],
+        תגב:item['endedAt'],
+        מסגרת:item['responsibility'].toString(),
+    ימי_חריגה:  Math.abs(daysOff(item.endedAt)),
+    }
+   
+
+    }))
+  },[dataExMission])
+
+  console.log(ToExcel);
 
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
 
-  const sortMsgByCommand = (mission)=>{
-    let messages = mission.chat.messages.msg.split('\n');
-    messages = messages.reverse();
-    let noteCommand1 = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
-        noteCommand1= msg.split('}')[1];
-      }
-    })
-    if (!noteCommand1) {
-      noteCommand1="---"; 
-     
+  const toExcel = () => {
+    let dow = window.confirm(" האם אתה בטוח רוצה להוריד לאקסל ?");
+    if (dow) {
+      setTimeout(() => {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(ToExcel);
+        XLSX.utils.book_append_sheet(wb, ws, "mySheet1");
+        XLSX.writeFile(wb, "TableMissions .xlsx");
+      }, 1000);
     }
-    return noteCommand1;
-
-  }
-
-  const sortMsgByUser = (mission)=>{
-    let messages = mission.chat.messages.msg.split('\n');
-    messages = messages.reverse();
-    let noteResponsibility = '---';
-    messages.map((msg, i)=>{
-      if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
-        noteResponsibility = msg.split('}')[1];
-      }
-    })
-    if (!noteResponsibility) {
-      noteResponsibility="---"; 
-     
-    }
-    return noteResponsibility;
-  }
-
+  };
 
 
   return (
@@ -80,8 +74,9 @@ export default function MissionExeption() {
                 <div className="d-flex mx-5 align-items-center">
                 {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
                 <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
-
+                 <button onClick={toExcel}   className="btn m-3  bg-secondary text-light">Ecxel</button>
                 <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
+               
               </div>
            
           </div>
