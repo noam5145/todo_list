@@ -14,6 +14,7 @@ export default function PendingMissions() {
 
   const { missions ,updateMission,sendToArchives, currentUser, loading} = useContext(MyContext);
   const [ToExcelPen, setToExcelPen] = useState([]);
+
   const componentToPrint = useRef();
 
   let [dataPenMission,setData]=useState([]);
@@ -51,12 +52,10 @@ useEffect(()=>{
     content: () => componentToPrint.current,
   });
 
-
-  const aprrove=(id)=>{
-     
-let tempMission=missions.find((mission)=>{
- return mission._id==id
-})
+  const aprrove = (id) => {
+    let tempMission = missions.find((mission) => {
+      return mission._id == id;
+    });
     if (confirm("אתה רוצה לאשר?")) {
       // toast('👍 המשימה אושרה בהצלחה ', {
       //   position: "bottom-right",
@@ -68,46 +67,15 @@ let tempMission=missions.find((mission)=>{
       //   progress: undefined,
       //   theme: "light",
       //   });
-       
-      tempMission.status="בוצע"
-      updateMission(tempMission,currentUser.token)
-       sendToArchives(tempMission._id,currentUser.token)
-     setRender(!render);
-        
+
+      tempMission.status = "בוצע";
+      updateMission(tempMission, currentUser.token);
+      sendToArchives(tempMission._id, currentUser.token);
+      setRender(!render);
     }
-  }
+  };
 
-  // const sortMsgByCommand = (mission)=>{
-  //   let messages = mission.chat.messages.msg.split('\n');
-  //   messages = messages.reverse();
-  //   let noteCommand = '---';
-  //   messages.map((msg, i)=>{
-  //     if((mission.responsibility.find((resp)=> resp !== msg.split('}')[0].slice(1)))){
-  //       noteCommand = msg.split('}')[1];
-  //     }
-  //   })
-  //   if (!noteCommand) {
-  //     noteCommand="---"; 
-     
-  //   }
-  //   return noteCommand;
-  // }
 
-  // const sortMsgByUser = (mission)=>{
-  //   let messages = mission.chat.messages.msg.split('\n');
-  //   messages = messages.reverse();
-  //   let noteResponsibility = '---';
-  //   messages.map((msg, i)=>{
-  //     if((mission.responsibility.find((resp)=> resp === msg.split('}')[0].slice(1)))){
-  //       noteResponsibility = msg.split('}')[1];
-  //     }
-  //   })
-  //   if (!noteResponsibility) {
-  //     noteResponsibility="---"; 
-     
-  //   }
-  //   return noteResponsibility;
-  // }
 
   
   const toExcel = () => {
@@ -143,7 +111,19 @@ let tempMission=missions.find((mission)=>{
                     <LocalPrintshopRoundedIcon /> הדפסה
                   </button>
                 </div>
+=======              </div>
+              <div className="d-flex h-100 align-items-center">
+                <p className="numOfExMission m-2">
+                  סה"כ משימות בהמתנה לאישור: {dataPenMission.length}{" "}
+                </p>
+                <button
+                  onClick={handlePrintEx}
+                  className="btn   bg-secondary text-light  m-3"
+                >
+                  <LocalPrintshopRoundedIcon /> הדפסה
+                </button>
               </div>
+            </div>
 
               <div className="container  table-container-pen all_table-Ex  ml-3">
                 <span>
@@ -170,9 +150,11 @@ let tempMission=missions.find((mission)=>{
                   ימי חריגה<span title="מיין לפי גדול/קטן"></span>
                 </div> */}
                     <div className="col-2 top_table-pen text-center">
-                    נשלח על ידי<span title="מיין לפי גדול/קטן"></span>
+                      הערות אחראי<span title="מיין לפי גדול/קטן"></span>
                     </div>
-                   
+                    <div className="col-2 top_table-pen text-center">
+                      הערות מפקד<span title="מיין לפי גדול/קטן"></span>
+                    </div>
                     <div className="col-1 top_table-pen text-center">
                       אישור<span title="מיין לפי גדול/קטן"></span>
                     </div>
@@ -228,10 +210,27 @@ let tempMission=missions.find((mission)=>{
                       </div>
 
                       <div className="col-2 the_table-pen  text-center align-missions-center ">
-                       
-                        <p>{mission.changeStatus}</p>
+                        <p
+                          className={`p_taskdetail-pen p-2 ${
+                            sortMsgByUser(mission)?.length < 40
+                              ? "d-flex align-items-center"
+                              : ""
+                          }`}
+                        >
+                          {sortMsgByUser(mission)}
+                        </p>
                       </div>
-                    
+                      <div className="col-2 the_table-pen  text-center  align-missions-center">
+                        <p
+                          className={`p_taskdetail-pen p-2 ${
+                            sortMsgByCommand(mission)?.length < 40
+                              ? "d-flex align-items-center"
+                              : ""
+                          }`}
+                        >
+                          {sortMsgByCommand(mission)}
+                        </p>
+                      </div>
                       <div className="col-1  the_table-pen text-center">
                         <button
                           onClick={() => aprrove(mission._id)}

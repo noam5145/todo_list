@@ -8,6 +8,7 @@ import * as XLSX from "xlsx/xlsx.mjs";
 
 
 
+
 export default function MissionExeption() {
 
   const { missions, daysOff, endAtChanged, loading,currentUser } = useContext(MyContext);
@@ -157,6 +158,7 @@ export default function MissionExeption() {
                 : <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
                   <h2 > אין משימות בחריגה כעת</h2></div>}
           </div>
+
         </div>
 
       </div>) : (
@@ -165,6 +167,7 @@ export default function MissionExeption() {
           <div className="d-flex justify-content-center align-items-center my-5">
             <CircularProgress />
           </div>
+
         </div>
       )}
     </>

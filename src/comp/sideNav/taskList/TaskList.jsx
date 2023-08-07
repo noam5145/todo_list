@@ -17,6 +17,7 @@ import * as XLSX from "xlsx/xlsx.mjs";
 import { GrDocumentExcel } from "react-icons/gr";
 import { TbSearchOff } from "react-icons/tb";
 import { Oval } from "react-loader-spinner";
+import BottomNav from "../../botoomNav/bottomNav";
 
 export default function TaskList() {
   const { missions, daysOff, loading, currentUser } = useContext(MyContext);
@@ -39,12 +40,14 @@ export default function TaskList() {
   };
 
   useEffect(() => {
+    
     if (missions[0]) {
       setAllDataShow(missions);
     } else {
       setAllDataShow([]);
     }
   }, [missions]);
+  console.log(missions);
 
   useEffect(() => {
     if (allDataShow[0]) {
@@ -250,6 +253,7 @@ export default function TaskList() {
               </div>
             )}
           </div>
+
         </div>
       ) : (
         <div className="container">
@@ -267,6 +271,7 @@ export default function TaskList() {
               strokeWidthSecondary={2}
             />
           </div>
+
         </div>
       )}
     </>

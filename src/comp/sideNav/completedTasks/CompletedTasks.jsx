@@ -8,29 +8,28 @@ import * as XLSX from "xlsx/xlsx.mjs";
 
 
 
+
 export default function CompletedTasks() {
-  const { missions,archive, currentUser,loading } = useContext(MyContext);
+  const { missions, archive, currentUser, loading } = useContext(MyContext);
   const componentToPrint = useRef();
   const [ToExcelArchive, setToExcelArchive] = useState([]);
 
-  useEffect(()=>{
-     let temp=missions.filter((mission)=>{
-      
+  useEffect(() => {
+    let temp = missions.filter((mission) => {
       if (cheakStatus(mission.status)) {
         return mission;
       }
-     })
-  },[missions])
+    });
+  }, [missions]);
 
   const handlePrintEx = useReactToPrint({
     content: () => componentToPrint.current,
   });
-  
+
   function cheakStatus(status) {
-    if (status!="בוצע") {
-      return false
-    }
-    else{
+    if (status != "בוצע") {
+      return false;
+    } else {
       return true;
     }
   }
@@ -151,10 +150,13 @@ export default function CompletedTasks() {
            )}
          </div>
          {/* <div>
+
          <h2 className="numOfCompleteMission">סה"כ משימות בארכיון: {archive.length} </h2>
        </div> */}
-       </div>
-       </div>) : (  <div className="container">
+          </div>
+        </div>
+      ) : (
+        <div className="container">
           <div className="d-flex justify-content-center align-items-center my-5">
             <Oval
               height={80}
@@ -169,7 +171,8 @@ export default function CompletedTasks() {
               strokeWidthSecondary={2}
             />
           </div>
-        </div>)}
-      </>
-    );
- }
+        </div>
+      )}
+    </>
+  );
+}

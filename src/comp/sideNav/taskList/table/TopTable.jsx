@@ -1,55 +1,55 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from "react";
 import "../taskList.css";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { MyContext } from '../../../../App';
+import { MyContext } from "../../../../App";
 
-export default function TopTable({setAllDataShow}) {
-    const { missions} = useContext(MyContext)
+export default function TopTable({ setAllDataShow }) {
+  const { missions } = useContext(MyContext);
 
-    const [table, setTable] = useState({
-        missionId: false,
-        starteAt: false,
-        title: false,
-        details: false,
-        responsibility: false,
-        endedAt: false,
-        daysLeft: false,
-        status: false,
-      });
-    
-    const SortTaxtByHighAndLow = (field) => {
-        let newSort;
-        if (table[field]) {
-          const newTable = { ...table };
-          newTable[field] = !table[field];
-          setTable(newTable);
-          newSort = [...missions]?.sort((a, b) => {
-            if (a[field] < b[field]) {
-              return -1;
-            }
-            if (a[field] > b[field]) {
-              return 1;
-            }
-            return 0;
-          });
-          setAllDataShow(newSort)
-        } else {
-          const newTable = { ...table };
-          newTable[field] = !table[field];
-          setTable(newTable);
-          newSort = [...missions].sort((a, b) => {
-            if (a[field] < b[field]) {
-              return 1;
-            }
-            if (a[field] > b[field]) {
-              return -1;
-            }
-            return 0;
-          });
-          setAllDataShow(newSort)
+  const [table, setTable] = useState({
+    missionId: false,
+    starteAt: false,
+    title: false,
+    details: false,
+    responsibility: false,
+    endedAt: false,
+    daysLeft: false,
+    status: false,
+  });
+
+  const SortTaxtByHighAndLow = (field) => {
+    let newSort;
+    if (table[field]) {
+      const newTable = { ...table };
+      newTable[field] = !table[field];
+      setTable(newTable);
+      newSort = [...missions]?.sort((a, b) => {
+        if (a[field] < b[field]) {
+          return -1;
         }
-      }
+        if (a[field] > b[field]) {
+          return 1;
+        }
+        return 0;
+      });
+      setAllDataShow(newSort);
+    } else {
+      const newTable = { ...table };
+      newTable[field] = !table[field];
+      setTable(newTable);
+      newSort = [...missions].sort((a, b) => {
+        if (a[field] < b[field]) {
+          return 1;
+        }
+        if (a[field] > b[field]) {
+          return -1;
+        }
+        return 0;
+      });
+      setAllDataShow(newSort);
+    }
+  };
 
       const SortNumberByHighAndLow = (field) => {
         let newSort;

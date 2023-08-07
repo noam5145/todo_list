@@ -1,0 +1,15 @@
+.bot_nav{
+    height: 95px;
+    background-color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.218);
+    /* border-right: 1px solid rgba(0, 0, 0, 0.218);
+    border-left: 1px solid rgba(0, 0, 0, 0.218); */
+   /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.567); */
+   /* border-top-left-radius: 50px 50px;
+   border-top-right-radius: 50px 50px; */
+
+}
+
+.info_more:hover{
+    cursor: pointer;
+}
