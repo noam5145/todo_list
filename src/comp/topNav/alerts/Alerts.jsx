@@ -63,7 +63,7 @@ export default function Message() {
               <div className="mt-5">
                 <div className=" row d-flex justify-content-center">
                   <div className="col-1 top_table text-center">מס"ד</div>
-                  <div className="col-1 top_table text-center">מועד משימה </div>
+                  <div className="col-1 top_table text-center">מועד דיון </div>
                   <div className="col-1 top_table text-center">
                     כותרת משימה{" "}
                   </div>
@@ -71,7 +71,7 @@ export default function Message() {
                     פירוט משימה{" "}
                   </div>
                   <div className="col-1 top_table text-center">
-                    מסמכים מצורפים
+                    סיכום דיון
                   </div>
                   <div className="col-1 top_table text-center">אחריות </div>
                   <div className="col-1 top_table text-center">תג"ב </div>

@@ -82,7 +82,7 @@ export default function TopTable({setAllDataShow}) {
                     מס"ד <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="missionId" onClick={(e) => SortNumberByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center" >
-                    מועד משימה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="startedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
+                    מועד דיון <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="startedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
                     כותרת משימה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="title" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
@@ -91,13 +91,13 @@ export default function TopTable({setAllDataShow}) {
                     פירוט משימה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="details" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
-                    מסמכים מצורפים
+                    סיכום דיון
                 </div>
                 <div className="col-1 top_table text-center">
                     אחריות <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="responsibility" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
-                  תג"מ <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="endedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
+                  תג"ב <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="endedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
                     ימים שנותרו <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="daysLeft" onClick={(e) => SortNumberByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
