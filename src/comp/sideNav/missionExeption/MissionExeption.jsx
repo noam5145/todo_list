@@ -5,6 +5,7 @@ import "./missionExeption.css";
 import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
 import { CircularProgress } from "@mui/material";
+import BottomNav from "../../botoomNav/bottomNav";
 
 
 
@@ -162,6 +163,7 @@ export default function MissionExeption() {
                 : <div className="col-12 the_table-Ex d-flex  text-center  align-missions-center">
                   <h2 > אין משימות בחריגה כעת</h2></div>}
           </div>
+
         </div>
 
       </div>) : (
@@ -170,6 +172,7 @@ export default function MissionExeption() {
           <div className="d-flex justify-content-center align-items-center my-5">
             <CircularProgress />
           </div>
+
         </div>
       )}
     </>
