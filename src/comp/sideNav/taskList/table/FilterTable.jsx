@@ -53,7 +53,7 @@ export default function ({ setAllDataShow }) {
           }
         />
         <input
-          className="col-3 the_table_search bg-light"
+          className="col-1 the_table_search bg-light"
           placeholder=" הכנס טקסט..."
           id="details"
           type="text"
@@ -72,6 +72,33 @@ export default function ({ setAllDataShow }) {
           }
         />
         <input
+          className="col-1 the_table_search bg-light"
+          placeholder=" הכנס טקסט..."
+          id="responsibility"
+          type="text"
+          onChange={(e) =>
+            SortByResponsibilityFound(e.target.value, e.currentTarget.id)
+          }
+        />
+        <input
+          className="col-1 the_table_search bg-light"
+          placeholder=" הכנס טקסט..."
+          id="responsibility"
+          type="text"
+          onChange={(e) =>
+            SortByResponsibilityFound(e.target.value, e.currentTarget.id)
+          }
+        />
+        <input
+          className="col-1 the_table_search bg-light"
+          placeholder=" הכנס טקסט..."
+          id="responsibility"
+          type="text"
+          onChange={(e) =>
+            SortByResponsibilityFound(e.target.value, e.currentTarget.id)
+          }
+        />
+        <input
           className="col-1 the_table_search bg-light p-1"
           placeholder=" הכנס תאריך..."
           id="endedAt"
@@ -80,7 +107,7 @@ export default function ({ setAllDataShow }) {
             SortByContentFound(e.target.value, e.currentTarget.id)
           }
         />
-        <input
+        {/* <input
           className="col-1 the_table_search bg-light p-1"
           placeholder=" הכנס מספר..."
           id="daysLeft"
@@ -88,7 +115,7 @@ export default function ({ setAllDataShow }) {
           onChange={(e) =>
             SortByContentFound(e.target.value, e.currentTarget.id)
           }
-        />
+        /> */}
         <div
           className="col-1 the_table_search bg-light"
           style={{ border: "none" }}

@@ -96,9 +96,8 @@ export default function BottomTable({
       <div className="col-1 the_table text-center">{item.missionId}</div>
       <div className="col-1 the_table text-center">{item.startedAt}</div>
       <div className="col-1 the_table text-center">{item.title}</div>
-      <div className="col-3 the_table ">
-        <p className="p_taskdetail p-2  d-flex  align-items-center">{item.details}</p>
-      </div>
+      <div className="col-1 the_table text-center">{item.details}</div>
+     
       <div
         className="col-1 the_table_file text-center"
         title="לחץ להורדת מסמך"
@@ -109,13 +108,16 @@ export default function BottomTable({
           <AiOutlineFilePdf size={25} />
         </div>
       </div>
-      <div className="col-1 the_table text-center d-flex align-items-center">
+      <div className="col-1 the_table text-center d-flex align-items-center"></div>
+      <div className="col-1 the_table text-center d-flex align-items-center"></div>
+      <div className="col-1 the_table text-center d-flex align-items-center"></div>
+      {/* <div className="col-1 responsibility text-center d-flex align-items-center"> */}
         <div
-          className={`task_responsibility ${
+          className={`col-1 the_table text-center d-flex align-items-center${
             item.responsibility.length < 4 ? "d-flex align-items-center" : ""
           }`}
         >
-          <div>
+          <div className="">
             {item.responsibility.map((name, i) => (
               <div className="my-1" key={i}>
                 {!(i == item.responsibility.length - 1)
@@ -123,17 +125,15 @@ export default function BottomTable({
                   : name + "."}
               </div>
             ))}
-          </div>
+          {/* </div> */}
         </div>
       </div>
       <div className="col-1 the_table text-center">{item.endedAt}</div>
-      <div className="col-1 the_table text-center">
-        {daysOff(item.endedAt) < 0
-          ? Math.abs(daysOff(item.endedAt)) + "-"
-          : daysOff(item.endedAt)}
-      </div>
+      {/* <div className="col-1 the_table text-center">
+        
+      </div> */}
       <div className="col-1 the_table text-center d-flex justify-content-start">
-        <div className="mx-2">
+        <div className="mx-1">
           <Brightness1Icon
             color={
               item.status == "בתהליך"
@@ -148,7 +148,15 @@ export default function BottomTable({
             }
           />
         </div>
-        <div className="">{item.status}</div>
+        <div className="fontSizeTable">{item.status}</div>
+        <div className="fontSizeTable">
+        <span className="">(</span>
+        <span className="">{daysOff(item.endedAt) < 0
+          ? Math.abs(daysOff(item.endedAt)) + "-"
+          : daysOff(item.endedAt)}</span>
+        <span>)</span>
+        </div>
+
       </div>
       <div className="col-1 the_table text-center">
         <div className="d-flex align-items-center">

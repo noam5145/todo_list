@@ -145,9 +145,24 @@
  100% { transform: rotate(360deg); }
 }
    
-    
-    
-    
+.iconsConfrm{
+  border: 1px solid black;
+  border-radius: 100%;
+  padding: 7px;
+}
+   
+.confrm{
+  background-color: #66d729;
+  border-radius: 100%;
+  padding: 3px;
+  
+}
+.unConfrm{
+  background-color: #d34d4d;
+  border-radius: 100%;
+  padding: 3px;
+
+}   
     
     
     

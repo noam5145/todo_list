@@ -39,12 +39,14 @@ export default function TaskList() {
   };
 
   useEffect(() => {
+    
     if (missions[0]) {
       setAllDataShow(missions);
     } else {
       setAllDataShow([]);
     }
   }, [missions]);
+  console.log(missions);
 
   useEffect(() => {
     if (allDataShow[0]) {

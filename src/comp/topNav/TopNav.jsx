@@ -58,20 +58,11 @@ export default function TopNav() {
         </div>
         <div className="col-7 d-flex mx-0 justify-content-around">
           <span>{currentTime}</span>
-          <div className="">
-            <Link className=" " to={"/alerts"}>
-              <div>
-                {" "}
-                <Badge badgeContent={newMissions.length} color="secondary">
-                  <LuMail className="cursor" size={25} color="gray" />
-                </Badge>
-              </div>
-            </Link>
-          </div>
-          <div className="">
-            <Link className=" " to={"/UserTasks"}>
-              <FaTasks className="cursor" size={25} color="gray" />
-            </Link>
+        
+          <div className="d-flex">
+            <div className="my-1 mx-1">
+              {currentUser?.username}
+            </div>
           </div>
           {currentUser?.access === 'admin' &&
             <div className="icons">
@@ -79,14 +70,6 @@ export default function TopNav() {
                 <BsPersonWorkspace className="cursor" size={25} color="gray" />
               </Link>
             </div>}
-          <div className="d-flex">
-            <div className="mx-1">
-              {/* <Avatar src="https://d3m9l0v76dty0.cloudfront.net/system/photos/9254485/large/c902cf9c692b359deb444e378e702622.jpg" /> */}
-            </div>
-            <div className="my-1 mx-1">
-              {currentUser?.username}
-            </div>
-          </div>
           <div className="">
             <button className="btn bg-success" onClick={() => setOpen(true)}>
               יצירת סביבה חדשה  +
