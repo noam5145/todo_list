@@ -5,6 +5,7 @@ import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
 import { CircularProgress } from "@mui/material";
 import * as XLSX from "xlsx/xlsx.mjs";
+import { AiOutlineFilePdf } from "react-icons/ai";
 
 
 
@@ -74,13 +75,13 @@ export default function MissionExeption() {
                 <div className="d-flex mx-5 align-items-center">
                 {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
                 <div className="numOfExMission mx-5 pt-1">סה"כ משימות בחריגה: {dataExMission.length}</div>
-                 <button onClick={toExcel}   className="btn m-3  bg-secondary text-light">Ecxel</button>
+                 <button onClick={toExcel}   className="btn m-3  bg-secondary text-light"><AiOutlineFilePdf size={30} />Ecxel</button>
                 <button onClick={handlePrintEx} className="btn  bg-secondary text-light"><LocalPrintshopRoundedIcon /> הדפסה</button>
                
               </div>
            
           </div>
-          <div className="container  table-container-Ex all_table-Ex mt-3  ml-3">
+          <div className="container  table-container-Ex all_table-Ex mt-2  ml-3">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-Ex text-center">
@@ -122,7 +123,10 @@ export default function MissionExeption() {
                       {mission.missionId}
                     </div>
                     <div className="col-1 the_table-Ex text-center">
+                    <p className={`p_taskdetail-Ex p-2 ${mission.title.length < 40 ? "d-flex align-items-center" : ""}`}>
+                      
                       {mission.title}
+                    </p>
                     </div>
                     <div className="col-3 the_table-Ex text-center align-missions-center">
                       <p className={`p_taskdetail-Ex p-2 ${mission.details.length < 40 ? "d-flex align-items-center" : ""}`}>
