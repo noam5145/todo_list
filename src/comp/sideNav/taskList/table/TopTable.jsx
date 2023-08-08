@@ -87,23 +87,20 @@ export default function TopTable({ setAllDataShow }) {
                 <div className="col-1 top_table text-center">
                     כותרת משימה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="title" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
-                <div className="col-3 top_table text-center">
+                <div className="col-1 top_table text-center">
                     פירוט משימה <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="details" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
-                    מסמכים מצורפים
+                    סיכום דיון 
                 </div>
-                <div className="col-1 top_table text-center">
+                <div className="col-4 top_table text-center">
                     אחריות <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="responsibility" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
-                  תג"מ <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="endedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
+                תג"ב <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="endedAt" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
-                    ימים שנותרו <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="daysLeft" onClick={(e) => SortNumberByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
-                </div>
-                <div className="col-1 top_table text-center">
-                    סטאטוס <span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="status" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
+                    סטטוס & ימים שנותרו<span title="מיין לפי גדול/קטן"><UnfoldMoreIcon id="status" onClick={(e) => SortTaxtByHighAndLow(e.currentTarget.id)} className="cursor" /></span>
                 </div>
                 <div className="col-1 top_table text-center">
                     <span title="עריכה"><SettingsIcon size={35} color="primary" /></span>

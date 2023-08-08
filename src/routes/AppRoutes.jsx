@@ -50,7 +50,9 @@ export default function AppRoutes() {
         <Route path="/missionExeption" element={<MissionExeption />} />
         </>}
       </Routes>
+     
       </div>
+      <BottomNav/>
       {/* </> */}
       {/* :  <Login />} */}
       </div>
