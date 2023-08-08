@@ -122,7 +122,10 @@ export default function MissionExeption() {
                       {mission.missionId}
                     </div>
                     <div className="col-1 the_table-Ex text-center">
+                    <p className={`p_taskdetail-Ex p-2 ${mission.title.length < 40 ? "d-flex align-items-center" : ""}`}>
+                      
                       {mission.title}
+                    </p>
                     </div>
                     <div className="col-3 the_table-Ex text-center align-missions-center">
                       <p className={`p_taskdetail-Ex p-2 ${mission.details.length < 40 ? "d-flex align-items-center" : ""}`}>

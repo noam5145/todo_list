@@ -95,13 +95,13 @@ export default function CompletedTasks() {
                <div className="col-1 top_table-Archive text-center">
                  כותרת הפגישה <span title="מיין לפי גדול/קטן"></span>
                </div>
-               <div className="col-3 top_table-Archive text-center">
+               <div className="col-4 top_table-Archive text-center">
                  פירוט הפגישה <span title="מיין לפי גדול/קטן"></span>
                </div>
                <div className="col-1 top_table-Archive text-center">
                  תג"ב<span title="מיין לפי גדול/קטן"></span>
                </div>
-               <div className="col-2 top_table-Archive text-center">
+               <div className="col-3 top_table-Archive text-center">
             נשלח על ידי<span title="מיין לפי גדול/קטן"></span>
                </div>
                
@@ -128,14 +128,14 @@ export default function CompletedTasks() {
                  <div className="col-1 the_table-Archive text-center">
                    {mission.title}
                  </div>
-                 <div className="col-3 the_table-Archive text-center align-missions-center">
+                 <div className="col-4 the_table-Archive text-center align-missions-center">
                    <div className={`p_taskdetail-Archive p-2 ${mission.details.length<40?"d-flex align-items-center":""}` }>
                      {mission.details}</div>
                  </div>
                  <div className="col-1 the_table-Archive  text-center">
                    {mission.endedAt}
                  </div>
-                 <div className="col-2 the_table-Archive  text-center align-missions-center ">
+                 <div className="col-3 the_table-Archive  text-center align-missions-center ">
                  <p>
                 
                  </p>
