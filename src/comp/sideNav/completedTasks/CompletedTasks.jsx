@@ -5,6 +5,7 @@ import { useReactToPrint } from "react-to-print";
 import { MyContext } from "../../../App";
 import { Oval } from "react-loader-spinner";
 import * as XLSX from "xlsx/xlsx.mjs";
+import { AiOutlineFilePdf } from "react-icons/ai";
 
 
 
@@ -77,7 +78,7 @@ export default function CompletedTasks() {
               </div>
             <div className="d-flex h-100 align-items-center" >
          <p className="numOfExMission m-2">סה"כ משימות בארכיון:  {archive.length} </p>
-         <button onClick={toExcel}   className="btn m-3  bg-secondary text-light">Ecxel</button>
+         <button onClick={toExcel}   className="btn m-3  bg-secondary text-light"><AiOutlineFilePdf size={30} />Ecxel</button>
 
         <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/> הדפסה</button>
        </div>

@@ -2,7 +2,7 @@ import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./pendingMissions.css";
 import { useReactToPrint } from "react-to-print";
-import {AiOutlineLike} from "react-icons/ai"
+import {AiOutlineFilePdf, AiOutlineLike} from "react-icons/ai"
 import { MyContext } from "../../../App";
 import { Oval } from "react-loader-spinner";
 import * as XLSX from "xlsx/xlsx.mjs";
@@ -135,7 +135,7 @@ let tempMission=missions.find((mission)=>{
                   <p className="numOfExMission m-2">
                     סה"כ משימות בהמתנה לאישור: {dataPenMission.length}{" "}
                   </p>
-                  <button onClick={toExcel}   className="btn m-3  bg-secondary text-light">Ecxel</button>
+                  <button onClick={toExcel}   className="btn m-3  bg-secondary text-light"> <AiOutlineFilePdf size={30} />Ecxel</button>
                   <button
                     onClick={handlePrintEx}
                     className="btn   bg-secondary text-light  m-3"
