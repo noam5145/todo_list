@@ -99,14 +99,14 @@ export default function BottomTable({
       <div className="col-1 the_table text-center">{item.details}</div>
      
       <div
-        className="col-1 the_table_file text-center"
+        className="col-1 the_table_file the_table"
         title="לחץ להורדת מסמך"
         onClick={ConfirmDownload}
       >
-        <div className="mt-4">
-          <div> הורדת מסמך</div>
-          <AiOutlineFilePdf size={25} />
-        </div>
+       
+         <AiOutlineFilePdf size={20} />
+          
+       
       </div>
       <div className="col-1 the_table text-center d-flex align-items-center"></div>
       <div className="col-1 the_table text-center d-flex align-items-center"></div>
