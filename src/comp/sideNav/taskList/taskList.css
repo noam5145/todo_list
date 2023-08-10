@@ -208,3 +208,6 @@ height: 100px;
     text-decoration-color: black;
     text-underline-offset: 1px;
   }
+  .btnAdd{
+    background-color: #7e3c3c;
+  }
