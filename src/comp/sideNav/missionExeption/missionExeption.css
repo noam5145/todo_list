@@ -1,7 +1,7 @@
    .all_table-Ex{
-      height: 68vh;
-      overflow: auto;
-      padding-left: 3px;
+    height: 80vh;
+    overflow: auto;
+    padding-left: 5px;
    
     }
    /* .font-family-Ex {
@@ -10,14 +10,15 @@
 
 
     .top_table-Ex{
-    height: 60px;
+    height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.5px solid rgba(255, 0, 0, 0.3);
-    background-color: rgb(255,228, 196);
-    box-shadow: rgba(245, 1, 1, 0.4) 0px 1px 4px 0px;  
-    
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    background-color: #b3acac;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;        
+    font-weight: bold;
+    font-size: small;
     }
     .the_table_search-Ex{
       height: 45px;
@@ -32,13 +33,16 @@
     
     }
     .the_table-Ex{
-    height: 90px;
+    min-height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.5px solid rgba(255, 0, 0, 0.3);
-    background-color: rgb(255, 228,196 ,0.608);
-    box-shadow: rgba(245, 1, 1, 0.4) 0px 1px 4px 0px;  
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    background-color: #f3ede69b;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;
+    font-size: small;
+    overflow-x: hidden;
+    padding: 2px;  
   } 
     .the_table-Ex:hover{
     background-color: rgb(255, 228,196 ,0.4);
@@ -46,10 +50,10 @@
     
     
     .p_taskdetail-Ex{
-      height: 90px;
+      min-height: 90px;
       margin: 0;
       overflow-y: auto;
-    
+      font-size: small;
     }
     .cursor-ex{
       cursor: pointer;
@@ -70,6 +74,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .bg-kaka{
+      background-color: #662727;;
+    }
+    .bg-kaka:hover{
+      background-color: #662727;
     }
     
     
