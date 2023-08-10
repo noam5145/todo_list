@@ -19,6 +19,14 @@ export default function PendingMissions() {
 
   let [render, setRender] = useState(false);
 
+  function resetSelect() {
+    // Get the select element by its ID
+    var selectElement = document.getElementById("mySelect");
+    
+    // Set the selectedIndex to 0 to reset to the default option
+    selectElement.selectedIndex = 0;
+  }
+
   useEffect(() => {
     if (missions[0]) {
       let temp = missions.filter(
@@ -48,6 +56,7 @@ export default function PendingMissions() {
   });
 
   const aprrove = (id, value) => {
+    resetSelect();
     let tempMission = missions.find((mission) => {
       return mission._id == id;
     });
@@ -198,13 +207,16 @@ export default function PendingMissions() {
                           <AiOutlineLike size={25} />
                         </button> */}
                     <select
+                    id="mySelect"
+                    className="selectConfirm w-50"
                       onClick={(e) =>
                         aprrove(mission._id, e.currentTarget.value)
                       }
-                      class="form-select form-select-sm"
-                      aria-label=".form-select-sm example"
+                      dir="rtl"
+                
+                
                     >
-                      <option selected>בחר...</option>
+                      <option >בחר...</option>
                       <option
                         value={true}
 

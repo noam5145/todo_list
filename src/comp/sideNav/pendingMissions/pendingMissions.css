@@ -166,6 +166,10 @@
 .confirmOptions{
   font-size: small;
 }
+.selectConfirm{
+  border: none;
+  background-color: #efebe7;
+}
     
     
     
