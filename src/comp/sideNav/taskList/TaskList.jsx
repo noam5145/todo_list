@@ -158,7 +158,7 @@ export default function TaskList() {
                 {currentUser?.access === "admin" && (
                   <>
                     <button
-                      className="btn bg-secondary text-light"
+                      className="btn bg-success text-light"
                       style={{ width: "100px" }}
                       onClick={() => toExcel()}
                     >
@@ -167,7 +167,7 @@ export default function TaskList() {
                       </samp>
                     </button>
                     <button
-                      className="btn bg-secondary mx-3 text-light"
+                      className="btn bg-primary mx-3 text-light"
                       onClick={() => {
                         openDialog();
                         setEditSingleMission("");
