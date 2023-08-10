@@ -165,7 +165,7 @@ export default function TaskList() {
                       </samp>
                     </button>
                     <button
-                      className="btn btnAdd mx-3 text-light"
+                      className=" btnAdd mx-3 text-light"
                       onClick={() => {
                         openDialog();
                         setEditSingleMission("");
