@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import "../taskList.css";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import ChatIcon from "@mui/icons-material/Chat";
+import { BsChatLeftText } from "react-icons/bs";
+import { MdDone } from "react-icons/md";
 import SendIcon from "@mui/icons-material/Send";
-import { FaPencilAlt } from "react-icons/fa";
+import { RiFileEditLine } from "react-icons/ri";
 import { MyContext } from "../../../../App";
 import { Badge } from "@mui/material";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
@@ -23,9 +24,10 @@ export default function BottomTable({
   chatOpen,
   notifyDel,
   notifySend,
-  allDataShow
+  allDataShow,
 }) {
-  const { deleteMission, currentUser, daysOff, missions, sendToConfirm } = useContext(MyContext);
+  const { deleteMission, currentUser, daysOff, missions, sendToConfirm } =
+    useContext(MyContext);
   const [numMsg, setNumMsg] = useState([]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -72,224 +74,205 @@ export default function BottomTable({
     });
   }, []);
 
-  useEffect(()=>{
-    if(allDataShow[0]){
+  useEffect(() => {
+    if (allDataShow[0]) {
       let arr = Array(item.chat.messages.readed?.length).fill(0);
-      item.chat.messages.readed?.map((read, i)=>{
-        if(!read && !(item.chat.messages.msg.split('\n')[i]?.split('}')[0].slice(1) === currentUser.username)){
+      item.chat.messages.readed?.map((read, i) => {
+        if (
+          !read &&
+          !(
+            item.chat.messages.msg.split("\n")[i]?.split("}")[0].slice(1) ===
+            currentUser.username
+          )
+        ) {
           arr[i]++;
         }
-      })
-      let num =0;
-      arr.map((item)=>{
-        if(item != 0){
+      });
+      let num = 0;
+      arr.map((item) => {
+        if (item != 0) {
           num++;
         }
-      })
+      });
       setNumMsg(num);
     }
   }, [allDataShow]);
 
-  return (<>
-    {item ? (
-    <div key={i} className="container d-flex justify-content-center p-0">
-      <div className="col-1 the_table text-center">{item.missionId}</div>
-      <div className="col-1 the_table text-center">{item.startedAt}</div>
-      <div className="col-1 the_table text-center">{item.title}</div>
-      <div className="col-1 the_table text-center">{item.details}</div>
-     
-      <div
-        className="col-1 the_table_file the_table"
-        title="לחץ להורדת מסמך"
-        onClick={ConfirmDownload}
-      >
-       
-         <AiOutlineFilePdf size={20} />
-          
-       
-      </div>
-      <div className="col-1 the_table text-center d-flex align-items-center"></div>
-      <div className="col-1 the_table text-center d-flex align-items-center"></div>
-      <div className="col-1 the_table text-center d-flex align-items-center"></div>
-      {/* <div className="col-1 responsibility text-center d-flex align-items-center"> */}
-        <div
-          className={`col-1 the_table text-center d-flex align-items-center${
-            item.responsibility.length < 4 ? "d-flex align-items-center" : ""
-          }`}
-        >
-          <div className="">
-            {item.responsibility.map((name, i) => (
-              <div className="my-1" key={i}>
-                {!(i == item.responsibility.length - 1)
-                  ? name + ","
-                  : name + "."}
-              </div>
-            ))}
-          {/* </div> */}
-        </div>
-      </div>
-      <div className="col-1 the_table text-center">{item.endedAt}</div>
-      {/* <div className="col-1 the_table text-center">
+  return (
+    <>
+      {item ? (
+        <div key={i} className="container d-flex justify-content-center p-0">
+          <div className="col-1 the_table text-center">{item.missionId}</div>
+          <div className="col-1 the_table text-center">{item.startedAt}</div>
+          <div className="col-1 the_table text-center">{item.title}</div>
+          <div className="col-1 the_table text-center">{item.details}</div>
+
+          <div
+            className="col-1 the_table_file the_table"
+            title="לחץ להורדת מסמך"
+            onClick={ConfirmDownload}
+          >
+            <AiOutlineFilePdf size={20} />
+          </div>
+          <div className="col-1 the_table text-center d-flex align-items-center">
+            {item.oneLevel}
+          </div>
+          <div className="col-1 the_table text-center d-flex align-items-center">
+            {item.levelTwo}
+          </div>
+          <div className="col-1 the_table text-center d-flex align-items-center">
+            {item.levelThree}
+          </div>
+          {/* <div className="col-1 responsibility text-center d-flex align-items-center"> */}
+          <div
+            className={`col-1 the_table text-center d-flex align-items-center${
+              item.responsibility.length < 4 ? "d-flex align-items-center" : ""
+            }`}
+          >
+            <div className="">
+              {item.responsibility.map((name, i) => (
+                <div className="my-1" key={i}>
+                  {!(i == item.responsibility.length - 1)
+                    ? name + ","
+                    : name + "."}
+                </div>
+              ))}
+              {/* </div> */}
+            </div>
+          </div>
+          <div className="col-1 the_table text-center">{item.endedAt}</div>
+          {/* <div className="col-1 the_table text-center">
         
       </div> */}
-      <div className="col-1 the_table text-center d-flex justify-content-start">
-        <div className="mx-1">
-          <Brightness1Icon
-            color={
-              item.status == "בתהליך"
-                ? "warning"
-                : item.status == "בחריגה"
-                ? "error"
-                : item.status == "בוצע"
-                ? "success"
-                : item.status == "ממתין לאישור"
-                ? "info"
-                : "dark"
-            }
-          />
-        </div>
-        <div className="fontSizeTable">{item.status}</div>
-        <div className="fontSizeTable">
-        <span className="">(</span>
-        <span className="">{daysOff(item.endedAt) < 0
-          ? Math.abs(daysOff(item.endedAt)) + "-"
-          : daysOff(item.endedAt)}</span>
-        <span>)</span>
-        </div>
-
-      </div>
-      <div className="col-1 the_table text-center">
-        <div className="d-flex align-items-center">
-          <div className="row div_chat_fan_icon mx-1">
-          {currentUser.access !== 'admin' && item.token.find((t)=> t === currentUser.token) ?  <>
-            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i) }}>
-              <Badge badgeContent={numMsg != 0 ? numMsg : null } color="primary">
-                < ChatIcon color="action" />
-              </Badge></div>
-              <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
-              <MoreVertIcon
-                id="demo-positioned-button"
-                onClick={OpenSettings}
+          <div className="col-1 the_table text-center ">
+            <div className="">
+            <div className="mx-1">
+              <Brightness1Icon
+                color={
+                  item.status == "בתהליך"
+                    ? "warning"
+                    : item.status == "בחריגה"
+                    ? "error"
+                    : item.status == "בוצע"
+                    ? "success"
+                    : item.status == "ממתין לאישור"
+                    ? "info"
+                    : "dark"
+                }
               />
             </div>
+            <div className="fontSizeTable">{item.status}</div>
+            <div className="fontSizeTable">
+              <span className="">ימים שנותרו: </span>
+              <span className="">
+                {daysOff(item.endedAt) < 0
+                  ? Math.abs(daysOff(item.endedAt)) + "-"
+                  : daysOff(item.endedAt)}
+              </span>
+              
+            </div>
+            </div>
+            
+          </div>
+          <div className="col-1 the_table text-center">
+            <div className="d-flex align-items-center">
               <Menu
-              id="demo-positioned-menu"
-              anchorEl={anchorEl}
-              open={openSettings}
-              PaperProps={{
-                style: {
-                  boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
-                },
-              }}
-            >
-              {item.status == 'ממתין לאישור' || item.status == 'בחריגה' ? (
-                 <MenuItem
-                 onClick={() => {
-                   closeSettings();
-                 }}
-                 disabled={true}
-               >
-                 <div className="d-flex justify-content-center icon_send">
-                   <SendIcon className="mx-2" />
-                 </div>
-                 שלח לאישור משימה
-               </MenuItem>
-              ) : (
-                <MenuItem
-                onClick={() => {
-                  closeSettings();
-                  SubmitMission(item);
+                id="demo-positioned-menu"
+                anchorEl={anchorEl}
+                open={openSettings}
+                PaperProps={{
+                  style: {
+                    boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
+                  },
                 }}
-                title="שלח לאישור סיום"
+                Vi
               >
-                <div className="d-flex justify-content-center icon_send">
-                  <SendIcon className="mx-2" />
-                </div>
-                שלח לאישור משימה
-              </MenuItem>
-              )}
-            </Menu>
-              </>
-              
-              : currentUser.access !== 'admin' ? '---' : '' }
-            { currentUser.access === 'admin' ? <>
-            <div className="cursor col-6 p-0" title="פתח צא'ט משימה" onClick={(e) => { e.stopPropagation(); setChatOpen(!chatOpen); setIForChat(i) }}>
-              <Badge badgeContent={numMsg != 0 ? numMsg : null } color="primary">
-                < ChatIcon color="action" />
-              </Badge></div>
-            <div className="cursor col-6 p-0" onClick={(e) => { e.stopPropagation(); }}>
-              <MoreVertIcon
-                id="demo-positioned-button"
-                onClick={OpenSettings}
-              />
-            </div>
-            <Menu
-              id="demo-positioned-menu"
-              anchorEl={anchorEl}
-              open={openSettings}
-              PaperProps={{
-                style: {
-                  boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
-                },
-              }}
-            >
+                <MenuItem
+                  onClick={() => {
+                    closeSettings();
+                    editMission(item);
+                  }}
+                  title="ערוך משימה"
+                >
+                  <div className="d-flex justify-content-center">
+                    <RiFileEditLine size={20} className="mx-3" />
+                    ערוך משימה
+                  </div>
+                </MenuItem>
 
-              
-              <MenuItem
-                onClick={() => {
-                  closeSettings();
-                  editMission(item);
-                }}
-                title="ערוך משימה"
-              >
-                <div className="d-flex justify-content-center">
-                  <FaPencilAlt size={18} className="mx-3" />
-                  ערוך משימה
-                </div>
-              </MenuItem>
-              {item.status == 'ממתין לאישור' || item.status == 'בחריגה' ? (
-                 <MenuItem
-                 onClick={() => {
-                   closeSettings();
-                 }}
-                 disabled={true}
-               >
-                 <div className="d-flex justify-content-center icon_send">
-                   <SendIcon className="mx-2" />
-                 </div>
-                 שלח לאישור משימה
-               </MenuItem>
-              ) : (
                 <MenuItem
-                onClick={() => {
-                  closeSettings();
-                  SubmitMission(item);
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    closeSettings();
+                    setChatOpen(!chatOpen);
+                    setIForChat(i);
+                  }}
+                  title="chat"
+                >
+                  <div className="d-flex justify-content-center">
+                    <BsChatLeftText size={18} className="mx-3" />
+                    צ'אט
+                  </div>
+                </MenuItem>
+
+                {item.status == "ממתין לאישור" || item.status == "בחריגה" ? (
+                  <MenuItem
+                    onClick={() => {
+                      closeSettings();
+                    }}
+                    disabled={true}
+                  >
+                    <div className="d-flex justify-content-center">
+                      <MdDone size={20} className="mx-3" />
+                    </div>
+                    שלח לאישור משימה
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    onClick={() => {
+                      closeSettings();
+                      SubmitMission(item);
+                    }}
+                    title="שלח לאישור סיום"
+                  >
+                    <div className="d-flex justify-content-center ">
+                      <MdDone size={20} className="mx-3" />
+                    </div>
+                    שלח לאישור משימה
+                  </MenuItem>
+                )}
+                <MenuItem
+                  onClick={() => {
+                    closeSettings();
+                    delMission(item._id, currentUser.token);
+                  }}
+                  title="מחק משימה"
+                >
+                  <div className="d-flex justify-content-center">
+                    <DeleteOutlineIcon className="mx-3" />
+                  </div>
+                  מחק משימה
+                </MenuItem>
+              </Menu>
+            </div>
+
+            <div className="row div_chat_fan_icon mx-1">
+              <div
+                className="cursor col-6 p-0"
+                onClick={(e) => {
+                  e.stopPropagation();
                 }}
-                title="שלח לאישור סיום"
               >
-                <div className="d-flex justify-content-center icon_send">
-                  <SendIcon className="mx-2" />
+                <div id="demo-positioned-button" onClick={OpenSettings}>
+                  <p className="text-secondary morMission">עוד...</p>
                 </div>
-                שלח לאישור משימה
-              </MenuItem>
-              )}
-              <MenuItem
-                onClick={() => {
-                  closeSettings();
-                  delMission(item._id, currentUser.token);
-                }}
-                title="מחק משימה"
-              >
-                <div className="d-flex justify-content-center">
-                  <DeleteOutlineIcon className="mx-3" />
-                </div>
-                מחק משימה
-              </MenuItem>
-            </Menu>
-            </> : ''}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div> ) : ''}</>
+      ) : (
+        ""
+      )}
+    </>
   );
 }

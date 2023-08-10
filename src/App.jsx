@@ -26,6 +26,7 @@ export default function App() {
         transports: ["websocket", 'polling'],
       }));
     }
+ 
 }, [currentUser])
 
 useEffect(() => {
@@ -69,6 +70,7 @@ useEffect(() => {
 }, [socketIo])
 
   const newMission = async(mission, token)=>{
+    console.log(mission);
     // setLoading(true)
     let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){
