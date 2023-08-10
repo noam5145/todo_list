@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { Oval } from "react-loader-spinner";
 import * as XLSX from "xlsx/xlsx.mjs";
 import { NotifyNotConfirm, NotifyConfirm } from "../taskList/notify";
+import { GrDocumentExcel } from "react-icons/gr";
 
 export default function PendingMissions() {
   const { missions, updateMission, sendToArchives, currentUser, loading } =
@@ -97,16 +98,17 @@ export default function PendingMissions() {
                 סה"כ משימות בהמתנה לאישור: {dataPenMission.length}{" "}
               </p>
               <button
-                onClick={toExcel}
-                className="btn m-3  bg-secondary text-light"
-              >
-                {" "}
-                <AiOutlineFilePdf size={30} />
-                Ecxel
-              </button>
+                      className="btn bg-success text-light"
+                      style={{ width: "100px" }}
+                      onClick={() => toExcel()}
+                    >
+                      <samp>
+                        <GrDocumentExcel color="white" /> Excel
+                      </samp>
+                    </button>
               <button
                 onClick={handlePrintEx}
-                className="btn   bg-secondary text-light  m-3"
+                className="btn   bg-kaka text-light  m-3"
               >
                 <LocalPrintshopRoundedIcon /> הדפסה
               </button>
@@ -122,26 +124,36 @@ export default function PendingMissions() {
                 <div className="col-1 top_table-pen text-center">
                   מועד משימה<span title="מיין לפי גדול/קטן"></span>
                 </div>
-                <div className="col-1 top_table-pen text-center">
-                  אחריות<span title="מיין לפי גדול/קטן"></span>
-                </div>
+               
                 <div className="col-1 top_table-pen text-center">
                   כותרת הפגישה <span title="מיין לפי גדול/קטן"></span>
                 </div>
-                <div className="col-3 top_table-pen text-center">
+                <div className="col-2 top_table-pen text-center">
                   פירוט הפגישה <span title="מיין לפי גדול/קטן"></span>
                 </div>
+                <div className="col-4 ">
+          <div className="respon text-center">
+            אחריות{" "}
+            
+          </div>
+        <div className=" d-flex col-12">
+        <div className="col-3 top_table text-center levels">רמה 1</div>{" "}
+          <div className="col-3 top_table text-center levels">רמה 2</div>{" "}
+          <div className="col-3 top_table text-center levels">רמה 3</div>{" "}
+          <div className="col-3 top_table text-center levels">רמה 4</div>
+        </div>
+        </div>
                 <div className="col-1 top_table-pen text-center">
                   תג"ב<span title="מיין לפי גדול/קטן"></span>
                 </div>
                 {/* <div className="col-1 top_table-pen text-center">
                   ימי חריגה<span title="מיין לפי גדול/קטן"></span>
                 </div> */}
-                <div className="col-2 top_table-pen text-center">
+                <div className="col-1 top_table-pen text-center">
                   נשלח על ידי<span title="מיין לפי גדול/קטן"></span>
                 </div>
 
-                <div className="col-2 top_table-pen text-center">
+                <div className="col-1 top_table-pen text-center">
                   האם לאשר?<span title="מיין לפי גדול/קטן"></span>
                 </div>
               </div>
@@ -158,29 +170,11 @@ export default function PendingMissions() {
                   <div className="col-1 the_table-pen text-center">
                     {mission.startedAt}
                   </div>
-                  <div className="col-1 flex-column the_table-pen text-center">
-                    <div
-                      className={` p_taskdetail-pen w-100 py-1 ${
-                        mission.responsibility.length < 3
-                          ? "d-flex align-items-center flex-column   justify-content-center"
-                          : ""
-                      }`}
-                    >
-                      {mission.responsibility?.map((name, i) => {
-                        return (
-                          <div style={{ fontSize: "0.9rem" }}>
-                            {!(i == mission.responsibility.length - 1)
-                              ? name + ","
-                              : name + "."}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                 
                   <div className="col-1 the_table-pen text-center">
                     {mission.title}
                   </div>
-                  <div className="col-3 the_table-pen text-center align-missions-center">
+                  <div className="col-2 the_table-pen text-center align-missions-center">
                     <p
                       className={`p_taskdetail-pen p-2 ${
                         mission.details.length < 40
@@ -191,15 +185,37 @@ export default function PendingMissions() {
                       {mission.details}
                     </p>
                   </div>
+                  <div className="col-1 flex-column the_table-pen text-center"></div>
+                  <div className="col-1 flex-column the_table-pen text-center"></div>
+                  <div className="col-1 flex-column the_table-pen text-center"></div>
+                  <div className="col-1 flex-column the_table-pen text-center">
+                    <div
+                      className={` p_taskdetail-pen w-100 py-1 ${
+                        mission.responsibility.length < 3
+                          ? "d-flex align-items-center flex-column   justify-content-center"
+                          : ""
+                      }`}
+                    >
+                      {mission.responsibility?.map((name, i) => {
+                        return (
+                          <div>
+                            {!(i == mission.responsibility.length - 1)
+                              ? name + ","
+                              : name + "."}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                   <div className="col-1 the_table-pen  text-center">
                     {mission.endedAt}
                   </div>
 
-                  <div className="col-2 the_table-pen  text-center align-missions-center ">
-                    <p>{mission.changeStatus}</p>
+                  <div className="col-1 the_table-pen  text-center align-missions-center ">
+                    {mission.changeStatus}
                   </div>
 
-                  <div className="col-2 align-missions-center  the_table-pen text-center">
+                  <div className="col-1 align-missions-center  the_table-pen text-center">
                     {/* <button
                           onClick={() => aprrove(mission._id)}
                           style={{ background: "none", border: "none" }}
@@ -216,15 +232,16 @@ export default function PendingMissions() {
                 
                 
                     >
-                      <option >בחר...</option>
+                      <option className="confirmOp" >בחר...</option>
                       <option
                         value={true}
-
+                        className="confirmOp"
                         // onClick={(e) => aprrove(mission._id, e.target.value)}
                       >
                         אשר
                       </option>
                       <option
+                      className="confirmOp"
                         // onClick={(e) => aprrove(mission._id, e.target.value)}
                         value={false}
                       >

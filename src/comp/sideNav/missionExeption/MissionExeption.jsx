@@ -99,10 +99,18 @@ export default function MissionExeption() {
                     פירוט הפגישה
                   </div>
                   <div className="col-1 top_table-Ex text-center">תג"ב</div>
-                  <div className="col-1 top_table-Ex text-center">רמה 1</div>
-                  <div className="col-1 top_table-Ex text-center">רמה 2</div>
-                  <div className="col-1 top_table-Ex text-center">רמה 3</div>
-                  <div className="col-1 top_table-Ex text-center">רמה 4</div>
+                  <div className="col-4 ">
+          <div className="respon text-center">
+            אחריות{" "}
+            
+          </div>
+        <div className=" d-flex col-12">
+        <div className="col-3 top_table text-center levels">רמה 1</div>{" "}
+          <div className="col-3 top_table text-center levels">רמה 2</div>{" "}
+          <div className="col-3 top_table text-center levels">רמה 3</div>{" "}
+          <div className="col-3 top_table text-center levels">רמה 4</div>
+        </div>
+        </div>
                   <div className="col-1 top_table-Ex text-center">
                     ימי חריגה
                   </div>
