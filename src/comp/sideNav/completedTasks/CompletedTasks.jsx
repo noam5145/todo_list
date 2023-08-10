@@ -9,7 +9,6 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 
 
 
-
 export default function CompletedTasks() {
   const { missions, archive, currentUser, loading } = useContext(MyContext);
   const componentToPrint = useRef();
@@ -78,13 +77,13 @@ export default function CompletedTasks() {
               </div>
             <div className="d-flex h-100 align-items-center" >
          <p className="numOfExMission m-2">סה"כ משימות בארכיון:  {archive.length} </p>
-         <button onClick={toExcel}   className="btn m-3  bg-secondary text-light"><AiOutlineFilePdf size={30} />Ecxel</button>
+         <button onClick={toExcel}   className="btn m-3  bg-success text-light"><AiOutlineFilePdf size={30} />Ecxel</button>
 
-        <button onClick={handlePrintEx} className="btn   bg-secondary text-light  m-3"><LocalPrintshopRoundedIcon/> הדפסה</button>
+        <button onClick={handlePrintEx} className="btn bg-print text-light  m-3"><LocalPrintshopRoundedIcon/> הדפסה</button>
        </div>
         
          </div>
-         <div className="container  table-container-Archive all_table-Archive">
+         <div className="container  table-container-Archive all_table-Archive mt-5 mb-5">
            <span>
              <div className=" d-flex justify-content-center sticky-top">
                <div className="col-1 top_table-Archive text-center">
@@ -114,7 +113,7 @@ export default function CompletedTasks() {
                
                <div
                key={mission.id}
-                 className="container-fluid completed-mission-row d-flex justify-content-center p-0"
+                 className="container-fluid completed-mission-row d-flex justify-content-center p-0 e"
                >
                  <div className="col-1 the_table-Archive text-center">
                    {mission.missionId}
@@ -123,7 +122,7 @@ export default function CompletedTasks() {
                  <div className={` p_taskdetail-Archive w-100 py-1 ${ mission.responsibility.length < 3
                        ? "d-flex align-items-center flex-column   justify-content-center"
                        : ""}`}   >
-                     {mission.responsibility?.map((name, i) =>{return <div className="fs-6" >   {!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
+                     {mission.responsibility?.map((name, i) =>{return <div className="" >   {!(i == mission.responsibility.length -1) ? name + ',' : name + '.'}</div>})}
                    </div>
                  </div>
                  <div className="col-1 the_table-Archive text-center">
@@ -138,7 +137,7 @@ export default function CompletedTasks() {
                  </div>
                  <div className="col-3 the_table-Archive  text-center align-missions-center ">
                  <p>
-                
+                  {mission.changeStatus}
                  </p>
                  </div>
                  
