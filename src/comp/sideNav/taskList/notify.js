@@ -52,7 +52,19 @@ export function notifyedit(){
     };
 
     export function NotifyNotConfirm(){
-      toast.success('המשימה לא אושרה ' , {
+      toast.success('המשימה לא אושרה ❌' , {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        });
+        };
+    export function NotifyConfirm(){
+      toast.success('המשימה אושרה ' , {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,

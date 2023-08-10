@@ -47,8 +47,6 @@ export default function TaskList() {
       setAllDataShow([]);
     }
   }, [missions]);
-  console.log(missions);
-
   useEffect(() => {
     if (allDataShow[0]) {
       setChat(
@@ -167,7 +165,7 @@ export default function TaskList() {
                       </samp>
                     </button>
                     <button
-                      className="btn bg-primary mx-3 text-light"
+                      className="btn btnAdd mx-3 text-light"
                       onClick={() => {
                         openDialog();
                         setEditSingleMission("");
