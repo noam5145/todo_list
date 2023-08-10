@@ -3,17 +3,21 @@ import React, { useState } from "react";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 
 export default function NewEnvironment({ setOpen }) {
+  const [displayError, setDisplayError] = useState(false);
   const [messenge, setMessenge] = useState({
     inputName: "",
     inputPhone: "",
     inputRole: "",
     inputUnitName: "",
-    inputUnitCharcter: "",
-    inputUnikRank: "",
-    gridCheck: "",
-    inputNameRole: "",
-    inputRunkRole: "",
+    inputWorkSpace: "",
+    inputInspirationLevel: ""
   });
+
+  const errorNote = (
+    <h5 className="text-danger mb-sm-2 font-weight-bold">
+      ודא שהפרטים שהזנת נכונים
+    </h5>
+  );
 
   const updateData = (e, field) => {
     setMessenge({ ...messenge, [field]: e.target.value });
@@ -25,15 +29,13 @@ export default function NewEnvironment({ setOpen }) {
       messenge.inputPhone != "" &&
       messenge.inputRole != "" &&
       messenge.inputUnitName != "" &&
-      messenge.inputUnikRank != "" &&
-      messenge.inputUnitCharcter != "" &&
-      messenge.gridCheck != "" &&
-      messenge.inputNameRole !="" &&
-      messenge.inputRunkRole != ""
+      messenge.inputInspirationLevel != "בחר" &&
+      messenge.inputWorkSpace != "בחר"
     ) {
       console.log(messenge);
+      setDisplayError(false);
     } else {
-      console.log("Error");
+      setDisplayError(true);
     }
   };
   return (
@@ -47,10 +49,17 @@ export default function NewEnvironment({ setOpen }) {
           </div>
           <div className="row d-flex justify-content-center">
             <div class="row col-md-12 d-flex pb-md-5 pt-md-3 justify-content-center">
-              <h3 className="col-md-10 text-center">להצטרפות יש למלא את הטופס ולשלוח בקשה</h3>
-              <p className="col-md-10  text-end">פרטי מגיש הבקשה</p>
+              <h3 className="col-md-12 text-center">
+                נא למלא את הטופס על מנת לקבל הרשאות (ניהול\עריכה\צפייה) לסביבה
+                קיימת
+              </h3>
               <div class=" col-md-5 pt-3">
-                <label for="inputName">שם:</label>
+                <label for="inputName">
+                  שם:{" "}
+                  <span className={displayError ? "text-danger" : "text-dark"}>
+                    *
+                  </span>
+                </label>
                 <input
                   onChange={(e) => updateData(e, "inputName")}
                   type="text"
@@ -59,7 +68,12 @@ export default function NewEnvironment({ setOpen }) {
                 />
               </div>
               <div class="col-md-5 pt-3">
-                <label for="inputPhone">טלפון:</label>
+                <label for="inputPhone">
+                  טלפון:{" "}
+                  <span className={displayError ? "text-danger" : "text-dark"}>
+                    *
+                  </span>
+                </label>
                 <input
                   onChange={(e) => updateData(e, "inputPhone")}
                   type="tel"
@@ -68,7 +82,12 @@ export default function NewEnvironment({ setOpen }) {
                 />
               </div>
               <div class=" col-md-5 pt-3">
-                <label for="inputRole">תפקיד:</label>
+                <label for="inputRole">
+                  תפקיד:{" "}
+                  <span className={displayError ? "text-danger" : "text-dark"}>
+                    *
+                  </span>
+                </label>
                 <input
                   onChange={(e) => updateData(e, "inputRole")}
                   type="text"
@@ -77,7 +96,12 @@ export default function NewEnvironment({ setOpen }) {
                 />
               </div>
               <div class=" col-md-5 pt-3">
-                <label for="inputUnit">שם היחידה:</label>
+                <label for="inputUnit">
+                  שם היחידה:{" "}
+                  <span className={displayError ? "text-danger" : "text-dark"}>
+                    *
+                  </span>
+                </label>
                 <input
                   onChange={(e) => updateData(e, "inputUnitName")}
                   type="text"
@@ -86,42 +110,44 @@ export default function NewEnvironment({ setOpen }) {
                 />
               </div>
               <div class="col-md-5 pt-3">
-                <label for="inputUnitCharcter">אופי היחידה:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputUnitCharcter"
-                  onChange={(e) => updateData(e, "inputUnitCharcter")}
-                />
+                <label for="inputWorkSpace">
+                  סביבת עבודה מבוקשת:{" "}
+                  <span className={displayError ? "text-danger" : "text-dark"}>
+                    *
+                  </span>
+                </label>
+                <select
+                  aria-label="Default select example"
+                  className="form-control form-select"
+                  id="inputWorkSpace"
+                  onChange={(e) => updateData(e, "inputWorkSpace")}
+                >
+                  <option selected>בחר</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
               </div>
               <div class="form-group col-md-5 pt-3">
-                <label for="inputUnikRank">:דרג היחידה</label>
-                <input
-                  onChange={(e) => updateData(e, "inputUnikRank")}
-                  type="text"
-                  class="form-control"
-                  id="inputUnikRank"
-                />
+                <label for="inputInspirationLevel">
+                  רמת השראה נדרשת:{" "}
+                  <span className={displayError ? "text-danger" : "text-dark"}>
+                    *
+                  </span>
+                </label>
+                <select
+                  aria-label="Default select example"
+                  className="form-control form-select"
+                  id="inputInspirationLevel"
+                  onChange={(e) => updateData(e, "inputInspirationLevel")}
+                >
+                  <option selected>בחר</option>
+                  <option value="1">צפייה</option>
+                  <option value="2">עריכה</option>
+                  <option value="3">ניהול</option>
+                </select>
               </div>
-              <div className="col-md-10  text-end border-top border-dark mt-md-3 pt-md-3">פרטי בע"ת שעבורו המערכת</div>
-              <div class="col-md-5 pt-3">
-                <label for="inputPhone">שם:</label>
-                <input
-                  onChange={(e) => updateData(e, "inputNameRole")}
-                  type="tel"
-                  class="form-control"
-                  id="inputPhone"
-                />
-              </div>
-              <div class=" col-md-5 pt-3">
-                <label for="inputRole">דרגה:</label>
-                <input
-                  onChange={(e) => updateData(e, "inputRunkRole")}
-                  type="text"
-                  class="form-control"
-                  id="inputRole"
-                />
-              </div>
+              {displayError ? errorNote : ""}
               <button
                 onClick={chekMessemge}
                 type="submit"
@@ -130,7 +156,6 @@ export default function NewEnvironment({ setOpen }) {
                 שליחה
               </button>
             </div>
-            
           </div>
         </div>
       </div>

@@ -71,8 +71,8 @@ export default function TopNav() {
               </Link>
             </div>}
           <div className="">
-            <button className="btn bg-success" onClick={() => setOpen(true)}>
-              יצירת סביבה חדשה  +
+            <button className="btn bg-primary text-white" onClick={() => setOpen(true)}>
+              בקשת הרשאות
             </button>
             <Dialog
               open={open}

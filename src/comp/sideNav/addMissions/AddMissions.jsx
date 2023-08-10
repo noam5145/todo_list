@@ -50,6 +50,7 @@ export default function AddMissions({
   const [displayErrorLevelOne, setDisplayErrorLevelOne] = useState(false);
   const [displayErrorLevelTwo, setDisplayErrorLevelTwo] = useState(false);
   const [displayErrorLevelThree, setDisplayErrorLevelTree] = useState(false);
+  const [displayErrorLevelFour, setDisplayErrorLevelFour] = useState(false);
   const [
     displayErrorExecutionCompletionDate,
     setDisplayErrorExecutionCompletionDate,
@@ -66,6 +67,7 @@ export default function AddMissions({
   const levelOne = useRef();
   const levelTwo = useRef();
   const levelThree = useRef();
+  const levelFour = useRef();
   const [userSelect, setUserSelected] = useState([]);
   const [files, setfiles] = useState([]);
   const [checksIfFile, setChecksIfFile] = useState(false);
@@ -161,6 +163,7 @@ export default function AddMissions({
       levelOne: levelOne?.current?.value,
       levelTwo: levelTwo?.current?.value,
       levelThree: levelThree?.current?.value,
+      levelFour: levelFour?.current?.value,
       chat: {
         messages: {
           msg: noteCommander.current?.value
@@ -185,9 +188,10 @@ export default function AddMissions({
       newTask.responsibility != "" &&
       newTask.endedAt != "" &&
       newTask.daysLeft >= 0 &&
-      newTask.levelOne != "" &&
-      newTask.levelTwo != "" &&
-      newTask.levelThree != ""
+      newTask.levelOne != "בחר פיקוד..." &&
+      newTask.levelTwo != "בחר..." &&
+      newTask.levelThree != "בחר..." &&
+      newTask.levelFour != "בחר..."
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
@@ -226,21 +230,27 @@ export default function AddMissions({
         setDisplayErrorExecutionCompletionDate(false),
           setdisplayErrorMeetingDate(false);
     }
-    if (newTask.levelOne == "") {
+    if (newTask.levelOne == "בחר...") {
       setDisplayErrorLevelOne(true);
     } else {
       setDisplayErrorLevelOne(false);
     }
-    if (newTask.levelTwo == "") {
+    if (newTask.levelTwo == "בחר...") {
       setDisplayErrorLevelTwo(true);
     } else {
       setDisplayErrorLevelTwo(false);
     }
-    if (newTask.levelThree == "") {
+    if (newTask.levelThree == "בחר...") {
       setDisplayErrorLevelTree(true);
     } else {
       setDisplayErrorLevelTree(false);
     }
+    if (newTask.levelFour == "בחר...") {
+      setDisplayErrorLevelFour(true);
+    } else {
+      setDisplayErrorLevelFour(false);
+    }
+
     setDisplayErrorNote(true);
   };
 
@@ -268,6 +278,10 @@ export default function AddMissions({
       responsibility: personNames,
       endedAt: executionCompletionDate?.current?.value,
       daysLeft: diffDays,
+      levelOne: levelOne?.current?.value,
+      levelTwo: levelTwo?.current?.value,
+      levelThree: levelThree?.current?.value,
+      levelFour: levelFour?.current?.value,
       chat: {
         messages: {
           msg: noteCommander.current?.value
@@ -282,7 +296,7 @@ export default function AddMissions({
         },
       },
       // fileMission: fileMission?.current?.files[0],
-      token: userSelect,
+      token: userSelect
     };
 
     if (
@@ -291,7 +305,11 @@ export default function AddMissions({
       newTask.details != "" &&
       newTask.responsibility != "" &&
       newTask.endedAt != "" &&
-      newTask.daysLeft >= 0
+      newTask.daysLeft >= 0 &&
+      newTask.levelOne != "בחר פיקוד..." &&
+      newTask.levelTwo != "בחר..." &&
+      newTask.levelThree != "בחר..." &&
+      newTask.levelFour != "בחר..." 
     ) {
       setDisplayErrorNote(false);
       setDisplayErrorDesign(false);
@@ -302,7 +320,6 @@ export default function AddMissions({
       meetingDate.current.value = "";
       taskDetails.current.value = "";
       executionCompletionDate.current.value = "";
-      noteCommander.current.value = "";
       setPersonNames([]);
       setUserSelected([]);
       // fileMission.current.files[0] = ""
@@ -328,6 +345,19 @@ export default function AddMissions({
       } else
         setDisplayErrorExecutionCompletionDate(false),
           setdisplayErrorMeetingDate(false);
+
+      if (newTask.levelOne =="בחר פיקוד...") {
+        setDisplayErrorLevelOne(true)
+      }else setDisplayErrorLevelOne(false)
+      if (newTask.levelTwo =="בחר...") {
+        setDisplayErrorLevelTwo(true)
+      }else setDisplayErrorLevelTwo(false)
+      if (newTask.levelThree =="בחר...") {
+        setDisplayErrorLevelTree(true)
+      }else setDisplayErrorLevelTree(false)
+      if (newTask.levelFour =="בחר...") {
+        setDisplayErrorLevelFour(true)
+      }else setDisplayErrorLevelFour(false)
       setDisplayErrorNote(true);
     }
   };
@@ -591,6 +621,34 @@ export default function AddMissions({
                   <option></option>
                 </select>
               </li>
+              <li className="col-6 list-unstyled   mb-4">
+                <label htmlFor="levelThree">
+                  רמה 4{" "}
+                  <span
+                    className={
+                      displayErrorLevelThree ? "text-danger" : "text-dark"
+                    }
+                  >
+                    {" "}
+                    *
+                  </span>
+                </label>
+                <select
+                  id="levelFour"
+                  ref={levelFour}
+                  placeholder="רמה 4"
+                  className={
+                    displayErrorLevelThree
+                      ? "form-control bg-light"
+                      : "form-control bg-light "
+                  }
+                  aria-label="Default select example"
+                >
+                  <option selected>בחר...</option>
+                  <option></option>
+                </select>
+              </li>
+              <ul className="row d-flex justify-content-around"> 
               <li className="col-lg-6 list-unstyled col-sm-6  mb-4">
                 <div>
                   <label htmlFor="responsibility">
@@ -641,6 +699,8 @@ export default function AddMissions({
                   </FormControl>
                 </div>
               </li>
+              </ul>
+
               <li className="d-flex justify-content-end my-1" dir="ltr">
                 <div className="">
                   {files.map((file, i) => (
@@ -677,7 +737,7 @@ export default function AddMissions({
               </li>
             </ul>
           ) : (
-            <ul className="d-flex row">
+            <ul className="d-flex row ">
               <li className="col-6 list-unstyled ">
                 <label htmlFor="meetingTitle">
                   כותרת הפגישה{" "}
@@ -780,19 +840,20 @@ export default function AddMissions({
                   </span>
                 </label>
                 <select
-                    id="levelOne"
-                    ref={levelOne}
-                    placeholder="רמה 1 "
-                    defaultValue={editSingleMission.levelOne}
-                    className={
-                      displayErrorLevelOne
-                        ? "form-control bg-light"
-                        : "form-control bg-light "
-                    }                    aria-label="Default select example"
-                  >
-                    <option selected>בחר פיקוד...</option>
-                    <option>פיקוד הכשרות ואימונים</option>
-                  </select>
+                  id="levelOne"
+                  ref={levelOne}
+                  placeholder="רמה 1 "
+                  defaultValue={editSingleMission.levelOne}
+                  className={
+                    displayErrorLevelOne
+                      ? "form-control bg-light"
+                      : "form-control bg-light "
+                  }
+                  aria-label="Default select example"
+                >
+                  <option selected>בחר פיקוד...</option>
+                  <option>פיקוד הכשרות ואימונים</option>
+                </select>
               </li>
               <li className="col-6 list-unstyled   mb-4">
                 <label htmlFor="levelTwo">
@@ -807,22 +868,21 @@ export default function AddMissions({
                   </span>
                 </label>
                 <select
-                    id="levelTwo"
-                    ref={levelTwo}
-                    placeholder="רמה 2"
-                    defaultValue={editSingleMission.levelTwo}
-
-                    className={
-                      displayErrorLevelTwo
-                        ? "form-control bg-light"
-                        : "form-control bg-light "
-                    }                    aria-label="Default select example"
-                  >
-                    <option selected>בחר...</option>
-                    <option>מטה</option>
-                    <option>יחידה</option>
-                  </select>
-
+                  id="levelTwo"
+                  ref={levelTwo}
+                  placeholder="רמה 2"
+                  defaultValue={editSingleMission.levelTwo}
+                  className={
+                    displayErrorLevelTwo
+                      ? "form-control bg-light"
+                      : "form-control bg-light "
+                  }
+                  aria-label="Default select example"
+                >
+                  <option selected>בחר...</option>
+                  <option>מטה</option>
+                  <option>יחידה</option>
+                </select>
               </li>
               <li className="col-6 list-unstyled   mb-4">
                 <label htmlFor="levelThree">
@@ -837,21 +897,50 @@ export default function AddMissions({
                   </span>
                 </label>
                 <select
-                    id="levelThree"
-                    ref={levelThree}
-                    placeholder="רמה 3 "
-                    defaultValue={editSingleMission.levelThree}
-                    className={
-                      displayErrorLevelThree
-                        ? "form-control bg-light"
-                        : "form-control bg-light "
-                    }                    aria-label="Default select example"
-                    
-                  >
-                    <option selected>בחר...</option>
-                    <option></option>
-                  </select>
+                  id="levelThree"
+                  ref={levelThree}
+                  placeholder="רמה 3 "
+                  defaultValue={editSingleMission.levelThree}
+                  className={
+                    displayErrorLevelThree
+                      ? "form-control bg-light"
+                      : "form-control bg-light "
+                  }
+                  aria-label="Default select example"
+                >
+                  <option selected>בחר...</option>
+                  <option></option>
+                </select>
               </li>
+              <li className="col-6 list-unstyled  mb-4">
+                <label htmlFor="levelFour">
+                  רמה 4{" "}
+                  <span
+                    className={
+                      displayErrorLevelFour ? "text-danger" : "text-dark"
+                    }
+                  >
+                    {" "}
+                    *
+                  </span>
+                </label>
+                <select
+                  id="levelFour"
+                  ref={levelFour}
+                  placeholder="רמה 4"
+                  defaultValue={editSingleMission.levelFour}
+                  className={
+                    displayErrorLevelFour
+                      ? "form-control bg-light"
+                      : "form-control bg-light "
+                  }
+                  aria-label="Default select example"
+                >
+                  <option selected>בחר...</option>
+                  <option></option>
+                </select>
+              </li>
+              <ul className="row d-flex justify-content-around">
               <li className="col-lg-6 list-unstyled col-sm-6  mb-4">
                 <div>
                   <label htmlFor="responsibility">
@@ -903,6 +992,8 @@ export default function AddMissions({
                   </FormControl>
                 </div>
               </li>
+              </ul>
+
               <li className="d-flex justify-content-end my-1" dir="ltr">
                 <div className="">
                   {files.map((file, i) => (
