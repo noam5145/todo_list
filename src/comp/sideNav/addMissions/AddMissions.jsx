@@ -618,7 +618,7 @@ export default function AddMissions({
                   aria-label="Default select example"
                 >
                   <option selected>בחר...</option>
-                  <option></option>
+                  <option>רמה 3</option>
                 </select>
               </li>
               <li className="col-6 list-unstyled   mb-4">
@@ -645,7 +645,7 @@ export default function AddMissions({
                   aria-label="Default select example"
                 >
                   <option selected>בחר...</option>
-                  <option></option>
+                  <option>רמה 4</option>
                 </select>
               </li>
               <ul className="row d-flex justify-content-around"> 

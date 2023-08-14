@@ -75,6 +75,7 @@ export default function BottomTable({
   }, []);
 
   useEffect(() => {
+    console.log(missions);
     if (allDataShow[0]) {
       let arr = Array(item.chat.messages.readed?.length).fill(0);
       item.chat.messages.readed?.map((read, i) => {
@@ -115,13 +116,13 @@ export default function BottomTable({
             <AiOutlineFilePdf size={20} />
           </div>
           <div className="col-1 the_table text-center d-flex align-items-center">
-            {item.oneLevel}
-          </div>
-          <div className="col-1 the_table text-center d-flex align-items-center">
-            {item.levelTwo}
+            {item.levelOne}
           </div>
           <div className="col-1 the_table text-center d-flex align-items-center">
             {item.levelThree}
+          </div>
+          <div className="col-1 the_table text-center d-flex align-items-center">
+            {item.levelFour}
           </div>
           {/* <div className="col-1 responsibility text-center d-flex align-items-center"> */}
           <div

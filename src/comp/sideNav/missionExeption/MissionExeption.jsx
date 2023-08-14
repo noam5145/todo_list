@@ -8,7 +8,6 @@ import * as XLSX from "xlsx/xlsx.mjs";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { GrDocumentExcel } from "react-icons/gr";
 
-
 export default function MissionExeption() {
   const { missions, daysOff, endAtChanged, loading, currentUser } =
     useContext(MyContext);
@@ -68,6 +67,7 @@ export default function MissionExeption() {
                 <div className=" mx-5 pt-2" style={{height:'48px'}}>
                   סה"כ משימות בחריגה: {dataExMission.length}
                 </div>
+
                 {/* <button
                       className="btn bg-success text-light"
                       style={{ width: "100px" }}
@@ -113,17 +113,22 @@ export default function MissionExeption() {
                   </div>
                   <div className="col-1 top_table-Ex text-center">תג"ב</div>
                   <div className="col-4 ">
-          <div className="respon text-center">
-            אחריות{" "}
-            
-          </div>
-        <div className=" d-flex col-12">
-        <div className="col-3 top_table text-center levels">רמה 1</div>{" "}
-          <div className="col-3 top_table text-center levels">רמה 2</div>{" "}
-          <div className="col-3 top_table text-center levels">רמה 3</div>{" "}
-          <div className="col-3 top_table text-center levels">רמה 4</div>
-        </div>
-        </div>
+                    <div className="respon text-center">אחריות </div>
+                    <div className=" d-flex col-12">
+                      <div className="col-3 top_table text-center levels">
+                        רמה 1
+                      </div>{" "}
+                      <div className="col-3 top_table text-center levels">
+                        רמה 2
+                      </div>{" "}
+                      <div className="col-3 top_table text-center levels">
+                        רמה 3
+                      </div>{" "}
+                      <div className="col-3 top_table text-center levels">
+                        רמה 4
+                      </div>
+                    </div>
+                  </div>
                   <div className="col-1 top_table-Ex text-center">
                     ימי חריגה
                   </div>
@@ -168,67 +173,15 @@ export default function MissionExeption() {
                         {endAtChanged(mission.endedAt)}
                       </div>
                       <div className="col-1 flex-column the_table-Ex text-center">
-                        <div
-                          className={` p_taskdetail-Ex w-100 py-1 ${
-                            mission.responsibility.length < 3
-                              ? "d-flex align-items-center flex-column   justify-content-center"
-                              : ""
-                          }`}
-                        >
-                          {mission.responsibility?.map((name, i) => {
-                            return (
-                              <div
-                                style={{ fontSize: "0.9rem", marginTop: "3px" }}
-                              >
-                                {!(i == mission.responsibility.length - 1)
-                                  ? name + ","
-                                  : name + "."}
-                              </div>
-                            );
-                          })}
-                        </div>
+                        {mission.levelOne}
                       </div>
                       <div className="col-1 the_table-Ex text-center">
-                        <div
-                          className={` p_taskdetail-Ex w-100 py-1 ${
-                            mission.responsibility.length < 3
-                              ? "d-flex align-items-center flex-column   justify-content-center"
-                              : ""
-                          }`}
-                        >
-                          {mission.responsibility?.map((name, i) => {
-                            return (
-                              <div
-                                style={{ fontSize: "0.9rem", marginTop: "3px" }}
-                              >
-                                {!(i == mission.responsibility.length - 1)
-                                  ? name + ","
-                                  : name + "."}
-                              </div>
-                            );
-                          })}
-                        </div>
+                        {" "}
+                        {mission.levelTree}
                       </div>
                       <div className="col-1 the_table-Ex text-center">
-                        <div
-                          className={` p_taskdetail-Ex w-100 py-1 ${
-                            mission.responsibility.length < 3
-                              ? "d-flex align-items-center flex-column   justify-content-center"
-                              : ""
-                          }`}
-                        >
-                          {mission.responsibility?.map((name, i) => {
-                            return (
-                              <div
-                                style={{ fontSize: "0.9rem", marginTop: "3px" }}
-                              >
-                                {!(i == mission.responsibility.length - 1)
-                                  ? name + ","
-                                  : name + "."}
-                              </div>
-                            );
-                          })}
-                        </div>
+                        {" "}
+                        {mission.levelFour}
                       </div>
                       <div className="col-1 the_table-Ex text-center">
                         <div

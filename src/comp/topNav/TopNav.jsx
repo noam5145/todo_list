@@ -52,7 +52,7 @@ export default function TopNav() {
   }, []);
   return (
     <>
-      <div className="row m-0 align-items-center top_nav sticky-top">
+      <div className="row m-0 align-items-center top_nav sticky">
         <div className="col-4 d-flex mx-sm-3 mx-0 logo">
           <img src={Logo} alt="" height={100} width={155} />
         </div>

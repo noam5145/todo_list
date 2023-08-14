@@ -184,9 +184,9 @@ export default function PendingMissions() {
                       {mission.details}
                     </p>
                   </div>
-                  <div className="col-1 flex-column the_table-pen text-center"></div>
-                  <div className="col-1 flex-column the_table-pen text-center"></div>
-                  <div className="col-1 flex-column the_table-pen text-center"></div>
+                  <div className="col-1 flex-column the_table-pen text-center">{mission.levelOne}</div>
+                  <div className="col-1 flex-column the_table-pen text-center">{mission.levelThree}</div>
+                  <div className="col-1 flex-column the_table-pen text-center">{mission.levelFour}</div>
                   <div className="col-1 flex-column the_table-pen text-center">
                     <div
                       className={` p_taskdetail-pen w-100 py-1 ${
