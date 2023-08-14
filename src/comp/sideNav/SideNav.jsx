@@ -37,8 +37,8 @@ export default function SideNav() {
       <div
         className={
           showSideNav
-            ? "col-2 side_Nav sticky animaOpen"
-            : "sticky side_Nav animaClose"
+            ? "col-2 side_Nav sticky_side animaOpen"
+            : "sticky_side side_Nav animaClose"
         }
       >
         <div

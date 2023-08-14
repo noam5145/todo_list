@@ -34,3 +34,8 @@ background-color: #ffe4c49b;
     padding: 5px 20px;
     background-color: #fff;
 }
+.sticky{
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}

@@ -34,6 +34,7 @@ export default function CompletedTasks() {
   }
 
   useEffect(() => {
+    console.log(archive);
     setToExcelArchive(
       archive.map((item) => {
         <div key={item.id}></div>;
@@ -154,9 +155,9 @@ export default function CompletedTasks() {
                         {mission.details}
                       </div>
                     </div>
-                    <div className="col-1 flex-column the_table-pen text-center"></div>
-                    <div className="col-1 flex-column the_table-pen text-center"></div>
-                    <div className="col-1 flex-column the_table-pen text-center"></div>
+                    <div className="col-1 flex-column the_table-pen text-center"> {mission.levelOne}</div>
+                    <div className="col-1 flex-column the_table-pen text-center"> {mission.levelThree}</div>
+                    <div className="col-1 flex-column the_table-pen text-center"> {mission.levelFour}</div>
 
                     <div className="col-1 flex-column the_table-Archive text-center">
                       <div
