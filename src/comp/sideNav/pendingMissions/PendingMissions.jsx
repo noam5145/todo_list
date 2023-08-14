@@ -87,19 +87,17 @@ export default function PendingMissions() {
 
   return (
     <>
-      <div className="container-fluid  mb-2">
+      <div className="container-fluid  linear">
         <div className="mt-5 pt-0" ref={componentToPrint}>
-          <div className="d-flex justify-content-between mx-4 mt-4">
-            <div className="d-flex  ">
-              <h4>משימות בהמתנה לאישור</h4>
-            </div>
+          <div className="d-flex justify-content-between mx-5 ">
+              <h4 className="chat_name">משימות בהמתנה לאישור</h4>
             <div className="d-flex h-100 align-items-center">
-              <p className="numOfExMission m-2">
+              <p className="pt-2 mx-5">
                 סה"כ משימות בהמתנה לאישור: {dataPenMission.length}{" "}
               </p>
               <button
-                      className="btn bg-success text-light"
-                      style={{ width: "100px" }}
+                      className="btn  bg-success text-light"
+                      style={{ width: "100px",height:'48px' }}
                       onClick={() => toExcel()}
                     >
                       <samp>
@@ -108,14 +106,15 @@ export default function PendingMissions() {
                     </button>
               <button
                 onClick={handlePrintEx}
-                className="btn   bg-kaka text-light  m-3"
+                className="btn   bg-kaka text-light  me-3"
+                style={{ width: "110px",height:'48px' }}
               >
                 <LocalPrintshopRoundedIcon /> הדפסה
               </button>
             </div>
           </div>
 
-          <div className="container  table-container-pen all_table-Ex  ml-3">
+          <div className="container   all_table-pen mt-3  ">
             <span>
               <div className=" d-flex justify-content-center sticky-top">
                 <div className="col-1 top_table-pen text-center">

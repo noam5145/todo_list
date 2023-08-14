@@ -59,38 +59,52 @@ export default function MissionExeption() {
   return (
     <>
       {!loading && currentUser.username ? (
-        <div className="container-fluid linear font-family-Ex">
-          <div ref={componentToPrint} className="mt-5 p-0">
-            <div className="d-flex justify-content-between  mx-4">
-              <div className="d-flex chat_name">
-                <h4>משימות בחריגה</h4>
-              </div>
-              <div className="d-flex mx-5 align-items-center">
-                {/* <p className="numOfExMission ">סה"כ משימות בחריגה: {dataExMission.length} </p> */}
-                <div className="numOfExMission mx-5 pt-1">
+        <div className="container-fluid linear ">
+          <div ref={componentToPrint} className="mt-5 pt-0">
+            <div className="d-flex justify-content-between  mx-5">
+                <h4 className="chat_name">משימות בחריגה</h4>
+              <div className="d-flex h-100 align-items-center">
+                <div className=" mx-5 pt-2" style={{height:'48px'}}>
                   סה"כ משימות בחריגה: {dataExMission.length}
                 </div>
-                <button
-                  className="btn bg-success text-light"
-                  style={{ width: "100px" }}
-                  onClick={() => toExcel()}
-                >
-                  <samp>
-                    <GrDocumentExcel color="white" /> Excel
-                  </samp>
-                </button>
+
+                {/* <button
+                      className="btn bg-success text-light"
+                      style={{ width: "100px" }}
+                      onClick={() => toExcel()}
+                    >
+                      <samp>
+                        <GrDocumentExcel color="white" /> Excel
+                      </samp>
+                    </button>
                 <button
                   onClick={handlePrintEx}
                   className="btn  bg-kaka  mx-3 text-light"
                 >
                   <LocalPrintshopRoundedIcon /> הדפסה
+                </button> */}
+                 <button
+                      className="btn bg-success text-light"
+                      style={{ width: "100px",height:'48px' }}
+                      onClick={() => toExcel()}
+                    >
+                      <samp>
+                        <GrDocumentExcel color="white" /> Excel
+                      </samp>
+                    </button>
+                    <button
+                  onClick={handlePrintEx}
+                  className="btn  bg-kaka  me-3 text-light"
+                  style={{ width: "110px",height:'48px' }}
+                >
+                  <LocalPrintshopRoundedIcon /> הדפסה
                 </button>
               </div>
             </div>
-            <div className="container  table-container-Ex all_table-Ex mt-2  ml-3">
+            <div className="container   all_table-Ex mt-3  ">
               <span>
                 <div className=" d-flex justify-content-center sticky-top">
-                  <div className="col-1 top_table-Ex text-center">מס"ד</div>
+                  <div className="col-2 top_table-Ex text-center">מס"ד</div>
                   <div className="col-1 top_table-Ex text-center">
                     כותרת הפגישה
                   </div>
@@ -130,7 +144,7 @@ export default function MissionExeption() {
                       key={mission.id}
                       className="container-fluid d-flex justify-content-center p-0"
                     >
-                      <div className="col-1 the_table-Ex text-center">
+                      <div className="col-2 the_table-Ex text-center">
                         {mission.missionId}
                       </div>
                       <div className="col-1 the_table-Ex text-center">
