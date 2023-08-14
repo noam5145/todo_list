@@ -64,19 +64,18 @@ export default function CompletedTasks() {
   return (
     <>
       {!loading ? (
-        <div className="container-fluid mb-2">
+        <div className="container-fluid linear">
           <div className="mt-5 pt-0" ref={componentToPrint}>
-            <div className="d-flex justify-content-between mx-4 mt-4">
-              <div className="d-flex chat_name">
-                <h4>משימות בארכיון</h4>
-              </div>
+            <div className="d-flex justify-content-between mx-5">
+                <h4 className="chat_name">משימות בארכיון</h4>
+              
               <div className="d-flex h-100 align-items-center">
-                <p className="numOfExMission m-2">
+                <p className="mx-5 pt-2">
                   סה"כ משימות בארכיון: {archive.length}{" "}
                 </p>
                 <button
                       className="btn bg-success text-light"
-                      style={{ width: "100px" }}
+                      style={{ width: "100px",height:'48px' }}
                       onClick={() => toExcel()}
                     >
                       <samp>
@@ -86,13 +85,14 @@ export default function CompletedTasks() {
 
                 <button
                   onClick={handlePrintEx}
-                  className=" bg-print text-light  m-3"
+                  className=" bg-print text-light  me-3"
+                  style={{height:'48px',width:'110px'}}
                 >
-                  <LocalPrintshopRoundedIcon /> הדפסה
+                  <LocalPrintshopRoundedIcon />  הדפסה
                 </button>
               </div>
             </div>
-            <div className="container  table-container-Archive all_table-Archive mt-5 mb-5">
+            <div className="container   all_table-Archive mt-3">
               <span>
                 <div className=" d-flex justify-content-center sticky-top">
                   <div className="col-1 top_table-Archive text-center">
