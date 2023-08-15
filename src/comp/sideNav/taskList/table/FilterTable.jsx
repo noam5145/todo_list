@@ -6,8 +6,8 @@ export default function ({ setAllDataShow }) {
   const { missions, getDaysDifference, endAtChanged } = useContext(MyContext);
 
   const SortByContentFound = (content, field) => {
-    if(field == "startedAt" || field == "endedAt"){
-        content = endAtChanged(content);
+    if (field == "startedAt" || field == "endedAt") {
+      content = endAtChanged(content);
     }
     const newFilter = missions.filter((item) => item[field].includes(content));
     setAllDataShow(newFilter);
@@ -18,6 +18,20 @@ export default function ({ setAllDataShow }) {
     );
     setAllDataShow(newFilter);
   };
+  const SortByLevel = (content, id) => {
+    if (content === "") {
+      setAllDataShow(missions);
+      return;
+    }
+
+    const newFilter = missions.filter((item) => {
+      const level = "level" + id;
+      return item[level].includes(content);
+    });
+
+    setAllDataShow(newFilter);
+  };
+
   const SortByContentSelect = (content) => {
     const newFilter = missions.filter((item) => item.status.includes(content));
     setAllDataShow(newFilter);
@@ -65,29 +79,23 @@ export default function ({ setAllDataShow }) {
         <input
           className="col-1 the_table_search bg-light"
           placeholder=" הכנס טקסט..."
-          id="responsibility"
+          id="One"
           type="text"
-          onChange={(e) =>
-            SortByResponsibilityFound(e.target.value, e.currentTarget.id)
-          }
+          onChange={(e) => SortByLevel(e.target.value, e.currentTarget.id)}
         />
         <input
           className="col-1 the_table_search bg-light"
           placeholder=" הכנס טקסט..."
-          id="responsibility"
+          id="Three"
           type="text"
-          onChange={(e) =>
-            SortByResponsibilityFound(e.target.value, e.currentTarget.id)
-          }
+          onChange={(e) => SortByLevel(e.target.value, e.currentTarget.id)}
         />
         <input
           className="col-1 the_table_search bg-light"
           placeholder=" הכנס טקסט..."
-          id="responsibility"
+          id="Four"
           type="text"
-          onChange={(e) =>
-            SortByResponsibilityFound(e.target.value, e.currentTarget.id)
-          }
+          onChange={(e) => SortByLevel(e.target.value, e.currentTarget.id)}
         />
         <input
           className="col-1 the_table_search bg-light"

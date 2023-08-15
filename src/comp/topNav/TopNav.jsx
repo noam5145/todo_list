@@ -5,9 +5,9 @@ import { FaTasks } from "react-icons/fa";
 import { BsPersonWorkspace } from "react-icons/bs";
 import "./topNav.css";
 import { MyContext } from "../../App";
-import Logo from "../../../images/logo_mission_360.png";
 import { Avatar, Badge, Button, Dialog } from "@mui/material";
 import NewEnvironment from "../../NewEnvironment";
+import Logo from "../../images/logo_mission_360.png"
 
 export default function TopNav() {
   const [currentTime, setCurrentTime] = useState(time());

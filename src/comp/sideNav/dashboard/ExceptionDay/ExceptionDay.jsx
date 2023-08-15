@@ -36,7 +36,8 @@ const getDataExceptionDay = ()=>{
 	useEffect(()=>{
 		
 		getDataExceptionDay()
-        a[0]?	setOptions({
+        if(a[0]){
+			setOptions({
 			title: {
 				text: "משימות חריגות נגררות מהעבר"
 			},
@@ -57,13 +58,8 @@ const getDataExceptionDay = ()=>{
 				maximum: new Date(a[a.length-1])
 			  }
 			}
-		  })
-	
-	:""}
-	
-	,
-	
-	[c ,missions])
+		  })}
+		},[c ,missions])
 c=true;
 	
 	  const containerProps = {

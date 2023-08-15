@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { MyContext } from "../App";
-import Logo from '../../images/logo_mission_360.png'
 import './main.css'
 import { useNavigate } from "react-router-dom";
+import Logo from "../images/logo_mission_360.png"
 
 export default function MainSite() {
   const {} = useContext(MyContext);

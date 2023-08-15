@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Badge, Button, Dialog } from "@mui/material";
 import "./bottomNav.css";
-import LogoAlpha from "../../../images/צוות אלפא.jpg";
+import Logo from "../../images/צוות אלפא.jpg";
 
 export default function BottomNav() {
   const [open, setOpen] = React.useState(false);
@@ -17,7 +17,7 @@ export default function BottomNav() {
               className="info_more"
               title="קרא עוד על היחידה"
               onClick={() => setOpen(true)}
-              src={LogoAlpha}
+              src={Logo}
             />
           </div>
           <div className="col-md-2 d-flex justify-content-center align-items-center">
@@ -59,7 +59,7 @@ export default function BottomNav() {
                 חדש שהם מתעסקים בו.
               </p>
               <div className="col-md-12 d-flex justify-content-center align-items-center mt-auto">
-                <img height={100} width={300} src={LogoAlpha} />
+                <img height={100} width={300} src={Logo} />
               </div>
             </div>
           </Dialog>
