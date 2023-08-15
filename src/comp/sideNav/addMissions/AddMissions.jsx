@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import "./addMissions.css";
 import { MyContext } from "../../../App";
-import DriveFileMoveSharpIcon from "@mui/icons-material/DriveFileMoveSharp";
+import DriveFileMoveSharpIcon from "@mui/icons-material/DriveFileMoveSharp"
 import {
   Checkbox,
   Chip,
@@ -227,7 +227,7 @@ export default function AddMissions({
         setDisplayErrorExecutionCompletionDate(true);
         setdisplayErrorMeetingDate(true);
       } else
-        setDisplayErrorExecutionCompletionDate(false),
+        setDisplayErrorExecutionCompletionDate(false);
           setdisplayErrorMeetingDate(false);
     }
     if (newTask.levelOne == "בחר...") {
@@ -343,7 +343,7 @@ export default function AddMissions({
         setDisplayErrorExecutionCompletionDate(true);
         setdisplayErrorMeetingDate(true);
       } else
-        setDisplayErrorExecutionCompletionDate(false),
+        setDisplayErrorExecutionCompletionDate(false);
           setdisplayErrorMeetingDate(false);
 
       if (newTask.levelOne =="בחר פיקוד...") {
@@ -420,7 +420,7 @@ export default function AddMissions({
         setDisplayErrorExecutionCompletionDate(true);
         setdisplayErrorMeetingDate(true);
       } else
-        setDisplayErrorExecutionCompletionDate(false),
+        setDisplayErrorExecutionCompletionDate(false);
           setdisplayErrorMeetingDate(false);
       setDisplayErrorNote(true);
     }
