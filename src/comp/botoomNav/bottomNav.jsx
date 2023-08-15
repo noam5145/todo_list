@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Badge, Button, Dialog } from "@mui/material";
 import "./bottomNav.css";
-import Logo from "../../images/צוות אלפא.jpg";
+import Logo from "../../images/alphaTeam.jpg";
 
 export default function BottomNav() {
   const [open, setOpen] = React.useState(false);
