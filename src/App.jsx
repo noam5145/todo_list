@@ -4,8 +4,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import AppRoutes from "./routes/AppRoutes";
-const base_url = 'https://server-todolist-xr2q.onrender.com/';
-// const base_url = 'http://localhost:5174/';
+// const base_url = 'https://server-todolist-xr2q.onrender.com/';
+const base_url = 'http://localhost:5174/';
 // import Login from "./comp/Login";
 export const MyContext = createContext();
 var MISSIONS;
@@ -71,7 +71,6 @@ useEffect(() => {
 }, [socketIo])
 
   const newMission = async(mission, token)=>{
-    console.log(mission);
     // setLoading(true)
     let res = await axios.post(base_url + 'mission/setMission', {...mission, adminToken: token});
     if(res.data.err){

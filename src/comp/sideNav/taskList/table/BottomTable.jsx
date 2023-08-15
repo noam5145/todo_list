@@ -75,7 +75,6 @@ export default function BottomTable({
   }, []);
 
   useEffect(() => {
-    console.log(missions);
     if (allDataShow[0]) {
       let arr = Array(item.chat.messages.readed?.length).fill(0);
       item.chat.messages.readed?.map((read, i) => {
