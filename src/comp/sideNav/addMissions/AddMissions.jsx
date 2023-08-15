@@ -170,7 +170,7 @@ export default function AddMissions({
             ? "{" +
               currentUser.username +
               "} " +
-              noteCommander.current.value +
+              noteCommander.current?.value +
               "\n"
             : "",
           readed: noteCommander.current?.value ? [false] : [],
@@ -203,7 +203,7 @@ export default function AddMissions({
       meetingDate.current.value = "";
       taskDetails.current.value = "";
       executionCompletionDate.current.value = "";
-      noteCommander.current.value = "";
+      if(noteCommander.current && noteCommander.current.value) noteCommander.current.value = "";
       setPersonNames([]);
       setUserSelected([]);
       // fileMission.current.files[0] = ""
@@ -288,7 +288,7 @@ export default function AddMissions({
             ? "{" +
               currentUser.username +
               "} " +
-              noteCommander.current.value +
+              noteCommander.current?.value +
               "\n"
             : "",
           readed: noteCommander.current?.value ? [false] : [],
